@@ -1,5 +1,0 @@
-npm i react-router-dom@5
-npm i axios
-npm i qs
-npm i --save react-toastify
-npm install react-icons classnames
