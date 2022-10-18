@@ -10,6 +10,10 @@ public class MemberDto {
 	private String memberEmail;
 	private String phone;
 	private String joinDateTime;
-	private String updaterId;
+	private String gender;
+	private int mileage;
+	private int mileageUsed;
+	private String managerYn;
+	private String deletedYn;
 	private String updatedDateTime;
 }
