@@ -1,5 +1,11 @@
 package auction.guad.dto;
 
-public class SellItemDto {
+import lombok.Data;
 
+@Data
+public class SellItemDto {
+	private String sellType;
+	private String memberEmail;
+	private int itemNum;
+	
 }

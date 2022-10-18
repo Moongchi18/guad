@@ -1,5 +1,7 @@
 package auction.guad.dto;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -9,11 +11,11 @@ public class MemberDto {
 	private String memberPass;
 	private String memberEmail;
 	private String phone;
-	private String joinDateTime;
+	private Date joinDateTime;
 	private String gender;
 	private int mileage;
 	private int mileageUsed;
 	private String managerYn;
 	private String deletedYn;
-	private String updatedDateTime;
+	private Date updatedDateTime;
 }
