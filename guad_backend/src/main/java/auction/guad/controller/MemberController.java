@@ -17,7 +17,7 @@ public class MemberController {
 	
 	@GetMapping("/test")
 	public String test() {
-		return "성공-_-!";
+		return "성공-!!_-!";
 	}
 	
 }
