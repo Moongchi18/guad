@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUpDown {
 
     
-    @RequestMapping("/upload/fileUploadMultiple")
+    @RequestMapping(value = "/upload/fileUploadMultiple", method = RequestMethod.POST)
     public String fileUploadMultiple(@RequestParam("uploadFileMulti") ArrayList<MultipartFile> files, Model model) throws IOException {
         String savedFileName = "";
         // 1. 파일 저장 경로 설정 : 실제 서비스되는 위치(프로젝트 외부에 저장)
