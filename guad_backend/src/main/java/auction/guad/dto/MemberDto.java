@@ -4,12 +4,18 @@ import lombok.Data;
 
 @Data
 public class MemberDto {
-//	private int memberSeq;
-//	private String memberName;
-//	private String memberPass;
-//	private String memberEmail;
-//	private String creatorId;
-//	private String createdDateTime;
-//	private String updaterId;
-//	private String updatedDateTime;
+
+	private Integer memberNum;
+	private String memberName;
+	private String memberNickname;
+	private String memberPass;
+	private String memberEmail;
+	private String phone;
+	private String joinDateTime;
+	private String gender;
+	private String birth;
+	private int mileage;
+	private int mileageUsed;
+	private String managerYn;
+	private String deletedYn;
 }
