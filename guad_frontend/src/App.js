@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       {/* <ChatRoom /> */}
-      <Auction />
+      {/* <Auction /> */}
     <Route path="/upload" component={fileUploadForm} exact={true} />
 
     </>

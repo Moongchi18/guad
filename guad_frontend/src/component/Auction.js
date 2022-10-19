@@ -9,7 +9,6 @@ const Auction = () => {
     const [userData, setUserData] = useState({
         username: '',
         receivername: '',
-        connected: false,
         message: '',
         bidPrice: '',
         itemNum: 0
@@ -30,26 +29,8 @@ const Auction = () => {
     }
 
     const onConnected = () => {
-        setUserData({...userData,"connected": true});
         stompClient.subscribe('/sub/public', onMessageReceived);
-        // stompClient.subscribe('/sub/auction/1', onPrivateMessage);
-        // stompClient.subscribe('/sub/auction/2', onPrivateMessage);
-
     }
-    const onPrivateMessage = (payload)=>{
-        console.log(payload);
-        // var payloadData = JSON.parse(payload.body);
-        // if(privateChats.get(payloadData.senderName)){
-        //     privateChats.get(payloadData.senderName).push(payloadData);
-        //     setPrivateChats(new Map(privateChats));
-        // }else{
-        //     let list =[];
-        //     list.push(payloadData);
-        //     privateChats.set(payloadData.senderName,list);
-        //     setPrivateChats(new Map(privateChats));
-        // }
-    }
-
     const onMessageReceived = (payload)=>{
         var payloadData = JSON.parse(payload.body);
         console.log(payloadData)
@@ -75,8 +56,6 @@ const Auction = () => {
               };
               console.log(chatMessage);
               stompClient.send("/pub/message", {}, JSON.stringify(chatMessage));
-            //   stompClient.send("/pub/auction/1", {}, JSON.stringify(chatMessage))
-            //   stompClient.send("/pub/auction/2", {}, JSON.stringify(chatMessage))
               setUserData({...userData,"message": ""});
             }
     }
