@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       {/* <ChatRoom /> */}
-      <Auction />
+      {/* <Auction /> */}
     <Route path="/login" component={GoogleLoginForm} exact={true} />
     <Route path="/upload" component={FileUploadForm} exact={true} />
 

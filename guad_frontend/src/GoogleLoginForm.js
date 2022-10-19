@@ -1,40 +1,24 @@
-import React from 'react';
-import { GoogleLogin } from 'react-google-login';
+import axios from "axios";
+import React from "react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from '@react-oauth/google';
 
-
-function LoginGoogle(props) {
-  
-  const clientId =
-    "Your client ID";
-
-  async function onSuccess(res) {
-    const profile = res.getBasicProfile();
-    const userdata = {
-      email: profile.getEmail(),
-      image: profile.getImageUrl(),
-      name: profile.getName(),
-    }; 
-    // 로그인 성공 후 실행하기 원하는 코드 작성.
-  
-  }
-
-  const onFailure = (res) => {
-    alert("구글 로그인에 실패하였습니다");
-    console.log("err", res);
-  };
-
+function GoogleLoginForm() {
   return (
     <>
-      <GoogleLogin
-        className="google-button"
-        clientId={clientId}
-        buttonText="Login with Google" // 버튼에 뜨는 텍스트
-        onSuccess={onSuccess}
-        onFailure={onFailure}
-        cookiePolicy={"single_host_origin"}
-      />
+      <GoogleOAuthProvider clientId="1068908873530-v0oqqriuhdbbk25d85vtau5hf39tebfo.apps.googleusercontent.com">
+        <GoogleLogin
+          buttonText="구글 로그인"        
+          onSuccess={(credentialResponse) => {
+            console.log(credentialResponse);
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+        />
+      </GoogleOAuthProvider>
     </>
   );
 }
 
-export default withRouter(LoginGoogle);
+export default GoogleLoginForm;
