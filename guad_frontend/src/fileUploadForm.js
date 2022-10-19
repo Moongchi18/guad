@@ -1,41 +1,48 @@
 
 import axios from "axios";
+import { useState } from "react";
 
-function fileUploadForm({history}) {
+function FileUploadForm({history}) {
+  const formData = new FormData();
 
+  const handlerUpLoad = (e) => {
+    // setData(e.target.files[0])
+    for ( var i = 0; i<e.target.files.length; i++){
+      formData.append("uploadFileMulti", e.target.files[i])
+    }
+  };
+  
+  const handlerClickSubmit = (e) => {
+    e.preventDefault();
 
-  const handlerClickSubmit = () => {
-    axios.post(`http://localhost:8080/upload/fileUploadMultiple`, {
-      
+    axios({
+      method: "post",
+      url: `http://localhost:8080/upload/fileUploadMultiple`,
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     })
     .then((response) => {
       console.log(response)
-      if (response.status === 200) {
-        alert("파일업로드가 완료되었습니다.");
-        history.push("/login");
-      } else {
-        alert("파일업로드에 실패했습니다.");
-        return;
-      }
+      alert("파일업로드가 완료되었습니다.");
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {console.log(error)
+    alert("파일업로드에 실패했습니다.")
+    });
   }
 
 
   return (
     <>
-      <h3>파일 업로드 (여러 개 파일 업로드)</h3>
-      <form
-        id="fileUploadFormMulti"
-        method="post"
-        action="/upload/fileUploadMultiple"
-        enctype="multipart/form-data"
-      >
+      <h3>파일 업로드 (여러 개 파일 업로드)ㅌ </h3>
+      <form>
         파일 :{" "}
         <input
           type="file"
           id="uploadFileMulti"
           name="uploadFileMulti"
+          onChange={handlerUpLoad}
           multiple="multiple"
         />
         <button type="button" onClick={handlerClickSubmit}>
@@ -46,4 +53,4 @@ function fileUploadForm({history}) {
   );
 }
 
-export default fileUploadForm;
+export default FileUploadForm;
