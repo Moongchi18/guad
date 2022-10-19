@@ -35,7 +35,7 @@ function FileUploadForm({history}) {
 
   return (
     <>
-      <h3>파일 업로드 (여러 개 파일 업로드)ㅌ </h3>
+      <h3>파일 업로드 (여러 개 파일 업로드) </h3>
       <form>
         파일 :{" "}
         <input

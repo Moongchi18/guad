@@ -1,32 +1,40 @@
-function GoogleLoginForm({}) {
-    const onClickGoogleLogin = (e) => {
-    	//구글 인증 서버로 인증코드 발급 요청
- 		window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?
-        client_id=yourClientID
-        &redirect_uri=http://localhost:8080/login/google/auth
-        &response_type=code
-        &scope=email%20profile%20openid
-        &access_type=offline")
- 	}
+import React from 'react';
+import { GoogleLogin } from 'react-google-login';
 
-	const googleLoginBtn = document.getElementById("googleLoginBtn");
-	googleLoginBtn.addEventListener("click", onClickGoogleLogin);
 
-    return (
+function LoginGoogle(props) {
+  
+  const clientId =
+    "Your client ID";
+
+  async function onSuccess(res) {
+    const profile = res.getBasicProfile();
+    const userdata = {
+      email: profile.getEmail(),
+      image: profile.getImageUrl(),
+      name: profile.getName(),
+    }; 
+    // 로그인 성공 후 실행하기 원하는 코드 작성.
+  
+  }
+
+  const onFailure = (res) => {
+    alert("구글 로그인에 실패하였습니다");
+    console.log("err", res);
+  };
+
+  return (
     <>
-      <body>
-        <fieldset>
-          <label>로그인</label> <br />
-          <div id="googleLoginBtn" style="cursor: pointer">
-            <img
-              id="googleLoginImg"
-              src="./images/btn_google_signin_light_pressed_web.png"
-            />
-          </div>
-        </fieldset>
-      </body>
-
-      <script></script>
+      <GoogleLogin
+        className="google-button"
+        clientId={clientId}
+        buttonText="Login with Google" // 버튼에 뜨는 텍스트
+        onSuccess={onSuccess}
+        onFailure={onFailure}
+        cookiePolicy={"single_host_origin"}
+      />
     </>
   );
 }
+
+export default withRouter(LoginGoogle);

@@ -5,3 +5,5 @@ npm i --save react-toastify
 npm install react-icons classnames
 npm i sockjs-client --save
 npm i stompjs --save
+
+npm install react-google-login --legacy-peer-deps
