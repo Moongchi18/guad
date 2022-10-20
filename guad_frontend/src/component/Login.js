@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import './Login.css';
-import logo from './static/img/logo.jpg';
-import './static/font/font.css';
+// import logo from './static/img/logo.jpg';
+// import './static/font/font.css';
 import axios from "axios";
 import { useState } from "react";
 
@@ -47,7 +47,7 @@ function Login() {
   return (
     <>
 
-      <img src={logo} id="Logo" alt="로고"/>
+      {/* <img src={logo} id="Logo" alt="로고"/> */}
       <span id="logintext">가입한 계정으로 로그인</span>
       <Input id="id" name="id" placeholder="아이디" value={email} onChange={changeEmail} />
       <Input

@@ -10,8 +10,6 @@ function App() {
   console.log("test33333");
   return (
     <>
-      {/* <ChatRoom /> */}
-      {/* <Auction /> */}
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route path="/login" component={Login} exact={true} />
       <Route path="/upload" component={FileUploadForm} exact={true} />
