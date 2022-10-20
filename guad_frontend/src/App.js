@@ -6,9 +6,9 @@ import GoogleLoginForm from "./GoogleLoginForm";
 import Header from "./component/Header";
 import Login from "./component/Login";
 import Footer from "./component/Footer";
+import Main from "./component/Main";
 
 function App() {
-  console.log("test33333");
   return (
     <>
       <Header />
@@ -17,6 +17,7 @@ function App() {
       <Route path="/upload" component={FileUploadForm} exact={true} />
       <Route path="/header" component={Header} exact={true} />
       <Route path="/footer" component={Footer} exact={true} />
+      <Route path="/" component={Main} exact={true} />
       <Footer />
     </>
   );
