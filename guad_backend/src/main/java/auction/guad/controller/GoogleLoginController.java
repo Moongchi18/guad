@@ -19,11 +19,11 @@ public class GoogleLoginController {
     
 
     @RequestMapping(value = "/google/auth", method = RequestMethod.POST)
-    public ResponseEntity<String> googleAuth(@RequestBody MemberDto member) throws Exception {
+    public ResponseEntity<String> googleAuth(@RequestBody String email) throws Exception {
     
         
         
-        if (result) {
+        if (email != "") {
             return ResponseEntity.status(HttpStatus.OK).body("수정성공");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("수정실패");
