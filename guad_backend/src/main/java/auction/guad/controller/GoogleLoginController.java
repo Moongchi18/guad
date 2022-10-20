@@ -23,7 +23,7 @@ public class GoogleLoginController {
     
         
         
-        if (email != "") {
+        if (email != "1") {
             return ResponseEntity.status(HttpStatus.OK).body("수정성공");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("수정실패");
