@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 import GoogleLoginForm from "./GoogleLoginForm";
 import Header from "./component/Header";
 import Login from "./component/Login";
+import Footer from "./component/Footer";
 
 function App() {
   console.log("test33333");
@@ -14,6 +15,7 @@ function App() {
       <Route path="/login" component={Login} exact={true} />
       <Route path="/upload" component={FileUploadForm} exact={true} />
       <Route path="/header" component={Header} exact={true} />
+      <Route path="/footer" component={Footer} exact={true} />
     </>
   );
 }
