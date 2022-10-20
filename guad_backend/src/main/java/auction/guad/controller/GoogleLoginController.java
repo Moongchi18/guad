@@ -1,5 +1,6 @@
 package auction.guad.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,13 @@ public class GoogleLoginController {
     @RequestMapping(value = "/google/auth", method = RequestMethod.POST)
     public ResponseEntity<String> googleAuth(@RequestBody MemberDto member) throws Exception {
     
+        
+        
+        if (result) {
+            return ResponseEntity.status(HttpStatus.OK).body("수정성공");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("수정실패");
+        }
     
     }
 
