@@ -1,9 +1,10 @@
 
 import './App.css';
-import ChatRoom from './component/ChatRoom';
+import FileUploadForm from './FileUploadForm';
 import Auction from './component/Auction';
-import fileUploadForm from './fileUploadForm';
 import { Route } from 'react-router-dom';
+import GoogleLoginForm from './GoogleLoginForm';
+import Login from './component/Login'
 
 function App() {
 
@@ -12,7 +13,9 @@ function App() {
     <>
       {/* <ChatRoom /> */}
       {/* <Auction /> */}
-    <Route path="/upload" component={fileUploadForm} exact={true} />
+    <Route path="/login" component={GoogleLoginForm} exact={true} />
+    <Route path="/upload" component={FileUploadForm} exact={true} />
+    <Route path="/form" component={Login} exact={true} />
 
     </>
   );

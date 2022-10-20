@@ -26,7 +26,7 @@ public class FileUpDown {
     public String fileUploadMultiple(@RequestParam("uploadFileMulti") ArrayList<MultipartFile> files, Model model) throws IOException {
         String savedFileName = "";
         // 1. 파일 저장 경로 설정 : 실제 서비스되는 위치(프로젝트 외부에 저장)
-        String uploadPath = "/Users/hi/Desktop/UploadServerFile/";
+        String uploadPath = "C:\\Temp\\";
         // 여러 개의 원본 파일을 저장할 리스트 생성
         ArrayList<String> originalFileNameList = new ArrayList<String>();
         for(MultipartFile file : files) {
