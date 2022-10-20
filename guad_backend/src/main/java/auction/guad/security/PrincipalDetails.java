@@ -30,12 +30,12 @@ public class PrincipalDetails implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		return member.getMemberPass();
+		return member.getPass();
 	}
 
 	@Override
 	public String getUsername() {
-		return member.getMemberEmail();
+		return member.getEmail();
 	}
 
 	@Override
