@@ -4,6 +4,7 @@ import FileUploadForm from './FileUploadForm';
 import Auction from './component/Auction';
 import { Route } from 'react-router-dom';
 import GoogleLoginForm from './GoogleLoginForm';
+import Header from './component/Header';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       {/* <Auction /> */}
     <Route path="/login" component={GoogleLoginForm} exact={true} />
     <Route path="/upload" component={FileUploadForm} exact={true} />
+    <Route path="/header" component={Header} exact={true} />
 
     </>
   );

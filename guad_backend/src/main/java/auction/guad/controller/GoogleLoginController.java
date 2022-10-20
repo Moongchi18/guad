@@ -17,11 +17,11 @@ public class GoogleLoginController {
     final static String GOOGLE_REVOKE_TOKEN_BASE_URL = "https://oauth2.googleapis.com/revoke";
     
 
-    @RequestMapping(value = "/google/auth", method = RequestMethod.POST)
-    public ResponseEntity<String> googleAuth(@RequestBody MemberDto member) throws Exception {
+//    @RequestMapping(value = "/google/auth", method = RequestMethod.POST)
+//    public ResponseEntity<String> googleAuth(@RequestBody MemberDto member) throws Exception {
     
     
-    }
+//    }
 
 
 }
