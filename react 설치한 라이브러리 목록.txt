@@ -6,4 +6,5 @@ npm install react-icons classnames
 npm i sockjs-client --save
 npm i stompjs --save
 
-npm install react-google-login --legacy-peer-deps
+npm i styled-components
+npm i jwt-decode
