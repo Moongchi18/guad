@@ -1,12 +1,12 @@
 .All_box {
-  width: 1920px;
+  width: 100%;
   text-align: center;
   font-family: "SBAggroB";
 }
 
 .login_box {
   width: 450px;
-  padding-top: 124px;
+  padding: 124px 0 175px;
   margin: 0 auto;
 }
 
