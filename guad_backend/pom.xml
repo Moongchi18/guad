@@ -111,6 +111,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
+		<!-- Batch -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-batch</artifactId>
+			<version>2.7.2</version>
+		</dependency>
+		<!-- Batch : which is available from Maven Central as well -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.5.1</version>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
