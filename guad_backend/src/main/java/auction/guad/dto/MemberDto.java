@@ -8,10 +8,9 @@ import lombok.Data;
 public class MemberDto {
 
 	private int memberNum;
-	private String memberName;
-	private String memberNickname;
-	private String memberPass;
-	private String memberEmail;
+	private String nickname;
+	private String pass;
+	private String email;
 	private String phone;
 	private Date joinDateTime;
 	private String address;
