@@ -28,7 +28,7 @@ function FileUploadForm({history}) {
       alert("파일업로드가 완료되었습니다.");
     })
     .catch((error) => {console.log(error)
-    alert("파일업로드에 실패했습니다.")
+    alert("파일업로드에 실패했습니다./")
     });
   }
 
