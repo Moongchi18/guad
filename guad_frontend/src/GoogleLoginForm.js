@@ -16,15 +16,16 @@ function GoogleLoginForm() {
     document.getElementById("signInDiv").hidden = true;
     
     //구글로 부터 받은 데이터를 컨트롤러에 전달
-    axios.post(`http://localhost:8080/api/google/auth`, {
+    axios.post('http://localhost:8080/api/google/auth', {
       "email": user.email,
     })
     .then((response) => {
       console.log(response)
+      console.log(user.email);
       alert("오르내림에 오신걸 환영합니다.");
     })
     .catch((error) => {console.log(error)
-    alert("로그인에 실패했습니다.")
+    alert("로그인에 실패했습니다.");
     });
 
   }
