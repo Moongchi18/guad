@@ -17,7 +17,6 @@ function GoogleLoginForm() {
     
     //구글로 부터 받은 데이터를 컨트롤러에 전달
     axios.post(`http://localhost:8080/api/google/auth`, {
-      "nickName": user.name,
       "email": user.email,
     })
     .then((response) => {
