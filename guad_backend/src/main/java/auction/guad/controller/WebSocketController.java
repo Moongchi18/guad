@@ -51,16 +51,5 @@ public class WebSocketController {
 		auction.setMemberName("옥션2입니다.");
 		return auction;
 	}
-	
-//	@MessageMapping("/private-message")
-//	public Message receivePrivateMessage(@Payload Message message) {
-//		simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "private", message);
-//		return message;
-//	}
-	
-//	@MessageMapping("/bid")
-//	public void bid(Auction auction, SimpMessageHeaderAccessor accessor) {
-//		simpMessagingTemplate.convertAndSend("/sub/bid/"+auction.getItemNum(), auction);
-//	}
-	
+		
 }

@@ -2,6 +2,7 @@ package auction.guad.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.service.MemberServiceImpl;
@@ -18,6 +19,12 @@ public class MemberController {
 	@GetMapping("/test")
 	public String test() {
 		return "성공11-_-!";
+	}
+	
+	@GetMapping("/admin/test")
+	@ResponseBody
+	public String adminTest() {
+		return "success admin";
 	}
 	
 }
