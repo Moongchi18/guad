@@ -14,10 +14,8 @@ import lombok.ToString;
 public class Auction {
 
 	private int itemNum;
-	private String memberName;
-	private String sellType;
-	private int startingPrice;
-	private int bidPrice;
-	private String soldYn;
+	private int auctionMaxPrice;
+	private String nickname;
+	private String email;
 	
 }

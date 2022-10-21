@@ -2,43 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="auction.guad.mapper.MemberMapper">
-	<select id="selectMemberList" resultType="auction.guad.dto.MemberDto">
-		select member_seq, member_name, member_email
-		     , date_format(created_datetime, '%Y.%m.%d %H:%i:%s') as created_datetime
-		  from t_member
-		 where deleted_yn = 'N'
-		 order by member_seq desc 
+	<!-- 관리자용 모든 멤버 pass 제외하고 목록 조회 -->
+	<select id="selectMemberListExceptPass" resultType="auction.guad.dto.MemberDto">
+		SELECT MEMBER_NUM, NICKNAME, EMAIL, PHONE, ADDRESS, JOIN_DATE_TIME, GENDER, MILEAGE, MILEAGE_USED, MANAGER_YN, DELETED_YN, UPDATED_DATE_TIME 
+		FROM OLENAELIM 
 	</select>
 	
+	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="auction.guad.dto.MemberDto">
-		insert into t_member (member_name, member_pass, member_email, created_datetime, creator_id) 
-		values ( #{memberName}, #{memberPass}, #{memberEmail}, now(), 'admin' )
+		INSERT INTO MEMBER(NICKNAME, PASS, EMAIL, PHONE, ADDRESS, GENDER, JOIN_DATE_TIME) 
+			VALUES (#{nickname}, #{pass}, #{email}, #{phone}, #{address}, #{gender}, now())
 		<selectKey keyProperty="memberSeq" resultType="Integer">
         	select last_insert_id()
     	</selectKey>
 	</insert>
 	
-	<select id="selectMemberDetail" parameterType="int" resultType="auction.guad.dto.MemberDto">
-		select member_name, member_pass, member_email
-		     , date_format(created_datetime, '%Y.%m.%d %H:%i:%s') as created_datetime
-		     , creator_id
-		  from t_member
-		 where deleted_yn = 'N' and member_seq = #{meberSeq} 
+	<!-- 회원 조회 -->
+	<select id="selectMemberDetailByEmail" parameterType="String" resultType="auction.guad.dto.MemberDto">
+		SELECT NICKNAME, EMAIL, ADDRESS, MILEAGE, MILEAGE_USED
+		FROM OLENAELIM
+		WHERE EMAIL = #{email}
 	</select>
 	
-	<update id="updateMember" parameterType="auction.guad.dto.MemberDto">
-		update t_member set member_pass = #{memberPass}, member_email = #{memberEmail}
-		                 , updated_datetime = now(), updator_id = 'admin'
-		             where member_seq = #{memberSeq}
+	<!-- 회원 정보 수정 -->
+	<!-- 컨트롤러/서비스에서 db비번 = 기존비번 확인하고 일치하면 new비번을 db에 업데이트-->
+	<update id="updateMemberByEmail" parameterType="auction.guad.dto.MemberDto">
+		UPDATE OLENAELIM SET ADDRESS = #{address}, PASS = #{pass}
+		WHERE EMAIL = #{email}
 	</update>
 	
-	<delete id="deleteMember" parameterType="int">
-		update t_member set deleted_yn = 'Y', updated_datetime = now(), updator_id = 'admin'
-		             where member_seq = #{memberSeq}
-	</delete>
+	<!-- 회원 삭제 업데이트 -->
+	<update id="deleteMemberByEmail" parameterType="auction.guad.dto.MemberDto">
+		UPDATE OLENAELIM SET DELETE_YN = "y"
+		WHERE EMAIL = #{email} AND PASS = #{pass}
+	</update>
 	
-	<select id="login" parameterType="auction.guad.dto.MemberDto" resultType="auction.guad.dto.MemberDto">
-		select * from t_member 
-		 where member_email = #{memberEmail} and member_pass = #{memberPass}	
-	</select>
 </mapper>
