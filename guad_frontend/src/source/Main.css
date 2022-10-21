@@ -1,0 +1,130 @@
+/* cont1 */
+
+.cont1 {
+  margin-top: 140px;
+  width: 100%;
+}
+.cont1 h2 {
+  font-family: "CoreDream";
+  text-align: center;
+  font-weight: 100;
+  font-size: 30px;
+  padding-bottom: 30px;
+}
+.cont1_bot {
+  background-color: #ebf3ea;
+  width: 100%;
+  height: 280px;
+}
+.cont1_bot ul {
+  text-align: center;
+}
+.cont1_bot ul li {
+  display: inline-block;
+  text-align: center;
+  font-family: "SBAggroB";
+  font-size: 30px;
+  padding: 0 100px;
+  cursor: pointer;
+}
+.cont1_bot ul li img {
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+.cont1_bot ul li:nth-child(2) {
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  margin: 33px 0;
+}
+.cont1_bot ul li:nth-child(1) strong {
+  color: #098060;
+}
+.cont1_bot ul li:nth-child(2) strong {
+  color: #e63947;
+}
+
+/* cont2 */
+
+.cont2 {
+  width: 100%;
+  font-family: "SBAggroB";
+  text-align: center;
+  padding-top: 130px;
+}
+.cont2 li {
+  cursor: pointer;
+}
+.cont2 h2 {
+  display: inline-block;
+  width: 48px;
+  height: 277px;
+  vertical-align: top;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.cont2_L {
+  display: inline-block;
+  width: 350px;
+  height: 500px;
+  background-color: #098060;
+  margin: 10px 10px 0 0;
+}
+.cont2_L img {
+  width: 100%;
+}
+.cont2_R {
+  display: inline-block;
+  vertical-align: top;
+}
+.cont2_R ul {
+  width: 620px;
+}
+.cont2_R ul li {
+  display: inline-block;
+  width: 200px;
+  height: 245px;
+  text-align: right;
+  vertical-align: top;
+  background-color: #098060;
+  margin: 10px 10px 0 0;
+}
+.cont2_R ul li img {
+  width: 100%;
+  font-weight: 300;
+}
+
+.cont2_R ul li:nth-child(4) {
+  background-color: white;
+  font-size: 25px;
+  font-weight: 300;
+  background: url(../source/img/arrow.png) no-repeat 100% 55px;
+}
+.cont2_R ul li:nth-child(3) {
+  margin-right: 0px;
+}
+.cont2_R ul li:nth-child(6) {
+  margin-right: 0px;
+}
+
+/* cont3 */
+
+.cont3 {
+  width: 1130px;
+  margin: 140px auto 140px;
+  border-top: 1px solid #000;
+}
+.cont3 h2 {
+  font-family: "SBAggroB";
+  font-weight: 300;
+  font-size: 25px;
+  padding: 70px 0 10px 10px;
+}
+.cont3 ul li {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  border: 1px solid #000;
+  margin: 0 10px;
+  cursor: pointer;
+}

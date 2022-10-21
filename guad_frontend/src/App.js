@@ -6,16 +6,22 @@ import Header from "./component/Header";
 import Login from "./component/Login";
 import AuctionTest from "./auction/AuctionTest";
 import Auction from "./component/Auction";
+import Footer from "./component/Footer";
+import Main from "./component/Main";
 
 function App() {
   return (
     <>
+      <Header />
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route path="/login" component={Login} exact={true} />
       <Route path="/upload" component={FileUploadForm} exact={true} />
       <Route path="/header" component={Header} exact={true} />
       <Route path="/auction/test/:itemNum" component={AuctionTest} exact={true} />
       <Route path="/auction" component={Auction} exact={true} />
+      <Route path="/footer" component={Footer} exact={true} />
+      <Route path="/" component={Main} exact={true} />
+      <Footer />
     </>
   );
 }

@@ -1,0 +1,31 @@
+Footer {
+  display: block;
+  height: 500px;
+  background-color: #220003;
+  color: white;
+  font-family: "SBAggroB";
+  font-weight: 300;
+}
+.foot_top {
+  width: 1200px;
+  margin: 0 auto;
+}
+.foot_top > img {
+  margin: 50px 0 30px;
+}
+.foot_top ul {
+  float: right;
+}
+.foot_top ul li {
+  display: inline-block;
+  margin: 30px 0 0 20px;
+}
+
+.foot_bot {
+  width: 1200px;
+  margin: 0 auto;
+}
+.foot_bot p {
+  line-height: 2;
+  font-size: 15px;
+}

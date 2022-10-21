@@ -19,8 +19,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry.addEndpoint("/ws")
-				.setAllowedOriginPatterns("*").withSockJS();
+				// CORS
+				.setAllowedOriginPatterns("*")
+				// websocket를 지원하지 않는 브라우저에서도 websocket을 사용할 수 있도록 지원해주는 
+				// SockJS를 사용하겠다
+				.withSockJS();
 	}
+	
+	// queue : 1대1
+	// topic : 1대다
 	
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
@@ -28,7 +35,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 		// /pub로 시작하는 url로 데이터를 전송하면 해당 url을 구독하는 client 모두에게 데이터 전송
 		registry.enableSimpleBroker("/sub"); 
 		// 이 주소를 구독한 채널에 메세지를 전송할 수 있게 등록
-		
+        
+		registry.setUserDestinationPrefix("/SUB");
+
 		/////////////////////////////////////////////
 		// enableSimpleBroker : /sub가 prefix로 붙은 destination의 클라이언트에게
 		// 메세지를 보낼 수 있도록 SimpleBroker를 등록한다

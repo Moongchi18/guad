@@ -3,6 +3,7 @@ package auction.guad.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -29,10 +30,17 @@ public class WebSocketController {
 		this.memberService = memberService;
 	}
 
-	ArrayList<Integer> list = new ArrayList<>();
+	ArrayList<Integer> list1 = new ArrayList<>();
 	{
 		for (int i = 0; i < 10; i++) {
-			list.add(10000 * (i + 1));
+			list1.add(10000 * (i + 1));
+		}
+		
+	}
+	ArrayList<Integer> list2 = new ArrayList<>();
+	{
+		for (int i = 0; i < 10; i++) {
+			list2.add(20000 * (i + 1));
 		}
 		
 	}
@@ -54,16 +62,27 @@ public class WebSocketController {
 	}
 
 	@GetMapping("/bidlist")
-	public ArrayList<Integer> testListget() {
-
-		return list;
+	public ArrayList<Integer> testListget(int itemNum) {
+		if(itemNum==1) {
+			return list1;
+		} else {
+			return list2;
+		}
 	}
-
-	@MessageMapping("/bidlist")	
-	public Auction testList(@Payload Auction auction, @PathVariable int itemNum) {
+	
+	@MessageMapping("/bidlist/{itemNum}")
+	@SendTo("/sub/{itemNum}/bidlist")
+	public Auction testList(@Payload Auction auction, @DestinationVariable int itemNum) {
 		System.out.println("<<<<<<<<<<<<<<<<" + auction);
-		list.add(auction.getAuctionMaxPrice());
-//		simpMessagingTemplate.convertAndSendToUser(auction.getNickname(), );
+		if(itemNum==1) {
+			auction.setAuctionMaxPrice(list1.get(list1.size()-1) + auction.getAuctionMaxPrice());
+			list1.add(auction.getAuctionMaxPrice());
+		} else {
+			auction.setAuctionMaxPrice(list2.get(list2.size()-1) + auction.getAuctionMaxPrice());
+			list2.add(auction.getAuctionMaxPrice());
+		}
+		
+		simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()), "/sub/"+itemNum+"/bidlist", auction);
 		return auction;
 	}
 
