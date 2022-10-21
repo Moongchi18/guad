@@ -15,13 +15,17 @@ function AuctionTest({match}) {
         email: '123@123',
     });
     useEffect(() => {
-        axios.get("http://192.168.0.35:8080/bidlist")
+        connect();
+    }, [bidList])
+
+    useEffect(() => {
+        axios.get("http://192.168.0.35:8080/bidlist?itemNum="+Dto.itemNum)
         .then(response => {
             console.log(response.data)
             const newBidList = [...response.data]
             setBidList(newBidList)
         })
-        connect();
+        // connect();
     }, [change])
 
     const connect = () => {
@@ -31,12 +35,13 @@ function AuctionTest({match}) {
     }
 
     const onConnected = () => {
-        stompClient.subscribe('/sub/'+Dto.itemNum+'bidlist', onMessageReceived);
+        console.log(Dto.itemNum)
+        stompClient.subscribe(`/sub/${Dto.itemNum}/bidlist`, onMessageReceived);
+        // stompClient.subscribe('/user/'+userData.username+'/private', onPrivateMessage);
     }
 
     const onError = (err) => {
         console.log(err);
-
     }
 
     const onMessageReceived = (payload) => {
@@ -46,7 +51,8 @@ function AuctionTest({match}) {
     }
 
     const handlerBid = () => {
-        stompClient.send("/pub/bidlist", {}, JSON.stringify(Dto));
+        stompClient.send(`/pub/bidlist/${Dto.itemNum}`, {}, JSON.stringify(Dto));
+        // stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
     }
 
     const handlerBidPrice = e => {
