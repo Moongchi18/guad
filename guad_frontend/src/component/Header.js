@@ -13,7 +13,7 @@ function Header() {
             <li>로그인</li>
           </ul>
           <button type="button" className="search_b">
-            <img src={search} alt="검색창" />
+            <img src={search} alt="검색창"  />
           </button>
         </header>
       </div>
