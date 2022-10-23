@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="auction.guad.mapper.ImgMapper">
+	<insert id="insertSellImg" parameterType="auction.guad.dto.ImgDto">
+		insert into img (sell_or_review, item_num, item_img_num, item_img_name, item_img_upfile, item_img_type ) 
+		values ( S, #{itemNum}, #{itemImgNum}, #{itemImgName}, #{item_img_upfile}, #{item_img_type} )
+	</insert>
+	 
+	<insert id="insertReviewImg" parameterType="auction.guad.dto.ImgDto">
+		insert into img (sell_or_review, item_num, item_img_num, item_img_name, item_img_upfile, item_img_type ) 
+		values ( R, #{itemNum}, #{itemImgNum}, #{itemImgName}, #{item_img_upfile}, #{item_img_type} )
+	</insert> 
+	 
+	<select id="selectImgByItemNum" resultType="auction.guad.dto.ImgDto">
+	
+	</select>
+	
+		
+	<select id="allImgByItemNum" resultType="auction.guad.dto.ImgDto">
+		
+	</select>
+	
+		
+	<delete id="deleteImg" parameterType="int">
+		
+	</delete>
 
-
+	
 </mapper>
