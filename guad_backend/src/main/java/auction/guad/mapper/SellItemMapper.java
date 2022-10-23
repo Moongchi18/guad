@@ -9,11 +9,11 @@ import auction.guad.dto.SellItemDto;
 @Mapper
 public interface SellItemMapper {
 
-	public List<SellItemDto> sellItemList() throws Exception;
-	public int insertSellItem(SellItemDto sellItemDto) throws Exception;
-	public SellItemDto selectSellItemDetail(int itemNum) throws Exception;
-	public void updateSellItem(SellItemDto sellItemDto) throws Exception;
-	public void deleteSellItem(int itemNum) throws Exception;
+ List<SellItemDto> sellItemList() throws Exception;
+ int insertSellItem(SellItemDto sellItemDto) throws Exception;
+ SellItemDto selectSellItemDetail(int itemNum) throws Exception;
+ void updateSellItem(SellItemDto sellItemDto) throws Exception;
+ void deleteSellItem(int itemNum) throws Exception;
 
 	
 }
