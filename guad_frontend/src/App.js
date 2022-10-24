@@ -19,6 +19,7 @@ function App() {
       <Route path="/header" component={Header} exact={true} />
       <Route path="/auction/test/:itemNum" component={AuctionTest} exact={true} />
       <Route path="/auction" component={Auction} exact={true} />
+     
       <Route path="/footer" component={Footer} exact={true} />
       <Route path="/" component={Main} exact={true} />
       <Footer />
