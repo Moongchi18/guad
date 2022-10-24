@@ -44,11 +44,21 @@ function Main() {
       <div className="cont3">
         <h2>최신 등록 상품</h2>
         <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>
+            <img src={require("../source/img/ttt1.jpg")} alt="제품1" />
+          </li>
+          <li>
+            <img src={require("../source/img/ttt2.jpg")} alt="제품2" />
+          </li>
+          <li>
+            <img src={require("../source/img/ttt3.jpg")} alt="제품3" />
+          </li>
+          <li>
+            <img src={require("../source/img/ttt4.jpg")} alt="제품4" />
+          </li>
+          <li>
+            <img src={require("../source/img/ttt5.jpg")} alt="제품5" />
+          </li>
         </ul>
       </div>
     </>
