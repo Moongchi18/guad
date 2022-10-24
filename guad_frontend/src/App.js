@@ -8,12 +8,9 @@ import AuctionTest from "./auction/AuctionTest";
 import Auction from "./component/Auction";
 import Footer from "./component/Footer";
 import Main from "./component/Main";
-<<<<<<< HEAD
 import Join from "./component/Join";
 import Join_g from "./component/Join_g";
-=======
 import MyPage from "./component/MyPage";
->>>>>>> aa9838a62833918b84d7b942fac91d879a78ccd9
 
 function App() {
   return (
