@@ -1,0 +1,213 @@
+.item_top {
+  width: 1130px;
+  margin: 0 auto;
+  position: relative;
+}
+.item_top h2 {
+  font-size: 30px;
+  font-family: "SBAggroB";
+  margin-top: 122px;
+  padding-bottom: 5px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.img_item {
+  width: 420px;
+  display: inline-block;
+}
+.img_item img {
+  width: 420px;
+  height: 420px;
+}
+.img_item ul {
+  text-align: center;
+  margin-top: 20px;
+}
+.img_item ul li {
+  display: inline-block;
+  width: 130px;
+  height: 130px;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.img_item ul li:last-child {
+  margin-right: 0px;
+}
+.info_top {
+  display: inline-block;
+  width: 660px;
+  vertical-align: top;
+  margin-left: 50px;
+}
+.info_top > img {
+  position: absolute;
+  top: 40px;
+  right: 0px;
+}
+.top_head {
+  font-family: "SBAggroB";
+  font-size: 30px;
+  display: block;
+  margin-bottom: 20px;
+}
+.top_cate {
+  font-family: "SBAggroB";
+  font-size: 20px;
+  font-weight: 300;
+  color: #6b6b6b;
+  display: block;
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+.top_title {
+  font-family: "SBAggroB";
+  font-size: 30px;
+  font-weight: 300;
+  display: block;
+  margin-bottom: 10px;
+}
+.rating_option {
+  display: inline-block;
+}
+.rating_option span {
+  font-size: 25px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  color: #aeaeae;
+  vertical-align: top;
+  margin: 0 20px 0 5px;
+  line-height: 1.4;
+}
+.seller {
+  font-size: 20px;
+  font-family: "SBAggroB";
+  display: block;
+  text-align: right;
+  margin-top: 180px;
+}
+.deli_bb {
+  display: block;
+  margin: 10px 0;
+}
+.deli_name {
+  font-size: 20px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+}
+.deli_tag {
+  font-size: 20px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  color: #696969;
+  float: right;
+}
+.sell_bb {
+  margin-bottom: 20px;
+}
+.sell_price {
+  font-size: 25px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+}
+.sell_number {
+  font-size: 30px;
+  font-family: "SBAggroB";
+  color: #696969;
+  float: right;
+}
+.button_bb {
+  margin-bottom: 50px;
+}
+.button_bb span {
+  display: block;
+  width: 660px;
+  height: 60px;
+  background-color: #eee;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 25px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  line-height: 2.5;
+}
+.button_bb .bb_buy:hover {
+  background-color: #098060;
+  color: #fff;
+  transition: 0.3s all ease-in;
+  cursor: pointer;
+}
+.bb_date {
+  color: #8c8c8c;
+  margin-top: 14px;
+}
+
+/* bot */
+.item_bot {
+  font-family: "SBAggroB";
+  width: 1130px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+.item_bot h2 {
+  padding: 50px 0 30px;
+  font-size: 30px;
+}
+.item_bot p {
+  padding-bottom: 200px;
+  font-size: 20px;
+  font-weight: 300;
+  color: #767676;
+  line-height: 1.7;
+}
+.sell_review {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+.sell_review h2 {
+  font-size: 20px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.sell_review > img {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 25px;
+}
+.sell_review > span {
+  font-size: 30px;
+  color: #e63947;
+}
+.sell_review_show {
+  margin-bottom: 70px;
+}
+.sell_review_show ul li {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 20px;
+}
+.sell_review_show ul li img {
+  vertical-align: top;
+}
+.sell_review_show ul li span:nth-child(1) {
+  font-size: 20px;
+  font-weight: 300;
+  float: left;
+}
+.sell_review_show ul li span:nth-child(3) {
+  line-height: 2.5;
+}
+.review_write {
+  display: inline-block;
+  width: 790px;
+  height: 40px;
+  background-color: #eeeeee;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #8c8c8c;
+  margin-left: 100px;
+  text-align: left;
+  padding: 0 0 0 20px;
+  vertical-align: middle;
+  line-height: 2.5;
+}
