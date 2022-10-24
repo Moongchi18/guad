@@ -15,7 +15,7 @@ function Header() {
             <li>판매목록</li>
             <li>상품등록</li>
             <li>
-              <Link to="/login">로그인 </Link>
+              <Link to="/login">로그인</Link>
             </li>
           </ul>
           <button type="button" className="search_b">
