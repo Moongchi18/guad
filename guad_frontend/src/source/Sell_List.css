@@ -1,0 +1,25 @@
+.sell_all {
+  width: 1130px;
+  margin: 0 auto;
+}
+.sell_top h2 {
+  font-family: "SBAggroB";
+  font-size: 23px;
+}
+.sell_top h2 span {
+  color: #a6a6a6;
+}
+.sell_top select {
+  color: #6b6b6b;
+  font-size: 15px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+}
+.sell_top ul {
+  margin-top: 49px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+.sell_top{
+    
+}

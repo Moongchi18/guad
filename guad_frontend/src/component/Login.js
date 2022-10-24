@@ -5,18 +5,36 @@ import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
 
-function Login() {
+function Login({history}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const changeEmail = (e) => setEmail(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
-  const handlerSubmit = () => {
-    axios
-      .post("http://localhost:8080/login", { email: email, pass: password })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
-  };
+  // const handlerSubmit = () => {
+  //   axios
+  //     .post("http://localhost:8080/login", { email: email, pass: password })
+  //     .then((response) => console.log(response))
+  //     .catch((error) => console.log(error));
+  // };
+
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:8080/login", { email: email, pass: password })
+        .then(response => {
+            if (response.status === 200 && response.data !== " ") {
+                sessionStorage.setItem("token", response.data);
+                history.push("/")
+            } else {
+                sessionStorage.clear();
+            }
+            // console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+            sessionStorage.clear();
+        })
+}
 
   return (
     <>
