@@ -36,6 +36,7 @@ public class MemberServiceImpl implements MemberService {
 		collect.add(new GrantedAuthority() {
 			@Override
 			public String getAuthority() {
+				
 				return member.getManagerYn();
 			}
 		});
