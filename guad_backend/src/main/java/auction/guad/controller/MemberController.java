@@ -87,6 +87,7 @@ public class MemberController {
 	// 관리자용 회원 목록 조회
 	@RequestMapping(value = "/admin/member", method = RequestMethod.GET)
 	public List<MemberDto> adminMemberList() throws Exception {
+		System.out.println("/admin/member 호출 >>>>>>>>>>>>>>>>>>");
 		return memberService.managerSelectMemberListExceptPass();
 	}
 	

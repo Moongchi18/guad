@@ -54,7 +54,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	@Override 
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-		
+		System.out.println("<<<<<<<<<<<<<<<<<<<<authResult : " + authResult);
+//		System.out.println("<<<<<<<<<<<<<<<<<<<<authResult : " + authResult.);
 		String username = ((User)authResult.getPrincipal()).getUsername();
 		MemberDto member = memberService.loginContainPass(username);
 		log.debug(member.toString());

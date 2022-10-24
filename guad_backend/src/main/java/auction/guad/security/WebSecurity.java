@@ -38,27 +38,20 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests()
-			.antMatchers("/admin/**").hasRole("y")
-			.anyRequest().permitAll()
-			.and().addFilter(getAuthenticationFilter())
-			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
-			.cors();
-		
-		// http.authorizeRequests().antMatchers("/**").permitAll();
-		
 //		http.authorizeRequests()
-//			.antMatchers("/api/jpa/member/**").authenticated()
-//			.and().addFilter(getAuthenticationFilter()); 
-		
-		// 로그인 외의 모든 경로에 인증 요구
-		// 필터적용 순서 : jwtRequestFIlter -> AuthenticationFilter
-//		http.authorizeRequests()
-//			.antMatchers("/login").permitAll()
-//			.anyRequest().authenticated()
+//			.antMatchers("test/user").authenticated()
+//			.antMatchers("/admin/member", "/").access("hasRole('y')")
+//			.anyRequest().permitAll()
 //			.and().addFilter(getAuthenticationFilter())
 //			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
 //			.cors();
+		
+		http.authorizeRequests()
+			.antMatchers("/login").permitAll()
+			.anyRequest().authenticated()
+			.and().addFilter(getAuthenticationFilter())
+			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
+			.cors();
 	}													 				
 	
 	private AuthenticationFilter getAuthenticationFilter() throws Exception {

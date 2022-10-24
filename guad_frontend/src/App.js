@@ -17,6 +17,7 @@ import axios from "axios";
 function App() {
   axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("token");
+    console.log(token);
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;
 
