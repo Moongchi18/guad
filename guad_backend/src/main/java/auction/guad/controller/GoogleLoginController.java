@@ -31,7 +31,7 @@ public class GoogleLoginController {
         String googleId = member.getEmail();
         // 회원 조회서비스 추가 예정
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ googleId);
-       
+        
         
         if (googleId != null) {
             return ResponseEntity.status(HttpStatus.OK).body("로그인 성공");

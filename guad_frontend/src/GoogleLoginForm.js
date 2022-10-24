@@ -15,7 +15,9 @@ function GoogleLoginForm() {
     //로그인 하면 로그인 버튼 가리기
     document.getElementById("signInDiv").hidden = true;
     
-    //구글로 부터 받은 데이터를 컨트롤러에 전달
+
+    
+    //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
     axios.post('http://localhost:8080/api/google/auth', {
       "email": user.email,
     })

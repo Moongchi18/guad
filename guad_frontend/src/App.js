@@ -8,8 +8,12 @@ import AuctionTest from "./auction/AuctionTest";
 import Auction from "./component/Auction";
 import Footer from "./component/Footer";
 import Main from "./component/Main";
+<<<<<<< HEAD
 import Join from "./component/Join";
 import Join_g from "./component/Join_g";
+=======
+import MyPage from "./component/MyPage";
+>>>>>>> aa9838a62833918b84d7b942fac91d879a78ccd9
 
 function App() {
   return (
@@ -25,6 +29,7 @@ function App() {
         exact={true}
       />
       <Route path="/auction" component={Auction} exact={true} />
+      <Route path="/mypage" component={MyPage} exact={true} />
       <Route path="/footer" component={Footer} exact={true} />
       <Route path="/" component={Main} exact={true} />
       <Route path="/join" component={Join} exact={true} />
