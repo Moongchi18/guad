@@ -3,10 +3,12 @@ package auction.guad.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import auction.guad.dto.ReviewDto;
 import auction.guad.mapper.ReviewMapper;
 
+@Service
 public class ReviewServiceImpl implements ReviewService{
 
 	
