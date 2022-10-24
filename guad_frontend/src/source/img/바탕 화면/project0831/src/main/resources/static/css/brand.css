@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'RixInooAriDuriR';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'TTTogether';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'NanumSquareRound';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+body {
+	width: 100%;
+	background-color: white !important;
+}
+
+.container {
+	width: 100% !important;
+	padding: 0px !important;
+}
+
+.banner {
+	width: 100%;
+	height: 300px;
+	background-image: url(../img/back01.png);
+	background-position: 70% 100%;
+	background-repeat: no-repeat;
+	background-size: 800px;
+	background-color: #faa91a;
+	margin-top: 120px;
+	overflow: hidden;
+}
+
+.b-box {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.b-box span {
+	margin-top: 50px;
+	display: block;
+	font-family: 'RixInooAriDuriR';
+	font-size: 5rem;
+	display: block;
+	color: black;
+}
+
+.b-box p {
+	display: block;
+	width: 700px;
+	font-family: 'TTTogether';
+	font-size: 2rem;
+	line-height: 1.7;
+	color: #333;
+}
+
+.cont {
+	display: block;
+	width: 100%;
+	height: 470px;
+	margin: 50px 0;
+	background-color: #f2ebe6;
+}
+
+.cont .img-box {
+	display: inline-block;
+}
+
+.cont .img-box img {
+	display: block;
+	width: 1140px;
+	height: 470px;
+	transition:all 3s;
+}
+
+.cont .t-box {
+	transition:all 3s;
+	opacity:0;
+	vertical-align: top;
+	display: inline-block;
+}
+
+.cont .t-box span {
+	padding-top: 50px;
+	display: block;
+	width: 650px;
+	font-size: 2rem;
+	font-family: 'NanumSquareRound';
+	color: #444;
+	line-height: 1.7;
+	font-weight: bold;
+}
+
+.cont1 {
+	margin-top: 100px;
+}
+
+.cont1 .t-box span {
+	padding-left: 50px;
+}
+
+.cont2 {
+	text-align: right;
+	margin-bottom: 200px;
+}
+
+.cont2 .t-box span {
+	padding-right: 50px;
+}
+
+.cont3 {
+	width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.cont3 h2 {
+	font-family: 'RixInooAriDuriR';
+	font-size: 6rem;
+	color: black;
+	margin-bottom: 50px;
+}
+
+.cont3 p {
+	font-family: 'NanumSquareRound';
+	font-weight: bold;
+	color: black;
+	font-size: 2.5rem;
+	padding: 50px 0 100px;
+}

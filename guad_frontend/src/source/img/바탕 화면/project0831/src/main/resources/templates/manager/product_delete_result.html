@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>업데이트 결과</title>
+<script th:inline="javascript">
+	var result = "[[${result}]]";
+
+	if (result > 0) {
+		alert("제품 삭제!");
+		location.href = "productRegistForm";
+	} else {
+		alert("삭제 실패!");
+		location.href = "productUpdateForm";
+	}
+</script>
+</head>
+<body>
+
+</body>
+</html>

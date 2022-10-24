@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>브랜드 소개</title>
+<link href="css/brand.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="../img/favicon.ico">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.t-box').css('opacity', '1');
+	})
+</script>
+</head>
+<body>
+	<header th:include="/header"></header>
+	<div class="banner">
+		<div class="b-box">
+			<span>Brand Story</span>
+			<p>
+				버거킹의 대표 제품인 와퍼(Whopper)는 100% 순 쇠고기 패티와 함께<br>양상추, 토마토, 양파, 피클
+				등 4가지 신선한 야채가 어우러진 풍부한 맛으로 전세계 고객에게 사랑 받고 있습니다.
+			</p>
+		</div>
+	</div>
+	<div class="container">
+		<div class="cont1 cont">
+			<div class="img-box">
+				<img src="../img/brand01.jpg" alt="brand01">
+			</div>
+			<div class="t-box">
+				<span>세계 최대 QSR(Quick Service Restaurant) 브랜드 중 하나인 버거킹은
+					1954년 미국 마이애미에서 James W.McLamore와 David Edgerton에 의해 설립되었습니다. 버거킹은
+					현재 100개 이상의 국가에서 15,000개 이상의 매장을 운영하고 있습니다. 고기를 팬에 굽는 일반 QSR과는 달리,
+					버거킹은 고기를 직접 불에 구워 조리하는 직화 방식 (Flame-Broiling)으로 담백하고 풍부한 맛과 향, 그리고
+					정통 햄버거의 풍미를 선보이고 있습니다. 버거킹의 대표 제품인 와퍼(Whopper)는 100% 순 쇠고기 패티와 함께
+					양상추, 토마토, 양파, 피클 등 4가지 신선한 야채가 어우러진 풍부한 맛으로 전세계 고객에게 사랑 받고 있습니다.</span>
+			</div>
+		</div>
+		<div class="cont2 cont">
+			<div class="t-box">
+				<span>버거킹은 지난 1984년 종로점을 오픈하며 한국에 진출한 이래, 차별화된 제품과 개성 있는 매장
+					인테리어로 지난 38년간 한국 소비자의 사랑을 받아오고 있습니다. “가장 맛있는 햄버거를 제공하는 프리미엄 QSR
+					브랜드”로 자리매김한 버거킹은 현재 전국 440개(2021년 12월 기준) 매장을 운영하고 있습니다. 좋은 품질의
+					제품(Quality)과 친절한 서비스 (Service) 그리고 청결한 매장(Cleanliness)은 고객 여러분께 더 큰
+					만족을 드리고자 노력하는 버거킹의 약속이자 가치입니다. 더욱 풍성하고 맛있는 제품과 정성을 다하는 고객 서비스로 여러분께
+					더욱 가까이 다가가도록 하겠습니다.</span>
+			</div>
+			<div class="img-box">
+				<img src="../img/brand02.jpg" alt="brand02">
+			</div>
+		</div>
+		<div class="cont3">
+			<h2>Real WHOPPER</h2>
+			<img src="../img/whopper.png" alt="whopper">
+			<p>
+				버거킹은 지난 5년간 끊임없이<br> 더 건강하고 믿을 수 있는 와퍼를 만들기 위해 노력했습니다!<br>
+				<br> 와퍼의 모든 재료에 대해 지난 5년간<br> 향료, 색소, 보존제, 첨가제 등의 제품 성분 개선
+				활동을 통해<br> 더욱 믿을 수 있고, 더욱 맛있는 리얼 와퍼가 탄생하였습니다!<br> <br>
+				직화로 구운 불맛 100% 순쇠고기 패티에<br> 보다 신선한 채소와<br> 믿을 수 있는 재료,
+				성분들로 완성된<br> 버거킹의 대표 메뉴 와퍼의 변신!<br> 지금 버거킹에서 리얼와퍼를 만나보세요!
+			</p>
+		</div>
+	</div>
+	<footer th:include="/footer"></footer>
+</body>
+</html>

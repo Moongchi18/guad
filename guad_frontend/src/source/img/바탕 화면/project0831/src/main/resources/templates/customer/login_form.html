@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+<link href="css/login.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="../img/favicon.ico">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script th:inline="javascript">
+	$(function() {
+
+		fnInit();
+
+	});
+
+	function frm_check() {
+		saveid();
+	}
+
+	function fnInit() {
+		var cookieid = getCookie("saveid");
+		console.log(cookieid);
+		if (cookieid != "") {
+			$("input:checkbox[email='saveId']").prop("checked", true);
+			$('#email').val(cookieid);
+		}
+
+	}
+
+	function setCookie(name, value, expiredays) {
+		var todayDate = new Date();
+		todayDate.setTime(todayDate.getTime() + 0);
+		if (todayDate > expiredays) {
+			document.cookie = name + "=" + escape(value) + "; path=/; expires="
+					+ expiredays + ";";
+		} else if (todayDate < expiredays) {
+			todayDate.setDate(todayDate.getDate() + expiredays);
+			document.cookie = name + "=" + escape(value) + "; path=/; expires="
+					+ todayDate.toGMTString() + ";";
+		}
+
+		console.log(document.cookie);
+	}
+
+	function getCookie(Name) {
+		var search = Name + "=";
+		console.log("search : " + search);
+
+		if (document.cookie.length > 0) { // 쿠키가 설정되어 있다면 
+			offset = document.cookie.indexOf(search);
+			console.log("offset : " + offset);
+			if (offset != -1) { // 쿠키가 존재하면 
+				offset += search.length;
+				// set index of beginning of value
+				end = document.cookie.indexOf(";", offset);
+				console.log("end : " + end);
+				// 쿠키 값의 마지막 위치 인덱스 번호 설정 
+				if (end == -1)
+					end = document.cookie.length;
+				console.log("end위치  : " + end);
+
+				return unescape(document.cookie.substring(offset, end));
+			}
+		}
+		return "";
+	}
+
+	function saveid() {
+		var expdate = new Date();
+		if ($("#saveId").is(":checked")) {
+			expdate.setTime(expdate.getTime() + 1000 * 3600 * 24 * 30);
+			setCookie("saveid", $("#email").val(), expdate);
+		} else {
+			expdate.setTime(expdate.getTime() - 1000 * 3600 * 24 * 30);
+			setCookie("saveid", $("#email").val(), expdate);
+
+		}
+	}
+</script>
+</head>
+<body>
+	<div class="background">
+		<div class="login">
+			<div class="loginbox">
+				<div class="logo" onclick="location.href='/'">
+					<img src="/img/logo.png">
+				</div>
+				<form action="login" method="post" id="loginForm" name="loginForm" onsubmit="frm_check();">
+					<div class="form-group">
+						<label for="email"></label> <input type="email"
+							class="form-control" name="email" id="email" placeholder="이메일">
+					</div>
+					<div class="form-group">
+						<label for="pwd"></label> <input type="password"
+							class="form-control" name="password" id="pwd" placeholder="비밀번호">
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox" name="checkId" id="saveId">로그인
+							정보 기억</label>
+					</div>
+					<button type="submit" class="btn btn-top">로그인</button>
+					<button onclick="location.href='joinForm';" type="button"
+						class="btn">회원가입</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer th:include="/footer"></footer>
+</body>
+</html>

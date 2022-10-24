@@ -1,0 +1,211 @@
+@charset "UTF-8";
+
+@font-face {
+   font-family: 'RixInooAriDuriR';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2')
+      format('woff2');
+   font-weight: normal;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'TTTogether';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'NanumSquareRound';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+* {
+   margin: 0px;
+   padding: 0px;
+   border: 0px;
+}
+
+ul {
+   list-style: none;
+}
+
+li {
+   display: block;
+}
+
+a {
+   text-decoration: none !important;
+}
+
+p {
+   margin: 0px;
+}
+
+.contentsWrap {
+   padding: 120px 0 45px;
+   background: #f2ebe6;
+}
+
+.subtitWrap h2 {
+   font-size: 4rem;
+   padding-bottom: 10px;
+}
+
+.web_container {
+   max-width: 1000px;
+   margin: 0 auto;
+   padding: 0 20px;
+}
+
+.subtitWrap {
+   font-family: 'TTTogether';
+   font-size: 30px;
+   box-sizing: border-box;
+   margin-bottom: 20px;
+}
+
+.tit01 {
+   display: inline-block;
+   font-family: 'TTTogether';
+   font-weight: 400 !important;
+   height: 28px;
+   padding-left: 10px;
+   font-size: 20px;
+}
+
+.tit01>img {
+   width: 30px;
+}
+
+.tit01>span {
+   display: inline-block;
+   vertical-align: top;
+   line-height: 1.5;
+}
+
+.container1 {
+   padding-top: 30px;
+}
+
+.container2 {
+   margin: 15px 0;
+   background: #fff;
+}
+
+.titbox {
+   padding: 15px 20px;
+   background: #f8f8f8;
+   font-family: 'TTTogether';
+   font-size: 2.5rem;
+}
+
+.list {
+   box-sizing: border-box;
+   padding: 30px 60px 10px 50px;
+}
+
+li>p {
+   display: block;
+   font-family: 'TTTogether';
+   font-size: 2rem;
+   padding-bottom: 5px;
+}
+
+li>form {
+   font-family: 'NanumSquareRound';
+   font-size: 1.5rem;
+}
+
+.inputtype {
+   height: 40px;
+   width: 100%;
+   font-family: 'NanumSquareRound';
+   font-size: 2rem;
+   background: url(../img/line.png) repeat-x;
+   background-size: 500px;
+   background-position: 0% 100%;
+   margin-bottom: 30px;
+}
+
+.inputtype:focus {
+   outline: none !important;
+}
+
+.checkboxtype {
+   width: 22px;
+   height: 28px;
+   margin-right: 3px;
+   background-size: 16px auto;
+   border: none;
+   background-image: url(../img/checkbox1.png)
+}
+
+input[type='checkbox'] {
+   display: none;
+}
+
+input[type='checkbox']+label {
+   cursor: pointer;
+   padding-left: 29px;
+   padding-top: 4px;
+   background: url('../img/checkbox1.png') no-repeat;
+}
+
+input[type='checkbox']:checked+label {
+   background: url('../img/checkbox2.png') no-repeat;
+}
+
+input[type='checkbox']:disabled+label {
+   background: url('../img/checkbox1.png') no-repeat;
+}
+
+.custom-select {
+   height: 30px;
+   padding: 0 32px 3px 0;
+   margin-right: 30px;
+   width: 100px;
+   font-size: 16px;
+   font-weight: 700;
+   background: url('../img/line.png') repeat-x bottom,
+      url('../img/select.png') no-repeat 98%;
+   background-size: auto 3px, 15px auto;
+   font-size: 16px;
+}
+
+.btn_box {
+   width: 100%;
+   margin: 50px 0 30px;
+   text-align: center;
+}
+
+.btn_box button {
+   display: inline-block;
+   width: 256px;
+   height: 68px;
+   font-size: 20px;
+   color: #fff;
+   background: #c3afa6;
+   border-radius: 10px;
+   font-family: 'TTTogether';
+   cursor: pointer;
+}
+
+.btn_box button:hover {
+   background: #512314
+}
+
+ul.year-m {
+   margin: 20px 0 10px;
+}
+
+.year-c {
+   margin-bottom: 30px;
+}
