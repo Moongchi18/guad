@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../source/Sell_List.css";
+import "../source/SellList.css";
 
 function Sell_List() {
   return (
