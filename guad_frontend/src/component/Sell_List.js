@@ -9,7 +9,7 @@ function Sell_List() {
             전체상품<span>53</span>개
           </h2>
           <select>
-            <option value="카테고리 선택">카테고리 선택</option>
+            <option value="카테고리 선택">카테고리 선택!</option>
           </select>
           <ul>
             <li>
