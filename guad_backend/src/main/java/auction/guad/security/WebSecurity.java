@@ -13,25 +13,26 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import auction.guad.service.MemberService;
+
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	// 의존 객체를 생성자를 통해서 주입 
-//	private JpaMemberService memberService;
+	private MemberService memberService;
 	private BCryptPasswordEncoder passwordEncoder;
-//	private JwtTokenUtil jwtTokenUtil;
-//	private JwtRequestFilter jwtRequestFilter;
+	private JwtTokenUtil jwtTokenUtil;
+	private JwtRequestFilter jwtRequestFilter;
 	
-//	public WebSecurity(JpaMemberService memberService, BCryptPasswordEncoder passwordEncoder, JwtTokenUtil jwtTokenUtil,
-//	public WebSecurity(BCryptPasswordEncoder passwordEncoder, JwtTokenUtil jwtTokenUtil,
-//			JwtRequestFilter jwtRequestFilter) {
-//		this.memberService = memberService;
-//		this.passwordEncoder = passwordEncoder;
-//		this.jwtTokenUtil = jwtTokenUtil;
-//		this.jwtRequestFilter = jwtRequestFilter;
-//	}
+	public WebSecurity(MemberService memberService, BCryptPasswordEncoder passwordEncoder, JwtTokenUtil jwtTokenUtil,
+			JwtRequestFilter jwtRequestFilter) {
+		this.memberService = memberService;
+		this.passwordEncoder = passwordEncoder;
+		this.jwtTokenUtil = jwtTokenUtil;
+		this.jwtRequestFilter = jwtRequestFilter;
+	}
 
 	// 접근 권한과 관련한 설정
 	@Override
@@ -39,7 +40,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.authorizeRequests()
 			.antMatchers("/admin/**").hasRole("y")
-			.anyRequest().permitAll();
+			.anyRequest().permitAll()
+			.and().addFilter(getAuthenticationFilter())
+			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class);
 		
 		// http.authorizeRequests().antMatchers("/**").permitAll();
 		
@@ -57,18 +60,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 //			.cors();
 	}													 				
 	
-//	private AuthenticationFilter getAuthenticationFilter() throws Exception {
-////		AuthenticationFilter authenticationFilter = new AuthenticationFilter(memberService, jwtTokenUtil);
-//		AuthenticationFilter authenticationFilter = new AuthenticationFilter(jwtTokenUtil);
-//		authenticationFilter.setAuthenticationManager(authenticationManager());
-//		return authenticationFilter;
-//	}
+	private AuthenticationFilter getAuthenticationFilter() throws Exception {
+		AuthenticationFilter authenticationFilter = new AuthenticationFilter(memberService, jwtTokenUtil);
+		authenticationFilter.setAuthenticationManager(authenticationManager());
+		return authenticationFilter;
+	}
 	
 	// 인증 처리에 필요한 설정
 	// 사용자 정보를 조회할 서비스와 패스워드 암호화에 사용할 방식을 지정 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.userDetailsService(memberService).passwordEncoder(passwordEncoder);
+		auth.userDetailsService(memberService).passwordEncoder(passwordEncoder);
 	}
 	
 	@Bean
