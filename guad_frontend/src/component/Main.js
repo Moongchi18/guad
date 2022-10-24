@@ -5,37 +5,7 @@ function Main() {
   return (
     <>
       <CarouselB />
-      <div className="cont1">
-        <h2>Transaction type</h2>
-        <div className="cont1_bot">
-          <ul>
-            <li>
-              <img
-                src={require("../source/img/o1.png")}
-                alt="오름경매"
-                className="o_up"
-              />
-              <strong>오름</strong>경매
-            </li>
-            <li>
-              <img
-                src={require("../source/img/o2.png")}
-                alt="내림경매"
-                className="o_down"
-              />
-              <strong>내림</strong>경매
-            </li>
-            <li>
-              <img
-                src={require("../source/img/o3.png")}
-                alt="일반판매"
-                className="o_normal"
-              />
-              일반판매
-            </li>
-          </ul>
-        </div>
-      </div>
+      <div className="cont1"></div>
       <div className="cont2">
         <h2>
           <img
