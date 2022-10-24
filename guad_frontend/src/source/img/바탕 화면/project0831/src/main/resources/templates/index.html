@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>메인페이지</title>
+<link href="css/index.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="../img/favicon.ico">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<header th:include="/header"></header>
+	<div class="container">
+		<!-- 	1번 이벤트 -->
+		<div class="cont1">
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+				</ol>
+
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner">
+					<div class="item active">
+						<img
+							src="https://d1cua0vf0mkpiy.cloudfront.net/images/web/banner/cb2c5331-f78c-4892-8600-2315740d08a2.png"
+							alt="event1">
+					</div>
+
+					<div class="item">
+						<img
+							src="https://d1cua0vf0mkpiy.cloudfront.net/images/web/banner/d2688205-51ed-40bf-a8e6-3046b91fe11d.png"
+							alt="event2">
+					</div>
+
+					<div class="item">
+						<img
+							src="https://d1cua0vf0mkpiy.cloudfront.net/images/web/banner/136bbb7d-694e-4f8b-8452-8e2347cf4138.png"
+							alt="event3">
+					</div>
+				</div>
+
+				<!-- Left and right controls -->
+				<a class="left carousel-control" href="#myCarousel"
+					data-slide="prev"> <span
+					class="glyphicon glyphicon-chevron-left"></span> <span
+					class="sr-only">Previous</span>
+				</a> <a class="right carousel-control" href="#myCarousel"
+					data-slide="next"> <span
+					class="glyphicon glyphicon-chevron-right"></span> <span
+					class="sr-only">Next</span>
+				</a>
+			</div>
+		</div>
+		<div class="cont2">
+			<h2>한눈에 보는 이벤트</h2>
+			<div class="e-block1 block">
+				<ul>
+					<li><a href="#"><img
+							src="https://d1cua0vf0mkpiy.cloudfront.net/images/web/banner/cc61d140-6eff-40cd-ae85-1610e7f3c9ee.png"
+							alt="1번"></a></li>
+					<li><a href="#"><img
+							src="https://d1cua0vf0mkpiy.cloudfront.net/images/web/banner/0aaff03f-ce44-4af0-a9f9-03fafae7d089.png"
+							alt="2번"></a></li>
+					<li><a href="#"><img
+							src="https://d1cua0vf0mkpiy.cloudfront.net/images/web/banner/136ee374-dff0-4240-8578-b6db801863a3.png"
+							alt="3번"></a></li>
+				</ul>
+			</div>
+			<div class="e-block2 block">
+				<ul>
+					<li><a href="#"><img
+							src="https://d1cua0vf0mkpiy.cloudfront.net/images/web/banner/7401e9d2-a207-4ce4-a300-eec7c9515712.png"
+							alt="1번"></a></li>
+					<li><a href="#"><img
+							src="https://d1cua0vf0mkpiy.cloudfront.net/images/web/banner/02eabca6-6b65-48dd-ab5f-dc74496aadd7.png"
+							alt="2번"></a></li>
+					<li class="call"><span><strong>집에서 만나는 버거킹</strong><br>
+							<br> 딜리버리 전화주문<br> 안내 10:00–22:00<br> <br>연중무휴<br>(매장별로
+							상이할 수 있습니다.) </span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<footer th:include="/footer"></footer>
+</body>
+</html>

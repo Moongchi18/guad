@@ -1,0 +1,257 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'RixInooAriDuriR';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'TTTogether';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'NanumSquareRound';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+body {
+	width: 100%;
+	background-color: #f2ebe6 !important;
+}
+
+input:focus {
+	outline: none;
+}
+
+.container_order {
+	padding: 6px 64px 0px;
+	background: white;
+}
+
+.order_list>li>div {
+	display: inline-block;
+}
+
+.order_list>li {
+	border-bottom: 2px dashed #e6e6e6;
+	padding: 30px 50px;
+}
+.info{
+	padding:100px 0 50px 30px;
+}
+.order_list .img{
+	vertical-align: top;
+}
+
+.order_list img {
+	width: 300px;
+	display: inline-block;
+}
+
+.info>ul>li {
+	font-family: 'TTTogether';
+	font-size: 28px;
+	padding-bottom: 10px;
+}
+
+.cont1 {
+	display: block;
+	width: 1200px;
+	padding-top: 150px;
+	margin: 0 auto;
+}
+
+.cont1 .del_t1 img {
+	width: 45px;
+	margin-right: 10px;
+}
+
+.cont1 .del_t1 span {
+	vertical-align: middle;
+	display: inline-block;
+	font-size: 2.5rem;
+	font-family: 'TTTogether';
+	color: black;
+}
+
+/* cont2 */
+.cont2 {
+	display: block;
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.cont2 .del_t2 {
+	margin-top: 30px;
+	display: block;
+	width: 100%;
+	height: 50px;
+}
+
+.cont2 .del_t2 img {
+	width: 45px;
+	margin-right: 10px;
+}
+
+.cont2 .del_t2 span {
+	vertical-align: middle;
+	display: inline-block;
+	font-size: 2.5rem;
+	font-family: 'TTTogether';
+	color: black;
+}
+
+.cont2 .info4 {
+	background-color: white;
+	box-sizing: border-box;
+	padding: 30px 50px;
+	height: 300px;
+}
+
+.cont2 .info4 span {
+	display: block;
+	width: 100%;
+	height: 150px;
+	font-size: 3rem;
+	font-family: 'TTTogether';
+	border-bottom: 2px solid #eee;
+	margin-bottom: 40px;
+}
+
+.cont2 .info4 button {
+	font-family: 'TTTogether';
+	display: block;
+	margin: 0 auto;
+	background: #512314;
+	color: white;
+	width: 200px;
+	height: 60px;
+	font-size: 20px;
+	padding: 12px 10px 10px;
+	border-radius: 10px;
+}
+
+.cont2 .info4 button:hover {
+	transition: all 0.5s;
+	background-color: #37251E;
+}
+
+.cont2 .info4 img {
+	padding-left: 10px;
+}
+/* cont3 */
+.cont3 {
+	display: block;
+	width: 1200px;
+	margin: 0 auto 50px;
+}
+
+.cont3 .del_t3 {
+	margin-top: 30px;
+	display: block;
+	width: 100%;
+	height: 50px;
+}
+
+.cont3 .del_t3 img {
+	width: 45px;
+	margin-right: 10px;
+}
+
+.cont3 .del_t3 span {
+	vertical-align: middle;
+	display: inline-block;
+	font-size: 2.5rem;
+	font-family: 'TTTogether';
+	color: black;
+}
+
+.cont3 .info5 {
+	background-color: white;
+	box-sizing: border-box;
+	padding: 30px 50px;
+	height: 300px;
+}
+
+.cont3 .info5 ul li strong {
+	font-family: 'TTTogether';
+	font-size: 2rem;
+	font-weight: normal !important;
+	color: black;
+}
+
+.cont3 .info5 ul li span {
+	font-family: 'TTTogether';
+	float: right;
+	color: black;
+}
+
+.cont3 .info5 ul li.title {
+	display: block;
+	width: 100%;
+	font-family: 'TTTogether';
+	border-bottom: 2px solid #eee;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+	color: black;
+}
+
+.cont3 .info5 ul li.title strong {
+	font-weight: normal;
+	font-size: 3rem !important;
+}
+
+.cont3 .info5 ul li.title span {
+	color: red;
+	font-size: 3rem !important;
+}
+
+.cont4 {
+	display: block;
+	width: 1200px;
+	margin: 0 auto 50px;
+}
+
+.cont4 button {
+	margin: 0 auto;
+	display: block;
+	width: 200px;
+	height: 60px;
+	background: #512314;
+	color: white;
+	border-radius: 10px;
+	font-family: 'TTTogether';
+	font-size: 20px;
+}
+
+.cont4 button:hover {
+	transition: all 0.5s;
+	background-color: #37251E;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>주문목록</title>
+
+<link href="css/customerList.css" rel="stylesheet" type="text/css" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<header th:include="/header"></header>
+	<div class="contentsBox">
+		<div class="web_container2">
+			<div class="subtitWrap">
+				<h2 class="page_tit">회원리스트</h2>
+			</div>
+			<!-- 주문하나 -->
+			<div class="container">
+				<div class="c_title">
+					<span>• 회원아이디</span> <span>• 회원정보</span>
+				</div>
+				<div class="order_list">
+					<ul th:each="customer:${customerList}">
+						<li class="c_id"><span th:text="${customer.email}"></span></li>
+						<li class="c_info"><span class="tit"
+							th:text="${customer.name}"></span> <span>전화번호 :<strong
+								th:text="${customer.phone}"></strong>
+						</span></li>
+					</ul>
+				</div>
+
+			</div>
+			<!-- 주문둘 -->
+		</div>
+	</div>
+	<footer th:include="/footer"></footer>
+</body>
+</html>

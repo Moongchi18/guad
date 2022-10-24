@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>관리자페이지</title>
+<link href="css/manager.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="../img/favicon.ico">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<header th:include="/header"></header>
+	<div class="container">
+		<div class="cont1">
+			<div class="m_title">
+				<img src="../img/logo.png" alt="로고">
+				<h2>MANAGER</h2>
+				<div class="member_name">
+					<span> 관리자님! 반갑습니다 </span>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="cont2">
+		<ul class="m_items">
+			<li class="m_info"><a href="productRegistForm" class="m_menu m_img"> <img
+					src="../img/burger_icon.png" alt="제품수정"> <span class="m_all">메뉴
+						수정하기</span>
+			</a></li>
+			<li class="m_info"><a href="customerListForm" class="m_people m_img"> <img
+					src="../img/people.png" alt="회원관리"> <span class="m_all">회원
+						리스트</span>
+			</a></li>
+			<li class="m_info"><a href="statisForm" class="m_chart m_img"> <img
+					src="../img/chart.png" alt="이용통계"> <span class="m_all">이용
+						통계</span>
+			</a></li>
+		</ul>
+	</div>
+	<footer th:include="/footer"></footer>
+
+</body>
+</html>

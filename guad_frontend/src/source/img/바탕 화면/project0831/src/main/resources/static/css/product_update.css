@@ -1,0 +1,213 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'RixInooAriDuriR';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'TTTogether';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'NanumSquareRound';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+body {
+	width: 100%;
+	background-color: #f2ebe6 !important;
+}
+
+.cont_box {
+	width: 100%;
+	margin: 50px auto;
+	text-align: center;
+	background-color: #faa91a;
+}
+
+/* banner */
+.banner {
+	width: 100%;
+	height: 300px;
+	background-image: url(../img/gril.jpg);
+	background-position: center 30%;
+	background-repeat: no-repeat;
+	background-color: #f9f4e1;
+	background-size: cover;
+	margin-top: 120px;
+	overflow: hidden;
+}
+
+.img-box {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.img-box .tag-img {
+	margin-left: 170px;
+	padding-top: 30px;
+	float: left;
+	width: 250px;
+}
+
+.img-box .bur-img {
+	margin-right: 150px;
+	padding-top: 65px;
+	float: right;
+	width: 370px;
+}
+
+/* product */
+h2.tit {
+	display: block;
+	font-family: 'TTTogether';
+	font-size: 4rem;
+	color: black;
+	text-align: center;
+	margin-top: 100px;
+}
+
+.product_img {
+	display: inline-block;
+	text-align: center;
+	margin-top: 50px;
+}
+
+.product_img input {
+	text-align: center;
+	margin: 5px 0;
+	border-radius: 10px;
+	padding: 5px 10px;
+	font-family: 'TTTogether';
+}
+
+.product_img img {
+	display: block;
+	width: 500px;
+}
+
+.product_img img.sample {
+	display: block;
+	width: 300px;
+}
+
+.product_img label {
+	font-size: 2rem;
+	font-family: 'TTTogether';
+	color: black;
+	font-weight: normal;
+}
+
+.product_text {
+	display: inline-block;
+	width: 450px;
+	vertical-align: top;
+	text-align: left;
+	font-size: 2.5rem;
+	box-sizing: border-box;
+	padding: 70px 50px 50px 50px;
+	border-radius: 30px;
+}
+
+.product_text span {
+	display: block;
+	font-family: 'TTTogether';
+	font-size: 3rem;
+	margin-bottom: 5px;
+	color: black;
+}
+
+.product_text select {
+	font-family: 'NanumSquareRound';
+	border-radius: 10px;
+	box-sizing: border-box;
+	padding: 5px 10px;
+	display: block;
+	border-radius: 10px;
+}
+
+.product_text label {
+	font-weight: normal;
+	font-family: 'TTTogether';
+	display: block;
+	margin-top: 10px;
+	font-size: 3rem;
+	color: black;
+}
+
+.product_text input {
+	font-family: 'NanumSquareRound';
+	display: block;
+	border-radius: 10px;
+	box-sizing: border-box;
+	padding: 5px 10px;
+}
+
+.btn_area {
+	display: block;
+	margin: 30px 0 30px;
+	text-align: center;
+	padding-bottom: 50px;
+}
+
+.btn_area button {
+	display: inline-block;
+	width: 200px;
+	height: 68px;
+	border-radius: 10px;
+	background: #A6B2C3;
+	font-family: 'TTTogether';
+	font-size: 20px;
+	color: white;
+	margin-right: 30px;
+}
+
+.btn_area a {
+	display: inline-block;
+	width: 200px;
+	height: 68px;
+	border-radius: 10px;
+	background: #C3A6A8;
+	font-family: 'TTTogether';
+	font-size: 20px;
+	color: white;
+	vertical-align: top;
+	line-height: 3.3;
+}
+
+.btn_area button:hover {
+	background: #02078E
+}
+
+.btn_area a:hover {
+	color: white;
+	background: #8F0000
+}

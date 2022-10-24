@@ -1,0 +1,273 @@
+@charset "UTF-8";
+
+@font-face {
+   font-family: 'RixInooAriDuriR';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2')
+      format('woff2');
+   font-weight: normal;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'TTTogether';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/TTTogetherA.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'NanumSquareRound';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+* {
+   margin: 0px;
+   padding: 0px;
+   border: 0px;
+}
+
+ul {
+   list-style: none;
+}
+
+a {
+   text-decoration: none !important;
+}
+
+.progress {
+   display: inline-block;
+   width: 800px;
+   margin: 5px 0 0 20px !important;
+   vertical-align: middle;
+   position: relative;
+}
+
+.progress-bar {
+   font-weight: bold !important;
+   font-family: 'NanumSquareRound';
+   width: 0%;
+   color: #000 !important;
+   background-color: #6A9BE5 !important;
+}
+
+.progress-bar span {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+.contentsWrap {
+   margin: 0 auto;
+   width: 1440px;
+   padding: 150px 0 45px;
+   background: white;
+   height: 400px;
+}
+
+.contentBox {
+   background: #f2ebe6;
+   padding: 40px 0 100px;
+   width: 100%;
+   height: 100%;
+}
+
+.contentsWrap2 {
+   margin: 0 auto 50px;
+   width: 1440px;
+}
+
+.web_container {
+   max-width: 1000px;
+   margin: 0 auto;
+   padding: 0 20px;
+   height: 100px;
+}
+
+.subtitWrap {
+   font-family: 'TTTogether';
+   font-size: 30px;
+   box-sizing: border-box;
+   margin-bottom: 20px;
+   color: black;
+   border-bottom: 2px solid #000;
+}
+
+.member_name {
+   display: inline-block;
+   font-size: 30px;
+   font-family: 'TTTogether';
+   width: 300px;
+   color: black;
+   vertical-align: top;
+}
+
+.member_name strong {
+   font-weight: normal;
+   color: #ED9700;
+}
+
+.member_info {
+   display: inline-block;
+   margin-left: 30px;
+   vertical-align: top;
+}
+
+.page_tit {
+   padding: 20px 0 10px;
+   font-size: 3rem;
+   font-family: 'TTTogether';
+   color: black;
+   display: inline-block;
+}
+
+.member_ship {
+   height: 60px;
+   border-left: 1px solid #ccc;
+   padding-left: 20px;
+}
+
+.membership_tit2 {
+   font-size: 20px;
+   font-family: 'TTTogether';
+   padding-top: 10px;
+}
+
+.membership_tit2 a {
+   color: black;
+}
+
+.membership_mark {
+   display: inline-block;
+}
+
+.membership_mark img {
+   display: inline-block;
+   width: 50px;
+   vertical-align: unset;
+}
+
+.membership_grade {
+   display: inline-block;
+   font-size: 25px;
+   font-family: 'RixInooAriDuriR';
+   color: black;
+   vertical-align: top;
+   margin-top: 10px;
+   padding-left: 10px;
+}
+
+.membership_grade strong {
+   font-weight: normal;
+   font-size: 20px;
+   color: #3F3F3F;
+   padding-left: 5px;
+}
+
+.info_change {
+   float: left;
+   position: relative;
+   height: 60px;
+   padding-left: 100px;
+   border-left: 1px solid #ccc;
+   background-size: 40px;
+   background-image: url(../img/join1.png);
+   background-position: 30px 10px;
+   background-repeat: no-repeat;
+   background-image: url(../img/join1.png);
+}
+
+.order_history {
+   float: left;
+   position: relative;
+   height: 60px;
+   padding-left: 100px;
+   border-left: 1px solid #ccc;
+   background-size: 40px;
+   background-image: url(../img/information.png);
+   background-position: 25px 10px;
+   background-repeat: no-repeat;
+}
+
+/* ------------------------------------------------ */
+.contentsBox {
+	padding: 10px 0 50px;
+	background: #f2ebe6;
+}
+
+.web_container2 {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.web_container2 .subtitWrap {
+	margin-bottom: 26px;
+	border: 0px;
+}
+
+.web_container2 .page_tit {
+	font-size: 3rem;
+	font-family: 'TTTogether';
+	border-bottom: none;
+}
+
+.order_list {
+	padding: 5px 50px;
+	background: white;
+	cursor: pointer;
+}
+
+.order_list img {
+	width: 300px;
+}
+
+.order_list .img {
+	vertical-align: top;
+	padding-right: 50px;
+}
+
+.order_list .cont {
+	font-family: 'TTTogether';
+}
+
+.order_list .cont .tit {
+	font-size: 3rem;
+	padding: 40px 0 10px;
+}
+
+.order_list .cont span {
+	display: block;
+	font-size: 2rem;
+}
+
+.order_list ul {
+	padding-bottom: 20px;
+	border-bottom: 2px dashed #e6e6e6;
+}
+
+.order_list ul>li {
+	display: inline-block;
+}
+
+.info {
+	font-family: 'TTTogether';
+	margin-top: 25px;
+	font-size: 1.125rem;
+	color: #737373;
+	line-height: 167%;
+}
+
+.info>ul {
+	display: block;
+}
+
+.info>ul>li {
+	display: inline;
+}

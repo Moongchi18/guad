@@ -8,7 +8,8 @@ import AuctionTest from "./auction/AuctionTest";
 import Auction from "./component/Auction";
 import Footer from "./component/Footer";
 import Main from "./component/Main";
-import MyPage from "./component/MyPage";
+import Mypage from "./component/Mypage";
+import MypageInfo from "./component/MypageInfo";
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
       <Route path="/header" component={Header} exact={true} />
       <Route path="/auction/test/:itemNum" component={AuctionTest} exact={true} />
       <Route path="/auction" component={Auction} exact={true} />
-      <Route path="/mypage" component={MyPage} exact={true} />
+      <Route path="/mypage" component={Mypage} exact={true} />
       <Route path="/footer" component={Footer} exact={true} />
       <Route path="/" component={Main} exact={true} />
+      <Route path="/mypage_info" component={MypageInfo} exact={true} />
       <Footer />
     </>
   );
