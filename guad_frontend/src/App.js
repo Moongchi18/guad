@@ -14,7 +14,6 @@ import MypageInfo from "./component/MypageInfo";
 
 import Join from "./component/Join";
 import Join_g from "./component/Join_g";
-import MyPage from "./component/MyPage";
 import Sell_List from "./component/Sell_List";
 import axios from "axios";
 import Sell_Item from "./component/Sell_Item";
