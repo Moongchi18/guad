@@ -17,18 +17,27 @@ header {
 .search_b {
   background-color: #a8c4ad;
   border-radius: 50%;
+  height: 50px;
+  width: 50px;
   float: right;
   margin-top: 60px;
   cursor: pointer;
+  position: relative;
 }
 .search_b:hover {
   width: 300px;
-  border-radius: 20px;
+  border-radius: 30px;
+  transition: 0.2s all ease;
+}
+.search_b:focus {
+  width: 300px;
+  border-radius: 30px;
 }
 .search_b img {
   display: block;
   padding: 13px;
   width: 25px;
+  position: absolute;
 }
 header ul {
   float: right;

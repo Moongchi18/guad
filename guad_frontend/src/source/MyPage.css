@@ -162,13 +162,11 @@
   width: 20px;
 
   padding-right: 5px;
-
 }
 
 .no_sell_info > button > div {
   display: inline-block;
   vertical-align: top;
-
 }
 
 .no_buy_info {
