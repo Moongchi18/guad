@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,8 +88,8 @@ public class MemberController {
 	
 	// 관리자용 회원 목록 조회
 	@RequestMapping(value = "/admin/member", method = RequestMethod.GET)
-	public List<MemberDto> adminMemberList() throws Exception {
-		System.out.println("/admin/member 호출 >>>>>>>>>>>>>>>>>>");
+	public List<MemberDto> adminMemberList(@AuthenticationPrincipal User user) throws Exception {
+		System.out.println("/admin/member 호출 >>>>>>>>>>>>>>>>>>" + user);
 		return memberService.managerSelectMemberListExceptPass();
 	}
 	

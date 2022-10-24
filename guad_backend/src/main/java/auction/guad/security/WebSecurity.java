@@ -38,20 +38,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-//		http.authorizeRequests()
-//			.antMatchers("test/user").authenticated()
-//			.antMatchers("/admin/member", "/").access("hasRole('y')")
-//			.anyRequest().permitAll()
-//			.and().addFilter(getAuthenticationFilter())
-//			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
-//			.cors();
-		
 		http.authorizeRequests()
-			.antMatchers("/login").permitAll()
-			.anyRequest().authenticated()
+			.antMatchers("/admin/member", "/").access("hasRole('y')")
+			.anyRequest().permitAll()
 			.and().addFilter(getAuthenticationFilter())
 			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
 			.cors();
+		
 	}													 				
 	
 	private AuthenticationFilter getAuthenticationFilter() throws Exception {
