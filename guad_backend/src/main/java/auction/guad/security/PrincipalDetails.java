@@ -16,6 +16,7 @@ public class PrincipalDetails implements UserDetails{
 		this.member = member;
 	}
 
+// 권한부여
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> collect = new ArrayList<>();

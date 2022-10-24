@@ -3,8 +3,10 @@ package auction.guad.dto;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class MemberDto {
 
 	private int memberNum;

@@ -3,5 +3,13 @@
 
 <mapper namespace="auction.guad.mapper.MileageMapper">
 
-
+ <insert id="chargeMileage" parameterType="auction.guad.dto.MileageDto">
+		
+		
+	</insert>
+	
+	<select id="inquireMileageByEmail" parameterType="int" resultType="auction.guad.dto.MileageDto">
+		
+	</select>
+	
 </mapper>

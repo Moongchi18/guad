@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import auction.guad.dto.MemberDto;
@@ -15,22 +16,19 @@ import auction.guad.mapper.MemberMapper;
 public class MemberServiceImpl implements MemberService{
 	
 	private MemberMapper memberMapper;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Autowired
-	public MemberServiceImpl(MemberMapper memberMapper) {
-		super();
+	public MemberServiceImpl(MemberMapper memberMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.memberMapper = memberMapper;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
-	
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		MemberDto member = null;
-		try {
-			member = memberMapper.selectMemberDetailByEmail(username);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		MemberDto member = memberMapper.loginContainPass(username);
+		System.out.println("<<<<<<<<<<<<<<<<<<<<<<loadUserByUsername" + member);
+		
 		if(member == null) {
 			throw new UsernameNotFoundException(username);
 		}
@@ -39,13 +37,14 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public ArrayList<MemberDto> selectMemberListExceptPass() throws Exception {
-		return memberMapper.selectMemberListExceptPass();
+	public ArrayList<MemberDto> managerSelectMemberListExceptPass() throws Exception {
+		return memberMapper.managerSelectMemberListExceptPass();
 	}
 
 
 	@Override
 	public int insertMember(MemberDto memberDto) throws Exception {
+		memberDto.setPass(bCryptPasswordEncoder.encode(memberDto.getPass()));
 		return memberMapper.insertMember(memberDto);
 	}
 
@@ -66,6 +65,23 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void deleteMemberByEmail(MemberDto memberDto) throws Exception {
 		memberMapper.deleteMemberByEmail(memberDto);
+	}
+
+
+	@Override
+	public ArrayList<MemberDto> managerSelectMemberListExceptPassAndDeleted() throws Exception {
+		return memberMapper.managerSelectMemberListExceptPassAndDeleted();
+	}
+
+
+	@Override
+	public MemberDto managerSelectMemberDetailByEmail(String email) throws Exception {
+		return memberMapper.managerSelectMemberDetailByEmail(email);
+	}
+
+	@Override
+	public MemberDto loginContainPass(String email) {
+		return memberMapper.loginContainPass(email);
 	}
 
 

@@ -25,6 +25,7 @@ function AuctionTest({match}) {
             const newBidList = [...response.data]
             setBidList(newBidList)
         })
+        .catch(error => console.log(error))
         // connect();
     }, [change])
 
