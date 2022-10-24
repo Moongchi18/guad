@@ -11,8 +11,16 @@ import Main from "./component/Main";
 import Join from "./component/Join";
 import Join_g from "./component/Join_g";
 import MyPage from "./component/MyPage";
+import Sell_List from "./component/Sell_List";
+import axios from "axios";
 
 function App() {
+  axios.interceptors.request.use(function (config) {
+    const token = sessionStorage.getItem("token");
+    config.headers.Authorization = token ? `Bearer ${token}` : "";
+    return config;
+
+  });
   return (
     <>
       <Header />
@@ -31,6 +39,7 @@ function App() {
       <Route path="/" component={Main} exact={true} />
       <Route path="/join" component={Join} exact={true} />
       <Route path="/join_g" component={Join_g} exact={true} />
+      <Route path="/sell_List" component={Sell_List} exact={true} />
       <Footer />
     </>
   );

@@ -1,0 +1,95 @@
+.sell_all {
+  width: 1130px;
+  margin: 0 auto;
+}
+.sell_top h2 {
+  font-family: "SBAggroB";
+  font-size: 23px;
+  margin-top: 60px;
+}
+.sell_top h2 span {
+  color: #a6a6a6;
+}
+.sell_top select {
+  color: #6b6b6b;
+  font-size: 15px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+}
+.sell_top ul {
+  padding-top: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  margin: 49px 0 55px;
+}
+.sell_top ul li {
+  display: inline-block;
+}
+.sell_top ul li button {
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 20px;
+  width: 150px;
+  height: 43px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  margin-right: 20px;
+}
+
+.sell_bot {
+  width: 100%;
+}
+.item_info {
+  display: inline-block;
+  margin-right: 69px;
+}
+li.item_info:nth-child(4n) {
+  margin-right: 0px;
+}
+
+.item_info img {
+  width: 230px;
+  height: 230px;
+}
+.item_info > span {
+  display: block;
+}
+.tex1 {
+  font-family: "Nanumsquare";
+  font-weight: bold;
+  font-size: 13px;
+  color: #545454;
+  padding: 10px 0 5px;
+}
+.tex2 {
+  font-size: 13px;
+  font-family: "Nanumsquare";
+  padding: 0 0 5px;
+}
+.tex3 {
+  font-size: 13px;
+  font-weight: bold;
+  font-family: "Nanumsquare";
+}
+.tex3 strong {
+  font-weight: 1000;
+  font-size: 15px;
+  margin-left: 10px;
+}
+.count_p {
+  font-family: "Nanumsquare";
+  font-size: 20px;
+  font-weight: bold;
+  margin: 170px auto 100px;
+  display: block;
+  width: 120px;
+  text-align: center;
+}
+.count_p ul li {
+  display: inline-block;
+  padding: 0 5px;
+}
+.count_p ul li button {
+  background-color: white;
+  cursor: pointer;
+}

@@ -12,7 +12,9 @@ function Header() {
             <img src={logo} alt="로고" className="h_logo_b" />
           </Link>
           <ul>
-            <li>판매목록</li>
+            <li>
+              <Link to="/sell_List">판매목록</Link>
+            </li>
             <li>상품등록</li>
             <li>
               <Link to="/login">로그인</Link>
