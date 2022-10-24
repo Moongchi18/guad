@@ -121,7 +121,7 @@
 /*
 ** Fine-grained text styles
 */
-p {
+.Words-line p {
   height: 50px;
   line-height: 45px;
   padding: 0 10px;
