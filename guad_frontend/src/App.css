@@ -39,6 +39,12 @@
   font: inherit;
   vertical-align: baseline;
 }
+a:active {
+  text-decoration: none;
+}
+a:after {
+  text-decoration: none;
+}
 
 article,
 aside,

@@ -10,9 +10,67 @@
   margin: 0 auto;
   color: white;
 }
+.caro_L {
+  display: inline-block;
+  vertical-align: top;
+}
+.caro_R {
+  display: inline-block;
+  padding-left: 250px;
+}
+.caro_R ul {
+  height: 100%;
+}
+.caro_R ul li {
+  height: 130px;
+  cursor: pointer;
+}
+.caro_R ul li:nth-child(1) {
+  margin-top: 30px;
+}
+.caro_R ul li:nth-child(1):hover {
+  color: #ae434b;
+  transition: all 0.2s ease-in;
+}
+.caro_R ul li:nth-child(1) img:hover {
+  transition: all 0.3s ease-in;
+  content: url(../source/img/tc1.png);
+}
+.caro_R ul li:nth-child(2) {
+  margin: 25px 0;
+}
+.caro_R ul li:nth-child(2):hover {
+  color: #5ef0c9;
+  transition: all 0.2s ease-in;
+}
+.caro_R ul li:nth-child(2) img:hover {
+  transition: all 0.3s ease-in;
+  content: url(../source/img/tc2.png);
+}
+.caro_R ul li:nth-child(3) {
+  margin-bottom: 30px;
+}
+.caro_R ul li:nth-child(3):hover {
+  color: #3e3e3e;
+  transition: all 0.2s ease-in;
+}
+.caro_R ul li:nth-child(3) img:hover {
+  transition: all 0.3s ease-in;
+  content: url(../source/img/tc3.png);
+}
+.caro_R ul li img {
+  width: 130px;
+}
+.caro_R ul li strong {
+  display: inline-block;
+  font-family: "SBAggroB";
+  font-size: 35px;
+  padding-left: 30px;
+  margin-top: 50px;
+  vertical-align: top;
+}
 
 .Words {
-  margin-top:-160px;
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-size: 60px;
   font-weight: 900;
@@ -63,7 +121,7 @@
 /*
 ** Fine-grained text styles
 */
-p {
+.Words-line p {
   height: 50px;
   line-height: 45px;
   padding: 0 10px;

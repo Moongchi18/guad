@@ -3,6 +3,7 @@ import "../source/Login.css";
 import axios from "axios";
 import { useState } from "react";
 import logo from "../source/img/login_logo.png";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -40,9 +41,11 @@ function Login() {
           <button className="login" onClick={handlerSubmit} type="button">
             로그인
           </button>
-          <button className="join" type="button">
-            회원가입
-          </button>
+          <Link to="/join">
+            <button className="join" type="button">
+              회원가입
+            </button>
+          </Link>
         </div>
       </div>
     </>
