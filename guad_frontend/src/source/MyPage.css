@@ -6,27 +6,6 @@
   margin: 0 auto 50px;
 }
 
-/* .Logo {
-    margin: 0 auto 50px;
-    display: block;
-    height: 290px;
-}
-
-
-.in_box {
-    box-sizing: border-box;
-    padding-left: 10px;
-    margin: 10px 0 0;
-    display: block;
-    width: 450px;
-    height: 50px;
-    border: 1px solid #e0e0e0;
-  }
-  .in_box:focus {
-    outline: none;
-    border: 2px solid #000;
-  } */
-
 .page_name {
   text-align: left;
   display: block;
@@ -162,13 +141,11 @@
   width: 20px;
 
   padding-right: 5px;
-
 }
 
 .no_sell_info > button > div {
   display: inline-block;
   vertical-align: top;
-
 }
 
 .no_buy_info {
