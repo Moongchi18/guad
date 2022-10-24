@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../source/Sell_List.css";
 
 function Sell_List() {
@@ -6,10 +7,10 @@ function Sell_List() {
       <div class="sell_all">
         <div className="sell_top">
           <h2>
-            전체상품<span>53</span>개
+            전체상품 <span>53</span>개
           </h2>
           <select>
-            <option value="카테고리 선택">카테고리 선택!</option>
+            <option value="카테고리 선택">카테고리 선택</option>
           </select>
           <ul>
             <li>
@@ -29,12 +30,21 @@ function Sell_List() {
         <div className="sell_bot">
           <ul>
             <li className="item_info">
-              <img src={require("../source/img/item01.png")} alt="제품1" />
-              <span className="tex1">의류/가방</span>
-              <span className="tex2">디올 오피디아 스몰 패턴 도트백 </span>
-              <span className="tex3">
-                경매시작가<strong>450,000</strong>
-              </span>
+              <Link to="/sell_item">
+                <div className="item_bb">
+                  <img src={require("../source/img/item01.png")} alt="제품1" />
+                  <img
+                    src={require("../source/img/del1.png")}
+                    alt="오름경매"
+                    className="del_icon"
+                  />
+                </div>
+                <span className="tex1">의류/가방</span>
+                <span className="tex2">디올 오피디아 스몰 패턴 도트백 </span>
+                <span className="tex3">
+                  경매시작가<strong>450,000</strong>
+                </span>
+              </Link>
             </li>
           </ul>
           <span className="count_p">

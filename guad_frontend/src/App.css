@@ -42,6 +42,15 @@
 a {
   text-decoration: none;
 }
+a:focus {
+  color: black;
+}
+a:active {
+  color: black;
+}
+a:visited {
+  color: black;
+}
 
 article,
 aside,

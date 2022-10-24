@@ -13,13 +13,13 @@ import Join_g from "./component/Join_g";
 import MyPage from "./component/MyPage";
 import Sell_List from "./component/Sell_List";
 import axios from "axios";
+import Sell_Item from "./component/Sell_Item";
 
 function App() {
   axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("token");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;
-
   });
   return (
     <>
@@ -40,6 +40,7 @@ function App() {
       <Route path="/join" component={Join} exact={true} />
       <Route path="/join_g" component={Join_g} exact={true} />
       <Route path="/sell_List" component={Sell_List} exact={true} />
+      <Route path="/sell_item" component={Sell_Item} exact={true} />
       <Footer />
     </>
   );
