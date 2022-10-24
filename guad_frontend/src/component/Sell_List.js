@@ -30,13 +30,32 @@ function Sell_List() {
           <ul>
             <li className="item_info">
               <img src={require("../source/img/item01.png")} alt="제품1" />
-              <span>의류/가방</span>
-              <span>디올 오피디아 스몰 패턴 도트백 </span>
-              <span>
+              <span className="tex1">의류/가방</span>
+              <span className="tex2">디올 오피디아 스몰 패턴 도트백 </span>
+              <span className="tex3">
                 경매시작가<strong>450,000</strong>
               </span>
             </li>
           </ul>
+          <span className="count_p">
+            <ul>
+              <li>
+                <button>1</button>
+              </li>
+              <li>
+                <button>2</button>
+              </li>
+              <li>
+                <button>3</button>
+              </li>
+              <li>
+                <button>4</button>
+              </li>
+              <li>
+                <button>5</button>
+              </li>
+            </ul>
+          </span>
         </div>
       </div>
     </>

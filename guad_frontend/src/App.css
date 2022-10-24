@@ -39,10 +39,7 @@
   font: inherit;
   vertical-align: baseline;
 }
-a:active {
-  text-decoration: none;
-}
-a:after {
+a {
   text-decoration: none;
 }
 
