@@ -17,18 +17,25 @@ header {
 .search_b {
   background-color: #a8c4ad;
   border-radius: 50%;
+  height: 50px;
+  width: 50px;
   float: right;
   margin-top: 60px;
   cursor: pointer;
+  position: relative;
+  background-image: url(../source/img/h_search.png);
+  background-repeat: no-repeat;
+  background-position: 12px center;
 }
 .search_b:hover {
   width: 300px;
-  border-radius: 20px;
+  border-radius: 30px;
+  transition: 0.2s all ease;
 }
-.search_b img {
-  display: block;
-  padding: 13px;
-  width: 25px;
+.search_b:focus {
+  width: 300px;
+  border-radius: 30px;
+  outline: none;
 }
 header ul {
   float: right;

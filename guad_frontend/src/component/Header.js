@@ -20,9 +20,8 @@ function Header() {
               <Link to="/login">로그인</Link>
             </li>
           </ul>
-          <button type="button" className="search_b">
-            <img src={search} alt="검색창" />
-          </button>
+          <input type="text" className="search_b" />
+          <img src={search} alt="검색창" className="search_icon" />
         </header>
       </div>
     </>

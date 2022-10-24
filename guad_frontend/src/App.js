@@ -18,7 +18,6 @@ import SellList from "./component/SellList";
 import axios from "axios";
 import SellItem from "./component/SellItem";
 
-
 function App() {
   axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("token");
