@@ -1,5 +1,11 @@
 package auction.guad.service;
 
-public interface MileageService {
+import auction.guad.dto.MileageDto;
 
+public interface MileageService {
+	
+	public int chargeMileage(MileageDto mileageDto) throws Exception;
+	public MileageDto inquireMileageByEmail(String memberEmail) throws Exception;
+	
+	
 }
