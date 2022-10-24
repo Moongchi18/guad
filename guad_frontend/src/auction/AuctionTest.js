@@ -71,7 +71,7 @@ function AuctionTest({match}) {
             "입찰 기록이 없습니다."
             }
             <br></br>
-            <input type="number" value={bid} onChange={handlerBidPrice}
+            <input type="number" value={bid || ""} onChange={handlerBidPrice}
                 style={{ border: "1px solid" }}
             ></input>
             <button onClick={handlerBid}>입찰</button>
