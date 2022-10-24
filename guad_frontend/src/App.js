@@ -13,10 +13,10 @@ import Mypage from "./component/Mypage";
 import MypageInfo from "./component/MypageInfo";
 
 import Join from "./component/Join";
-import Join_g from "./component/Join_g";
-import Sell_List from "./component/Sell_List";
+import JoinG from "./component/JoinG";
+import SellList from "./component/SellList";
 import axios from "axios";
-import Sell_Item from "./component/Sell_Item";
+import SellItem from "./component/SellItem";
 
 
 function App() {
@@ -45,9 +45,9 @@ function App() {
       <Route path="/mypage_info" component={MypageInfo} exact={true} />
 
       <Route path="/join" component={Join} exact={true} />
-      <Route path="/join_g" component={Join_g} exact={true} />
-      <Route path="/sell_List" component={Sell_List} exact={true} />
-      <Route path="/sell_item" component={Sell_Item} exact={true} />
+      <Route path="/join_g" component={JoinG} exact={true} />
+      <Route path="/sell_list" component={SellList} exact={true} />
+      <Route path="/sell_item" component={SellItem} exact={true} />
 
       <Footer />
     </>

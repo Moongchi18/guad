@@ -1,6 +1,6 @@
-import "../source/Sell_Item.css";
+import "../source/SellItem.css";
 
-function Sell_Item() {
+function SellItem() {
   return (
     <>
       <div className="item_top">
@@ -77,4 +77,4 @@ function Sell_Item() {
     </>
   );
 }
-export default Sell_Item;
+export default SellItem;

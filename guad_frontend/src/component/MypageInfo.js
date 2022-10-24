@@ -7,15 +7,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function MypageInfo() {
-  const [sellList, setSellList] = useState("");
-  const [buyList, setBuyList] = useState("");
+
 
   useEffect(() => {
     axios
       .post("http://localhost:8080/api/mypage", {})
       .then((response) => {
-        setSellList();
-        setBuyList();
+    
       })
       .catch((error) => {});
   }, []);
