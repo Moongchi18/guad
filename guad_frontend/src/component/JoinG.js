@@ -1,7 +1,7 @@
 import Moodal from "./Moodal";
 import "../source/Join.css";
 
-function Join_g() {
+function JoinG() {
   return (
     <>
       <Moodal />
@@ -41,4 +41,4 @@ function Join_g() {
     </>
   );
 }
-export default Join_g;
+export default JoinG;

@@ -34,6 +34,16 @@
   font-family: "SBAggroB";
   font-weight: 300;
   margin-right: 20px;
+  cursor: pointer;
+}
+.sell_top ul li button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease-in;
+}
+.sell_top ul li button:focus {
+  background-color: #098060;
+  color: white;
 }
 
 .sell_bot {
@@ -42,16 +52,24 @@
 .item_info {
   display: inline-block;
   margin-right: 69px;
+  margin-bottom: 117px;
 }
 li.item_info:nth-child(4n) {
   margin-right: 0px;
 }
 
-.item_info img {
+.item_info .item_bb {
   width: 230px;
   height: 230px;
+  position: relative;
 }
-.item_info > span {
+
+.item_bb .del_icon {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.item_info > a > span {
   display: block;
 }
 .tex1 {
@@ -80,7 +98,7 @@ li.item_info:nth-child(4n) {
   font-family: "Nanumsquare";
   font-size: 20px;
   font-weight: bold;
-  margin: 170px auto 100px;
+  margin: 55px auto 100px;
   display: block;
   width: 120px;
   text-align: center;

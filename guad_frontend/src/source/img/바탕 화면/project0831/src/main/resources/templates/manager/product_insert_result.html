@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>신규 등록 결과</title>
+<script th:inline="javascript">
+	var updateResult = "[[${insertResult}]]";
+
+	if (updateResult > 0) {
+		alert('[[${productNum}]]' + "번째 제품 등록완료");
+		location.href = "productRegistForm";
+	} else {
+		alert("업데이트 실패!");
+		location.href = "productInsertForm";
+	}
+</script>
+</head>
+<body>
+
+</body>
+</html>
