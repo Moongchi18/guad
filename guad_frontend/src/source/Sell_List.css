@@ -34,6 +34,16 @@
   font-family: "SBAggroB";
   font-weight: 300;
   margin-right: 20px;
+  cursor: pointer;
+}
+.sell_top ul li button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease-in;
+}
+.sell_top ul li button:focus {
+  background-color: #098060;
+  color: white;
 }
 
 .sell_bot {

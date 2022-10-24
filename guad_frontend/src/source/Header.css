@@ -21,6 +21,10 @@ header {
   margin-top: 60px;
   cursor: pointer;
 }
+.search_b:hover {
+  width: 300px;
+  border-radius: 20px;
+}
 .search_b img {
   display: block;
   padding: 13px;

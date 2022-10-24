@@ -1,5 +1,5 @@
 .caro_b {
-  background-color: #009D78;
+  background-color: #009d78;
   width: 100%;
   height: 500px;
   display: flex;
@@ -13,13 +13,15 @@
 .caro_L {
   display: inline-block;
   vertical-align: top;
-  margin-left:-100px;
+  margin-left: -100px;
 }
 .caro_R {
   display: inline-block;
-  padding-left: 350px;
+  margin-left: 230px;
 }
 .caro_R ul {
+  padding-left: 70px;
+  border-left: 2px solid #fff;
   height: 100%;
 }
 .caro_R ul li {
