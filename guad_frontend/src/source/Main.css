@@ -53,9 +53,11 @@
 
 .cont2_R ul li:nth-child(4) {
   background-color: white;
+  box-sizing: border-box;
+  padding: 10px;
   font-size: 25px;
   font-weight: 300;
-  background: url(../source/img/arrow.png) no-repeat 100% 55px;
+  background: url(../source/img/arrow.png) no-repeat 95% 70px;
 }
 .cont2_R ul li:nth-child(3) {
   margin-right: 0px;
@@ -69,7 +71,7 @@
 .cont3 {
   width: 1130px;
   margin: 140px auto 140px;
-  border-top: 1px solid #000;
+  border-top: 1px solid #d4d4d4;
 }
 .cont3 h2 {
   font-family: "SBAggroB";
@@ -81,7 +83,9 @@
   width: 200px;
   height: 200px;
   display: inline-block;
-  border: 1px solid #000;
   margin: 0 10px;
   cursor: pointer;
+}
+.cont3 ul li img {
+  width: 100%;
 }

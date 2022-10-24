@@ -21,7 +21,7 @@ function Header() {
             </li>
           </ul>
           <input type="text" className="search_b" />
-            <img src={search} alt="검색창" />
+          <img src={search} alt="검색창" className="search_icon" />
         </header>
       </div>
     </>
