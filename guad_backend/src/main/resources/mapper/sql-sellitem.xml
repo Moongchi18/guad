@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="auction.guad.mapper.SellItemMapper">
-
+	
+	<select id="selectSellItemList" resultType="auction.guad.dto.SellItemDto">
+		
+	</select>
+	
+	<insert id="insertSellItem" parameterType="auction.guad.dto.SellItemDto">
+		
+		
+	</insert>
+	
+	<select id="selectSellItemDetail" parameterType="int" resultType="auction.guad.dto.SellItemDto">
+		
+	</select>
+	
+	<update id="updateSellItem" parameterType="auction.guad.dto.SellItemDto">
+		
+	</update>
+	
+	<delete id="deleteSellItem" parameterType="int">
+		
+	</delete>
+	
 
 </mapper>

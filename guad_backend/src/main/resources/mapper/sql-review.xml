@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="auction.guad.mapper.ReviewMapper">
-
+	
+	<select id="selectReviewList" resultType="auction.guad.dto.ReviewDto">
+		
+	</select>
+	
+	<insert id="insertReview" parameterType="auction.guad.dto.ReviewDto">
+		
+		
+	</insert>
+	
+	<select id="selectReviewDetail" parameterType="int" resultType="auction.guad.dto.ReviewDto">
+		
+	</select>
+	
+	<update id="updateReview" parameterType="auction.guad.dto.ReviewDto">
+		
+	</update>
+	
+	<delete id="deleteReview" parameterType="int">
+		
+	</delete>
+	
 
 </mapper>
