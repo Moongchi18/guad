@@ -109,8 +109,10 @@
   width: 292px;
   display: inline-block;
 }
+
 .input_set ul li.gen_in label {
   padding-top: 15px;
+  display: inline-block;
 }
 
 .input_set .man_b {
