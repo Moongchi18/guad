@@ -15,7 +15,9 @@ function Header() {
             <li>
               <Link to="/sell_List">판매목록</Link>
             </li>
-            <li>상품등록</li>
+            <li>
+              <Link to="selling">상품등록</Link>
+            </li>
             <li>
               <Link to="/login">로그인</Link>
             </li>

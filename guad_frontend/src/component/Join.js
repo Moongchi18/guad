@@ -1,8 +1,10 @@
 import style from "../source/Join.module.css";
+import Moodal from "./Moodal";
 
 function Join() {
   return (
     <>
+      <Moodal />
       <div className={style.join_all}>
         <h2>오르내림 회원가입을 환영합니다!</h2>
         <h3>개인 정보 입력</h3>
@@ -41,7 +43,7 @@ function Join() {
             </li>
             <li className={style.gen_in}>
               <label>성별</label>
-              <button className="man_b">남성</button>
+              <button className={style.man_b}>남성</button>
               <button>여성</button>
             </li>
             <li className={style.add_in}>
