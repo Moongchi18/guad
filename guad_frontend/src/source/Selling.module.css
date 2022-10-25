@@ -1,0 +1,30 @@
+.all_box {
+  width: 1130px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "SBAggroB";
+}
+.all_box h2 {
+  display: block;
+  margin: 120px 0 0;
+  padding-bottom: 10px;
+  font-size: 30px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.in_box {
+  width: 620px;
+  margin: 0 auto;
+}
+.in_box > ul > li > label {
+  display: block;
+  text-align: left;
+  font-size: 20px;
+}
+.in_box > ul > li:nth-child(1) button {
+  width: 200px;
+  height: 50px;
+  border-radius: 5px;
+}
+.in_box > ul > li:nth-child(1) button:nth-child(2) {
+}
