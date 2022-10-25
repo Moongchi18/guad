@@ -1,11 +1,11 @@
-import "../source/Footer.css";
+import style from "../source/Footer.module.css";
 import logo from "../source/img/f_logo.png";
 
 function Footer() {
   return (
     <>
       <footer>
-        <div className="foot_top">
+        <div className={style.foot_top}>
           <img src={logo} alt="푸터로고" />
           <ul>
             <li>
@@ -22,7 +22,7 @@ function Footer() {
             </li>
           </ul>
         </div>
-        <div className="foot_bot">
+        <div className={style.foot_bot}>
           <p>오르내림 주식회사 · 대표 김코딩 사업자등록번호 :123-1234-1234 </p>
           <p>사업자정보확인통신판매업 : 제 2022-자바코딩-1011호</p>
           <address>

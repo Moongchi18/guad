@@ -18,6 +18,7 @@ import JoinG from "./component/JoinG";
 import SellList from "./component/SellList";
 import axios from "axios";
 import SellItem from "./component/SellItem";
+import Moodal from "./component/Moodal";
 
 function App() {
   axios.interceptors.request.use(function (config) {
@@ -50,6 +51,7 @@ function App() {
       <Route path="/join_g" component={JoinG} exact={true} />
       <Route path="/sell_list" component={SellList} exact={true} />
       <Route path="/sell_item" component={SellItem} exact={true} />
+      <Route path="/modal" component={Moodal} exact={true} />
 
       <Footer />
     </>
