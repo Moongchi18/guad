@@ -7,14 +7,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Manager() {
-
-
   useEffect(() => {
     axios
       .post("http://localhost:8080/api/mypage", {})
-      .then((response) => {
-   
-      })
+      .then((response) => {})
       .catch((error) => {});
   }, []);
 
@@ -59,16 +55,15 @@ function Manager() {
         </div>
 
         <div className={style.notify}>
-           <div className={style.notify_list}>
-              <img src={sell_1}></img>
-              <h3>셀린느 폴코 트리오페...</h3>
-            </div>
+          <div className={style.notify_list}>
+            <img src={sell_1}></img>
+            <h3>셀린느 폴코 트리오페...</h3>
+          </div>
 
-            <div className={style.notify_list}>
-              <img src={sell_2}></img>
-              <h3>셀린느 폴코 트리오페...</h3>
-            </div>
-      
+          <div className={style.notify_list}>
+            <img src={sell_2}></img>
+            <h3>셀린느 폴코 트리오페...</h3>
+          </div>
         </div>
       </div>
     </>

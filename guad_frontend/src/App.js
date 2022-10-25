@@ -18,7 +18,10 @@ import JoinG from "./component/JoinG";
 import SellList from "./component/SellList";
 import axios from "axios";
 import SellItem from "./component/SellItem";
+
+import ManagerMember from "./component/ManagerMember";
 import Selling from "./component/Selling";
+
 
 function App() {
   axios.interceptors.request.use(function (config) {
@@ -44,8 +47,9 @@ function App() {
       <Route path="/" component={Main} exact={true} />
 
       <Route path="/mypage" component={Mypage} exact={true} />
-      <Route path="/mypage_info" component={MypageInfo} exact={true} />
+      <Route path="/mypage/info" component={MypageInfo} exact={true} />
       <Route path="/manager" component={Manager} exact={true} />
+      <Route path="/manager/member" component={ManagerMember} exact={true} />
 
       <Route path="/join" component={Join} exact={true} />
       <Route path="/join_g" component={JoinG} exact={true} />
