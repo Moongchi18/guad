@@ -1,10 +1,8 @@
-import Moodal from "./Moodal";
 import style from "../source/Join.module.css";
 
 function Join() {
   return (
     <>
-      <Moodal />
       <div className={style.join_all}>
         <h2>오르내림 회원가입을 환영합니다!</h2>
         <h3>개인 정보 입력</h3>

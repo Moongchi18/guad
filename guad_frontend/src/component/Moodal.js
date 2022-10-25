@@ -1,39 +1,51 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import React from "react";
+import "../source/Moodal.css";
 
 function Moodal() {
-  const [show, setShow] = useState(false);
+  window.onload = function () {
+    const modal = document.querySelector("#my-modal");
+    const modalBtn = document.querySelector("#modal-btn");
+    const closeBtn = document.querySelector(".close");
+
+    modalBtn.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+    window.addEventListener("click", outsideClick);
+
+    function openModal() {
+      modal.style.display = "block";
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    function outsideClick(e) {
+      if (e.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  };
 
   return (
     <>
-      <Button variant="primary" onClick={() => setShow(true)}>
-        Custom Width Modal
-      </Button>
+      <button id="modal-btn" className="button">
+        Click Here
+      </button>
 
-      <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        dialogClassName="modal-90w"
-        aria-labelledby="example-custom-modal-styling-title"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Custom Modal Styling
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>
-            Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-            commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-            ipsam atque a dolores quisquam quisquam adipisci possimus
-            laboriosam. Quibusdam facilis doloribus debitis! Sit quasi quod
-            accusamus eos quod. Ab quos consequuntur eaque quo rem! Mollitia
-            reiciendis porro quo magni incidunt dolore amet atque facilis ipsum
-            deleniti rem!
-          </p>
-        </Modal.Body>
-      </Modal>
+      <div id="my-modal" className="modal">
+        <div className="modal-content">
+          <div className="modal-header">
+            <span className="close">&times;</span>
+            <h2>Modal Header</h2>
+          </div>
+          <div className="modal-body">
+            <p>여기는 내용입니다.</p>
+          </div>
+          <div className="modal-footer">
+            <h3>Modal Footer</h3>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
