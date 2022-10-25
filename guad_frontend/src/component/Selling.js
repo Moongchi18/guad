@@ -10,12 +10,12 @@ function Selling() {
             <li>
               <label>거래종류</label>
               <button type="button">오름 경매</button>
-              <button type="button">내림 경매</button>
+              <button type="button" className={style.mid}>내림 경매</button>
               <button type="button">일반 판매</button>
             </li>
             <li>
               <label>카테고리</label>
-              <select>
+              <select className={style.select_one}>
                 <option value="대분류">대분류</option>
               </select>
               <select>
@@ -45,12 +45,12 @@ function Selling() {
               <p>필수로 1장 이상의 사진을 등록해야 합니다.</p>
               <div>
                 <img src={require("../source/img/pic.png")} alt="사진1" />
-                <img src={require("../source/img/pic.png")} alt="사진2" />
+                <img src={require("../source/img/pic.png")} alt="사진2" className={style.mid_imgg}/>
                 <img src={require("../source/img/pic.png")} alt="사진3" />
               </div>
             </li>
           </ul>
-          <button type="button">등록완료</button>
+          <button type="button" className={style.subBtn}>등록완료</button>
         </div>
       </div>
     </>
