@@ -21,7 +21,7 @@
   
   .Mbox {
     height: 150px; 
-    background-color: #7bb987;
+    background-color: #B14B54;
     border-radius: 10px;
     margin: 40px 0 40px 0;
     text-align: left;
@@ -49,6 +49,7 @@
   .mileage_box strong {
     font-weight: bold;
     color: #000000;
+    font-size: 30px;
   }
   
   .Mbox_button {
@@ -99,32 +100,44 @@
     cursor: pointer;
   }
   
-  .insert_list {
+  .join {
     text-align: left;
     padding-top: 30px;
     padding-bottom: 50px;
   }
-  .insert_list > div > img {
-    padding: 15px;
-  }
-  
-  .buy_list {
+
+  .insert_list {
     text-align: left;
-    padding: 15px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   }
-  
-  .buy_list_info {
+
+  .user_list {
+    text-align: center;
     display: inline-block;
-    vertical-align: top;
-    margin-left: 30px;
+    padding: 15px;
+    margin-right: 20px;
+    cursor: pointer;
   }
-  
-  .buy_list > div {
+
+  .notify {
+    text-align: left;
+    padding: 15px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   }
   
-  .buy_list_info h3 {
+  .notify_list{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .notify_list h3 {
     padding-top: 12px;
+    color: #545454;
+    font-size: 13px;
   }
   
   .no_sell_info {
@@ -168,6 +181,7 @@
     color: #ffffff;
     margin-bottom: 70px;
   }
+
   .no_buy_info > button > img {
     width: 20px;
     padding-right: 5px;
