@@ -39,25 +39,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.authorizeRequests()
-			.antMatchers("/admin/**").hasRole("y")
+			.antMatchers("/admin/member", "/").access("hasRole('y')")
 			.anyRequest().permitAll()
 			.and().addFilter(getAuthenticationFilter())
-			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class);
+			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
+			.cors();
 		
-		// http.authorizeRequests().antMatchers("/**").permitAll();
-		
-//		http.authorizeRequests()
-//			.antMatchers("/api/jpa/member/**").authenticated()
-//			.and().addFilter(getAuthenticationFilter()); 
-		
-		// 로그인 외의 모든 경로에 인증 요구
-		// 필터적용 순서 : jwtRequestFIlter -> AuthenticationFilter
-//		http.authorizeRequests()
-//			.antMatchers("/login").permitAll()
-//			.anyRequest().authenticated()
-//			.and().addFilter(getAuthenticationFilter())
-//			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
-//			.cors();
 	}													 				
 	
 	private AuthenticationFilter getAuthenticationFilter() throws Exception {
@@ -76,8 +63,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("**"));
-		// CORS요청은 OPTIONS방식으로 이루어짐. OPTIONS메소드를 허용해야 CORS도 허용할 수 있음
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "token"));
 		configuration.setAllowCredentials(true);

@@ -23,9 +23,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	// spring security에서는 다른 방식으로
 	@Override 
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-			.allowedOrigins("http://localhost:3000", "http://192.168.0.35:3000")
-			.allowedMethods("GET", "DELETE", "PUT", "POST", "OPTIONS");
+//		registry.addMapping("/**")
+//			.allowedOrigins("http://localhost:3000", "http://192.168.0.35:3000")
+//			.allowedMethods("GET", "DELETE", "PUT", "POST", "OPTIONS");
 	}
 	
 	

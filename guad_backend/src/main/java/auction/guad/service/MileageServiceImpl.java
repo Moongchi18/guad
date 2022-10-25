@@ -1,10 +1,12 @@
 package auction.guad.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import auction.guad.dto.MileageDto;
 import auction.guad.mapper.MileageMapper;
 
+@Service
 public class MileageServiceImpl implements MileageService{
 
 	

@@ -5,7 +5,7 @@ import GoogleLoginForm from "./GoogleLoginForm";
 import Header from "./component/Header";
 import Login from "./component/Login";
 import AuctionTest from "./auction/AuctionTest";
-import Auction from "./component/Auction";
+import Auction from "./auction/Auction";
 import Footer from "./component/Footer";
 import Main from "./component/Main";
 
