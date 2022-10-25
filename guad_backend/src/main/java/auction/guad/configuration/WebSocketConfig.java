@@ -35,9 +35,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 		// /pub로 시작하는 url로 데이터를 전송하면 해당 url을 구독하는 client 모두에게 데이터 전송
 		registry.enableSimpleBroker("/sub"); 
 		// 이 주소를 구독한 채널에 메세지를 전송할 수 있게 등록
+		registry.setUserDestinationPrefix("/sub");
         
-		registry.setUserDestinationPrefix("/SUB");
-
+		////////////// chatroom
+        registry.setApplicationDestinationPrefixes("/app");
+        registry.enableSimpleBroker("/chatroom","/user");
+        registry.setUserDestinationPrefix("/user");
 		/////////////////////////////////////////////
 		// enableSimpleBroker : /sub가 prefix로 붙은 destination의 클라이언트에게
 		// 메세지를 보낼 수 있도록 SimpleBroker를 등록한다

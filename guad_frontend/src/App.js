@@ -17,6 +17,7 @@ import JoinG from "./component/JoinG";
 import SellList from "./component/SellList";
 import axios from "axios";
 import SellItem from "./component/SellItem";
+import ChatRoom from "./auction/ChatRoom";
 
 function App() {
   axios.interceptors.request.use(function (config) {
@@ -36,6 +37,7 @@ function App() {
         component={AuctionTest}
         exact={true}
       />
+      <Route path="/chatroom" component={ChatRoom} exact={true} />
       <Route path="/auction" component={Auction} exact={true} />
       <Route path="/mypage" component={Mypage} exact={true} />
       <Route path="/footer" component={Footer} exact={true} />

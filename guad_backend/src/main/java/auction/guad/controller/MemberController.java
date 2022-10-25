@@ -27,7 +27,7 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
-//	회원가입
+	// 회원가입
 	@RequestMapping(value = "/member", method = RequestMethod.POST)
 	public ResponseEntity<String> insertMember(@RequestBody MemberDto member) throws Exception {
 		System.out.println("<<<<<<<<<<<<<<<<<<<<<<" +member);

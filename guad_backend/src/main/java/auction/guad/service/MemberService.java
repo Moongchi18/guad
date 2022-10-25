@@ -18,5 +18,7 @@ public interface MemberService extends UserDetailsService{
 	public void updateMemberByEmail(MemberDto memberDto) throws Exception;
 	public void deleteMemberByEmail(MemberDto memberDto) throws Exception;
 
+	public int repetitionEmailCheck(String email) throws Exception;
+	public int repetitionNicknameCheck(String nickname) throws Exception;
 
 }
