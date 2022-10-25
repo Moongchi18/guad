@@ -135,7 +135,23 @@
   background-color: #098060;
   color: #fff;
   transition: 0.3s all ease-in;
+}
+.bb_buy {
   cursor: pointer;
+  display: block;
+  width: 660px;
+  height: 60px;
+  background-color: #eee;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 25px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  line-height: 2.5;
+}
+.bb_buy:focus {
+  background-color: #098060;
+  color: #fff;
 }
 .bb_date {
   color: #8c8c8c;

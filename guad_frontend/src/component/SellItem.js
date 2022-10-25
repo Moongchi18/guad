@@ -38,7 +38,7 @@ function SellItem() {
             <span className="sell_number">450,000</span>
           </div>
           <div className="button_bb">
-            <span className="bb_buy">구매</span>
+            <button className="bb_buy">구매</button>
             <span className="bb_date">2022년 10월 31일까지</span>
           </div>
         </div>

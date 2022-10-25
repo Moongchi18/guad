@@ -5,7 +5,7 @@ import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
 
-function Login({history}) {
+function Login({ history }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,21 +20,22 @@ function Login({history}) {
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8080/login", { email: email, pass: password })
-        .then(response => {
-            if (response.status === 200 && response.data !== " ") {
-                sessionStorage.setItem("token", response.data);
-                history.push("/")
-            } else {
-                sessionStorage.clear();
-            }
-            // console.log(response.data)
-        })
-        .catch(error => {
-            console.log(error)
-            sessionStorage.clear();
-        })
-}
+    axios
+      .post("http://localhost:8080/login", { email: email, pass: password })
+      .then((response) => {
+        if (response.status === 200 && response.data !== " ") {
+          sessionStorage.setItem("token", response.data);
+          history.push("/");
+        } else {
+          sessionStorage.clear();
+        }
+        // console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+        sessionStorage.clear();
+      });
+  };
 
   return (
     <>
@@ -56,11 +57,18 @@ function Login({history}) {
             onChange={changePassword}
           />
           <span className="check_b">아이디저장</span>
-          <button className="login" onClick={handlerSubmit} type="button">
+          <button
+            className="login btn_bb"
+            onClick={handlerSubmit}
+            type="button"
+          >
             로그인
           </button>
+          <button className="g_join btn_bb">
+            <img src={require("../source/img/gg2.png")} alt="구글 로그인" />
+          </button>
           <Link to="/join">
-            <button className="join" type="button">
+            <button className="join btn_bb" type="button">
               회원가입
             </button>
           </Link>
