@@ -27,7 +27,7 @@ function MyPage() {
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
-              <img src={logo}></img>
+              <img src={logo} alt="1"></img>
             </div>
             <div className={style.mileage_box}>
               <h3>
@@ -51,14 +51,14 @@ function MyPage() {
             <h3>등록된 상품이 없습니다.</h3>
             <h3>내 상품을 간편하게 등록해보세요.</h3>
             <button>
-              <img src={plus}></img>
+              <img src={plus} alt="1"></img>
               <div>상품 등록하러 가기</div>
             </button>
           </div>
           {sellList && (
             <div>
-              <img src={sell_1}></img>
-              <img src={sell_2}></img>
+              <img src={sell_1} alt="1"></img>
+              <img src={sell_2} alt="1"></img>
             </div>
           )}
         </div>
@@ -73,7 +73,7 @@ function MyPage() {
 
           {buyList && (
             <div>
-              <img src={sell_1}></img>
+              <img src={sell_1} alt="1"></img>
               <div className={style.buy_list_info}>
                 <h3>날짜 : 2022년 10월 24일 </h3>
                 <h3>
@@ -84,7 +84,7 @@ function MyPage() {
                 <h3>주소 : 경기도 구리시 인창동 극동아파트 104동 804호</h3>
               </div>
 
-              <img src={sell_2}></img>
+              <img src={sell_2} alt="1"></img>
               <div className={style.buy_list_info}>
                 <h3>날짜 : 2022년 10월 24일 </h3>
                 <h3>
