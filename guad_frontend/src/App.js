@@ -37,10 +37,11 @@ function App() {
         exact={true}
       />
       <Route path="/auction" component={Auction} exact={true} />
-      <Route path="/mypage" component={Mypage} exact={true} />
+      
       <Route path="/footer" component={Footer} exact={true} />
       <Route path="/" component={Main} exact={true} />
 
+      <Route path="/mypage" component={Mypage} exact={true} />
       <Route path="/mypage_info" component={MypageInfo} exact={true} />
 
       <Route path="/join" component={Join} exact={true} />
