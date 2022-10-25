@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import "../source/Moodal.css";
+import style from "../source/Moodal.module.css";
 
 function Moodal() {
   window.onload = function () {
     const modal = document.querySelector("#my-modal");
-    const closeBtn1 = document.querySelector(".close");
-    const closeBtn2 = document.querySelector(".all_check_all");
+    const closeBtn1 = document.querySelector("#close");
+    const closeBtn2 = document.querySelector("#allcheckall");
 
     closeBtn1.addEventListener("click", closeModal);
     closeBtn2.addEventListener("click", closeModal);
@@ -24,16 +24,18 @@ function Moodal() {
   }, []);
   return (
     <>
-      <div id="my-modal" className="modal">
-        <div className="modal-content">
-          <div className="modal-header">
-            <span className="close">&times;</span>
+      <div id="my-modal" className={style.modal}>
+        <div className={style.modalcontent}>
+          <div className={style.modalheader}>
+            <span className={style.close} id="close">
+              &times;
+            </span>
             <h2>동의 약관 확인</h2>
           </div>
-          <div className="modal-body">
+          <div className={style.modalbody}>
             <ul>
               <li>
-                <button type="button" className="check_1">
+                <button type="button" className={style.check_1}>
                   전체동의<strong> &#40;선택항목 포함&#41;</strong>
                   <button type="button">
                     <img
@@ -44,7 +46,10 @@ function Moodal() {
                 </button>
               </li>
               <li>
-                <button type="button" className="check_2 check_9">
+                <button
+                  type="button"
+                  className={[style.check_2, style.check_9].join("")}
+                >
                   이용약관 동의 &#40;필수&#41;<strong> 보기</strong>
                   <button type="button">
                     <img
@@ -55,7 +60,10 @@ function Moodal() {
                 </button>
               </li>
               <li>
-                <button type="button" className="check_3 check_9">
+                <button
+                  type="button"
+                  className={[style.check_3, style.check_9].join("")}
+                >
                   개인정보 수집 및 이용동의 &#40;필수&#41;
                   <strong> 보기</strong>
                   <button type="button">
@@ -67,7 +75,10 @@ function Moodal() {
                 </button>
               </li>
               <li>
-                <button type="button" className="check_4 check_9">
+                <button
+                  type="button"
+                  className={[style.check_4, style.check_9].join("")}
+                >
                   마케팅정보 이용 동의 추가 &#40;선택&#41;<strong> 보기</strong>
                   <button type="button">
                     <img
@@ -79,8 +90,12 @@ function Moodal() {
               </li>
             </ul>
           </div>
-          <div className="modal-footer">
-            <button type="button" className="all_check_all">
+          <div className={style.modalfooter}>
+            <button
+              type="button"
+              className={style.allcheckall}
+              id="allcheckall"
+            >
               동의확인
             </button>
           </div>

@@ -28,7 +28,7 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-content {
+.modalcontent {
   margin: 10% auto;
   text-align: center;
   width: 650px;
@@ -39,21 +39,21 @@
   animation-duration: var(--modal-duration);
 }
 
-.modal-header {
+.modalheader {
   background: white;
   font-size: 30px;
   font-weight: 300;
 }
-.modal-header h2 {
+.modalheader h2 {
   text-align: start;
   padding: 70px 0 65px 50px;
 }
 
-.modal-body {
+.modalbody {
   padding: 10px 20px;
   background: #fff;
 }
-.modal-body > ul > li > button {
+.modalbody > ul > li > button {
   border: 1px solid #bfbfbf;
   width: 500px;
   height: 55px;
@@ -102,12 +102,12 @@
   width: 24px;
   height: 24px;
 }
-.modal-footer {
+.modalfooter {
   background: white;
   padding: 53px 10px 10px;
   text-align: center;
 }
-.modal-footer button {
+.modalfooter button {
   width: 150px;
   height: 40px;
   border: 1px solid #bfbfbf;
@@ -115,7 +115,7 @@
   font-weight: 300;
   background-color: white;
 }
-.modal-footer button:hover {
+.modalfooter button:hover {
   background-color: #ffb8b8;
   transition: 0.5s all ease;
   color: white;
