@@ -61,7 +61,8 @@
   margin-bottom: 10px;
 }
 .g_join:hover {
-  background-color: #e2e2e2;
+  background-color: #5a5a5a;
+  content: url(../source/img/gg1.png);
   border: none;
   transition: 0.4s all ease;
 }
