@@ -35,33 +35,44 @@
   font-family: "SBAggroB";
   font-weight: 300;
 }
-
-.login {
+.btn_bb {
+  display: block;
   width: 450px;
   height: 60px;
-  background: #098060;
+  margin: 0 auto;
   font-size: 16px;
-  color: #ffffff;
-  display: block;
-  margin: 0 auto 10px;
-  border: none;
   font-family: "SBAggroB";
   font-weight: 300;
   cursor: pointer;
 }
-
+.login {
+  background-color: #098060;
+  color: #ffffff;
+  margin: 0 auto 10px;
+  border: none;
+}
+.login:hover {
+  background-color: #0fa880;
+  transition: 0.3s all ease;
+}
+.g_join {
+  background-color: #ffffff;
+  border: 1px solid #a4a4a4;
+  margin-bottom: 10px;
+}
+.g_join:hover {
+  background-color: #5a5a5a;
+  content: url(../source/img/gg1.png);
+  border: none;
+  transition: 0.4s all ease;
+}
+.g_join img {
+  width: 30px;
+}
 .join {
-  margin: 0 auto;
-  display: block;
-  width: 450px;
-  height: 60px;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  font-size: 16px;
+  background-color: #ffffff;
+  border: 1px solid #a4a4a4;
   color: #000000;
-  font-family: "SBAggroB";
-  font-weight: 300;
-  cursor: pointer;
 }
 
 .logintext {

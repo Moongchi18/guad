@@ -88,43 +88,43 @@
 /*
 ** Apply common styles to each line of text
 */
-.Words-line {
+.Words_line {
   height: 50px;
   overflow: hidden;
   position: relative;
 }
-.Words-line:nth-child(odd) {
+.Words_line:nth-child(odd) {
   transform: skew(60deg, -30deg) scaleY(0.66667);
 }
-.Words-line:nth-child(even) {
+.Words_line:nth-child(even) {
   transform: skew(0deg, -30deg) scaleY(1.33333);
 }
-.Words-line:nth-child(1) {
+.Words_line:nth-child(1) {
   left: 29px;
 }
-.Words-line:nth-child(2) {
+.Words_line:nth-child(2) {
   left: 58px;
 }
-.Words-line:nth-child(3) {
+.Words_line:nth-child(3) {
   left: 87px;
 }
-.Words-line:nth-child(4) {
+.Words_line:nth-child(4) {
   left: 116px;
 }
-.Words-line:nth-child(5) {
+.Words_line:nth-child(5) {
   left: 145px;
 }
-.Words-line:nth-child(6) {
+.Words_line:nth-child(6) {
   left: 174px;
 }
-.Words-line:nth-child(7) {
+.Words_line:nth-child(7) {
   left: 203px;
 }
 
 /*
 ** Fine-grained text styles
 */
-.Words-line p {
+.Words_line p {
   height: 50px;
   line-height: 45px;
   padding: 0 10px;

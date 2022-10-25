@@ -1,22 +1,22 @@
 import CarouselB from "./CarouselB";
-import "../source/Main.css";
+import style from "../source/Main.module.css";
 
 function Main() {
   return (
     <>
       <CarouselB />
-      <div className="cont1"></div>
-      <div className="cont2">
+      <div className={style.cont1}></div>
+      <div className={style.cont2}>
         <h2>
           <img
             src={require("../source/img/cont2_text.png")}
             alt="이번주 인기 상품"
           />
         </h2>
-        <div className="cont2_L">
+        <div className={style.cont2_L}>
           <img src={require("../source/img/t6.jpg")} alt="메인상품" />
         </div>
-        <div className="cont2_R">
+        <div className={style.cont2_R}>
           <ul>
             <li>
               <img src={require("../source/img/t1.jpg")} alt="첫번째" />
@@ -41,7 +41,7 @@ function Main() {
           </ul>
         </div>
       </div>
-      <div className="cont3">
+      <div className={style.cont3}>
         <h2>최신 등록 상품</h2>
         <ul>
           <li>

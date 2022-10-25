@@ -1,0 +1,174 @@
+.All_Mbox {
+  width: 100%;
+  text-align: center;
+  font-family: "SBAggroB";
+  width: 1130px;
+  margin: 0 auto 50px;
+}
+
+.page_name {
+  text-align: left;
+  display: block;
+  padding-top: 105px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 40px;
+  font-family: "SBAggroB";
+  font-weight: 400;
+  line-height: 48px;
+  cursor: pointer;
+}
+
+.Mbox {
+  height: 150px; 
+  background-color: #7bb987;
+  border-radius: 10px;
+  margin: 40px 0 40px 0;
+  text-align: left;
+}
+
+.logo_box {
+  display: inline-block;
+  height: 90px;
+  width: 90px;
+  padding: 30px 20px 30px 30px;
+}
+
+.mileage_box {
+  margin-top: 50px;
+  vertical-align: top;
+  display: inline-block;
+  font-size: 20px;
+}
+.mileage_box h3 {
+  margin-bottom: 10px;
+  width: 720px;
+  color: #ffffff;
+}
+
+.mileage_box strong {
+  font-weight: bold;
+  color: #000000;
+}
+
+.Mbox_button {
+  vertical-align: top;
+  display: inline-block;
+}
+.Mbox_button button {
+  display: block;
+  width: 250px;
+  height: 40px;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  color: #8c8c8c;
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+
+.Mbox_button .member {
+  margin-top: 30px !important;
+  cursor: pointer;
+}
+
+.Mbox_button .mileage {
+  cursor: pointer;
+}
+
+
+.category h3 {
+  font-size: 20px;
+  text-align: left;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  padding-bottom: 10px;
+}
+
+.page_name {
+  text-align: left;
+  display: block;
+  padding-top: 105px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 40px;
+  font-family: "SBAggroB";
+  font-weight: 400;
+  line-height: 48px;
+  cursor: pointer;
+}
+
+.insert_list {
+  text-align: left;
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+.insert_list > div > img {
+  padding: 15px;
+}
+
+.buy_list {
+  text-align: left;
+  padding: 15px;
+}
+
+.buy_list_info {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 30px;
+}
+
+.buy_list > div {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.buy_list_info h3 {
+  padding-top: 12px;
+}
+
+.no_sell_info {
+  padding-top: 50px;
+  text-align: center;
+  color: #b1b1b1;
+}
+
+.no_sell_info > button {
+  margin-top: 15px;
+  background-color: #68a875;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  color: #ffffff;
+}
+
+.no_sell_info > button > img {
+  display: inline-block;
+  width: 20px;
+
+  padding-right: 5px;
+}
+
+.no_sell_info > button > div {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.no_buy_info {
+  padding-top: 50px;
+  text-align: center;
+  color: #b1b1b1;
+}
+.no_buy_info > button {
+  margin-top: 15px;
+  background-color: #68a875;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  color: #ffffff;
+  margin-bottom: 70px;
+}
+.no_buy_info > button > img {
+  width: 20px;
+  padding-right: 5px;
+}
