@@ -9,14 +9,21 @@ import Auction from "./auction/Auction";
 import Footer from "./component/Footer";
 import Main from "./component/Main";
 
-import MyPage from "./component/MyPage";
 import MypageInfo from "./component/MypageInfo";
+import Manager from "./component/Manager";
+import ManagerNotify from "./component/ManagerNotify";
 
 import Join from "./component/Join";
 import JoinG from "./component/JoinG";
 import SellList from "./component/SellList";
 import axios from "axios";
 import SellItem from "./component/SellItem";
+import ChatRoom from "./auction/ChatRoom";
+
+import ManagerMember from "./component/ManagerMember";
+import Selling from "./component/Selling";
+import M_Sample from "./component/M_Sample";
+import Mypage from "./component/Mypage";
 
 function App() {
   axios.interceptors.request.use(function (config) {
@@ -36,17 +43,23 @@ function App() {
         component={AuctionTest}
         exact={true}
       />
+      <Route path="/chatroom" component={ChatRoom} exact={true} />
       <Route path="/auction" component={Auction} exact={true} />
-      <Route path="/mypage" component={MyPage} exact={true} />
       <Route path="/footer" component={Footer} exact={true} />
       <Route path="/" component={Main} exact={true} />
 
-      <Route path="/mypage_info" component={MypageInfo} exact={true} />
+      <Route path="/mypage" component={Mypage} exact={true} />
+      <Route path="/mypage/info" component={MypageInfo} exact={true} />
+      <Route path="/manager" component={Manager} exact={true} />
+      <Route path="/manager/member" component={ManagerMember} exact={true} />
+      <Route path="/manager/notify" component={ManagerNotify} exact={true} />
 
       <Route path="/join" component={Join} exact={true} />
       <Route path="/join_g" component={JoinG} exact={true} />
       <Route path="/sell_list" component={SellList} exact={true} />
       <Route path="/sell_item" component={SellItem} exact={true} />
+      <Route path="/selling" component={Selling} exact={true} />
+      <Route path="/sample" component={M_Sample} exact={true} />
 
       <Footer />
     </>

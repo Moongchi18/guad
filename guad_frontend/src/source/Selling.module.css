@@ -1,0 +1,121 @@
+.all_box {
+  width: 1130px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "SBAggroB";
+}
+.all_box h2 {
+  display: block;
+  margin: 120px 0 66px;
+  padding-bottom: 10px;
+  font-size: 30px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.in_box {
+  width: 620px;
+  margin: 0 auto;
+}
+.in_box > ul > li > label {
+  display: block;
+  text-align: left;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.in_box > ul > li:nth-child(1) {
+  margin-bottom: 75px;
+}
+.in_box > ul > li:nth-child(1) button {
+  width: 200px;
+  height: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.mid {
+  margin: 0 10px;
+}
+.in_box > ul > li:nth-child(2) {
+  margin-bottom: 75px;
+}
+.in_box > ul > li:nth-child(2) select {
+  width: 305px;
+  height: 50px;
+  text-align: center;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+.select_one {
+  margin-right: 10px;
+}
+.in_box > ul > li:nth-child(3) {
+  margin-bottom: 75px;
+}
+.in_box > ul > li:nth-child(3) input {
+  width: 600px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  padding-left: 20px;
+}
+.in_box > ul > li:nth-child(4) {
+  margin-bottom: 75px;
+}
+.in_box > ul > li:nth-child(4) textarea {
+  width: 620px;
+  height: 153px;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: #f0f0f0;
+  resize: none;
+  border-radius: 5px;
+}
+.in_box > ul > li:nth-child(5) {
+  margin-bottom: 55px;
+}
+.in_box > ul > li:nth-child(5) input {
+  width: 600px;
+  height: 50px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding-left: 20px;
+}
+.in_box > ul > li:nth-child(6) {
+  margin-bottom: 55px;
+}
+.in_box > ul > li:nth-child(6) select {
+  display: block;
+  width: 620px;
+  height: 50px;
+  border-radius: 5px;
+  padding-left: 20px;
+  background: #f0f0f0;
+}
+.in_box > ul > li:nth-child(7) {
+  margin-bottom: 90px;
+}
+.in_box > ul > li:nth-child(7) p {
+  display: block;
+  font-size: 15px;
+  font-weight: 300;
+  display: block;
+  text-align: left;
+  color: #ff0000;
+  margin: 5px 0 5px;
+}
+.in_box > ul > li:nth-child(7) img {
+  width: 200px;
+  height: 200px;
+  border-radius: 5px;
+}
+.mid_imgg {
+  margin: 0 10px;
+}
+.subBtn {
+  width: 450px;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #098060;
+  font-size: 20px;
+  margin-bottom: 150px;
+  color: white;
+}

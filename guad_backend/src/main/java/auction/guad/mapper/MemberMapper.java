@@ -18,5 +18,8 @@ public interface MemberMapper {
 	MemberDto selectMemberDetailByEmail(String email) throws Exception;
 	void updateMemberByEmail(MemberDto memberDto) throws Exception;
 	void deleteMemberByEmail(MemberDto memberDto) throws Exception;
+	
+	int repetitionEmailCheck(String email) throws Exception;
+	int repetitionNicknameCheck(String nickname) throws Exception;
 
 }

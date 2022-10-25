@@ -26,14 +26,16 @@ header {
   background-image: url(../source/img/h_search.png);
   background-repeat: no-repeat;
   background-position: 12px center;
+  padding-left: 50px;
+  box-sizing: border-box;
 }
 .search_b:hover {
-  width: 300px;
+  width: 400px;
   border-radius: 30px;
   transition: 0.2s all ease;
 }
 .search_b:focus {
-  width: 300px;
+  width: 400px;
   border-radius: 30px;
   outline: none;
 }

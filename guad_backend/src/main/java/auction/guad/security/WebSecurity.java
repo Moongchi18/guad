@@ -37,9 +37,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	// 접근 권한과 관련한 설정
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		// csrf차단기능 : get제외한 http메서드 차단
+		// csrf차단 기능 해제 : jwt토큰을 사용하므로 csrf차단기능이 않음
 		http.csrf().disable();
 		http.authorizeRequests()
-			.antMatchers("/admin/member", "/").access("hasRole('y')")
+			.antMatchers("/admin/**").hasRole("y")
 			.anyRequest().permitAll()
 			.and().addFilter(getAuthenticationFilter())
 			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)

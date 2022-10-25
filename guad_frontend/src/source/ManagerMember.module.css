@@ -21,7 +21,7 @@
 
 .Mbox {
   height: 150px;
-  background-color: #7bb987;
+  background-color: #b14b54;
   border-radius: 10px;
   margin: 40px 0 40px 0;
   text-align: left;
@@ -49,6 +49,7 @@
 .mileage_box strong {
   font-weight: bold;
   color: #000000;
+  font-size: 30px;
 }
 
 .Mbox_button {
@@ -70,14 +71,37 @@
 
 .Mbox_button .member {
   margin-top: 30px !important;
+  cursor: pointer;
 }
 
-.category h3 {
-  font-size: 20px;
+.Mbox_button .mileage {
+  cursor: pointer;
+}
+
+.category {
   text-align: left;
-  display: block;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  padding-bottom: 10px;
+}
+
+.category .list {
+  font-size: 20px;
+  display: inline-block;
+  margin-left: 25px;
+  margin-right: 100px;
+}
+
+.category .name {
+  display: inline-block;
+  margin-right: 250px;
+}
+
+.category .id {
+  display: inline-block;
+  margin-right: 350px;
+}
+
+.category .address {
+  display: inline-block;
 }
 
 .page_name {
@@ -93,76 +117,48 @@
   cursor: pointer;
 }
 
-.insert_list {
+.user_detail {
   text-align: left;
-  padding-top: 30px;
-  padding-bottom: 50px;
-}
-.insert_list > div > img {
-  padding: 15px;
 }
 
-.buy_list {
-  text-align: left;
-  padding: 15px;
-}
-
-.buy_list_info {
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 30px;
-}
-
-.buy_list > div {
+.user_list {
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  height: 100px;
 }
 
-.buy_list_info h3 {
-  padding-top: 12px;
-}
-
-.no_sell_info {
-  padding-top: 50px;
-  text-align: center;
-  color: #b1b1b1;
-}
-
-.no_sell_info > button {
-  margin-top: 15px;
-  background-color: #68a875;
-  width: 200px;
-  height: 50px;
-  border-radius: 25px;
-  color: #ffffff;
-}
-
-.no_sell_info > button > img {
+.user_list .logo {
   display: inline-block;
-  width: 20px;
-
-  padding-right: 5px;
+  margin-left: 15px;
 }
 
-.no_sell_info > button > div {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.no_buy_info {
-  padding-top: 50px;
+.user_list .name {
   text-align: center;
-  color: #b1b1b1;
+  width: 220px;
+  height: 100px;
+  display: inline-block;
+  vertical-align: middle;
 }
-.no_buy_info > button {
-  margin-top: 15px;
-  background-color: #68a875;
-  width: 200px;
-  height: 50px;
-  border-radius: 25px;
-  color: #ffffff;
-  margin-bottom: 70px;
+
+.user_list .id {
+  text-align: center;
+  width: 400px;
+  height: 100px;
+  display: inline-block;
+  vertical-align: middle;
 }
-.no_buy_info > button > img {
-  width: 20px;
-  padding-right: 5px;
+
+.user_list .address {
+  text-align: center;
+  width: 390px;
+  height: 100px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.user_list > div > h3 {
+  overflow: hidden;
+  
 }

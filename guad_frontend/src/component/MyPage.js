@@ -1,4 +1,4 @@
-import "../source/MyPage.css";
+import style from "../source/Mypage.module.css";
 import logo from "../source/img/mypage.png";
 import sell_1 from "../source/img/selling_item_ex1.png";
 import sell_2 from "../source/img/selling_item_ex2.png";
@@ -22,14 +22,14 @@ function MyPage() {
 
   return (
     <>
-      <div className="All_Mbox">
-        <h1 className="page_name">마이페이지</h1>
+      <div className={style.All_Mbox}>
+        <h1 className={style.page_name}>마이페이지</h1>
         <div>
-          <div className="Mbox">
-            <div className="logo_box">
+          <div className={style.Mbox}>
+            <div className={style.logo_box}>
               <img src={logo}></img>
             </div>
-            <div className="mileage_box">
+            <div className={style.mileage_box}>
               <h3>
                 <strong>시흥 기린</strong>님 환영합니다!
               </h3>
@@ -37,17 +37,17 @@ function MyPage() {
                 현재마일리지 <strong>1,000,000</strong>원
               </h3>
             </div>
-            <div className="Mbox_button">
-              <button className="member">회원정보</button>
-              <button>마일리지</button>
+            <div className={style.Mbox_button}>
+              <button className={style.member}>회원정보</button>
+              <button className={style.mileage}>마일리지</button>
             </div>
           </div>
         </div>
-        <div className="category">
+        <div className={style.category}>
           <h3>등록 상품 내역</h3>
         </div>
-        <div className="insert_list">
-          <div className="no_sell_info">
+        <div className={style.insert_list}>
+          <div className={style.no_sell_info}>
             <h3>등록된 상품이 없습니다.</h3>
             <h3>내 상품을 간편하게 등록해보세요.</h3>
             <button>
@@ -62,19 +62,19 @@ function MyPage() {
             </div>
           )}
         </div>
-        <div className="category">
+        <div className={style.category}>
           <h3>상품 구매 내역</h3>
         </div>
 
-        <div className="buy_list">
-          <div className="no_buy_info">
+        <div className={style.buy_list}>
+          <div className={style.no_buy_info}>
             <button>상품 구매하러 가기</button>
           </div>
 
           {buyList && (
             <div>
               <img src={sell_1}></img>
-              <div className="buy_list_info">
+              <div className={style.buy_list_info}>
                 <h3>날짜 : 2022년 10월 24일 </h3>
                 <h3>
                   상품명 : 꾸찌아니하지 않지만 그래도 그러하지 않기에 그러한
@@ -85,7 +85,7 @@ function MyPage() {
               </div>
 
               <img src={sell_2}></img>
-              <div className="buy_list_info">
+              <div className={style.buy_list_info}>
                 <h3>날짜 : 2022년 10월 24일 </h3>
                 <h3>
                   상품명 : 꾸찌아니하지 않지만 그래도 그러하지 않기에 그러한

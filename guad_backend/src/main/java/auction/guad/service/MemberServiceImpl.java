@@ -32,20 +32,10 @@ public class MemberServiceImpl implements MemberService {
 		MemberDto member = memberMapper.loginContainPass(username);
 		System.out.println("<<<<<<<<<<<<<<<<<<<<<<loadUserByUsername" + member);
 
-		Collection<GrantedAuthority> collect = new ArrayList<>();
-		collect.add(new GrantedAuthority() {
-			@Override
-			public String getAuthority() {
-				
-				return member.getManagerYn();
-			}
-		});
-	
-		
 		if (member == null) {
 			throw new UsernameNotFoundException(username);
 		}
-		return new User(member.getEmail(), member.getPass(), true, true, true, true, collect);
+		return new User(member.getEmail(), member.getPass(), true, true, true, true, new PrincipalDetails(member).getAuthorities());
 	}
 
 	@Override
@@ -88,6 +78,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDto loginContainPass(String email) {
 		return memberMapper.loginContainPass(email);
+	}
+
+	@Override
+	public int repetitionEmailCheck(String email) throws Exception {
+		return memberMapper.repetitionEmailCheck(email);
+	}
+
+	@Override
+	public int repetitionNicknameCheck(String nickname) throws Exception {
+		return 0;
 	}
 
 }

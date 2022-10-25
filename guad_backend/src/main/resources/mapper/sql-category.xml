@@ -3,5 +3,18 @@
 
 <mapper namespace="auction.guad.mapper.CategoryMapper">
 
+	<select id="selectAllCategory" resultType="auction.guad.dto.CategoryDto">
+		SELECT * FROM category
+	</select>
+	
+	<select id="selectItemType" resultType="auction.guad.dto.CategoryDto">
+		SELECT * FROM CATEGORY
+		WHERE ITEM_TYPE=#{itemType}
+	</select>
+	
+	<select id="selectItemDType" resultType="auction.guad.dto.CategoryDto">
+		SELECT * FROM CATEGORY
+		WHERE ITEM_D_TYPE=#{itemDType}
+	</select>
 
 </mapper>
