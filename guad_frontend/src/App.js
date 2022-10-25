@@ -11,6 +11,7 @@ import Main from "./component/Main";
 
 import Mypage from "./component/Mypage";
 import MypageInfo from "./component/MypageInfo";
+import Manager from "./component/Manager";
 
 import Join from "./component/Join";
 import JoinG from "./component/JoinG";
@@ -38,11 +39,13 @@ function App() {
         exact={true}
       />
       <Route path="/auction" component={Auction} exact={true} />
-      <Route path="/mypage" component={Mypage} exact={true} />
+      
       <Route path="/footer" component={Footer} exact={true} />
       <Route path="/" component={Main} exact={true} />
 
+      <Route path="/mypage" component={Mypage} exact={true} />
       <Route path="/mypage_info" component={MypageInfo} exact={true} />
+      <Route path="/manager" component={Manager} exact={true} />
 
       <Route path="/join" component={Join} exact={true} />
       <Route path="/join_g" component={JoinG} exact={true} />
