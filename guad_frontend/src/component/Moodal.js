@@ -18,7 +18,6 @@ function Moodal() {
   useEffect(() => {
     (function openModal() {
       const modal = document.querySelector("#my-modal");
-
       modal.style.display = "block";
     })();
   }, []);
@@ -37,12 +36,12 @@ function Moodal() {
               <li>
                 <button type="button" className={style.check_1}>
                   전체동의<strong> &#40;선택항목 포함&#41;</strong>
-                  <button type="button">
+                  <span type="button">
                     <img
                       src={require("../source/img/check00.png")}
                       alt="체크"
                     />
-                  </button>
+                  </span>
                 </button>
               </li>
               <li>
@@ -51,12 +50,12 @@ function Moodal() {
                   className={[style.check_2, style.check_9].join("")}
                 >
                   이용약관 동의 &#40;필수&#41;<strong> 보기</strong>
-                  <button type="button">
+                  <span type="button">
                     <img
                       src={require("../source/img/check00.png")}
                       alt="체크"
                     />
-                  </button>
+                  </span>
                 </button>
               </li>
               <li>
@@ -66,12 +65,12 @@ function Moodal() {
                 >
                   개인정보 수집 및 이용동의 &#40;필수&#41;
                   <strong> 보기</strong>
-                  <button type="button">
+                  <span type="button">
                     <img
                       src={require("../source/img/check00.png")}
                       alt="체크"
                     />
-                  </button>
+                  </span>
                 </button>
               </li>
               <li>
@@ -80,12 +79,12 @@ function Moodal() {
                   className={[style.check_4, style.check_9].join("")}
                 >
                   마케팅정보 이용 동의 추가 &#40;선택&#41;<strong> 보기</strong>
-                  <button type="button">
+                  <span type="button">
                     <img
                       src={require("../source/img/check00.png")}
                       alt="체크"
                     />
-                  </button>
+                  </span>
                 </button>
               </li>
             </ul>

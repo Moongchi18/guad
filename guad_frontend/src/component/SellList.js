@@ -4,7 +4,7 @@ import style from "../source/SellList.module.css";
 function Sell_List() {
   return (
     <>
-      <div class={style.sell_all}>
+      <div className={style.sell_all}>
         <div className={style.sell_top}>
           <h2>
             전체상품 <span>53</span>개
