@@ -1,4 +1,4 @@
-.All_Mbox {
+.All_Mboxi {
   width: 100%;
   text-align: center;
   font-family: "SBAggroB";
@@ -7,7 +7,7 @@
   font-size: 15px;
 }
 
-.page_name {
+.page_namei {
   text-align: left;
   display: block;
   padding-top: 105px;
@@ -20,7 +20,7 @@
   cursor: pointer;
 }
 
-.Mbox {
+.Mboxi {
   height: 150px;
   background-color: #7bb987;
   border-radius: 10px;
@@ -28,35 +28,35 @@
   text-align: left;
 }
 
-.logo_box {
+.logo_boxi {
   display: inline-block;
   height: 90px;
   width: 90px;
   padding: 30px 20px 30px 30px;
 }
 
-.mileage_box {
+.mileage_boxi {
   margin-top: 50px;
   vertical-align: top;
   display: inline-block;
   font-size: 20px;
 }
-.mileage_box h3 {
+.mileage_boxi h3 {
   margin-bottom: 10px;
   width: 720px;
   color: #ffffff;
 }
 
-.mileage_box strong {
+.mileage_boxi strong {
   font-weight: bold;
   color: #000000;
 }
 
-.Mbox_button {
+.Mbox_buttoni {
   vertical-align: top;
   display: inline-block;
 }
-.Mbox_button button {
+.Mbox_buttoni button {
   display: block;
   width: 250px;
   height: 40px;
@@ -69,7 +69,7 @@
   margin-bottom: 5px;
 }
 
-.Mbox_button .member2 {
+.Mbox_buttoni .memberi {
   margin-top: 30px;
   background-color: #00460E;
   border: 1px solid #00460E;
@@ -77,11 +77,11 @@
   cursor: pointer;
 }
 
-.Mbox_button .mileage {
+.Mbox_buttoni .mileage {
   cursor: pointer;
 }
 
-.category h3 {
+.categoryi h3 {
   font-size: 25px;
   text-align: left;
   display: block;
@@ -89,31 +89,31 @@
   padding-bottom: 10px;
 }
 
-.member_info {
+.member_infoi {
   text-align: left;
   display: inline-block;
   width: 570px;
 }
 
-.fix {
+.fixi {
   width: 100px !important;
   padding-top: 30px;
 }
 
-.member_info > div > h3 {
+.member_infoi > div > h3 {
   text-align: left;
   display: inline-block;
   width: 400px;
 
 }
 
-.member_info > h3 {
+.member_infoi > h3 {
   text-align: left;
   display: inline-block;
   width: 100px;
 }
 
-.member_info > input {
+.member_infoi > input {
   text-align: left;
   display: inline-block;
   background-color: #F0F0F0;
@@ -122,7 +122,7 @@
   margin-top: 10px;
 }
 
-.member_info > div > input {
+.member_infoi > div > input {
   text-align: left;
   display: inline-block;
   background-color: #F0F0F0;
@@ -131,7 +131,7 @@
   margin-top: 30px;
 }
 
-.search {
+.searchi {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   width: 120px;
@@ -140,11 +140,11 @@
   cursor: pointer;
 }
 
-.address {
+.addressi {
   width: 100px !important;
 }
 
-.update {
+.updatei {
   text-align: center;
   display: block;
   margin: 70px auto;
