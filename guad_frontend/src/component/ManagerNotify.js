@@ -1,1 +1,11 @@
-알리다notify
+
+
+function ManagerNotify() {
+    return (
+        <>
+        
+        </>
+    );
+}
+
+export default ManagerNotify;
