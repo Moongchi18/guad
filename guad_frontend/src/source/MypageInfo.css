@@ -92,20 +92,21 @@
 
 .fix {
   width: 100px !important;
+  padding-top: 30px;
 }
 
 .member_info > div > h3 {
   text-align: left;
   display: inline-block;
   width: 400px;
-  padding-top: 20px;
+
 }
 
 .member_info > h3 {
   text-align: left;
   display: inline-block;
   width: 100px;
-  padding-top: 20px;
+
 }
 
 .member_info > input {
@@ -114,6 +115,7 @@
   background-color: #F0F0F0;
   width: 450px;
   height: 40px;
+  margin-top: 10px;
 }
 
 .member_info > div > input {
@@ -122,8 +124,21 @@
   background-color: #F0F0F0;
   width: 320px;
   height: 40px;
+  margin-top: 30px;
+}
+
+.search {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  width: 120px;
+  height: 40px;
+  margin-left: 10px;
 }
 
 .address {
   width: 100px !important;
+}
+
+.update {
+  
 }
