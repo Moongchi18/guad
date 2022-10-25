@@ -3,6 +3,33 @@ import logo from "../source/img/mypage.png";
 import sell_1 from "../source/img/selling_item_ex1.png";
 import sell_2 from "../source/img/selling_item_ex2.png";
 
+function M_Sample() {
+  window.onload = function () {
+    const modal = document.querySelector("#");
+    const closeBtn1 = document.querySelector("#");
+    const closeBtn2 = document.querySelector("#");
+    const openBtn1 = document.querySelector("#");
+
+    closeBtn1.addEventListener("click", closeModal);
+    closeBtn2.addEventListener("click", closeModal);
+
+    openBtn1.addEventListener("click", openModal);
+
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+  
+    function openModal() {
+      modal.style.display = "block";
+    }
+
+  };
+}
+
+
+
+
 function ManagerNotify() {
   return (
     <>
