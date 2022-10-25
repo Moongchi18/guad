@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import "../source/SellList.css";
+import style from "../source/SellList.module.css";
 
 function Sell_List() {
   return (
     <>
-      <div class="sell_all">
-        <div className="sell_top">
+      <div class={style.sell_all}>
+        <div className={style.sell_top}>
           <h2>
             전체상품 <span>53</span>개
           </h2>
@@ -27,27 +27,29 @@ function Sell_List() {
             </li>
           </ul>
         </div>
-        <div className="sell_bot">
+        <div className={style.sell_bot}>
           <ul>
-            <li className="item_info">
+            <li className={style.item_info}>
               <Link to="/sell_item">
-                <div className="item_bb">
+                <div className={style.item_bb}>
                   <img src={require("../source/img/item01.png")} alt="제품1" />
                   <img
                     src={require("../source/img/del1.png")}
                     alt="오름경매"
-                    className="del_icon"
+                    className={style.del_icon}
                   />
                 </div>
-                <span className="tex1">의류/가방</span>
-                <span className="tex2">디올 오피디아 스몰 패턴 도트백 </span>
-                <span className="tex3">
+                <span className={style.tex1}>의류/가방</span>
+                <span className={style.tex2}>
+                  디올 오피디아 스몰 패턴 도트백{" "}
+                </span>
+                <span className={style.tex3}>
                   경매시작가<strong>450,000</strong>
                 </span>
               </Link>
             </li>
           </ul>
-          <span className="count_p">
+          <span className={style.count_p}>
             <ul>
               <li>
                 <button>1</button>

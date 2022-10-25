@@ -1,45 +1,43 @@
-import "../source/Carousel.css";
-import $ from "jquery";
+import style from "../source/Carousel.module.css";
 
 function CarouselB() {
-  
   return (
     <>
-      <div className="caro_b">
-        <div className="caro_in">
-          <div className="caro_L">
-            <ul class="Words">
-              <li class="Words-line">
+      <div className={style.caro_b}>
+        <div className={style.caro_in}>
+          <div className={style.caro_L}>
+            <ul class={style.Words}>
+              <li class={style.Words_line}>
                 <p>&nbsp;</p>
                 <p>MONEY</p>
               </li>
-              <li class="Words-line">
+              <li class={style.Words_line}>
                 <p>MONEY</p>
                 <p>DEAL AUCTION</p>
               </li>
-              <li class="Words-line">
+              <li class={style.Words_line}>
                 <p>DEAL AUCTION</p>
                 <p>SUCCESSFUL BID</p>
               </li>
-              <li class="Words-line">
+              <li class={style.Words_line}>
                 <p>SUCCESSFUL BID</p>
                 <p>CHOICE</p>
               </li>
-              <li class="Words-line">
+              <li class={style.Words_line}>
                 <p>CHOICE</p>
                 <p>SELLING ITEM</p>
               </li>
-              <li class="Words-line">
+              <li class={style.Words_line}>
                 <p>SELLING ITEM</p>
                 <p>TIME</p>
               </li>
-              <li class="Words-line">
+              <li class={style.Words_line}>
                 <p>TIME</p>
                 <p>&nbsp;</p>
               </li>
             </ul>
           </div>
-          <div className="caro_R">
+          <div className={style.caro_R}>
             <ul>
               <li>
                 <img src={require("../source/img/tt1.png")} alt="오름판매" />
