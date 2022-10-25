@@ -23,6 +23,7 @@ import SellItem from "./component/SellItem";
 
 import ManagerMember from "./component/ManagerMember";
 import Selling from "./component/Selling";
+import M_Sample from "./component/M_Sample";
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
       <Route path="/sell_list" component={SellList} exact={true} />
       <Route path="/sell_item" component={SellItem} exact={true} />
       <Route path="/selling" component={Selling} exact={true} />
+      <Route path="/sample" component={M_Sample} exact={true} />
 
       <Footer />
     </>
