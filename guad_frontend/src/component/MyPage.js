@@ -1,4 +1,4 @@
-import "../source/Mypage.css";
+import "../source/MyPage.css";
 import logo from "../source/img/mypage.png";
 import sell_1 from "../source/img/selling_item_ex1.png";
 import sell_2 from "../source/img/selling_item_ex2.png";
@@ -6,7 +6,7 @@ import plus from "../source/img/icons_plus.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function Mypage() {
+function MyPage() {
   const [sellList, setSellList] = useState("");
   const [buyList, setBuyList] = useState("");
 
@@ -51,7 +51,8 @@ function Mypage() {
             <h3>등록된 상품이 없습니다.</h3>
             <h3>내 상품을 간편하게 등록해보세요.</h3>
             <button>
-              <img src={plus}></img><div>상품 등록하러 가기</div>
+              <img src={plus}></img>
+              <div>상품 등록하러 가기</div>
             </button>
           </div>
           {sellList && (
@@ -101,4 +102,4 @@ function Mypage() {
   );
 }
 
-export default Mypage;
+export default MyPage;
