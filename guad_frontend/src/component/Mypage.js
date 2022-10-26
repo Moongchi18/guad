@@ -5,6 +5,7 @@ import sell_2 from "../source/img/selling_item_ex2.png";
 import plus from "../source/img/icons_plus.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import MoodalMileage from "./MoodalMileage";
 
 function Mypage() {
   const [sellList, setSellList] = useState("");
@@ -22,6 +23,7 @@ function Mypage() {
 
   return (
     <>
+     <MoodalMileage/>
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>마이페이지</h1>
         <div>

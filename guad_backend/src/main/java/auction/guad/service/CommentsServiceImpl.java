@@ -15,8 +15,8 @@ public class CommentsServiceImpl implements CommentsService{
 	@Autowired
 	private CommentsMapper commentsMapper;
 	
-	public List<CommentsDto> commentsList() throws Exception {
-		return commentsMapper.commentsList();		
+	public List<CommentsDto> commentsListByEmail() throws Exception {
+		return commentsMapper.commentsListByEmail();		
 	}
 	
 	public int insertComment(CommentsDto commentsDto) throws Exception {
@@ -35,8 +35,8 @@ public class CommentsServiceImpl implements CommentsService{
 		
 	}
 	
-	public void deleteComment(int commentNum) throws Exception {
-			commentsMapper.deleteComment(commentNum);
+	public void deleteComment(CommentsDto commentsDto) throws Exception {
+			commentsMapper.deleteComment(commentsDto);
 	}
 
 	
