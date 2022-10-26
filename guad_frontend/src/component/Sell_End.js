@@ -1,7 +1,7 @@
 import style from "../source/SellItem.module.css";
 import Moodal3 from "./Moodal3";
 
-function Sell_Up() {
+function Sell_End() {
   window.onload = function () {
     const modal = document.getElementById("my-modal");
     const closeBtn1 = document.getElementById("close");
@@ -32,10 +32,11 @@ function Sell_Up() {
             alt="제품사진"
             className={style.item}
           />
+          <span className={style.up1}>경매종료</span>
           <img
-            src={require("../source/img/del2_b.png")}
-            alt="오름경매"
-            className={style.up}
+            src={require("../source/img/del3_b.png")}
+            alt="경매끝"
+            className={style.up2}
           />
           <ul>
             <li></li>
@@ -60,20 +61,17 @@ function Sell_Up() {
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>33</span>
           </div>
-          <span className={style.seller}>
-            판매자 : <strong>시흥기린</strong>
-          </span>
-          <div className={style.deli_bb}>
-            <span className={style.deli_name}>배송비</span>
-            <span className={style.deli_tag}>배송비 포함</span>
+          <div className={style.end_bb}>
+            <span className={style.last_price}>현재 가격</span>
+            <span className={style.last_number}>450,000</span>
           </div>
-          <div className={style.sell_bb}>
-            <span className={style.sell_price}>판매가</span>
-            <span className={style.sell_number}>450,000</span>
-          </div>
-          <div className={style.button_bb}>
-            <button className={style.bb_buy}>입찰 참여</button>
-            <span className={style.bb_date}>2022년 10월 31일까지</span>
+          <div className={style.last_bb}>
+            <h2>
+              판매자 : <strong>시흥기린</strong>
+            </h2>
+            <span className={style.bb_last}>
+              최종 입찰자 : <strong>부산물개</strong>
+            </span>
           </div>
         </div>
       </div>
@@ -88,13 +86,11 @@ function Sell_Up() {
         </p>
         <div className={style.sell_review}>
           <h2>댓글</h2>
-          <textarea
-            placeholder="경매가 끝난 후 입력이 가능합니다."
-            disabled
-          ></textarea>
+          <textarea placeholder="댓글을 입력해주세요."></textarea>
+          <button type="button">작성</button>
         </div>
       </div>
     </>
   );
 }
-export default Sell_Up;
+export default Sell_End;
