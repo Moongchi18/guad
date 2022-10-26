@@ -6,7 +6,7 @@ import plus from "../source/img/icons_plus.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function MyPage() {
+function Mypage() {
   const [sellList, setSellList] = useState("");
   const [buyList, setBuyList] = useState("");
 
@@ -102,4 +102,4 @@ function MyPage() {
   );
 }
 
-export default MyPage;
+export default Mypage;
