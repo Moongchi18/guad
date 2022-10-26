@@ -4,7 +4,7 @@
   text-align: center;
   font-family: "SBAggroB";
 }
-.all_box h2 {
+.all_box > h2 {
   display: block;
   margin: 120px 0 66px;
   padding-bottom: 10px;
@@ -30,6 +30,15 @@
   height: 50px;
   border-radius: 5px;
   cursor: pointer;
+}
+.in_box > ul > li:nth-child(1) button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease;
+}
+.in_box > ul > li:nth-child(1) button:focus {
+  background-color: #098060;
+  color: white;
 }
 .mid {
   margin: 0 10px;
@@ -118,4 +127,8 @@
   font-size: 20px;
   margin-bottom: 150px;
   color: white;
+}
+.subBtn:hover {
+  background-color: #0fa880;
+  transition: 0.3s all ease;
 }

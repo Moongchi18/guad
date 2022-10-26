@@ -10,7 +10,7 @@ function ManagerMember() {
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
-              <img src={logo}></img>
+              <img src={logo} alt="1"></img>
             </div>
             <div className={style.mileage_box}>
               <h3>
@@ -33,7 +33,7 @@ function ManagerMember() {
         <div className={style.user_detail}>
           <div className={style.user_list}>
             <div className={style.logo}>
-              <img src={logo_d}></img>
+              <img src={logo_d} alt="1"></img>
             </div>
             <div className={style.name}>
               <h3>시흥기린</h3>
@@ -48,7 +48,7 @@ function ManagerMember() {
 
           <div className={style.user_list}>
             <div className={style.logo}>
-              <img src={logo_d}></img>
+              <img src={logo_d} alt="1"></img>
             </div>
             <div className={style.name}>
               <h3>부산물개2222</h3>

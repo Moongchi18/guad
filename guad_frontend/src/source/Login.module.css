@@ -62,7 +62,6 @@
 }
 .g_join:hover {
   background-color: #5a5a5a;
-  content: url(../source/img/gg1.png);
   border: none;
   transition: 0.4s all ease;
 }
@@ -73,6 +72,9 @@
   background-color: #ffffff;
   border: 1px solid #a4a4a4;
   color: #000000;
+}
+#in {
+  background-color: blue;
 }
 
 .logintext {
