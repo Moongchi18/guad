@@ -3,7 +3,7 @@ import logo from "../source/img/mypage.png";
 import logo_d from "../source/img/mypage_d.png";
 import sell_1 from "../source/img/selling_item_ex1.png";
 import sell_2 from "../source/img/selling_item_ex2.png";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 
 function Manager() {
@@ -21,7 +21,7 @@ function Manager() {
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
-              <img src={logo}></img>
+              <img src={logo} alt="1"></img>
             </div>
             <div className={style.mileage_box}>
               <h3>
@@ -40,12 +40,12 @@ function Manager() {
 
         <div className={style.join}>
           <div className={style.user_list}>
-            <img src={logo_d}></img>
+            <img src={logo_d} alt="1"></img>
             <h3>시흥기린</h3>
           </div>
 
           <div className={style.user_list}>
-            <img src={logo_d}></img>
+            <img src={logo_d} alt="1"></img>
             <h3>부산물개</h3>
           </div>
         </div>
@@ -56,12 +56,12 @@ function Manager() {
 
         <div className={style.notify}>
           <div className={style.notify_list}>
-            <img src={sell_1}></img>
+            <img src={sell_1} alt="1"></img>
             <h3>셀린느 폴코 트리오페...</h3>
           </div>
 
           <div className={style.notify_list}>
-            <img src={sell_2}></img>
+            <img src={sell_2} alt="1"></img>
             <h3>셀린느 폴코 트리오페...</h3>
           </div>
         </div>

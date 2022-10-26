@@ -44,12 +44,24 @@ public class WebSocketController {
 		}
 		
 	}
+    @MessageMapping("/message")
+    @SendTo("/chatroom/public")
+    public Message receiveMessage(@Payload Message message){
+        return message;
+    }
 
-	@MessageMapping("/message") // /pub/message
-	@SendTo("/sub/public")
-	public Message receivePublicMessage(@Payload Message message) {
-		System.out.println(">>>>>>>>>>>>>" + message);
-		Integer bidPrice = message.getBidPrice();
+    @MessageMapping("/private-message")
+    public Message recMessage(@Payload Message message){
+        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(),"/private",message);
+        System.out.println(message.toString());
+        return message;
+    }
+    
+//	@MessageMapping("/message") // /pub/message
+//	@SendTo("/sub/public")
+//	public Message receivePublicMessage(@Payload Message message) {
+//		System.out.println(">>>>>>>>>>>>>" + message);
+//		Integer bidPrice = message.getBidPrice();
 //		if(bidPrice == null || bidPrice == 0 ) {
 //			message.setBidPrice(50000);
 //		} else {
@@ -57,9 +69,9 @@ public class WebSocketController {
 //		}
 //		
 //		System.out.println("result : " + message);
-
-		return message;
-	}
+//
+//		return message;
+//	}
 
 	@GetMapping("/bidlist")
 	public ArrayList<Integer> testListget(int itemNum) {

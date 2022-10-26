@@ -38,7 +38,7 @@ function ManagerNotify() {
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
-              <img src={logo}></img>
+              <img src={logo} alt="1"></img>
             </div>
             <div className={style.mileage_box}>
               <h3>
@@ -57,13 +57,16 @@ function ManagerNotify() {
         </div>
 
         <div className={style.notify}>
-          <div className={style.notify_list} onClick={openModal} id="open">
-            <img src={sell_1}></img>
+
+            
+          <div className={style.notify_list}>
+            <img src={sell_1} alt="1"></img>
+
             <h3>셀린느 폴코 트리오페...</h3>
           </div>
 
           <div className={style.notify_list}>
-            <img src={sell_2}></img>
+            <img src={sell_2} alt="1"></img>
             <h3>셀린느 폴코 트리오페...</h3>
           </div>
         </div>

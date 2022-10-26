@@ -9,7 +9,7 @@ function MypageInfo() {
         <div>
           <div className={style.Mboxi}>
             <div className={style.logo_boxi}>
-              <img src={logo}></img>
+              <img src={logo} alt="1"></img>
             </div>
             <div className={style.mileage_boxi}>
               <h3>
