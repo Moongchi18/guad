@@ -90,7 +90,7 @@ public class JwtTokenUtil {
 		return claimsResolver.apply(claims);
 	}
 	
-	private Claims getAllClaimsFromToken(String token) {
+	public Claims getAllClaimsFromToken(String token) {
 		
 		Key hmacKey = new SecretKeySpec(
 			Base64.getDecoder().decode(this.secret), SignatureAlgorithm.HS256.getJcaName()

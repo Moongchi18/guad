@@ -66,8 +66,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<MemberDto> managerSelectMemberListExceptPassAndDeleted() throws Exception {
-		return memberMapper.managerSelectMemberListExceptPassAndDeleted();
+	public ArrayList<MemberDto> managerSelectMemberListExceptPassAnddelete() throws Exception {
+		return memberMapper.managerSelectMemberListExceptPassAnddelete();
 	}
 
 	@Override

@@ -55,13 +55,12 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		System.out.println("<<<<<<<<<<<<<<<<<<<<authResult : " + authResult);
-//		System.out.println("<<<<<<<<<<<<<<<<<<<<authResult : " + authResult.);
 		String username = ((User)authResult.getPrincipal()).getUsername();
 		MemberDto member = memberService.loginContainPass(username);
 		log.debug(member.toString());
 		
 		String jwtToken = jwtTokenUtil.generateToken(member);
-		
+		System.out.println(jwtToken);
 		response.setHeader("token", jwtToken);
 		response.getWriter().write(jwtToken);
 	}

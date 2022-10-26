@@ -20,7 +20,7 @@ public class MemberDto {
 	private int mileage;
 	private int mileageUsed;
 	private String managerYn;
-	private String deletedYn;
+	private String deleteYn;
 	private Date updatedDateTime;
 
 }
