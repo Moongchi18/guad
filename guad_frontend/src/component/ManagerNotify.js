@@ -8,7 +8,7 @@ function M_Sample() {
     const modal = document.querySelector("#");
     const closeBtn1 = document.querySelector("#");
     const closeBtn2 = document.querySelector("#");
-    const openBtn1 = document.querySelector("#");
+    const openBtn1 = document.querySelector("#open");
 
     closeBtn1.addEventListener("click", closeModal);
     closeBtn2.addEventListener("click", closeModal);
@@ -57,8 +57,11 @@ function ManagerNotify() {
         </div>
 
         <div className={style.notify}>
+
+            
           <div className={style.notify_list}>
             <img src={sell_1} alt="1"></img>
+
             <h3>셀린느 폴코 트리오페...</h3>
           </div>
 

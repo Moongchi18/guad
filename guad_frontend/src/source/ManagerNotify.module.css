@@ -113,4 +113,5 @@
   .notify .notify_list >img{
     width: 230px;
     display: inline-block;
+    cursor: pointer;
   }
