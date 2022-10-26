@@ -9,7 +9,7 @@ import auction.guad.dto.MemberDto;
 public interface MemberService extends UserDetailsService{
 	
 	public ArrayList<MemberDto> managerSelectMemberListExceptPass() throws Exception;
-	public ArrayList<MemberDto> managerSelectMemberListExceptPassAndDeleted() throws Exception;
+	public ArrayList<MemberDto> managerSelectMemberListExceptPassAnddelete() throws Exception;
 	public MemberDto managerSelectMemberDetailByEmail(String email) throws Exception;
 	public MemberDto loginContainPass(String email);
 	

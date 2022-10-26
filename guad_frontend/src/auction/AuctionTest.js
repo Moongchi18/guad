@@ -4,6 +4,7 @@ import SockJS from "sockjs-client";
 import { over } from "stompjs";
 
 var stompClient = null
+const token = `Bearer ${sessionStorage.getItem("token")}`
 function AuctionTest({match}) {
     const [bid, setBid] = useState();
     const [bidList, setBidList] = useState([]);
@@ -30,6 +31,7 @@ function AuctionTest({match}) {
     }, [change])
 
     const connect = () => {
+
         let Sock = new SockJS('http://192.168.0.35:8080/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
@@ -52,7 +54,7 @@ function AuctionTest({match}) {
     }
 
     const handlerBid = () => {
-        stompClient.send(`/pub/bidlist/${Dto.itemNum}`, {}, JSON.stringify(Dto));
+        stompClient.send(`/pub/bidlist/${Dto.itemNum}`, {Authorization: token}, JSON.stringify(Dto));
         // stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
     }
 

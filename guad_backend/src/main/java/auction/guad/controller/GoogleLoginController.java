@@ -28,6 +28,7 @@ public class GoogleLoginController {
     @RequestMapping(value = "/google/auth", method = RequestMethod.POST)
     public ResponseEntity<String> googleAuth(@RequestBody MemberDto member) throws Exception {
       
+    	System.out.println("<<<<<<<<<<<<<<<<"+member);
         String googleId = member.getEmail();
         // 회원 조회서비스 추가 예정
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ googleId);

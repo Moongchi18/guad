@@ -8,7 +8,6 @@ import AuctionTest from "./auction/AuctionTest";
 import Auction from "./auction/Auction";
 import Footer from "./component/Footer";
 import Main from "./component/Main";
-
 import MypageInfo from "./component/MypageInfo";
 import Manager from "./component/Manager";
 import ManagerNotify from "./component/ManagerNotify";
@@ -23,7 +22,10 @@ import ChatRoom from "./auction/ChatRoom";
 import ManagerMember from "./component/ManagerMember";
 import Selling from "./component/Selling";
 import M_Sample from "./component/M_Sample";
+import ChatTest from "./auction/ChatTest";
+
 import Mypage from "./component/Mypage";
+import Sell_Up from "./component/Sell_Up";
 
 function App() {
   axios.interceptors.request.use(function (config) {
@@ -43,6 +45,7 @@ function App() {
         component={AuctionTest}
         exact={true}
       />
+      <Route path="/chat/:nickname" component={ChatTest} exact={true} />
       <Route path="/chatroom" component={ChatRoom} exact={true} />
       <Route path="/auction" component={Auction} exact={true} />
       <Route path="/footer" component={Footer} exact={true} />
@@ -59,6 +62,7 @@ function App() {
       <Route path="/sell_list" component={SellList} exact={true} />
       <Route path="/sell_item" component={SellItem} exact={true} />
       <Route path="/selling" component={Selling} exact={true} />
+      <Route path="/sell_up" component={Sell_Up} exact={true} />
       <Route path="/sample" component={M_Sample} exact={true} />
 
       <Footer />
