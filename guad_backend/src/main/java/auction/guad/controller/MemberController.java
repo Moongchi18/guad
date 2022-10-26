@@ -94,14 +94,14 @@ public class MemberController {
 	}
 	
 	// 관리자용 탈퇴 회원 목록 조회
-	@RequestMapping(value = "/admin/member/deleted", method = RequestMethod.GET)
-	public List<MemberDto> adminDeletedMemberList() throws Exception {
-		return memberService.managerSelectMemberListExceptPassAndDeleted();
+	@RequestMapping(value = "/admin/member/delete", method = RequestMethod.GET)
+	public List<MemberDto> admindeleteMemberList() throws Exception {
+		return memberService.managerSelectMemberListExceptPassAnddelete();
 	}
 	
 	// 관리자용 회원 상세 조회
 	@RequestMapping(value = "/admin/member/{email}", method = RequestMethod.GET)
-	public MemberDto adminDeletedMemberList(@PathVariable String email) throws Exception {
+	public MemberDto admindeleteMemberList(@PathVariable String email) throws Exception {
 		return memberService.managerSelectMemberDetailByEmail(email);
 	}
 }
