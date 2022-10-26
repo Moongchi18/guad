@@ -1,8 +1,27 @@
 import style from "../source/SellItem.module.css";
+import Moodal3 from "./Moodal3";
 
 function SellItem() {
+  window.onload = function () {
+    const modal = document.getElementById("my-modal");
+    const closeBtn1 = document.getElementById("close");
+    const closeBtn2 = document.getElementById("outMan");
+    const openBtn1 = document.getElementById("openMan");
+
+    openBtn1.addEventListener("click", openModal);
+    closeBtn2.addEventListener("click", closeModal);
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    function openModal() {
+      modal.style.display = "block";
+    }
+  };
   return (
     <>
+      <Moodal3 />
       <div className={style.item_top}>
         <h2>일반판매</h2>
         <div className={style.img_item}>
@@ -14,7 +33,11 @@ function SellItem() {
           </ul>
         </div>
         <div className={style.info_top}>
-          <img src={require("../source/img/warn.png")} alt="신고" />
+          <img
+            src={require("../source/img/warn.png")}
+            alt="신고"
+            id="openMan"
+          />
           <span className={style.top_head}>상품 정보</span>
           <span className={style.top_cate}>의류 / 가방</span>
           <span className={style.top_title}>디올 가방 재고 처리합니다!</span>
