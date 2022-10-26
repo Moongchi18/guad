@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 function Login({ history }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [hover, setHover] = useState(0);
 
   const changeEmail = (e) => setEmail(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
@@ -64,7 +65,7 @@ function Login({ history }) {
           >
             로그인
           </button>
-          <button className={[style.g_join, style.btn_bb].join(" ")}>
+          <button className={[style.g_join, style.btn_bb].join(" ")} id="gg">
             <img src={require("../source/img/gg2.png")} alt="구글 로그인" />
           </button>
           <Link to="/join">
