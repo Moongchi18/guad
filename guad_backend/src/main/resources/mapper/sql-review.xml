@@ -3,26 +3,25 @@
 
 <mapper namespace="auction.guad.mapper.ReviewMapper">
 	
+	<!-- 리뷰 조회 -->
 	<select id="selectReviewList" resultType="auction.guad.dto.ReviewDto">
-		
+		select * from review
 	</select>
 	
+	<!-- 리뷰 작성 -->
 	<insert id="insertReview" parameterType="auction.guad.dto.ReviewDto">
-		
+		INSERT INTO REVIEW(ITEM_NUM, MEMBER_EMAIL, NICKNAME, CONTENTS, STAR_POINT, WRITE_DATE) 
+			VALUES (#{itemNum}, #{memberEmail}, #{nickname}, #{contents}, #{starPoint}, now())
 		
 	</insert>
 	
-	<select id="selectReviewDetail" parameterType="int" resultType="auction.guad.dto.ReviewDto">
-		
-	</select>
 	
+	<!-- 리뷰 삭제 업데이트 -->
 	<update id="updateReview" parameterType="auction.guad.dto.ReviewDto">
-		
+		UPDATE REVIEW SET DELETE_YN = "y"
+		WHERE MEMBER_EMAIL = #{memberEmail} 
 	</update>
 	
-	<delete id="deleteReview" parameterType="int">
-		
-	</delete>
 	
 
 </mapper>
