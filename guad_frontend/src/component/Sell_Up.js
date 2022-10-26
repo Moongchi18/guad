@@ -35,7 +35,7 @@ function Sell_Up() {
           <img
             src={require("../source/img/del2_b.png")}
             alt="오름경매"
-            className={style.up}
+            className={style.up2}
           />
           <ul>
             <li></li>
@@ -88,7 +88,7 @@ function Sell_Up() {
         </p>
         <div className={style.sell_review}>
           <h2>댓글</h2>
-          <textarea
+          <textarea className={style.last_down}
             placeholder="경매가 끝난 후 입력이 가능합니다."
             disabled
           ></textarea>

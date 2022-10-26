@@ -62,7 +62,7 @@ function Sell_End() {
             <span>33</span>
           </div>
           <div className={style.end_bb}>
-            <span className={style.last_price}>현재 가격</span>
+            <span className={style.last_price}>최종 낙찰가</span>
             <span className={style.last_number}>450,000</span>
           </div>
           <div className={style.last_bb}>

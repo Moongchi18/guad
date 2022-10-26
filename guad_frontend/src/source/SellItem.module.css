@@ -266,6 +266,9 @@
   padding: 20px;
   font-weight: 300;
 }
+.last_down {
+  margin-bottom: 140px;
+}
 .sell_review > img {
   display: inline-block;
   vertical-align: top;
@@ -319,6 +322,11 @@
   background-color: #d9d9d9;
   font-size: 20px;
   font-weight: 300;
-  line-height: 2.4;
+  line-height: 2.2;
   margin: 5px 0 140px auto;
+}
+.sell_review > button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease;
 }

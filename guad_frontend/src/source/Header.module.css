@@ -28,13 +28,17 @@ header {
   background-position: 12px center;
   padding-left: 50px;
   box-sizing: border-box;
+  color: white;
+  font-weight: 300;
 }
 .search_b:hover {
+  background-color: #098060;
   width: 400px;
   border-radius: 30px;
   transition: 0.2s all ease;
 }
 .search_b:focus {
+  background-color: #098060;
   width: 400px;
   border-radius: 30px;
   outline: none;
