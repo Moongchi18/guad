@@ -3,40 +3,57 @@ import style from "../source/M_Sample.module.css";
 
 function M_Sample() {
   window.onload = function () {
+    // Get DOM Elements
     const modal = document.querySelector("#my-modal");
-    const closeBtn1 = document.querySelector("#close");
-    const closeBtn2 = document.querySelector("#allcheckall");
+    const modalBtn = document.querySelector("#modal-btn");
+    const closeBtn = document.querySelector("#close");
 
-    closeBtn1.addEventListener("click", closeModal);
-    closeBtn2.addEventListener("click", closeModal);
+    // Events
+    modalBtn.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+    window.addEventListener("click", outsideClick);
 
+    // Open
+    function openModal() {
+      modal.style.display = "block";
+    }
+
+    // Close
     function closeModal() {
       modal.style.display = "none";
     }
+
+    // Close If Outside Click
+    function outsideClick(e) {
+      if (e.target == modal) {
+        modal.style.display = "none";
+      }
+    }
   };
 
-  useEffect(() => {
-    (function openModal() {
-      const modal = document.querySelector("#my-modal");
-      modal.style.display = "block";
-    })();
-  }, []);
   return (
     <>
-      <div id="my-modal" className={style.modal}>
-        <div className={style.modalcontent}>
-          <div className={style.modalheader}>
-            {/* 이건 닫기버튼 */}
-            <span className={style.close} id="close">
+      <button id="modal-btn">Click Here</button>
+
+      <div id="my-modal" class={style.modal}>
+        <div class={style.modalcontent}>
+          <div class={style.modalheader}>
+            <span class={style.close} id="close">
               &times;
             </span>
-            <h2>여긴 헤더입니다.</h2>
+            <h2>Modal Header</h2>
           </div>
-          <div className={style.modalbody}>
-            <h2>여긴 바디입니다.</h2>
+          <div class={style.modalbody}>
+            <p>This is my modal</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
+              repellendus nisi, sunt consectetur ipsa velit repudiandae aperiam
+              modi quisquam nihil nam asperiores doloremque mollitia dolor
+              deleniti quibusdam nemo commodi ab.
+            </p>
           </div>
-          <div className={style.modalfooter}>
-            <h2>여긴 푸터입니다.</h2>
+          <div class={style.modalfooter}>
+            <h3>Modal Footer</h3>
           </div>
         </div>
       </div>

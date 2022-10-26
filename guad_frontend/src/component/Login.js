@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import style from "../source/Login.module.css";
 import axios from "axios";
 import { useState } from "react";
@@ -8,10 +8,10 @@ import { Link } from "react-router-dom";
 function Login({ history }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [hover, setHover] = useState(0);
 
   const changeEmail = (e) => setEmail(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
+
   // const handlerSubmit = () => {
   //   axios
   //     .post("http://localhost:8080/login", { email: email, pass: password })
@@ -37,6 +37,17 @@ function Login({ history }) {
         sessionStorage.clear();
       });
   };
+
+  useEffect(() => {
+    const hoverBox = document.getElementById("gg");
+    const hoverItem = document.getElementById("ggg");
+    hoverBox.addEventListener("mouseover", function () {
+      hoverItem.setAttribute("src", require("../source/img/gg1.png"));
+    });
+    hoverBox.addEventListener("mouseout", function () {
+      hoverItem.setAttribute("src", require("../source/img/gg2.png"));
+    });
+  }, []);
 
   return (
     <>
@@ -66,7 +77,11 @@ function Login({ history }) {
             로그인
           </button>
           <button className={[style.g_join, style.btn_bb].join(" ")} id="gg">
-            <img src={require("../source/img/gg2.png")} alt="구글 로그인" />
+            <img
+              src={require("../source/img/gg2.png")}
+              alt="구글 로그인"
+              id="ggg"
+            />
           </button>
           <Link to="/join">
             <button
