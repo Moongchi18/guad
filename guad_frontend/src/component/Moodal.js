@@ -2,8 +2,18 @@ import React, { useEffect } from "react";
 import style from "../source/Moodal.module.css";
 
 function Moodal() {
-  
+  window.onload = function () {
+    const modal = document.getElementById("my-modal");
+    const closeBtn1 = document.getElementById("close");
+    const closeBtn2 = document.getElementById("allcheckall");
 
+    closeBtn1.addEventListener("click", closeModal);
+    closeBtn2.addEventListener("click", closeModal);
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+  };
   useEffect(() => {
     (function openModal() {
       const modal = document.querySelector("#my-modal");
