@@ -21,6 +21,7 @@ function Moodal() {
       modal.style.display = "block";
     })();
   }, []);
+  
   return (
     <>
       <div id="my-modal" className={style.modal}>
