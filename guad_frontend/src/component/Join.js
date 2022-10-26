@@ -1,6 +1,5 @@
 import style from "../source/Join.module.css";
 import Moodal from "./Moodal";
-import cn from "classnames";
 
 function Join() {
   return (
