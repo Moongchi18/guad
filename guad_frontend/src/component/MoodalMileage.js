@@ -32,27 +32,42 @@ function MoodalMileage() {
 
   return (
     <>
-      <button id="modal-btn">Click Here</button>
-
       <div id="my-modal" class={style.modal}>
         <div class={style.modalcontent}>
+          <span class={style.close} id="close">
+            &times;
+          </span>
           <div class={style.modalheader}>
-            <span class={style.close} id="close">
-              &times;
-            </span>
-            <h2>Modal Header</h2>
+            <h2>마일리지 충전</h2>
           </div>
           <div class={style.modalbody}>
-            <p>This is my modal</p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-              repellendus nisi, sunt consectetur ipsa velit repudiandae aperiam
-              modi quisquam nihil nam asperiores doloremque mollitia dolor
-              deleniti quibusdam nemo commodi ab.
-            </p>
+            <div className={style.charge}>
+              <h3 className={style.title}>충전금액</h3>
+              <strong>
+                <h3>원</h3>
+              </strong>
+              <div className={style.numberBox}>
+                <h3 className={style.number}>1,000,000</h3>
+              </div>
+            </div>
+            <div className={style.mileageBox}>
+              <div className={style.mileage}>
+                <h3 className={style.title}>기존 마일리지</h3>
+                <h3 className={style.number}>300,000</h3>
+              </div>
+              <div className={style.mileage}>
+                <h3 className={style.title}>충전 마일리지</h3>
+                <h3 className={style.number}>1,000,000</h3>
+              </div>
+            </div>
+
+            <div className={style.total}>
+              <h3 className={style.title}>총 마일리지</h3>
+              <h3 className={style.number}>1,300,000</h3>
+            </div>
           </div>
           <div class={style.modalfooter}>
-            <h3>Modal Footer</h3>
+            <button>충전하기</button>
           </div>
         </div>
       </div>

@@ -41,7 +41,7 @@ function Mypage() {
             </div>
             <div className={style.Mbox_button}>
               <button className={style.member}>회원정보</button>
-              <button className={style.mileage}>마일리지</button>
+              <button className={style.mileage} id="mileage">마일리지</button>
             </div>
           </div>
         </div>

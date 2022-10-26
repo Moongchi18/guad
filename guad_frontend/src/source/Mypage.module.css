@@ -152,6 +152,7 @@
 .no_sell_info > button > div {
   display: inline-block;
   vertical-align: top;
+  margin-top: 5px;
 }
 
 .no_buy_info {

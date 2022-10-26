@@ -44,16 +44,21 @@
   text-decoration: none;
   cursor: pointer;
 }
-
-.modalheader img {
- display: inline-block;
- margin-top: 15px;
+.modalheader {
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid #e0e0e0;
+  width: 500px;
 }
 
-.modalheader .title {
-  font-size: 25px;
+.modalheader > h2 {
+  font-size: 30px;
   font-weight: 300;
-  margin-top: 25px;
+
+ 
+  width: 500px;
 }
 
 .modalheader .member {
@@ -64,71 +69,126 @@
 
 .modalbody {
   display: inline-block;
-  text-align: center;
-  font-weight: 300;
-  margin-top: 40px;
   width: 500px;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 15px;
+ 
+ 
 }
 
-.fix{
-  color: #9F9F9F;
-}
-.modalbody .seller{
-  text-align: left;
-
-}
-.modalbody .seller > h3 {
-  display: inline-block !important;
-  text-align: left;
-  margin-right: 37px;
-}
-
-.modalbody .category{
-  margin-top: 10px;
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.modalbody .category > h3 {
-  display: inline-block !important;
-  text-align: left;
-  margin-right: 23px;
-}
-
-.message {
+.charge {
   display: inline-block;
-  text-align: center;
-  width: 480px;
+  border-bottom: 1px solid #e0e0e0;
+  width: 500px;
+  height: 130px;
+  text-align: left;
 }
 
-.message > p {
-  color: #9f9f9f;
+.charge .title {
+  display: inline-block;
   font-weight: 300;
+  font-size: 17px;
+  color: #616161;
+  margin-top: 15px;
+}
+
+.charge .number {
+  display: inline-block;
+  font-weight: 300;
+  font-size: 20px;
+  color: #8C8C8C;
+  float:right;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.numberBox {
+  width: 200px;
+  height: 35px;
+  margin-top: 10px;
+  background-color: #EFEFEF;
+  float:right;
+}
+
+.charge strong {
+  display: inline-block;
+  font-weight: 300;
+  font-size: 25px;
+  margin-left: 5px;
+  margin-top: 15px;
+  float: right;
+}
+
+.mileageBox {
+  display: inline-block;
+  border-bottom: 1px solid #e0e0e0;
+  width: 500px;
+  height: 150px;
   text-align: left;
+}
+
+.mileageBox .title {
+  display: inline-block;
+  font-weight: 300;
+  font-size: 17px;
+  color: #9D9D9D;
+  margin-top: 15px;
+}
+
+.mileageBox .number {
+  display: inline-block;
+  font-weight: 300;
+  font-size: 17px;
+  color: #9D9D9D;
+  float:right;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.total {
+  display: inline-block;
+  width: 500px;
+  height: 100px;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.total .title {
+  display: inline-block;
+  font-weight: 300;
+  font-size: 20px;
+  color: #616161;
+  margin-top: 15px;
+}
+
+.total .number {
+  display: inline-block;
+  font-weight: 300;
+  font-size: 30px;
+  color: #797979;
+  float:right;
+  margin-right: 5px;
+  margin-top: 10px;
 }
 
 .modalfooter {
-  position: absolute;
-  bottom: 70px;
-  right: 75px;
+  display: inline-block;
+  text-align: center;
+  width: 400px;
 }
+
 .modalfooter button {
-  width: 130px;
+  width: 150px;
   height: 40px;
-  border-radius: 5px;
-  font-weight: 300;
+  border-radius: 10px;
+  font-weight: 100;
   margin: 5px 0 0 10px;
-  font-size: 15px;
-  color: black;
+  font-size: 17px;
+  background-color: #7BB987;
+  color: white;
+  cursor: pointer;
 }
-.redBtn {
-  background-color: #b52929;
-  color: white !important;
-}
-.redBtn:hover {
-  background-color: #f04b4b;
+
+.modalfooter button:hover {
+  background-color: #589664;
   transition: 0.3s all ease;
   color: white !important;
 }
