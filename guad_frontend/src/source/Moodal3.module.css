@@ -24,71 +24,61 @@
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
-  position: relative;
   font-family: "SBAggroB";
 }
 
 .modalheader img {
-  width: 100px;
-  height: 100px;
-  margin: 70px auto 50px;
+  margin: 70px 0 50px;
 }
-
-.modalbody h2 {
-  font-size: 30px;
-  font-weight: 300;
-  margin-bottom: 10px;
-}
-.modalbody h3 {
-  font-size: 20px;
-  font-weight: 300;
-  margin-bottom: 45px;
-}
-
-.modalfooter h2 {
-  font-size: 20px;
+.modalheader h2 {
+  font-size: 25px;
   font-weight: 300;
 }
 
-.modalfooter h3 {
-  font-size: 20px;
+.modalbody {
   font-weight: 300;
-  color: #8a8a8a;
-  margin-bottom: 70px;
 }
-.modalfooter img {
-  height: 15px;
-  margin: 7px 0 12px;
-}
-
-.modalfooter button {
-  width: 200px;
+.modalbody > input {
+  width: 500px;
   height: 40px;
-  background-color: #bcd7be;
-  color: white;
+  background-color: #d9d9d9;
   border-radius: 5px;
-  font-size: 20px;
+  margin: 30px 0 10px;
+  box-sizing: border-box;
+  padding-left: 15px;
+}
+
+.modalbody > textarea {
+  width: 500px;
+  height: 150px;
+  resize: none;
+  background-color: #d9d9d9;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 15px 0 0 15px;
+}
+.modalfooter {
+  width: 500px;
+  margin: 0 auto;
+  text-align: right;
+}
+.modalfooter button {
+  width: 130px;
+  height: 40px;
+  border-radius: 5px;
   font-weight: 300;
+  margin: 5px 0 0 10px;
+  font-size: 15px;
+  color: black;
 }
-.modalfooter button:hover {
-  background-color: #098060;
+.redBtn {
+  background-color: #b52929;
+  color: white !important;
+}
+.redBtn:hover {
+  background-color: #f04b4b;
   transition: 0.3s all ease;
-}
-
-.close {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 30px;
-  color: rgb(184, 184, 184);
-}
-
-.close:hover,
-.close:focus {
-  transition: 1s all ease;
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+  color: white !important;
 }
 
 @keyframes modalopen {

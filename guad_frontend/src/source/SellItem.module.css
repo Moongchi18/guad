@@ -45,6 +45,9 @@
   top: 40px;
   right: 0px;
 }
+.info_top > img:hover {
+  content: url(../source/img/warn2.png);
+}
 .top_head {
   font-family: "SBAggroB";
   font-size: 30px;

@@ -3,10 +3,10 @@ import Moodal2 from "./Moodal2";
 
 function Selling() {
   window.onload = function () {
-    const modal = document.querySelector("#my-modal");
-    const closeBtn1 = document.querySelector("#close");
-    const closeBtn2 = document.querySelector("#allcheckall");
-    const openBtn1 = document.querySelector("#openMan");
+    const modal = document.getElementById("my-modal");
+    const closeBtn1 = document.getElementById("close");
+    const closeBtn2 = document.getElementById("outMan");
+    const openBtn1 = document.getElementById("openMan");
 
     openBtn1.addEventListener("click", openModal);
     closeBtn1.addEventListener("click", closeModal);

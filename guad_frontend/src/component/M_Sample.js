@@ -4,9 +4,9 @@ import style from "../source/M_Sample.module.css";
 function M_Sample() {
   window.onload = function () {
     // Get DOM Elements
-    const modal = document.querySelector("#my-modal");
-    const modalBtn = document.querySelector("#modal-btn");
-    const closeBtn = document.querySelector("#close");
+    const modal = document.getElementById("my-modal");
+    const modalBtn = document.getElementById("modal-btn");
+    const closeBtn = document.getElementById("close");
 
     // Events
     modalBtn.addEventListener("click", openModal);
