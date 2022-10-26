@@ -2,18 +2,7 @@ import React, { useEffect } from "react";
 import style from "../source/Moodal.module.css";
 
 function Moodal() {
-  window.onload = function () {
-    const modal = document.querySelector("#my-modal");
-    const closeBtn1 = document.querySelector("#close");
-    const closeBtn2 = document.querySelector("#allcheckall");
-
-    closeBtn1.addEventListener("click", closeModal);
-    closeBtn2.addEventListener("click", closeModal);
-
-    function closeModal() {
-      modal.style.display = "none";
-    }
-  };
+  
 
   useEffect(() => {
     (function openModal() {
@@ -40,6 +29,7 @@ function Moodal() {
                     <img
                       src={require("../source/img/check00.png")}
                       alt="체크"
+                      className="cc"
                     />
                   </span>
                 </button>
