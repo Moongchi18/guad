@@ -9,10 +9,10 @@ import auction.guad.dto.CommentsDto;
 @Mapper
 public interface CommentsMapper {
 
-List<CommentsDto> commentsList() throws Exception;
+List<CommentsDto> commentsListByEmail() throws Exception;
 int insertComment(CommentsDto commentsDto) throws Exception;
 CommentsDto selectCommentDetail(int commentNum) throws Exception;
 void updateComment(CommentsDto commentsDto) throws Exception;
-void deleteComment(int commentNum) throws Exception;
+void deleteComment(CommentsDto commentsDto) throws Exception;
 	
 }

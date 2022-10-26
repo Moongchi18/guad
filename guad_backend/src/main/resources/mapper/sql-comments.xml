@@ -3,15 +3,20 @@
 
 <mapper namespace="auction.guad.mapper.CommentsMapper">
 	
-	<select id="selectCommentsList" resultType="auction.guad.dto.CommentsDto">
-		
+	<!-- 전체 후기 조회 -->
+	<select id="commentsListByEmail" resultType="auction.guad.dto.CommentsDto">
+		SELECT * FROM COMMENTS WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
 	
+	
+	<!-- 후기 작성 -->
 	<insert id="insertComment" parameterType="auction.guad.dto.CommentsDto">
-		
+	 	INSERT INTO COMMENTS (ITEM_NUM, MEMBER_EMAIL, TITLE, CONTENTS, LIKE_CNT, WRITE_DATE) VALUES 
+	 	(#{itemNum}, #{memberEmail}, #{title}, #{contents}, #{likeCnt}, now())	
 		
 	</insert>
 	
+	<!-- 후기 상세보기 -->
 	<select id="selectCommentDetail" parameterType="int" resultType="auction.guad.dto.CommentsDto">
 		
 	</select>
@@ -20,9 +25,10 @@
 		
 	</update>
 	
-	<delete id="deleteComment" parameterType="int">
-		
-	</delete>
+ 	<!-- 후기 삭제 업데이트 -->
+	<update id="deleteComment" parameterType="int">
+		UPDATE COMMENTS SET DELETE_YN = "N" WHERE COMMENT_NUM = #{commentNum}
+	</update>
 	
 
 </mapper>

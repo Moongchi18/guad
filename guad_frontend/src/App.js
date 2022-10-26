@@ -26,6 +26,7 @@ import ChatTest from "./auction/ChatTest";
 
 import Mypage from "./component/Mypage";
 import Sell_Up from "./component/Sell_Up";
+import Sell_End from "./component/Sell_End";
 
 function App() {
   axios.interceptors.request.use(function (config) {
@@ -63,6 +64,7 @@ function App() {
       <Route path="/sell_item" component={SellItem} exact={true} />
       <Route path="/selling" component={Selling} exact={true} />
       <Route path="/sell_up" component={Sell_Up} exact={true} />
+      <Route path="/sell_end" component={Sell_End} exact={true} />
       <Route path="/sample" component={M_Sample} exact={true} />
 
       <Footer />

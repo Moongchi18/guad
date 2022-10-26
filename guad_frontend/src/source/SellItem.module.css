@@ -3,7 +3,7 @@
   margin: 0 auto;
   position: relative;
 }
-.item_top h2 {
+.item_top > h2 {
   font-size: 30px;
   font-family: "SBAggroB";
   margin-top: 122px;
@@ -11,7 +11,7 @@
   margin-bottom: 50px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
-.item_top h2 strong {
+.item_top > h2 > strong {
   color: #098060;
 }
 .img_item {
@@ -24,7 +24,24 @@
   width: 420px;
   height: 420px;
 }
-.up {
+.up1 {
+  width: 420px;
+  height: 420px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  color: white;
+  font-family: "SBAggroB";
+  font-size: 60px;
+  font-weight: 300;
+  box-sizing: border-box;
+  padding-top: 200px;
+}
+.up2 {
   width: 50px;
   height: 50px;
   position: absolute;
@@ -151,12 +168,48 @@
   color: #fff;
   transition: 0.3s all ease-in;
 }
+.end_bb span {
+  display: block;
+  font-family: "SBAggroB";
+}
+.last_price {
+  font-size: 25px;
+  font-weight: 300;
+  margin: 20px 0 5px;
+}
+.last_number {
+  font-size: 40px;
+  color: #098060;
+}
+.last_bb {
+  font-family: "SBAggroB";
+}
+.last_bb > h2 {
+  font-size: 20px;
+  margin: 235px 0 10px;
+}
+.last_bb span {
+  display: block;
+  width: 660px;
+  height: 60px;
+  background-color: #eee;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 2.5;
+  margin-bottom: 50px;
+}
+.last_bb .bb_buy:hover {
+  background-color: #098060;
+  color: #fff;
+  transition: 0.3s all ease-in;
+}
 .bb_buy {
   cursor: pointer;
   display: block;
   width: 660px;
   height: 60px;
-  background-color: #eee;
   border-radius: 5px;
   text-align: center;
   font-size: 25px;
@@ -171,6 +224,10 @@
 .bb_date {
   color: #8c8c8c;
   margin-top: 14px;
+}
+.bb_last {
+  background-color: #00460e !important;
+  color: white;
 }
 
 /* bot */
@@ -196,7 +253,7 @@
 }
 .sell_review h2 {
   font-size: 30px;
-  display: block;
+  display: inline-block;
   margin-right: 10px;
 }
 .sell_review > textarea {
@@ -208,6 +265,8 @@
   box-sizing: border-box;
   padding: 20px;
   font-weight: 300;
+}
+.last_down {
   margin-bottom: 140px;
 }
 .sell_review > img {
@@ -233,6 +292,7 @@
 .sell_review_show ul li span:nth-child(1) {
   font-size: 20px;
   font-weight: 300;
+  line-height: 2;
   float: left;
 }
 .sell_review_show ul li span:nth-child(3) {
@@ -252,4 +312,21 @@
   padding: 0 0 0 20px;
   vertical-align: middle;
   line-height: 2.5;
+}
+
+.sell_review > button {
+  width: 150px;
+  height: 40px;
+  display: block;
+  border-radius: 10px;
+  background-color: #d9d9d9;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 2.2;
+  margin: 5px 0 140px auto;
+}
+.sell_review > button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease;
 }
