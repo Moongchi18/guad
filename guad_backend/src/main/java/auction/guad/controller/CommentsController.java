@@ -26,7 +26,7 @@ public class CommentsController {
 	@ApiOperation(value = "댓글 목록 조회", notes = "등록된 댓글 목록을 조회")
 	@RequestMapping(value = "/comments", method = RequestMethod.GET)
 	public List<CommentsDto> opencommentsList() throws Exception {
-		return commentsService.commentsList();
+		return commentsService.commentsListByEmail();
 	}
 
 	@ApiOperation(value = "댓글 등록", notes = "댓글 제목과 내용을 저장")
@@ -51,15 +51,15 @@ public class CommentsController {
 		}
 	}
 
-	@RequestMapping(value = "/comment/{commentNum}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/comment/{commentNum}", method = RequestMethod.PATCH)
 	public void updateComment(@PathVariable("commentNum") int commentNum, @RequestBody CommentsDto commentsDto) throws Exception {
 		commentsDto.setCommentNum(commentNum);
 		commentsService.updateComment(commentsDto);
 	}
 
-	@RequestMapping(value = "/comments/{commentNum}", method = RequestMethod.DELETE)
-	public void deleteComment(@PathVariable("commentNum") int commentNum) throws Exception {
-		commentsService.deleteComment(commentNum);
+	@RequestMapping(value = "/comments/{commentNum}", method = RequestMethod.PATCH)
+	public void deleteComment(@PathVariable("commentNum") int commentNum, @RequestBody CommentsDto commentsDto) throws Exception {
+		commentsService.deleteComment(commentsDto);
 	}
 }
 
