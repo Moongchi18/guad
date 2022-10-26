@@ -1,10 +1,10 @@
-import style from "../source/M_Sample.module.css";
+import style from "../source/Moodal5.module.css";
 
-function M_Sample() {
+function MoodalMileage() {
   window.onload = function () {
     // Get DOM Elements
     const modal = document.getElementById("my-modal");
-    const modalBtn = document.getElementById("modal-btn");
+    const modalBtn = document.getElementById("mileage");
     const closeBtn = document.getElementById("close");
 
     // Events
@@ -59,4 +59,4 @@ function M_Sample() {
     </>
   );
 }
-export default M_Sample;
+export default MoodalMileage;

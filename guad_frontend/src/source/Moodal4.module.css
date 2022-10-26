@@ -3,6 +3,7 @@
 }
 
 .modal {
+  
   font-family: "SBAggroB";
   display: none;
   position: fixed;
@@ -16,6 +17,7 @@
 }
 
 .modalcontent {
+  position:relative;
   margin: 10% auto;
   text-align: center;
   width: 650px;
@@ -61,10 +63,13 @@
 }
 
 .modalbody {
+  display: inline-block;
+  text-align: center;
   font-weight: 300;
   margin-top: 40px;
   width: 500px;
-  border: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 15px;
 }
 
 .fix{
@@ -72,25 +77,42 @@
 }
 .modalbody .seller{
   text-align: left;
+
 }
 .modalbody .seller > h3 {
   display: inline-block !important;
   text-align: left;
+  margin-right: 37px;
 }
 
 .modalbody .category{
+  margin-top: 10px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
 .modalbody .category > h3 {
   display: inline-block !important;
   text-align: left;
+  margin-right: 23px;
+}
+
+.message {
+  display: inline-block;
+  text-align: center;
+  width: 480px;
+}
+
+.message > p {
+  color: #9f9f9f;
+  font-weight: 300;
+  text-align: left;
 }
 
 .modalfooter {
-  width: 500px;
-  margin: 0 auto;
-  text-align: right;
+  position: absolute;
+  bottom: 70px;
+  right: 75px;
 }
 .modalfooter button {
   width: 130px;
