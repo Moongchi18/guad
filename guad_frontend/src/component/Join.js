@@ -1,26 +1,8 @@
 import style from "../source/Join.module.css";
 import Moodal from "./Moodal";
+import cn from "classnames";
 
 function Join() {
-  window.onload = function () {
-    const modal = document.querySelector("#my-modal");
-    const closeBtn1 = document.querySelector("#close");
-    const closeBtn2 = document.querySelector("#allcheckall");
-
-    closeBtn1.addEventListener("click", closeModal);
-    closeBtn2.addEventListener("click", closeModal);
-
-    function closeModal() {
-      modal.style.display = "none";
-    }
-    const c_box = document.getElementsByClassName("gg");
-    c_box.addEventListener("click", function () {
-      c_box.setAttribute("src", require("../source/img/gg1.png"));
-    });
-    c_box.addEventListener("click", function () {
-      c_box.setAttribute("src", require("../source/img/gg2.png"));
-    });
-  };
   return (
     <>
       <Moodal />
