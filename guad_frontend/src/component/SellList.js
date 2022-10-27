@@ -1,7 +1,22 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
 function Sell_List() {
+  const [cate, setCate] = useState("");
+
+  const checkCate = (e) => {
+    const gory = e.target.name;
+    if (gory == "all") {
+      setCate("a");
+    } else if (gory == "up") {
+      setCate("u");
+    } else if (gory == "down") {
+      setCate("d");
+    } else {
+      setCate("n");
+    }
+  };
   return (
     <>
       <div className={style.sell_all}>
@@ -14,16 +29,52 @@ function Sell_List() {
           </select>
           <ul>
             <li>
-              <button>전 품목</button>
+              <button
+                type="button"
+                name="all"
+                onClick={checkCate}
+                className={
+                  cate == "a" ? `${style.cate_true}` : `${style.cate_false}`
+                }
+              >
+                전 품목
+              </button>
             </li>
             <li>
-              <button>오름경매</button>
+              <button
+                type="button"
+                name="up"
+                onClick={checkCate}
+                className={
+                  cate == "u" ? `${style.cate_true}` : `${style.cate_false}`
+                }
+              >
+                오름경매
+              </button>
             </li>
             <li>
-              <button>내림경매</button>
+              <button
+                type="button"
+                name="down"
+                onClick={checkCate}
+                className={
+                  cate == "d" ? `${style.cate_true}` : `${style.cate_false}`
+                }
+              >
+                내림경매
+              </button>
             </li>
             <li>
-              <button>일반판매</button>
+              <button
+                type="button"
+                name="normal"
+                onClick={checkCate}
+                className={
+                  cate == "n" ? `${style.cate_true}` : `${style.cate_false}`
+                }
+              >
+                일반판매
+              </button>
             </li>
           </ul>
         </div>

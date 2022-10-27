@@ -3,15 +3,17 @@ import style from "../source/Join.module.css";
 import Moodal from "./Moodal";
 
 function Join() {
-  const [check, setCheck] = useState(false);
+  const [g_check, setG_check] = useState("");
 
-  const ClickCheck = () => {
-    if (check == false) {
-      setCheck(true);
+  const CheckGen = (e) => {
+    const gen = e.target.name;
+    if (gen === "man") {
+      setG_check("m");
     } else {
-      setCheck(false);
+      setG_check("w");
     }
   };
+
   return (
     <>
       <Moodal />
@@ -34,6 +36,7 @@ function Join() {
               <label>별명</label>
               <input type="text" placeholder="별명을 입력해주세요." />
               <button type="button">중복확인</button>
+              <p>별명 중복확인</p>
             </li>
             <li className={style.pass_in}>
               <label>비밀번호</label>
@@ -46,6 +49,7 @@ function Join() {
                 type="password"
                 placeholder="비밀번호를 다시 입력해주세요."
               />
+              <p>두 비밀번호가 일치하지 않습니다.</p>
             </li>
             <li className={style.tel_in}>
               <label>전화번호</label>
@@ -54,13 +58,22 @@ function Join() {
             <li className={style.gen_in}>
               <label>성별</label>
               <button
-                className={style.gen_btn}
-                onClick={ClickCheck}
+                className={
+                  g_check === "m" ? `${style.gen_true}` : `${style.gen_false}`
+                }
+                onClick={CheckGen}
                 id={style.man}
+                name="man"
               >
                 남성
               </button>
-              <button onClick={ClickCheck} className={style.gen_btn}>
+              <button
+                onClick={CheckGen}
+                className={
+                  g_check === "w" ? `${style.gen_true}` : `${style.gen_false}`
+                }
+                name="woman"
+              >
                 여성
               </button>
             </li>

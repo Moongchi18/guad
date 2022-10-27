@@ -24,13 +24,20 @@
 .sell_top ul li {
   display: inline-block;
 }
-.sell_top ul li button {
+.cate_true {
+  background-color: #098060;
+  border: none;
+  color: white;
+}
+.cate_false {
   background-color: #fff;
-  border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  font-size: 20px;
+}
+.sell_top ul li button {
   width: 150px;
   height: 43px;
+  border-radius: 10px;
+  font-size: 20px;
   font-family: "SBAggroB";
   font-weight: 300;
   margin-right: 20px;
@@ -40,10 +47,6 @@
   background-color: #098060;
   color: white;
   transition: 0.3s all ease-in;
-}
-.sell_top ul li button:focus {
-  background-color: #098060;
-  color: white;
 }
 
 .sell_bot {
