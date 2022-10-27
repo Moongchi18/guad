@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import style from "../source/Selling.module.css";
 import Moodal2 from "./Moodal2";
 
@@ -20,7 +22,33 @@ function Selling() {
       modal.style.display = "block";
     }
   };
+  const [sellType, setSellType] = useState('');
+  const [data, setData] = useState();
+  const [itemType, setItemType] = useState();
+  const [itemDType, setItemDType] = useState();
 
+  const handlerSellType = (e) => {
+    const type = e.target.name
+    if(type==="up"){
+      setSellType('u')
+    } else if(type === 'down'){
+      setSellType('d')
+    } else if(type === 'nomal'){
+      setSellType('n')
+    }
+  } 
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/category")
+    .then(response => {
+      console.log(response.data)
+      const temp1 = [];
+      response.data.forEach(element => temp1.push(element.itemType))
+      const temp2 = temp1.filter((element, index) => temp1.indexOf(element) === index)
+      setItemType(temp2)
+    })
+  }, [])
+  console.log(itemType)  
   return (
     <>
       <div className={style.all_box}>
@@ -29,16 +57,22 @@ function Selling() {
           <ul>
             <li>
               <label>거래종류</label>
-              <button type="button">오름 경매</button>
-              <button type="button" className={style.mid}>
+              {/* <button type="button" id={sellType==='u' ? {[style.button-active:""].join("")}} name="up" onClick={handlerSellType}>오름 경매</button> */}
+              <button type="button" id={sellType==='d' ? 'button-active':''} className={style.mid} 
+                      name="down" onClick={handlerSellType}>
                 내림 경매
               </button>
-              <button type="button">일반 판매</button>
+              <button type="button" id={sellType==='n' ? 'button-active':''} name="nomal" onClick={handlerSellType}>일반 판매</button>
             </li>
             <li>
               <label>카테고리</label>
               <select className={style.select_one}>
                 <option value="대분류">대분류</option>
+                {
+                  itemType && itemType.map((type, index) => (
+                    <option value={type} key={index}>{type}</option>
+                  ))
+                }
               </select>
               <select>
                 <option value="소분류">소분류</option>
