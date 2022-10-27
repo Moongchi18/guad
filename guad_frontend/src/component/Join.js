@@ -36,6 +36,7 @@ function Join() {
               <label>별명</label>
               <input type="text" placeholder="별명을 입력해주세요." />
               <button type="button">중복확인</button>
+              <p>별명 중복확인</p>
             </li>
             <li className={style.pass_in}>
               <label>비밀번호</label>
@@ -48,6 +49,7 @@ function Join() {
                 type="password"
                 placeholder="비밀번호를 다시 입력해주세요."
               />
+              <p>두 비밀번호가 일치하지 않습니다.</p>
             </li>
             <li className={style.tel_in}>
               <label>전화번호</label>
