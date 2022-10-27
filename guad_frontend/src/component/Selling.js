@@ -127,6 +127,7 @@ function Selling() {
                   ))
                 }
               </select>
+              
             </li>
             <li>
               <label>판매글 제목</label>
