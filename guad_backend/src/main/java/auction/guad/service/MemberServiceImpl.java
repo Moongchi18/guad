@@ -9,6 +9,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import auction.guad.dto.MemberDto;
@@ -16,6 +21,7 @@ import auction.guad.mapper.MemberMapper;
 import auction.guad.security.PrincipalDetails;
 
 @Service
+//public class MemberServiceImpl extends DefaultOAuth2UserService  implements MemberService {
 public class MemberServiceImpl implements MemberService {
 
 	private MemberMapper memberMapper;
@@ -37,6 +43,12 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return new User(member.getEmail(), member.getPass(), true, true, true, true, new PrincipalDetails(member).getAuthorities());
 	}
+	
+//	@Override
+//	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+//		System.out.println(userRequest);
+//		return super.loadUser(userRequest);
+//	}
 
 	@Override
 	public ArrayList<MemberDto> managerSelectMemberListExceptPass() throws Exception {

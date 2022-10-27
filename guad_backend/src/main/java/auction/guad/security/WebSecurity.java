@@ -43,8 +43,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers("/admin/**").hasRole("y")
 			.anyRequest().permitAll()
-			.and().addFilter(getAuthenticationFilter())
+			.and()
+			.addFilter(getAuthenticationFilter())
 			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
+			.oauth2Login()
+			.loginPage("/loginForm")
+			.and()
 			.cors();
 		
 	}													 				
