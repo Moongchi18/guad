@@ -3,15 +3,17 @@ import style from "../source/Join.module.css";
 import Moodal from "./Moodal";
 
 function Join() {
-  const [check, setCheck] = useState(false);
+  const [g_check, setG_check] = useState("");
 
-  const ClickCheck = () => {
-    if (check == false) {
-      setCheck(true);
+  const CheckGen = (e) => {
+    const gen = e.target.name;
+    if (gen === "man") {
+      setG_check("m");
     } else {
-      setCheck(false);
+      setG_check("w");
     }
   };
+
   return (
     <>
       <Moodal />
@@ -54,13 +56,22 @@ function Join() {
             <li className={style.gen_in}>
               <label>성별</label>
               <button
-                className={style.gen_btn}
-                onClick={ClickCheck}
+                className={
+                  g_check === "m" ? `${style.gen_true}` : `${style.gen_false}`
+                }
+                onClick={CheckGen}
                 id={style.man}
+                name="man"
               >
                 남성
               </button>
-              <button onClick={ClickCheck} className={style.gen_btn}>
+              <button
+                onClick={CheckGen}
+                className={
+                  g_check === "w" ? `${style.gen_true}` : `${style.gen_false}`
+                }
+                name="woman"
+              >
                 여성
               </button>
             </li>
