@@ -10,7 +10,6 @@ public class ReviewDto {
 	private int itemNum;
 	private String memberEmail;
 	
-	private String title;
 	private String contents;
 	private int starPoint;
 	private Date writeDate;

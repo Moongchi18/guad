@@ -4,11 +4,12 @@ import lombok.Data;
 
 @Data
 public class ImgDto {
-	private String sellOrReview;
+	private int imgNum;
 	private int itemNum;
 	private int reviewNum;
 	
 	private int itemImgNum;
+	
 	private int itemImgName;
 	private int itemImgUpfile;
 	private int itemImgType;
