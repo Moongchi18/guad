@@ -14,8 +14,8 @@ public class MemberDto {
 	private String pass;
 	private String email;
 	private String phone;
-	private Date joinDateTime;
 	private String address;
+	private Date joinDateTime;
 	private String gender;
 	private int mileage;
 	private int mileageUsed;
