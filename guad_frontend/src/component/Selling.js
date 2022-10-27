@@ -29,13 +29,8 @@ function Selling() {
 
   const handlerSellType = (e) => {
     const type = e.target.name;
-    if (type === "up") {
-      setSellType("u");
-    } else if (type === "down") {
-      setSellType("d");
-    } else if (type === "nomal") {
-      setSellType("n");
-    }
+    // type u : up / d : down / n : normal
+    setSellType(type)
   };
 
   useEffect(() => {
@@ -65,7 +60,7 @@ function Selling() {
                     ? `${style.button_active}`
                     : `${style.button_no}`
                 }
-                name="up"
+                name="u"
                 onClick={handlerSellType}
               >
                 오름 경매
@@ -78,7 +73,7 @@ function Selling() {
                     : `${style.button_no}`
                 }
                 className={style.mid}
-                name="down"
+                name="d"
                 onClick={handlerSellType}
               >
                 내림 경매
@@ -90,7 +85,7 @@ function Selling() {
                     ? `${style.button_active}`
                     : `${style.button_no}`
                 }
-                name="nomal"
+                name="n"
                 onClick={handlerSellType}
               >
                 일반 판매
