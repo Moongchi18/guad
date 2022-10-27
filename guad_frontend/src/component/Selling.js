@@ -29,6 +29,9 @@ function Selling() {
   const [selectedItemType, setSelectedItemType] = useState();
   const [itemDetailType, setItemDetailType] = useState([]);
   const [selectedItemDetailType, setSelectedItemDetailType] = useState();
+  const [itemSub, setItemSub] = useState();
+  const [itemContents, setItemContents] = useState();
+  const [itemPrice, setItemPrice] = useState();
 
   const handlerSellType = (e) => {
     const type = e.target.name;
@@ -51,7 +54,25 @@ function Selling() {
   const handlerSelectedItemDetailType = (e) => setSelectedItemDetailType(e.target.value);
   
   const handlerItemRegist = (e) => {
-
+    e.preventDefault();
+    axios.post("http://localhost:8080/sellitem",
+    // memberEmail: '', // 컨트롤러에서 토큰으로 정보확인 후 입력
+    // writeDate: '', // 쿼리문에 now()
+      {sellType,
+      itemSub,
+      itemPrice,
+      itemType: selectedItemType,
+      itemDType: selectedItemDetailType,
+      aStartPrice: itemPrice,
+      // aPeriod: ''
+      }
+    )
+    .then(response => {
+      console.log(response)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
 
   useEffect(() => {
@@ -135,15 +156,15 @@ function Selling() {
             </li>
             <li>
               <label>판매글 제목</label>
-              <input type="text" placeholder="판매글 제목을 작성해주세요." />
+              <input type="text" placeholder="판매글 제목을 작성해주세요." value={itemSub} onchange={(e) => setItemSub(e.target.value)}/>
             </li>
             <li>
-              <label>판매글 작성</label>
-              <textarea placeholder="판매글을 작성해주세요."></textarea>
+              <label>판매글 내용</label>
+              <textarea placeholder="내용을 작성해주세요." value={itemContents} onchange={(e) => setItemContents(e.target.value)}></textarea>
             </li>
             <li>
               <label>경매 시작가 / 판매 가격</label>
-              <input type="text" placeholder="가격을 작성해주세요." />
+              <input type="text" placeholder="가격을 작성해주세요." value={itemPrice} onchange={(e) => setItemPrice(e.target.value)}/>
             </li>
             <li>
               <label>경매기간 / 판매기간</label>

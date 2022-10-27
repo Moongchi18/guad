@@ -4,6 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
-@RequestMapping("/api")
 public class SellItemController {
 
 	@Autowired
@@ -30,10 +31,19 @@ public class SellItemController {
 
 	@ApiOperation(value = "게시물 등록", notes = "게시물 제목과 내용을 저장")
 	@RequestMapping(value = "/sellitem", method = RequestMethod.POST)
-	public void insertSellItem(
-			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody SellItemDto sellItem)
+	public ResponseEntity<Boolean> insertSellItem(
+			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }") 
+			@RequestBody SellItemDto sellItem, @AuthenticationPrincipal User user)
 			throws Exception {
-		sellItemService.insertSellItem(sellItem);
+		System.out.println(user);
+		System.out.println("<<<<<<<<<" +sellItem);
+//		boolean result = sellItemService.insertSellItem(sellItem);
+//		if(result) {
+//			return ResponseEntity.status(HttpStatus.OK).body(result);
+//		} else {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+//		}
+		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}
 
 	@ApiOperation(value = "게시물 상세 조회", notes = "등록된 게시물 상세 정보를 조회")
