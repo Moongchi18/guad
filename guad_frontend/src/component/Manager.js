@@ -16,6 +16,7 @@ function Manager() {
 
   return (
     <>
+   
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>관리자 페이지</h1>
         <div>

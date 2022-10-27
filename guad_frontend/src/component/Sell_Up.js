@@ -1,33 +1,42 @@
-import { useEffect } from "react";
 import style from "../source/SellItem.module.css";
 import Moodal3 from "./Moodal3";
-import Moodal6 from "./Moodal6";
 
-function SellItem() {
-  window.ready = function () {
-    const modal2 = document.getElementById("my-modal2");
-    const closeBtn2 = document.getElementById("outMan2");
-    const openBtn2 = document.getElementById("openMan2");
+function Sell_Up() {
+  window.onload = function () {
+    const modal = document.getElementById("my-modal");
+    const closeBtn1 = document.getElementById("close");
+    const closeBtn2 = document.getElementById("outMan");
+    const openBtn1 = document.getElementById("openMan");
 
-    openBtn2.addEventListener("click", openModal2);
-    closeBtn2.addEventListener("click", closeModal2);
+    openBtn1.addEventListener("click", openModal);
+    closeBtn2.addEventListener("click", closeModal);
 
-    function closeModal2() {
-      modal2.style.display = "none";
+    function closeModal() {
+      modal.style.display = "none";
     }
-    function openModal2() {
-      modal2.style.display = "block";
+
+    function openModal() {
+      modal.style.display = "block";
     }
   };
-  useEffect(() => {}, []);
   return (
     <>
-      {/* <Moodal6 /> */}
       <Moodal3 />
       <div className={style.item_top}>
-        <h2>일반판매</h2>
+        <h2>
+          <strong>오름</strong>판매
+        </h2>
         <div className={style.img_item}>
-          <img src={require("../source/img/big_item.png")} alt="제품사진" />
+          <img
+            src={require("../source/img/big_item.png")}
+            alt="제품사진"
+            className={style.item}
+          />
+          <img
+            src={require("../source/img/del2_b.png")}
+            alt="오름경매"
+            className={style.up2}
+          />
           <ul>
             <li></li>
             <li></li>
@@ -63,9 +72,7 @@ function SellItem() {
             <span className={style.sell_number}>450,000</span>
           </div>
           <div className={style.button_bb}>
-            <button type="button" className={style.bb_buy} id="openMan2">
-              구매
-            </button>
+            <button className={style.bb_buy}>입찰 참여</button>
             <span className={style.bb_date}>2022년 10월 31일까지</span>
           </div>
         </div>
@@ -79,29 +86,8 @@ function SellItem() {
           <br />
           많은 관심 부탁드립니다.
         </p>
-        <div className={style.sell_review}>
-          <h2>판매자님에 대한 리뷰</h2>
-          <img src={require("../source/img/red_star.png")} alt="붉은별" />
-          <span>4</span>
-        </div>
-        <div className={style.sell_review_show}>
-          <ul>
-            <li>
-              <span>시흥기린</span>
-              <img src={require("../source/img/gray_star.png")} alt="회색별" />
-              <span>3</span>
-              <span className={style.review_write}>이것은 리뷰입니다.</span>
-            </li>
-            <li>
-              <span>수원원숭이</span>
-              <img src={require("../source/img/gray_star.png")} alt="회색별" />
-              <span>4</span>
-              <span className={style.review_write}>이것은 리뷰입니다.</span>
-            </li>
-          </ul>
-        </div>
       </div>
     </>
   );
 }
-export default SellItem;
+export default Sell_Up;

@@ -62,6 +62,7 @@
   padding: 0 0 0 10px;
   text-align: left;
   position: relative;
+  cursor: pointer;
 }
 .check_1 {
   font-size: 20px;
@@ -116,7 +117,7 @@
   background-color: white;
 }
 .modalfooter button:hover {
-  background-color: #ffb8b8;
+  background-color: #f38790;
   transition: 0.5s all ease;
   color: white;
   border: none;

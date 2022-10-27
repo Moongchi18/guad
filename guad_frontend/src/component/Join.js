@@ -5,6 +5,16 @@ import axios from "axios";
 
 
 function Join({ history }) {
+  const [g_check, setG_check] = useState("");
+
+  const CheckGen = (e) => {
+    const gen = e.target.name;
+    if (gen === "man") {
+      setG_check("m");
+    } else {
+      setG_check("w");
+    }
+  };
 
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
@@ -185,8 +195,25 @@ function Join({ history }) {
             </li>
             <li className={style.gen_in}>
               <label>성별</label>
-              <button className={style.man_b}>남성</button>
-              <button>여성</button>
+              <button
+                className={
+                  g_check === "m" ? `${style.gen_true}` : `${style.gen_false}`
+                }
+                onClick={CheckGen}
+                id={style.man}
+                name="man"
+              >
+                남성
+              </button>
+              <button
+                onClick={CheckGen}
+                className={
+                  g_check === "w" ? `${style.gen_true}` : `${style.gen_false}`
+                }
+                name="woman"
+              >
+                여성
+              </button>
             </li>
             <li className={style.add_in}>
               <label>주소</label>

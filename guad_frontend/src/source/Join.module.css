@@ -35,6 +35,7 @@
 .input_set p {
   display: block;
   color: #ff0000;
+  opacity: 0.7;
   font-size: 13px;
   font-weight: 300;
   text-align: left;
@@ -79,6 +80,15 @@
 .input_set ul li.id_in button {
   margin-left: 20px;
 }
+.input_set ul li.id_in button:hover,
+.input_set ul li.nick_in button:hover,
+.input_set ul li.add_in button:hover,
+.input_set ul li.gen_in button:hover {
+  background-color: #f38790;
+  color: white;
+  border: none;
+  transition: 0.3s all ease;
+}
 .input_set ul li.nick_in input {
   width: 460px;
 }
@@ -104,18 +114,26 @@
 .input_set ul li:last-child input {
   width: 600px;
 }
-
-.input_set ul li.gen_in button {
-  width: 292px;
+.input_set > ul > li.gen_in > button {
   display: inline-block;
+  height: 50px;
+  width: 292px;
+}
+.gen_false {
+  color: black;
+}
+
+.gen_true {
+  background-color: #f38790 !important;
+  color: white;
+  border: none;
 }
 
 .input_set ul li.gen_in label {
   padding-top: 15px;
   display: inline-block;
 }
-
-.input_set .man_b {
+#man {
   margin-right: 15px;
 }
 .input_set > ul > li > button {
@@ -134,9 +152,16 @@
   height: 60px;
   font-size: 16px;
   background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.15);
   margin: 0 auto 150px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
+.last_btn:hover {
+  background-color: #f38790;
+  color: white;
+  border: none;
+  transition: 0.3s all ease;
+}
+
 
 #idConfirm {
 position: absolute;

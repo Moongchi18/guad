@@ -4,7 +4,7 @@
   text-align: center;
   font-family: "SBAggroB";
 }
-.all_box h2 {
+.all_box > h2 {
   display: block;
   margin: 120px 0 66px;
   padding-bottom: 10px;
@@ -25,11 +25,26 @@
 .in_box > ul > li:nth-child(1) {
   margin-bottom: 75px;
 }
-.in_box > ul > li:nth-child(1) button {
+/* 이상목 */
+#button_active {
+  background-color: #098060;
+  color: white;
+  width: 200px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+/*  */
+#button_no {
   width: 200px;
   height: 50px;
   border-radius: 5px;
   cursor: pointer;
+}
+.in_box > ul > li:nth-child(1) button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease;
 }
 .mid {
   margin: 0 10px;
@@ -118,4 +133,8 @@
   font-size: 20px;
   margin-bottom: 150px;
   color: white;
+}
+.subBtn:hover {
+  background-color: #0fa880;
+  transition: 0.3s all ease;
 }
