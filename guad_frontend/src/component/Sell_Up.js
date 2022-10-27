@@ -86,13 +86,6 @@ function Sell_Up() {
           <br />
           많은 관심 부탁드립니다.
         </p>
-        <div className={style.sell_review}>
-          <h2>댓글</h2>
-          <textarea className={style.last_down}
-            placeholder="경매가 끝난 후 입력이 가능합니다."
-            disabled
-          ></textarea>
-        </div>
       </div>
     </>
   );

@@ -1,7 +1,17 @@
+import { useState } from "react";
 import style from "../source/Join.module.css";
 import Moodal from "./Moodal";
 
 function Join() {
+  const [check, setCheck] = useState(false);
+
+  const ClickCheck = () => {
+    if (check == false) {
+      setCheck(true);
+    } else {
+      setCheck(false);
+    }
+  };
   return (
     <>
       <Moodal />
@@ -43,8 +53,16 @@ function Join() {
             </li>
             <li className={style.gen_in}>
               <label>성별</label>
-              <button className={style.man_b}>남성</button>
-              <button>여성</button>
+              <button
+                className={style.gen_btn}
+                onClick={ClickCheck}
+                id={style.man}
+              >
+                남성
+              </button>
+              <button onClick={ClickCheck} className={style.gen_btn}>
+                여성
+              </button>
             </li>
             <li className={style.add_in}>
               <label>주소</label>
