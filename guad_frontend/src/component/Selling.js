@@ -25,7 +25,9 @@ function Selling() {
   const [sellType, setSellType] = useState("");
   const [data, setData] = useState();
   const [itemType, setItemType] = useState();
-  const [itemDType, setItemDType] = useState();
+  const [selectedItemType, setSelectedItemType] = useState();
+  const [itemDetailType, setItemDetailType] = useState([]);
+  const [selectedItemDetailType, setSelectedItemDetailType] = useState();
 
   const handlerSellType = (e) => {
     const type = e.target.name;
@@ -33,6 +35,19 @@ function Selling() {
     setSellType(type)
   };
 
+  const handlerSelectedItemType = (e) => {
+    setSelectedItemType(e.target.value)
+
+    data.forEach((element, index) => {
+      if (element.itemType === e.target.value) {
+        console.log(element.itemDType);
+        itemDetailType.push(element.itemDType)
+      }
+    })
+    setItemDetailType(itemDetailType);
+  };
+  const handlerSelectedItemDetailType = (e) => setSelectedItemDetailType(e.target.value);
+  console.log(itemDetailType)
   useEffect(() => {
     axios.get("http://localhost:8080/category").then((response) => {
       console.log(response.data);
@@ -42,9 +57,10 @@ function Selling() {
         (element, index) => temp1.indexOf(element) === index
       );
       setItemType(temp2);
+      setData(response.data)
     });
   }, []);
-  console.log(itemType);
+  console.log(selectedItemType);
   return (
     <>
       <div className={style.all_box}>
@@ -93,7 +109,7 @@ function Selling() {
             </li>
             <li>
               <label>카테고리</label>
-              <select className={style.select_one}>
+              <select className={style.select_one} onChange={handlerSelectedItemType} value={selectedItemType}>
                 <option value="대분류">대분류</option>
                 {itemType &&
                   itemType.map((type, index) => (
@@ -102,8 +118,14 @@ function Selling() {
                     </option>
                   ))}
               </select>
-              <select>
+              <select onChange={handlerSelectedItemDetailType} value={selectedItemDetailType}>
                 <option value="소분류">소분류</option>
+                {
+                  itemDetailType &&
+                  itemDetailType.map((detailType, index) => (
+                    <option value={detailType} key={index}>{detailType}</option>
+                  ))
+                }
               </select>
             </li>
             <li>
