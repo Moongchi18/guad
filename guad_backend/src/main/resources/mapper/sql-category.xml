@@ -8,7 +8,7 @@
 	</select>
 	
 	<select id="selectItemType" resultType="auction.guad.dto.CategoryDto">
-		SELECT * FROM CATEGORY
+		SELECT DISTINCT ITEM_TYPE FROM CATEGORY
 		WHERE ITEM_TYPE=#{itemType}
 	</select>
 	
