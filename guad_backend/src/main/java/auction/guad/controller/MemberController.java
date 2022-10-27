@@ -21,8 +21,8 @@ import auction.guad.vo.ResponseVo;
 @RestController
 public class MemberController {
 	
-	@Autowired
 	MemberService memberService;
+	@Autowired
 	public MemberController(MemberService memberService) {
 		this.memberService = memberService;
 	}
