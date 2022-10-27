@@ -6,9 +6,10 @@ import plus from "../source/img/icons_plus.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MoodalMileage from "./MoodalMileage";
+import BuyList from "./BuyList";
 
 function Mypage() {
-  const [sellList, setSellList] = useState("");
+  const [sellList, setSellList] = useState({});
   const [buyList, setBuyList] = useState("");
 
   useEffect(() => {
@@ -23,7 +24,7 @@ function Mypage() {
 
   return (
     <>
-     <MoodalMileage/>
+      <MoodalMileage />
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>마이페이지</h1>
         <div>
@@ -41,63 +42,91 @@ function Mypage() {
             </div>
             <div className={style.Mbox_button}>
               <button className={style.member}>회원정보</button>
-              <button className={style.mileage} id="mileage">마일리지</button>
+              <button className={style.mileage} id="mileage">
+                마일리지
+              </button>
             </div>
           </div>
         </div>
-        <div className={style.category}>
-          <h3>등록 상품 내역</h3>
-        </div>
-        <div className={style.insert_list}>
-          <div className={style.no_sell_info}>
-            <h3>등록된 상품이 없습니다.</h3>
-            <h3>내 상품을 간편하게 등록해보세요.</h3>
-            <button>
-              <img src={plus} alt="1"></img>
-              <div>상품 등록하러 가기</div>
-            </button>
-          </div>
-           {sellList && ( 
-            <div>
-              <img src={sell_1} alt="1"></img>
-              <img src={sell_2} alt="1"></img>
-            </div>
-           )} 
-        </div>
+        <BuyList  />
+
         <div className={style.category}>
           <h3>상품 구매 내역</h3>
         </div>
 
-         <div className={style.buy_list}> 
+        <div className={style.buy_list}>
           {/* <div className={style.no_buy_info}>
             <button>상품 구매하러 가기</button>
           </div>  */}
 
           {/* {buyList && ( */}
-            <div>
-              <img src={sell_1} alt="1"></img>
-              <div className={style.buy_list_info}>
-                <h3>날짜 : 2022년 10월 24일 </h3>
-                <h3>
-                  상품명 : 꾸찌아니하지 않지만 그래도 그러하지 않기에 그러한
-                  꾸지가방
-                </h3>
-                <h3>가격 : 1,000,000</h3>
-                <h3>주소 : 경기도 구리시 인창동 극동아파트 104동 804호</h3>
-              </div>
 
-              <img src={sell_2} alt="1"></img>
-              <div className={style.buy_list_info}>
-                <h3>날짜 : 2022년 10월 24일 </h3>
-                <h3>
-                  상품명 : 꾸찌아니하지 않지만 그래도 그러하지 않기에 그러한
-                  꾸지가방
-                </h3>
-                <h3>가격 : 1,000,000</h3>
-                <h3>주소 : 경기도 구리시 인창동 극동아파트 104동 804호</h3>
-              </div>
+          <div className={style.sell_list}>
+            <div className={style.item_bb}>
+              <img src={sell_1} alt="1"></img>
+              <img
+                src={require("../source/img/del2.png")}
+                alt="1"
+                className={style.del_icon}
+              ></img>
             </div>
-          {/* )} */}
+            <div className={style.buy_list_info}>
+              <h3>
+                <strong>날짜 : </strong>2022년 10월 24일{" "}
+              </h3>
+              <h3>
+                <strong>상품명 : </strong>꾸찌아니하지 않지만 그래도 그러하지
+                않기에 그러한 꾸지가방
+              </h3>
+              <h3>
+                <strong>가격 : </strong>1,000,000
+              </h3>
+              <h3>
+                <strong>주소 : </strong>경기도 구리시 인창동 극동아파트 104동
+                804호
+              </h3>
+            </div>
+            <div className={style.sellcheck}>
+              <button>거래완료</button>
+              <h3>
+                <strong>구매 일자 : </strong>2022년 10월 24일
+              </h3>
+            </div>
+          </div>
+
+          <div className={style.sell_list}>
+            <div className={style.item_bb}>
+              <img src={sell_2} alt="1"></img>
+              <img
+                src={require("../source/img/del1.png")}
+                alt="1"
+                className={style.del_icon}
+              ></img>
+            </div>
+            <div className={style.buy_list_info}>
+              <h3>
+                <strong>날짜 : </strong>2022년 10월 24일
+              </h3>
+
+              <h3>
+                <strong>상품명 : </strong>꾸찌아니하지 않지만 그래도 그러하지
+                않기에 그러한 꾸지가방
+              </h3>
+              <h3>
+                <strong>가격 : </strong>1,000,000
+              </h3>
+              <h3>
+                <strong>주소 : </strong>경기도 구리시 인창동 극동아파트 104동
+                804호
+              </h3>
+            </div>
+            <div className={style.sellcheck}>
+              <button>거래중</button>
+              <h3>
+                <strong>구매 일자 : </strong>2022년 10월 24일
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
     </>
