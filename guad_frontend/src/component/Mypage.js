@@ -57,23 +57,23 @@ function Mypage() {
               <div>상품 등록하러 가기</div>
             </button>
           </div>
-          {sellList && (
+           {sellList && ( 
             <div>
               <img src={sell_1} alt="1"></img>
               <img src={sell_2} alt="1"></img>
             </div>
-          )}
+           )} 
         </div>
         <div className={style.category}>
           <h3>상품 구매 내역</h3>
         </div>
 
-        <div className={style.buy_list}>
-          <div className={style.no_buy_info}>
+         <div className={style.buy_list}> 
+          {/* <div className={style.no_buy_info}>
             <button>상품 구매하러 가기</button>
-          </div>
+          </div>  */}
 
-          {buyList && (
+          {/* {buyList && ( */}
             <div>
               <img src={sell_1} alt="1"></img>
               <div className={style.buy_list_info}>
@@ -97,7 +97,7 @@ function Mypage() {
                 <h3>주소 : 경기도 구리시 인창동 극동아파트 104동 804호</h3>
               </div>
             </div>
-          )}
+          {/* )} */}
         </div>
       </div>
     </>
