@@ -26,12 +26,16 @@
   margin-bottom: 75px;
 }
 /* 이상목 */
-#button-active{
+#button_active {
   background-color: #098060;
   color: white;
+  width: 200px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 /*  */
-.in_box > ul > li:nth-child(1) button {
+#button_no {
   width: 200px;
   height: 50px;
   border-radius: 5px;
@@ -41,10 +45,6 @@
   background-color: #098060;
   color: white;
   transition: 0.3s all ease;
-}
-.in_box > ul > li:nth-child(1) button:focus {
-  background-color: #098060;
-  color: white;
 }
 .mid {
   margin: 0 10px;
