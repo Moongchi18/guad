@@ -7,6 +7,8 @@ function Moodal() {
   const [ccc3, setCcc3] = useState(false);
   const [ccc4, setCcc4] = useState(false);
 
+  const modal = document.getElementById("my-modal");
+
   const changeImg1 = () => {
     if (ccc1 == false) {
       setCcc1(true);
@@ -35,19 +37,14 @@ function Moodal() {
       setCcc4(false);
     }
   };
-
-  window.onload = function () {
-    const modal = document.getElementById("my-modal");
-    const closeBtn1 = document.getElementById("close");
-    const closeBtn2 = document.getElementById("allcheckall");
-
-    closeBtn1.addEventListener("click", closeModal);
-    closeBtn2.addEventListener("click", closeModal);
-
-    function closeModal() {
+  const closeModal = () => {
+    if (ccc1 == false || ccc2 == false || ccc3 == false || ccc4 == false) {
+      alert("동의를 확인해주세요.");
+    } else {
       modal.style.display = "none";
     }
   };
+
   useEffect(() => {
     (function openModal() {
       const modal = document.querySelector("#my-modal");
@@ -60,7 +57,7 @@ function Moodal() {
       <div id="my-modal" className={style.modal}>
         <div className={style.modalcontent}>
           <div className={style.modalheader}>
-            <span className={style.close} id="close">
+            <span className={style.close} id="close" onClick={closeModal}>
               &times;
             </span>
             <h2>동의 약관 확인</h2>
@@ -152,6 +149,7 @@ function Moodal() {
               type="button"
               className={style.allcheckall}
               id="allcheckall"
+              onClick={closeModal}
             >
               동의확인
             </button>

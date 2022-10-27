@@ -114,9 +114,9 @@
   width: 600px;
 }
 
-.input_set ul li.gen_in button {
-  width: 292px;
+.gen_btn{
   display: inline-block;
+  width: 292px;
 }
 
 #choice_gen {
@@ -129,8 +129,7 @@
   padding-top: 15px;
   display: inline-block;
 }
-
-.input_set .man_b {
+#man {
   margin-right: 15px;
 }
 .input_set > ul > li > button {
