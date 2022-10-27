@@ -65,7 +65,11 @@ function Moodal() {
           <div className={style.modalbody}>
             <ul>
               <li>
-                <button type="button" className={style.check_1}>
+                <button
+                  type="button"
+                  className={style.check_1}
+                  onClick={changeImg1}
+                >
                   전체동의<strong> &#40;선택항목 포함&#41;</strong>
                   <span>
                     <img
@@ -76,7 +80,6 @@ function Moodal() {
                       }
                       alt="체크"
                       id="cc1"
-                      onClick={changeImg1}
                     />
                   </span>
                 </button>
@@ -85,6 +88,7 @@ function Moodal() {
                 <button
                   type="button"
                   className={[style.check_2, style.check_9].join("")}
+                  onClick={changeImg2}
                 >
                   이용약관 동의 &#40;필수&#41;<strong> 보기</strong>
                   <span>
@@ -96,7 +100,6 @@ function Moodal() {
                       }
                       alt="체크"
                       id="cc2"
-                      onClick={changeImg2}
                     />
                   </span>
                 </button>
@@ -105,6 +108,7 @@ function Moodal() {
                 <button
                   type="button"
                   className={[style.check_3, style.check_9].join("")}
+                  onClick={changeImg3}
                 >
                   개인정보 수집 및 이용동의 &#40;필수&#41;
                   <strong> 보기</strong>
@@ -117,7 +121,6 @@ function Moodal() {
                       }
                       alt="체크"
                       id="cc3"
-                      onClick={changeImg3}
                     />
                   </span>
                 </button>
@@ -126,6 +129,7 @@ function Moodal() {
                 <button
                   type="button"
                   className={[style.check_4, style.check_9].join("")}
+                  onClick={changeImg4}
                 >
                   마케팅정보 이용 동의 추가 &#40;선택&#41;<strong> 보기</strong>
                   <span>
@@ -137,7 +141,6 @@ function Moodal() {
                       }
                       alt="체크"
                       id="cc4"
-                      onClick={changeImg4}
                     />
                   </span>
                 </button>
