@@ -4,6 +4,7 @@ import style from "../source/Selling.module.css";
 import Moodal2 from "./Moodal2";
 
 function Selling() {
+  window.
   window.onload = function () {
     const modal = document.getElementById("my-modal");
     const closeBtn1 = document.getElementById("close");
@@ -38,16 +39,21 @@ function Selling() {
   const handlerSelectedItemType = (e) => {
     setSelectedItemType(e.target.value)
 
+    const newItemDetailType = [];
     data.forEach((element, index) => {
-      if (element.itemType === e.target.value) {
+      if (element.itemType === e.target.value && element.itemDType !== '') {
         console.log(element.itemDType);
-        itemDetailType.push(element.itemDType)
+        newItemDetailType.push(element.itemDType)
       }
     })
-    setItemDetailType(itemDetailType);
+    setItemDetailType(newItemDetailType);
   };
   const handlerSelectedItemDetailType = (e) => setSelectedItemDetailType(e.target.value);
-  console.log(itemDetailType)
+  
+  const handlerItemRegist = (e) => {
+
+  }
+
   useEffect(() => {
     axios.get("http://localhost:8080/category").then((response) => {
       console.log(response.data);
@@ -60,7 +66,6 @@ function Selling() {
       setData(response.data)
     });
   }, []);
-  console.log(selectedItemType);
   return (
     <>
       <div className={style.all_box}>
@@ -127,6 +132,7 @@ function Selling() {
                   ))
                 }
               </select>
+              
             </li>
             <li>
               <label>판매글 제목</label>
@@ -160,7 +166,7 @@ function Selling() {
               </div>
             </li>
           </ul>
-          <button type="button" className={style.subBtn} id="openMan">
+          <button type="button" className={style.subBtn} id="openMan" onClick={handlerItemRegist}>
             등록완료
           </button>
           <Moodal2 />
