@@ -5,10 +5,11 @@
 
 	<select id="selectAllCategory" resultType="auction.guad.dto.CategoryDto">
 		SELECT * FROM category
+		ORDER BY ITEM_TYPE, ITEM_D_TYPE
 	</select>
 	
 	<select id="selectItemType" resultType="auction.guad.dto.CategoryDto">
-		SELECT * FROM CATEGORY
+		SELECT DISTINCT ITEM_TYPE FROM CATEGORY
 		WHERE ITEM_TYPE=#{itemType}
 	</select>
 	

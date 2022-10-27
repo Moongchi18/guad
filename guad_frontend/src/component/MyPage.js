@@ -18,7 +18,7 @@ function Mypage() {
         setBuyList();
       })
       .catch((error) => {});
-  }, []);
+  }, []); 
 
   return (
     <>

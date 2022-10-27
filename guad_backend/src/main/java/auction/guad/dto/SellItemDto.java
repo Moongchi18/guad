@@ -6,11 +6,12 @@ import lombok.Data;
 
 @Data
 public class SellItemDto {
+	private int itemNum;
 	private String sellType;
 	private String memberEmail;
 	
-	private int itemNum;
 	private String itemSub;
+	private String itemContents;
 	private int itemPrice;
 	private String itemType;
 	private String itemDType;

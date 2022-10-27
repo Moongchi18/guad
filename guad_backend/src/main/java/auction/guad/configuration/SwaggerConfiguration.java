@@ -20,7 +20,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 				// .useDefaultResponseMessages(false)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("board.controller"))
+				.apis(RequestHandlerSelectors.basePackage("auction.guad.controller"))
 				.paths(PathSelectors.any())
 				.build();
 	}

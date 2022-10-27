@@ -70,9 +70,9 @@ public class DatabaseConfiguration {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 	
-	@Bean
-	@ConfigurationProperties(prefix="spring.jpa")
-	public Properties hibernateConfig() {
-		return new Properties();
-	}
+//	@Bean
+//	@ConfigurationProperties(prefix="spring.jpa")
+//	public Properties hibernateConfig() {
+//		return new Properties();
+//	}
 }

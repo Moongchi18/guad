@@ -1,27 +1,25 @@
 package auction.guad.configuration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
-import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSocketMessageBroker
+@RequiredArgsConstructor	
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
+	
+//	private final StompHandler stompHandler;
 	
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry.addEndpoint("/ws")
 				// CORS
 				.setAllowedOriginPatterns("*")
-				// websocket를 지원하지 않는 브라우저에서도 websocket을 사용할 수 있도록 지원해주는 
+				// websocket를 지원하지 않는 브라우저에서 websocket을 사용할 수 있도록 지원해주는 
 				// SockJS를 사용하겠다
 				.withSockJS();
 	}
@@ -38,9 +36,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 		registry.setUserDestinationPrefix("/sub");
         
 		////////////// chatroom
-        registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/chatroom","/user");
-        registry.setUserDestinationPrefix("/user");
+//        registry.setApplicationDestinationPrefixes("/app");
+//        registry.enableSimpleBroker("/chatroom","/user");
+//        registry.setUserDestinationPrefix("/user");
 		/////////////////////////////////////////////
 		// enableSimpleBroker : /sub가 prefix로 붙은 destination의 클라이언트에게
 		// 메세지를 보낼 수 있도록 SimpleBroker를 등록한다
@@ -50,4 +48,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 //		registry.setApplicationDestinationPrefixes("/pub");
 	}
 	
+//	@Override
+//	public void configureClientInboundChannel(ChannelRegistration registration) {
+//		registration.interceptors(stompHandler);
+//	}
 }

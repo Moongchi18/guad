@@ -36,20 +36,7 @@ public class ReviewController {
 			throws Exception {
 		reviewService.insertReview(review);
 	}
-
-	@ApiOperation(value = "리뷰 상세 조회", notes = "등록된 리뷰 상세 정보를 조회")
-	@RequestMapping(value = "/review/{reviewNum}", method = RequestMethod.GET)
-	public ResponseEntity<ReviewDto> openReviewDetail(
-			@Parameter(description = "리뷰 번호", required = true, example = "1") @PathVariable("reviewNum") int reviewNum)
-			throws Exception {
-		ReviewDto reviewDto = reviewService.selectReviewDetail(reviewNum);
-		if (reviewDto == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		} else {
-			
-			return ResponseEntity.ok(reviewDto);
-		}
-	}
+	
 
 	@RequestMapping(value = "/review/{reviewNum}", method = RequestMethod.PUT)
 	public void updateReview(@PathVariable("reviewNum") int reviewNum, @RequestBody ReviewDto reviewDto) throws Exception {

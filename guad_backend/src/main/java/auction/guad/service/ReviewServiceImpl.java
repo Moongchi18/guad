@@ -25,13 +25,8 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	
-	public ReviewDto selectReviewDetail(int reviewNum) throws Exception {
-		return reviewMapper.selectReviewDetail(reviewNum);
-		
-	}
-	
 	public void updateReview(ReviewDto reviewDto) throws Exception {
-		    reviewMapper.updateReview(reviewDto);
+		  reviewMapper.updateReview(reviewDto);
 		
 	}
 	

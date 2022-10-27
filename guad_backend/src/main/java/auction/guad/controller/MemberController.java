@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,12 +18,13 @@ import auction.guad.dto.MemberDto;
 import auction.guad.service.MemberService;
 import auction.guad.vo.RequestVo;
 import auction.guad.vo.ResponseVo;
+import net.minidev.json.parser.JSONParser;
 
 @RestController
 public class MemberController {
 	
-	@Autowired
 	MemberService memberService;
+	@Autowired
 	public MemberController(MemberService memberService) {
 		this.memberService = memberService;
 	}
@@ -94,14 +96,42 @@ public class MemberController {
 	}
 	
 	// 관리자용 탈퇴 회원 목록 조회
-	@RequestMapping(value = "/admin/member/deleted", method = RequestMethod.GET)
-	public List<MemberDto> adminDeletedMemberList() throws Exception {
-		return memberService.managerSelectMemberListExceptPassAndDeleted();
+	@RequestMapping(value = "/admin/member/delete", method = RequestMethod.GET)
+	public List<MemberDto> admindeleteMemberList() throws Exception {
+		return memberService.managerSelectMemberListExceptPassAnddelete();
 	}
 	
 	// 관리자용 회원 상세 조회
 	@RequestMapping(value = "/admin/member/{email}", method = RequestMethod.GET)
-	public MemberDto adminDeletedMemberList(@PathVariable String email) throws Exception {
+	public MemberDto admindeleteMemberList(@PathVariable String email) throws Exception {
 		return memberService.managerSelectMemberDetailByEmail(email);
+	}
+	
+	// 이메일 중복 체크
+	@PostMapping(value="/member/idcheck")
+	public ResponseEntity<Integer> repetitionEmailCheck(@RequestBody MemberDto member) throws Exception {
+		Integer result = memberService.repetitionEmailCheck(member.getEmail());
+		System.out.println("<<<<<<<<<<<<<<<<호출");
+		if(result == 1) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);			
+		} else if(result == 0) {
+			return ResponseEntity.status(HttpStatus.OK).body(null);
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
+		}
+	}
+	
+	// 닉네임 중복 체크
+	@PostMapping(value="/member/nicknamecheck")
+	public ResponseEntity<Integer> repetitionNicknameCheck(@RequestBody MemberDto member) throws Exception {
+		Integer result1 = memberService.repetitionNicknameCheck(member.getNickname());
+		if(result1 == 1) {			
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		} else if(result1 == 0) {
+			return ResponseEntity.status(HttpStatus.OK).body(null);
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
+		}
+		
 	}
 }

@@ -10,7 +10,7 @@ import auction.guad.dto.MemberDto;
 public interface MemberMapper {
 	
 	ArrayList<MemberDto> managerSelectMemberListExceptPass() throws Exception;
-	ArrayList<MemberDto> managerSelectMemberListExceptPassAndDeleted() throws Exception;
+	ArrayList<MemberDto> managerSelectMemberListExceptPassAnddelete() throws Exception;
 	MemberDto managerSelectMemberDetailByEmail(String email) throws Exception;
 	MemberDto loginContainPass(String email);
 	

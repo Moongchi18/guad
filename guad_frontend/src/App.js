@@ -23,7 +23,7 @@ import ChatRoom from "./auction/ChatRoom";
 import ManagerMember from "./component/ManagerMember";
 import Selling from "./component/Selling";
 import M_Sample from "./component/M_Sample";
-import Mypage from "./component/Mypage";
+import Mypage from "./component/MyPage";
 
 function App() {
   axios.interceptors.request.use(function (config) {
