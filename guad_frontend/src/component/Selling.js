@@ -4,7 +4,6 @@ import style from "../source/Selling.module.css";
 import Moodal2 from "./Moodal2";
 
 function Selling() {
-  window.
   window.onload = function () {
     const modal = document.getElementById("my-modal");
     const closeBtn1 = document.getElementById("close");

@@ -1,27 +1,28 @@
 import { useEffect } from "react";
 import style from "../source/SellItem.module.css";
 import Moodal3 from "./Moodal3";
+import Moodal6 from "./Moodal6";
 
 function SellItem() {
-  window.onload = function () {
-    const modal = document.getElementById("my-modal");
-    const closeBtn2 = document.getElementById("outMan");
-    const openBtn1 = document.getElementById("openMan");
+  window.ready = function () {
+    const modal2 = document.getElementById("my-modal2");
+    const closeBtn2 = document.getElementById("outMan2");
+    const openBtn2 = document.getElementById("openMan2");
 
-    openBtn1.addEventListener("click", openModal);
-    closeBtn2.addEventListener("click", closeModal);
+    openBtn2.addEventListener("click", openModal2);
+    closeBtn2.addEventListener("click", closeModal2);
 
-    function closeModal() {
-      modal.style.display = "none";
+    function closeModal2() {
+      modal2.style.display = "none";
     }
-
-    function openModal() {
-      modal.style.display = "block";
+    function openModal2() {
+      modal2.style.display = "block";
     }
   };
   useEffect(() => {}, []);
   return (
     <>
+      {/* <Moodal6 /> */}
       <Moodal3 />
       <div className={style.item_top}>
         <h2>일반판매</h2>
@@ -62,7 +63,9 @@ function SellItem() {
             <span className={style.sell_number}>450,000</span>
           </div>
           <div className={style.button_bb}>
-            <button className={style.bb_buy}>구매</button>
+            <button type="button" className={style.bb_buy} id="openMan2">
+              구매
+            </button>
             <span className={style.bb_date}>2022년 10월 31일까지</span>
           </div>
         </div>
