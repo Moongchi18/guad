@@ -84,11 +84,6 @@ function Sell_End() {
           <br />
           많은 관심 부탁드립니다.
         </p>
-        <div className={style.sell_review}>
-          <h2>댓글</h2>
-          <textarea placeholder="댓글을 입력해주세요."></textarea>
-          <button type="button">작성</button>
-        </div>
       </div>
     </>
   );

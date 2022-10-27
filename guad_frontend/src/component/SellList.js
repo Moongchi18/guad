@@ -33,9 +33,23 @@ function Sell_List() {
               <Link to="/sell_item">
                 <div className={style.item_bb}>
                   <img src={require("../source/img/item01.png")} alt="제품1" />
+                </div>
+                <span className={style.tex1}>의류/가방</span>
+                <span className={style.tex2}>
+                  디올 오피디아 스몰 패턴 도트백{" "}
+                </span>
+                <span className={style.tex3}>
+                  경매시작가<strong>450,000</strong>
+                </span>
+              </Link>
+            </li>
+            <li className={style.item_info}>
+              <Link to="/sell_item">
+                <div className={style.item_bb}>
+                  <img src={require("../source/img/item01.png")} alt="제품1" />
                   <img
                     src={require("../source/img/del1.png")}
-                    alt="오름경매"
+                    alt="내림경매"
                     className={style.del_icon}
                   />
                 </div>
