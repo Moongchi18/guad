@@ -1,10 +1,10 @@
+import { useEffect } from "react";
 import style from "../source/SellItem.module.css";
 import Moodal3 from "./Moodal3";
 
 function SellItem() {
   window.onload = function () {
     const modal = document.getElementById("my-modal");
-    const closeBtn1 = document.getElementById("close");
     const closeBtn2 = document.getElementById("outMan");
     const openBtn1 = document.getElementById("openMan");
 
@@ -19,6 +19,7 @@ function SellItem() {
       modal.style.display = "block";
     }
   };
+  useEffect(() => {}, []);
   return (
     <>
       <Moodal3 />
