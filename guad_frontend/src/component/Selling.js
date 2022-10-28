@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import style from "../source/Selling.module.css";
-import Moodal2 from "./Moodal/ItemSuccess";
+import ItemSuccess from "./Moodal/ItemSuccess";
 
 function Selling() {
   const modalOpen = useRef();
@@ -13,14 +13,15 @@ function Selling() {
   const [sellType, setSellType] = useState("");
   const [data, setData] = useState();
   const [itemType, setItemType] = useState();
-  const [selectedItemType, setSelectedItemType] = useState('대분류');
+  const [selectedItemType, setSelectedItemType] = useState("대분류");
   const [itemDetailType, setItemDetailType] = useState([]);
-  const [selectedItemDetailType, setSelectedItemDetailType] = useState('소분류');
+  const [selectedItemDetailType, setSelectedItemDetailType] =
+    useState("소분류");
   const [itemSub, setItemSub] = useState();
   const [itemContents, setItemContents] = useState();
   const [itemPrice, setItemPrice] = useState();
   const [aPeriod, setAPeriod] = useState(new Date());
-  const [selectedDay, setSelectedDay] = useState('');
+  const [selectedDay, setSelectedDay] = useState("");
   const selectListAPeriod = [1, 2, 3, 5, 7];
   const refSellType = useRef();
   const refItemType = useRef();
@@ -31,8 +32,7 @@ function Selling() {
   const refAPeriod = useRef();
   const refImage = useRef();
 
-  console.log("<<<<<<<" + selectedDay)
-
+  console.log("<<<<<<<" + selectedDay);
 
   const handlerSellType = (e) => {
     const type = e.target.name;
@@ -51,9 +51,10 @@ function Selling() {
       }
     });
     setItemDetailType(newItemDetailType);
-    setSelectedItemDetailType('소분류');
+    setSelectedItemDetailType("소분류");
   };
-  const handlerSelectedItemDetailType = (e) => setSelectedItemDetailType(e.target.value);
+  const handlerSelectedItemDetailType = (e) =>
+    setSelectedItemDetailType(e.target.value);
   const handlerItemSub = (e) => setItemSub(e.target.value);
   const handlerItemContents = (e) => setItemContents(e.target.value);
   const handlerItemPrice = (e) => setItemPrice(e.target.value);
@@ -63,18 +64,23 @@ function Selling() {
   //   setAPeriod(e.target.value)
   // };
   const handlerSelectedDay = (e) => {
-    setSelectedDay(e.target.value)
-    setAPeriod(now.setDate(now.get+e.target.value))
+    setSelectedDay(e.target.value);
+    setAPeriod(now.setDate(now.get + e.target.value));
   };
 
   const now = new Date();
-  console.log(now)
-  console.log(now.getFullYear())
-  console.log(now.getMonth())
-  console.log(now.getDay())
-  console.log(now.getHours())
-  const now2 = new Date(now.getFullYear(), now.getMonth(), now.getDay()+2, now.getHours())
-  console.log(now2)
+  console.log(now);
+  console.log(now.getFullYear());
+  console.log(now.getMonth());
+  console.log(now.getDay());
+  console.log(now.getHours());
+  const now2 = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDay() + 2,
+    now.getHours()
+  );
+  console.log(now2);
   // console.log("날짜비교" + aPeriod - now);
   // 아이템 등록
   // 유효성검사
@@ -84,56 +90,61 @@ function Selling() {
   // 4. 사진등록 null이면 alert
   const handlerItemRegist = (e) => {
     e.preventDefault();
-    if (sellType === '') {
-      alert("거래종류를 선택하세요")
+    if (sellType === "") {
+      alert("거래종류를 선택하세요");
       refSellType.current.focus();
-    } else if (selectedItemType === '대분류') {
-      alert("대분류를 선택하세요")
+    } else if (selectedItemType === "대분류") {
+      alert("대분류를 선택하세요");
       refItemType.current.focus();
-    } else if (selectedItemDetailType === '소분류') {
-      alert("소분류를 선택하세요")
+    } else if (selectedItemDetailType === "소분류") {
+      alert("소분류를 선택하세요");
       refItemDetailType.current.focus();
-    } else if (itemSub === '' || itemSub === undefined) {
-      alert("제목을 작성해주세요")
+    } else if (itemSub === "" || itemSub === undefined) {
+      alert("제목을 작성해주세요");
       refItemSub.current.focus();
-    } else if (itemContents === '' || itemContents === undefined) {
-      alert("내용을 작성해주세요")
+    } else if (itemContents === "" || itemContents === undefined) {
+      alert("내용을 작성해주세요");
       refItemContents.current.focus();
-    } else if (itemPrice === '' || itemPrice === undefined || itemPrice === null) {
-      alert("가격을 입력하세요")
+    } else if (
+      itemPrice === "" ||
+      itemPrice === undefined ||
+      itemPrice === null
+    ) {
+      alert("가격을 입력하세요");
       refItemPrice.current.focus();
-    } else if (aPeriod === '' || aPeriod === undefined || aPeriod === null) {
-      alert("경매기간을 입력해주세요")
+    } else if (aPeriod === "" || aPeriod === undefined || aPeriod === null) {
+      alert("경매기간을 입력해주세요");
       refAPeriod.current.focus();
     }
     // else if(aPeriod < now) {
     //   alert("날짜비교 성공")
-    // } 
+    // }
     else {
-      axios.post("http://localhost:8080/sellitem",
-        // memberEmail: '', // 컨트롤러에서 토큰으로 정보확인 후 입력
-        // writeDate: '', // 쿼리문에 now()
-        {
-          sellType,
-          itemSub,
-          itemContents,
-          itemPrice,
-          itemType: selectedItemType,
-          itemDType: selectedItemDetailType,
-          aStartPrice: itemPrice,
-          aPeriod
-        }
-      )
-        .then(response => {
-          console.log(response)
+      axios
+        .post(
+          "http://localhost:8080/sellitem",
+          // memberEmail: '', // 컨트롤러에서 토큰으로 정보확인 후 입력
+          // writeDate: '', // 쿼리문에 now()
+          {
+            sellType,
+            itemSub,
+            itemContents,
+            itemPrice,
+            itemType: selectedItemType,
+            itemDType: selectedItemDetailType,
+            aStartPrice: itemPrice,
+            aPeriod,
+          }
+        )
+        .then((response) => {
+          console.log(response);
         })
-        .catch(error => {
-          console.log(error)
-        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
     modalOpen.current.style = "display:block;";
-
-  }
+  };
 
   // 카테고리 불러오기
   useEffect(() => {
@@ -149,10 +160,10 @@ function Selling() {
     });
   }, []);
 
-  console.log(itemSub)
-  console.log(itemContents)
-  console.log(itemPrice)
-  console.log(aPeriod)
+  console.log(itemSub);
+  console.log(itemContents);
+  console.log(itemPrice);
+  console.log(aPeriod);
   return (
     <>
       <div className={style.all_box}>
@@ -263,11 +274,17 @@ function Selling() {
               <label>경매기간 / 판매기간</label>
               <select value={selectedDay} onChange={handlerSelectedDay}>
                 {selectListAPeriod.map((day, index) => (
-                  <option value={day} key={index}>{day}일</option>
+                  <option value={day} key={index}>
+                    {day}일
+                  </option>
                 ))}
               </select>
               {/* <input type="datetime-local" value={aPeriod} onChange={handlerAPeriod} ref={refAPeriod} min={new Date()}></input> */}
-              <input type="datetime-local" value={aPeriod} ref={refAPeriod} ></input>
+              <input
+                type="datetime-local"
+                value={aPeriod}
+                ref={refAPeriod}
+              ></input>
             </li>
             <li>
               <label>사진등록</label>
@@ -291,7 +308,7 @@ function Selling() {
           >
             등록완료
           </button>
-          <Moodal2 closeModal={closeModal} modalOpen={modalOpen} />
+          <ItemSuccess closeModal={closeModal} modalOpen={modalOpen} />
         </div>
       </div>
     </>
