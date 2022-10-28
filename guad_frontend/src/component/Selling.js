@@ -34,7 +34,7 @@ function Selling() {
   const [itemPrice, setItemPrice] = useState();
   const [aPeriod, setAPeriod] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState('');
-  const selectListAPeriod = [1,2,3,5,7];
+  const selectListAPeriod = [1, 2, 3, 5, 7];
   const refSellType = useRef();
   const refItemType = useRef();
   const refItemDetailType = useRef();
@@ -44,7 +44,7 @@ function Selling() {
   const refAPeriod = useRef();
   const refImage = useRef();
 
-  console.log("<<<<<<<" + selectedItemType)
+  console.log("<<<<<<<" + selectedDay)
 
 
   const handlerSellType = (e) => {
@@ -70,15 +70,25 @@ function Selling() {
   const handlerItemSub = (e) => setItemSub(e.target.value);
   const handlerItemContents = (e) => setItemContents(e.target.value);
   const handlerItemPrice = (e) => setItemPrice(e.target.value);
-  const handlerAPeriod = (e) => {
-    const inputDate = new Date(e.target.value);
-    console.log(inputDate)
-    setAPeriod(e.target.value)
+  // const handlerAPeriod = (e) => {
+  //   const inputDate = new Date(e.target.value);
+  //   console.log(inputDate)
+  //   setAPeriod(e.target.value)
+  // };
+  const handlerSelectedDay = (e) => {
+    setSelectedDay(e.target.value)
+    setAPeriod(now.setDate(now.get+e.target.value))
   };
-  const handlerSelectedDay = (e) => setSelectedDay(e.target.value);
-  
+
   const now = new Date();
-  console.log("날짜비교" + aPeriod-now);
+  console.log(now)
+  console.log(now.getFullYear())
+  console.log(now.getMonth())
+  console.log(now.getDay())
+  console.log(now.getHours())
+  const now2 = new Date(now.getFullYear(), now.getMonth(), now.getDay()+2, now.getHours())
+  console.log(now2)
+  // console.log("날짜비교" + aPeriod - now);
   // 아이템 등록
   // 유효성검사
   // 1. 거래종류 선택
@@ -108,7 +118,7 @@ function Selling() {
     } else if (aPeriod === '' || aPeriod === undefined || aPeriod === null) {
       alert("경매기간을 입력해주세요")
       refAPeriod.current.focus();
-    } 
+    }
     // else if(aPeriod < now) {
     //   alert("날짜비교 성공")
     // } 
@@ -241,7 +251,8 @@ function Selling() {
                   <option value={day} key={index}>{day}일</option>
                 ))}
               </select>
-              <input type="datetime-local" value={aPeriod} onChange={handlerAPeriod} ref={refAPeriod} min={new Date()}></input>
+              {/* <input type="datetime-local" value={aPeriod} onChange={handlerAPeriod} ref={refAPeriod} min={new Date()}></input> */}
+              <input type="datetime-local" value={aPeriod} ref={refAPeriod} ></input>
             </li>
             <li>
               <label>사진등록</label>
