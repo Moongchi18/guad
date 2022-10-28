@@ -1,9 +1,12 @@
+import { useRef } from "react";
 import style from "../source/Carousel.module.css";
 
 function CarouselB() {
+  const text1 = useRef();
+  const text2 = useRef();
   const elts = {
-    text1: document.getElementById("text1"),
-    text2: document.getElementById("text2"),
+    text1: text1,
+    text2: text2,
   };
 
   const texts = ["Why", "is", "this", "so", "satisfying", "to", "watch?"];
@@ -15,10 +18,10 @@ function CarouselB() {
   let morph = 0;
   let cooldown = cooldownTime;
 
-  elts.text1.textContent = texts[textIndex % texts.length];
-  elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+  elts[0].current.innerHtml = texts[textIndex % texts.length];
+  elts[1].textContent = texts[(textIndex + 1) % texts.length];
 
-  function doMorph() {
+  const doMorph = () => {
     morph -= cooldown;
     cooldown = 0;
 
@@ -30,21 +33,21 @@ function CarouselB() {
     }
 
     setMorph(fraction);
-  }
+  };
 
-  function setMorph(fraction) {
-    elts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-    elts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+  const setMorph = (fraction) => {
+    elts[1].style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+    elts[1].style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
 
     fraction = 1 - fraction;
-    elts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-    elts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+    elts[0].style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+    elts[0].style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
 
-    elts.text1.textContent = texts[textIndex % texts.length];
-    elts.text2.textContent = texts[(textIndex + 1) % texts.length];
-  }
+    elts[0].textContent = texts[textIndex % texts.length];
+    elts[1].textContent = texts[(textIndex + 1) % texts.length];
+  };
 
-  function doCooldown() {
+  const doCooldown = () => {
     morph = 0;
 
     elts.text2.style.filter = "";
@@ -52,9 +55,9 @@ function CarouselB() {
 
     elts.text1.style.filter = "";
     elts.text1.style.opacity = "0%";
-  }
+  };
 
-  function animate() {
+  const animate = () => {
     requestAnimationFrame(animate);
 
     let newTime = new Date();
@@ -73,14 +76,14 @@ function CarouselB() {
     } else {
       doCooldown();
     }
-  }
-
+  };
   animate();
+
   return (
     <>
       <div id="container" className={style.container}>
-        <span id="text1"></span>
-        <span id="text2"></span>
+        <span id="text1" ref={text1}></span>
+        <span id="text2" ref={text2}></span>
       </div>
 
       <svg id="filters" className={style.filters}>
