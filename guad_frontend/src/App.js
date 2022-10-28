@@ -10,8 +10,9 @@ import Footer from "./component/Footer";
 import Main from "./component/Main";
 import Mypage from "./component/Mypage/Mypage";
 import MypageInfo from "./component/Mypage/MypageInfo";
-import Manager from "./component/Manager";
-import ManagerNotify from "./component/ManagerNotify";
+import Manager from "./component/Manager/Manager";
+import ManagerNotify from "./component/Manager/ManagerNotify";
+import ManagerMember from "./component/Manager/ManagerMember";
 
 import Join from "./component/Join";
 import JoinG from "./component/JoinG";
@@ -20,7 +21,7 @@ import axios from "axios";
 import SellItem from "./component/SellItem";
 import ChatRoom from "./auction/ChatRoom";
 
-import ManagerMember from "./component/ManagerMember";
+
 import Selling from "./component/Selling";
 import M_Sample from "./component/M_Sample";
 import ChatTest from "./auction/ChatTest";

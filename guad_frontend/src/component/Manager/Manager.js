@@ -1,8 +1,8 @@
-import style from "../source/Manager.module.css";
-import logo from "../source/img/mypage.png";
-import logo_d from "../source/img/mypage_d.png";
-import sell_1 from "../source/img/selling_item_ex1.png";
-import sell_2 from "../source/img/selling_item_ex2.png";
+import style from "../../source/Manager.module.css";
+import logo from "../../source/img/mypage.png";
+import logo_d from "../../source/img/mypage_d.png";
+import sell_1 from "../../source/img/selling_item_ex1.png";
+import sell_2 from "../../source/img/selling_item_ex2.png";
 import { useEffect } from "react";
 import axios from "axios";
 

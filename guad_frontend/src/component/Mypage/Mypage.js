@@ -2,7 +2,7 @@ import style from "../../source/Mypage.module.css";
 import logo from "../../source/img/mypage.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MoodalMileage from "../MoodalMileage";
+import MoodalMileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
 import BuyList from "./BuyList";
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import style from "../source/Moodal.module.css";
+import style from "../../source/Moodal.module.css";
 
 function Moodal() {
   const [ccc1, setCcc1] = useState(false);
@@ -75,8 +75,8 @@ function Moodal() {
                     <img
                       src={
                         ccc1
-                          ? require("../source/img/check01.png")
-                          : require("../source/img/check00.png")
+                          ? require("../../source/img/check01.png")
+                          : require("../../source/img/check00.png")
                       }
                       alt="체크"
                       id="cc1"
@@ -95,8 +95,8 @@ function Moodal() {
                     <img
                       src={
                         ccc2
-                          ? require("../source/img/check01.png")
-                          : require("../source/img/check00.png")
+                          ? require("../../source/img/check01.png")
+                          : require("../../source/img/check00.png")
                       }
                       alt="체크"
                       id="cc2"
@@ -116,8 +116,8 @@ function Moodal() {
                     <img
                       src={
                         ccc3
-                          ? require("../source/img/check01.png")
-                          : require("../source/img/check00.png")
+                          ? require("../../source/img/check01.png")
+                          : require("../../source/img/check00.png")
                       }
                       alt="체크"
                       id="cc3"
@@ -136,8 +136,8 @@ function Moodal() {
                     <img
                       src={
                         ccc4
-                          ? require("../source/img/check01.png")
-                          : require("../source/img/check00.png")
+                          ? require("../../source/img/check01.png")
+                          : require("../../source/img/check00.png")
                       }
                       alt="체크"
                       id="cc4"

@@ -1,5 +1,4 @@
-import style from "../source/Moodal4.module.css";
-import logo from "../source/img/big_warn.png";
+import style from "../../source/Moodal4.module.css";;
 
 function MoodalNotify() {
   return (
@@ -10,7 +9,7 @@ function MoodalNotify() {
             &times;
           </span>
           <div className={style.modalheader}>
-            <img src={require("../source/img/big_warn.png")} alt="2" />
+            <img src={require("../../source/img/big_warn.png")} alt="2" />
             <h2 className={style.title}>접수된 신고 내용</h2>
             <h3 className={style.member}>신고자: 시흥기린</h3>
           </div>
