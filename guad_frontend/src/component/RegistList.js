@@ -1,7 +1,7 @@
 import style from "../source/Mypage.module.css";
 import { useState } from "react";
 
-function BuyList() {
+function RegistList() {
     const [sellList, setSellList] = useState({});
 
   return (
@@ -44,4 +44,4 @@ function BuyList() {
   );
 }
 
-export default BuyList;
+export default RegistList;
