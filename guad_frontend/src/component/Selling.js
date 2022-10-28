@@ -7,8 +7,8 @@ function Selling() {
   const selectListAPeriod = [1, 2, 3, 5, 7];
   const selectListHour = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
   const now = new Date();
-  let tempDate = new Date();
-  
+  const tempDate = new Date();
+
   const modalOpen = useRef();
 
   const closeModal = () => {
@@ -26,8 +26,8 @@ function Selling() {
   const [itemPrice, setItemPrice] = useState('');
   const [selectedDay, setSelectedDay] = useState('');
   const [selectedHour, setSelectedHour] = useState(9);
-  const [aPeriod, setAPeriod] = useState(new Date());
-  const [aPeriodText, setAPeriodText] = useState(`${tempDate.getFullYear()}년 ${tempDate.getMonth()+1}월 ${tempDate.getDate()}일 ${selectedHour}시`);
+  const [auctionPeriod, setAuctionPeriod] = useState(new Date());
+  const [auctionPeriodText, setAuctionPeriodText] = useState(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour}시`);
 
   const refSellType = useRef();
   const refItemType = useRef();
@@ -66,18 +66,22 @@ function Selling() {
     setSelectedDay(e.target.value)
     console.log(e.target.value)
     tempDate.setDate(now.getDate() + e.target.value * 1)
-    setAPeriod(tempDate)
-    setAPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth()+1}월 ${tempDate.getDate()}일 ${selectedHour}시`)
+    console.log("<<<<<<<<<<<" + tempDate)
+    setAuctionPeriod(tempDate)
+    setAuctionPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour}시`)
   };
   const handlerSelectedHour = (e) => {
     setSelectedHour(e.target.value)
+    tempDate.setDate(tempDate.getDate() + selectedDay*1)
+    console.log(selectedDay)
     tempDate.setHours(e.target.value * 1)
-    setAPeriod(tempDate)
-    setAPeriodText(`${aPeriod.getFullYear()}년 ${aPeriod.getMonth()+1}월 ${aPeriod.getDate()}일 ${tempDate.getHours()}시`)
+    console.log("<<<<<<<<<<<" + tempDate)
+    setAuctionPeriod(tempDate)
+    setAuctionPeriodText(`${auctionPeriod.getFullYear()}년 ${auctionPeriod.getMonth() + 1}월 ${auctionPeriod.getDate()}일 ${tempDate.getHours()}시`)
   }
-  
 
-  console.log("aPeriod 테스트 " + aPeriod.toISOString().slice(0, 10) + " " + aPeriod.toISOString().slice(11,13) + ":00:00");
+
+  // console.log("auctionPeriod 테스트 " + auctionPeriod.to());
   const handlerItemRegist = (e) => {
     e.preventDefault();
     if (sellType === "") {
@@ -102,14 +106,13 @@ function Selling() {
     ) {
       alert("가격을 입력하세요");
       refItemPrice.current.focus();
-    } else if (aPeriod === "" || aPeriod === undefined || aPeriod === null) {
+    } else if (auctionPeriod === "" || auctionPeriod === undefined || auctionPeriod === null) {
       alert("경매기간을 입력해주세요");
       refAPeriod.current.focus();
-    }
-    // else if(aPeriod < now) {
-    //   alert("날짜비교 성공")
-    // }
-    else {
+    } else {
+      const dateDto = new Date(auctionPeriod.toISOString().slice(0, 10) + " " + (auctionPeriod.getHours()) + ":00:00");
+      console.log(dateDto)
+    
       axios.post("http://localhost:8080/sellitem",
         // memberEmail: '', // 컨트롤러에서 토큰으로 정보확인 후 입력
         // writeDate: '', // 쿼리문에 now()
@@ -120,9 +123,8 @@ function Selling() {
           itemPrice,
           itemType: selectedItemType,
           itemDType: selectedItemDetailType,
-          aStartPrice: itemPrice,
-          aaaPeriod: `${aPeriod.toISOString().slice(0, 10)} ${aPeriod.toISOString().slice(11,13)} :00:00`
-          // aaaPeriod: "test"
+          auctionStartPrice: itemPrice,
+          auctionPeriod: dateDto
         }
       )
         .then(response => {
@@ -274,9 +276,9 @@ function Selling() {
                 ))}
               </select>
               <br></br>
-              {/* <input type="datetime-local" value={aPeriod} onChange={handlerAPeriod} ref={refAPeriod} min={new Date()}></input> */}
+              {/* <input type="datetime-local" value={auctionPeriod} onChange={handlerAPeriod} ref={refAPeriod} min={new Date()}></input> */}
 
-              <span>경매 종료 : </span><input type="text" value={aPeriodText} ref={refAPeriod} disabled></input>
+              <span>경매 종료 : </span><input type="text" value={auctionPeriodText} ref={refAPeriod} disabled></input>
             </li>
             <li>
               <label>사진등록</label>
