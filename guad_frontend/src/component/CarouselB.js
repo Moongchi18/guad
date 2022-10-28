@@ -1,60 +1,102 @@
 import style from "../source/Carousel.module.css";
 
 function CarouselB() {
+  const elts = {
+    text1: document.getElementById("text1"),
+    text2: document.getElementById("text2"),
+  };
+
+  const texts = ["Why", "is", "this", "so", "satisfying", "to", "watch?"];
+  const morphTime = 1;
+  const cooldownTime = 0.25;
+
+  let textIndex = texts.length - 1;
+  let time = new Date();
+  let morph = 0;
+  let cooldown = cooldownTime;
+
+  elts.text1.textContent = texts[textIndex % texts.length];
+  elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+
+  function doMorph() {
+    morph -= cooldown;
+    cooldown = 0;
+
+    let fraction = morph / morphTime;
+
+    if (fraction > 1) {
+      cooldown = cooldownTime;
+      fraction = 1;
+    }
+
+    setMorph(fraction);
+  }
+
+  function setMorph(fraction) {
+    elts.text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+    elts.text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+    fraction = 1 - fraction;
+    elts.text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+    elts.text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
+
+    elts.text1.textContent = texts[textIndex % texts.length];
+    elts.text2.textContent = texts[(textIndex + 1) % texts.length];
+  }
+
+  function doCooldown() {
+    morph = 0;
+
+    elts.text2.style.filter = "";
+    elts.text2.style.opacity = "100%";
+
+    elts.text1.style.filter = "";
+    elts.text1.style.opacity = "0%";
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    let newTime = new Date();
+    let shouldIncrementIndex = cooldown > 0;
+    let dt = (newTime - time) / 1000;
+    time = newTime;
+
+    cooldown -= dt;
+
+    if (cooldown <= 0) {
+      if (shouldIncrementIndex) {
+        textIndex++;
+      }
+
+      doMorph();
+    } else {
+      doCooldown();
+    }
+  }
+
+  animate();
   return (
     <>
-      <div className={style.caro_b}>
-        <div className={style.caro_in}>
-          <div className={style.caro_L}>
-            <ul class={style.Words}>
-              <li class={style.Words_line}>
-                <p>&nbsp;</p>
-                <p>MONEY</p>
-              </li>
-              <li class={style.Words_line}>
-                <p>MONEY</p>
-                <p>DEAL AUCTION</p>
-              </li>
-              <li class={style.Words_line}>
-                <p>DEAL AUCTION</p>
-                <p>SUCCESSFUL BID</p>
-              </li>
-              <li class={style.Words_line}>
-                <p>SUCCESSFUL BID</p>
-                <p>CHOICE</p>
-              </li>
-              <li class={style.Words_line}>
-                <p>CHOICE</p>
-                <p>SELLING ITEM</p>
-              </li>
-              <li class={style.Words_line}>
-                <p>SELLING ITEM</p>
-                <p>TIME</p>
-              </li>
-              <li class={style.Words_line}>
-                <p>TIME</p>
-                <p>&nbsp;</p>
-              </li>
-            </ul>
-          </div>
-          <div className={style.caro_R}>
-            <ul>
-              <li>
-                <img src={require("../source/img/tt1.png")} alt="오름판매" />
-                <strong>오름 판매</strong>
-              </li>
-              <li>
-                <img src={require("../source/img/tt2.png")} alt="내림판매" />
-                <strong>내림 판매</strong>
-              </li>
-              <li>
-                <img src={require("../source/img/tt3.png")} alt="일반판매" />
-                <strong>일반 판매</strong>
-              </li>
-            </ul>
-          </div>
-        </div>
+      <div id="container" className={style.container}>
+        <span id="text1"></span>
+        <span id="text2"></span>
       </div>
+
+      <svg id="filters" className={style.filters}>
+        <defs>
+          <filter id="threshold" className={style.threshold}>
+            <feColorMatrix
+              in="SourceGraphic"
+              type="matrix"
+              values="1 0 0 0 0
+									0 1 0 0 0
+									0 0 1 0 0
+									0 0 0 255 -140"
+            />
+          </filter>
+        </defs>
+      </svg>
     </>
   );
 }
