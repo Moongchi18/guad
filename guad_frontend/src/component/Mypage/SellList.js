@@ -5,30 +5,11 @@ import sell_2 from "../../source/img/selling_item_ex2.png";
 import axios from "axios";
 
 function SellList() {
-  useEffect(() => {
-  }, []);
 
 
-function colorChange () {
-
-    const button = document.getElementsByClassName(`${style.button}`);
-   
-    button[0].style.backgroundColor = "#BA101E";
 
 
-    for (let i = 0; i < button.length; i++) {
-      
-      if (button[i].toString = "거래완료") {
-        button[i].style.backgroundColor = "#217A4F";
-      } else if (button[i].value = "거래중") {
-        button[i].style.backgroundColor = "#D9D9D9";
-      } else if (button[i].toString = "경매완료") {
-        button[i].style.backgroundColor = "#BA101E";
-      } else {
-        button[i].style.backgroundColor = "#253C76";
-      }
-    }
-  }
+
 
   return (
     <>
