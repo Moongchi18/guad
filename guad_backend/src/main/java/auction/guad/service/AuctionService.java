@@ -4,8 +4,8 @@ import auction.guad.dto.AuctionDto;
 
 public interface AuctionService {
 	
-	public int tryBid(AuctionDto auc) throws Exception;
-	public void cancelBid(AuctionDto auc) throws Exception;
+	public int tryAuction(AuctionDto auc) throws Exception;
+	public void cancelAuction(AuctionDto auc) throws Exception;
 	
 	
 
