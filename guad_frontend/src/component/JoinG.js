@@ -1,4 +1,4 @@
-import Moodal from "./Moodal";
+import Moodal from "./Moodal/Terms";
 import style from "../source/Join.module.css";
 import { useState } from "react";
 

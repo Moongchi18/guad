@@ -1,9 +1,8 @@
-import style from "../source/ManagerNotify.module.css";
-import logo from "../source/img/mypage.png";
-import sell_1 from "../source/img/selling_item_ex1.png";
-import sell_2 from "../source/img/selling_item_ex2.png";
-import MoodalNotify from "./MoodalNotify";
-
+import style from "../../source/ManagerNotify.module.css";
+import logo from "../../source/img/mypage.png";
+import sell_1 from "../../source/img/selling_item_ex1.png";
+import sell_2 from "../../source/img/selling_item_ex2.png";
+import MoodalNotify from "../Moodal/Notify";
 function ManagerNotify() {
   
   window.onload = function () {

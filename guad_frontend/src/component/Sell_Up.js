@@ -1,5 +1,5 @@
 import style from "../source/SellItem.module.css";
-import Moodal3 from "./Moodal3";
+import Moodal3 from "./Moodal/NotifyWrite";
 
 function Sell_Up() {
   window.onload = function () {
