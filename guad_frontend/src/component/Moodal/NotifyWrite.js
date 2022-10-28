@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import style from "../../source/Moodal3.module.css";
-function Moodal3({ closeModal, modalChange }) {
+function NotifyWrite({ closeModal, modalChange }) {
   useEffect(() => {}, []);
   return (
     <>
@@ -27,4 +27,4 @@ function Moodal3({ closeModal, modalChange }) {
     </>
   );
 }
-export default Moodal3;
+export default NotifyWrite;

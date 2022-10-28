@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "../../source/Moodal.module.css";
 
-function Moodal() {
+function Terms() {
   const [ccc1, setCcc1] = useState(false);
   const [ccc2, setCcc2] = useState(false);
   const [ccc3, setCcc3] = useState(false);
@@ -162,4 +162,4 @@ function Moodal() {
     </>
   );
 }
-export default Moodal;
+export default Terms;
