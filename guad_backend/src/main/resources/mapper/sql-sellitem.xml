@@ -10,10 +10,10 @@
 	<insert id="insertSellItem" parameterType="auction.guad.dto.SellItemDto">
 		INSERT INTO SELL_ITEM
 		(SELL_TYPE, MEMBER_EMAIL, ITEM_SUB, ITEM_CONTENTS, ITEM_PRICE, ITEM_TYPE, 
-		ITEM_D_TYPE, A_START_PRICE, A_MIN_PRICE)
+		ITEM_D_TYPE, AUCTION_START_PRICE, AUCTION_MIN_PRICE, AUCTION_PERIOD)
 		VALUES
 		(#{sellType}, #{memberEmail}, #{itemSub}, #{itemContents}, #{itemPrice}, #{itemType}
-		, #{itemDType}, #{aStartPrice}, #{aMinPrice})
+		, #{itemDType}, #{auctionStartPrice}, #{auctionMinPrice}, #{auctionPeriod})
 		
 		
 	</insert>

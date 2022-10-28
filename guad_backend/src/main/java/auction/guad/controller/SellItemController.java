@@ -37,7 +37,7 @@ public class SellItemController {
 			throws Exception {
 		System.out.println(user);
 		System.out.println("<<<<<<<<<" +sellItem);
-		System.out.println("<<<<<<<<<" +sellItem.getAPeriod());
+		System.out.println("<<<<<<<<<" +sellItem.getAuctionPeriod());
 //		boolean result = sellItemService.insertSellItem(sellItem);
 //		if(result) {
 //			return ResponseEntity.status(HttpStatus.OK).body(result);
