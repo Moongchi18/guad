@@ -14,26 +14,32 @@ function Sell_After() {
         <img src={require("../source/img/big_item.png")} alt="제품사진" />
         <div class={style.right_side}>
           <span className={style.category}>
-            <p>의류</p> / <p>가방</p>
+            <p>의류</p>
+            <p> / </p>
+            <p>가방</p>
           </span>
           <span className={style.title}>디올 가방 재고 처리합니다!</span>
-          <p>
+          <p className={style.add}>
             배송주소<strong>서울시 종로구 인사동길 12 대일빌딩 7층</strong>
           </p>
-          <span>
-            판매자 : <p>시흥기린</p>
-          </span>
-          <p>
+          <p className={style.seller}>
+            판매자 : <strong>시흥기린</strong>
+          </p>
+          <p className={style.del}>
             배송비<strong>배송비 포함</strong>
           </p>
-          <p>
+          <p className={style.price}>
             판매가<strong>450,000</strong>
           </p>
         </div>
       </div>
-      <div>
-        <button type="button">마이 페이지로 가기</button>
-        <button type="button">쇼핑 계속하기</button>
+      <div className={style.btn_area}>
+        <button type="button" className={style.my}>
+          마이 페이지로 가기
+        </button>
+        <button type="button" className={style.go}>
+          쇼핑 계속하기
+        </button>
       </div>
     </>
   );
