@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import style from "../source/Moodal6.module.css";
 
-function Moodal6() {
+function Moodal6({ closeModal2, modalChange2 }) {
   useEffect(() => {}, []);
   return (
     <>
-      <div id="my-modal2" className={style.modal2}>
+      <div className={style.modal2} ref={modalChange2}>
         <div className={style.modalcontent2}>
           <div className={style.modalheader2}>
             <h2>결제 내역</h2>
@@ -28,25 +28,39 @@ function Moodal6() {
                 상품 가격<strong>- 450,000</strong>
               </span>
             </div>
+
             <div className={style.info_d}>
               <span>배송 정보</span>
               <div className={style.input_b1}>
-                <label>주소</label>
+                <p>주소</p>
                 <input type="text" className={style.input1} />
                 <button type="button">검색</button>
               </div>
               <div className={style.input_b2}>
-                <label>상세주소</label>
+                <p>상세주소</p>
                 <input type="text" className={style.input2} />
               </div>
             </div>
           </div>
           <div className={style.modalfooter2}>
-            <button type="button" className={style.redBtn2}>
-              신고하기
+            <h2>거래결과</h2>
+            <p>
+              거래 후 마일리지 <strong>550,00</strong>
+            </p>
+
+            <button
+              type="button"
+              className={style.outbtn1}
+              onClick={closeModal2}
+            >
+              결제완료
             </button>
-            <button type="text" id="outMan2">
-              취소
+            <button
+              type="button"
+              className={style.outbtn2}
+              onClick={closeModal2}
+            >
+              결제취소
             </button>
           </div>
         </div>

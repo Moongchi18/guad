@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "../source/Moodal.module.css";
 
 function Moodal() {
@@ -7,7 +7,7 @@ function Moodal() {
   const [ccc3, setCcc3] = useState(false);
   const [ccc4, setCcc4] = useState(false);
 
-  const modal = document.getElementById("my-modal");
+  const modalOpen = useRef();
 
   const changeImg1 = () => {
     if (ccc1 == false) {
@@ -37,24 +37,24 @@ function Moodal() {
       setCcc4(false);
     }
   };
+
   const closeModal = () => {
     if (ccc1 == false || ccc2 == false || ccc3 == false || ccc4 == false) {
       alert("동의를 확인해주세요.");
     } else {
-      modal.style.display = "none";
+      modalOpen.current.style = "display:none;";
     }
   };
 
   useEffect(() => {
     (function openModal() {
-      const modal = document.querySelector("#my-modal");
-      modal.style.display = "block";
+      modalOpen.current.style = "display:block;";
     })();
   }, []);
 
   return (
     <>
-      <div id="my-modal" className={style.modal}>
+      <div id="my-modal" className={style.modal} ref={modalOpen}>
         <div className={style.modalcontent}>
           <div className={style.modalheader}>
             <span className={style.close} id="close" onClick={closeModal}>
