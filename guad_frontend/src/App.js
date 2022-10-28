@@ -21,12 +21,12 @@ import ChatRoom from "./auction/ChatRoom";
 
 import ManagerMember from "./component/ManagerMember";
 import Selling from "./component/Selling";
-import M_Sample from "./component/M_Sample";
 import ChatTest from "./auction/ChatTest";
 
 import Mypage from "./component/Mypage";
 import Sell_Up from "./component/Sell_Up";
 import Sell_End from "./component/Sell_End";
+import Sell_After from "./component/Sell_After";
 
 function App() {
   axios.interceptors.request.use(function (config) {
@@ -65,7 +65,7 @@ function App() {
       <Route path="/selling" component={Selling} exact={true} />
       <Route path="/sell_up" component={Sell_Up} exact={true} />
       <Route path="/sell_end" component={Sell_End} exact={true} />
-      <Route path="/sample" component={M_Sample} exact={true} />
+      <Route path="/sell_after" component={Sell_After} exact={true} />
 
       <Footer />
     </>

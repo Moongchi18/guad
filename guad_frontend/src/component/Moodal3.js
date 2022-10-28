@@ -5,7 +5,7 @@ function Moodal3({ closeModal, modalChange }) {
   useEffect(() => {}, []);
   return (
     <>
-      <div id="my-modal" className={style.modal} ref={modalChange}>
+      <div className={style.modal} ref={modalChange}>
         <div className={style.modalcontent}>
           <div className={style.modalheader}>
             <img src={require("../source/img/big_warn.png")} alt="2" />
@@ -19,7 +19,7 @@ function Moodal3({ closeModal, modalChange }) {
             <button type="button" className={style.redBtn}>
               신고하기
             </button>
-            <button type="text" id="outMan" onClick={closeModal}>
+            <button type="text" onClick={closeModal}>
               취소
             </button>
           </div>
