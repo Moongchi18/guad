@@ -76,6 +76,7 @@ function Login({ history }) {
           >
             로그인
           </button>
+          <Link to="/join_g">
           <button className={[style.g_join, style.btn_bb].join(" ")} id="gg">
             <img
               src={require("../source/img/gg2.png")}
@@ -83,6 +84,7 @@ function Login({ history }) {
               id="ggg"
             />
           </button>
+          </Link>
           <Link to="/join">
             <button
               className={[style.join, style.btn_bb].join(" ")}

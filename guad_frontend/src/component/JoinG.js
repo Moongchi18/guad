@@ -1,8 +1,10 @@
 import Moodal from "./Moodal/Terms";
 import style from "../source/Join.module.css";
 import { useState } from "react";
+import axios from "axios";
 
-function JoinG() {
+
+function JoinG({history}) {
   const [g_check, setG_check] = useState("");
 
   const CheckGen = (e) => {
@@ -13,6 +15,69 @@ function JoinG() {
       setG_check("w");
     }
   };
+
+  const handlerGoogleJoin = () => {
+    axios
+      .post("http://localhost:8080/member", { email : sessionStorage.getItem("token"), nickname: nickname, phone: phone, address: address, gender: g_check })
+      .then((response) => console.log(response))
+    history.push("/")
+      .catch((error) => console.log(error));
+  };
+
+  const [nickname, setNickname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+
+  const [isNickname, setIsNickname] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
+  const [isAddress, setIsAddress] = useState(false);
+  const [isUsableNickname, setIsUsableNickname] = useState(false);
+
+  const [nicknameMessage, setNicknameMessage] = useState('');
+  const [usableNicknameMessage, setUsableNicknameMessage] = useState('');
+
+  const changeNickname = (e) => {
+    setNickname(e.target.value)
+    if (e.target.value.length < 2 || e.target.value.length > 7) {
+      setNicknameMessage('2글자 이상 7글자 미만으로 입력해주세요.')
+      setIsNickname(false)
+    } else {
+      setNicknameMessage('올바른 별명 형식입니다 :)')
+      setIsNickname(true)
+    }
+  }
+
+
+  const changePhone = (e) => {
+    setPhone(e.target.value)
+    if (e.target.value.length > 0) {
+      setIsPhone(true)
+    }
+  }
+
+  const changeAddress = (e) => {
+    setAddress(e.target.value)
+    if (e.target.value.length > 0) {
+      setIsAddress(true)
+    }
+  }
+
+  const nicknameCheck = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8080/member/nicknamecheck", JSON.stringify({ nickname: nickname }), { headers: { "Content-Type": 'application/json' } })
+      .then((response) => {
+        if (response.status === 200) {
+          setUsableNicknameMessage("사용 가능한 아이디입니다.") 
+          setIsUsableNickname(true)
+        } 
+      })
+      .catch(error => {
+          setIsUsableNickname(false)
+          setUsableNicknameMessage("이미 사용중인 아이디 입니다.");      
+      })
+  }
+
   return (
     <>
       <Moodal />
@@ -23,13 +88,14 @@ function JoinG() {
           <ul>
             <li className={style.nick_in}>
               <label>별명</label>
-              <input type="text" placeholder="별명을 입력해주세요." />
-              <button type="button">중복확인</button>
-              <p>별명 중복확인</p>
+              <input type="text" placeholder="별명을 입력해주세요." value={nickname} onChange={changeNickname} />
+              <button type="button" onClick={nicknameCheck}>중복확인</button>
+              {nickname.length > 0 && <p className="messeageDiv" style={isNickname ? { color: '#248f48' } : { color: '#ff2727' }}>{nicknameMessage}</p>}
+              <p style={isUsableNickname ? { color: '#248f48' } : { color: '#ff2727' }}>{usableNicknameMessage}</p>
             </li>
             <li className={style.tel_in}>
               <label>전화번호</label>
-              <input type="text" placeholder="-를 제외하고 입력해주세요." />
+              <input type="text" placeholder="-를 제외하고 입력해주세요." value={phone} onChange={changePhone} />
             </li>
             <li className={style.gen_in}>
               <label>성별</label>
@@ -55,7 +121,7 @@ function JoinG() {
             </li>
             <li className={style.add_in}>
               <label>주소</label>
-              <input type="text" />
+              <input type="text" value={address} onChange={changeAddress} />
               <button>검색</button>
             </li>
             <li>
@@ -64,7 +130,7 @@ function JoinG() {
             </li>
           </ul>
         </div>
-        <button className={style.last_btn}>회원가입</button>
+        <button className={style.last_btn} onClick={handlerGoogleJoin} disabled={!(isNickname && isPhone && isAddress)}>회원가입</button>
       </div>
       <div></div>
     </>
