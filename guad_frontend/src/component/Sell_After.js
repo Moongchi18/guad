@@ -1,13 +1,27 @@
+import { useRef } from "react";
 import style from "../source/Sell_After.module.css";
+import BuyReview from "./Moodal/BuyReview";
+
 function Sell_After() {
+  const modalOpen = useRef();
+
+  const closeModal = () => {
+    modalOpen.current.style = "display:none;";
+  };
+  const openModal = () => {
+    modalOpen.current.style = "display:block;";
+  };
   return (
     <>
+      <BuyReview closeModal={closeModal} modalOpen={modalOpen} />
       <div className={style.cont1}>
         <h2>구매 확인</h2>
         <div className={style.top}>
           <img src={require("../source/img/check03.png")} alt="체크" />
           <p>성공적으로 거래되었습니다.</p>
-          <button type="button">상품 리뷰하기</button>
+          <button type="button" onClick={openModal}>
+            상품 리뷰하기
+          </button>
         </div>
       </div>
       <div className={style.cont2}>
