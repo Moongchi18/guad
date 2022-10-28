@@ -1,5 +1,5 @@
 import style from "../source/SellItem.module.css";
-import Moodal3 from "./Moodal/NotifyWrite";
+import NotifyWrite from "./Moodal/NotifyWrite";
 
 function Sell_End() {
   window.onload = function () {
@@ -21,7 +21,7 @@ function Sell_End() {
   };
   return (
     <>
-      <Moodal3 />
+      <NotifyWrite />
       <div className={style.item_top}>
         <h2>
           <strong>오름</strong>판매

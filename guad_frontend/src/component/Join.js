@@ -1,5 +1,5 @@
 import style from "../source/Join.module.css";
-import Moodal from "./Moodal/Terms";
+import Terms from "./Moodal/Terms";
 import { useState } from "react";
 import axios from "axios";
 
@@ -43,7 +43,7 @@ function Join({ history }) {
 
   const handlerJoin = () => {
     axios
-      .post("http://localhost:8080/member", { email: email, nickname: nickname, pass: password, phone: phone, address: address })
+      .post("http://localhost:8080/member", { email: email, nickname: nickname, pass: password, phone: phone, address: address, gender: g_check })
       .then((response) => console.log(response))
     history.push("/login")
       .catch((error) => console.log(error));
@@ -154,7 +154,7 @@ function Join({ history }) {
 
   return (
     <>
-      <Moodal />
+      <Terms />
       <div className={style.join_all}>
         <h2>오르내림 회원가입을 환영합니다!</h2>
         <h3>개인 정보 입력</h3>

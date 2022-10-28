@@ -1,4 +1,4 @@
-import Moodal from "./Moodal/Terms";
+import Terms from "./Moodal/Terms";
 import style from "../source/Join.module.css";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ function JoinG() {
   };
   return (
     <>
-      <Moodal />
+      <Terms />
       <div className={style.join_all}>
         <h2>오르내림 회원가입을 환영합니다!</h2>
         <h3>개인 정보 입력</h3>

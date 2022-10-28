@@ -17,6 +17,7 @@ import auction.guad.dto.CategoryDto;
 import auction.guad.dto.MemberDto;
 import auction.guad.service.CategoryService;
 import auction.guad.service.CategoryServiceImpl;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class CategoryController {
@@ -27,26 +28,18 @@ public class CategoryController {
 		this.categoryService = categoryService;
 	}
 	
-	// 전체 카테고리 조회
-	@RequestMapping(value = "/category", method = RequestMethod.GET)
+	@ApiOperation(value = "카테고리 테이블 전체 조회", notes = "카테고리 테이블 전체 조회, 파라미터 없음")
+	@GetMapping("/category")
 	public ResponseEntity<ArrayList<CategoryDto>> selectAllCategory() throws Exception{
 		System.out.println(categoryService.selectAllCategory());
 		return ResponseEntity.status(HttpStatus.OK).body(categoryService.selectAllCategory());
 	}
 	
-	//  대분류 조회 : pathvariable
-	@RequestMapping(value = "/category/{itemType}", method = RequestMethod.GET)
-	public ResponseEntity<ArrayList<CategoryDto>> selectItemType(@PathVariable String itemType) throws Exception{
-		System.out.println(categoryService.selectItemType(itemType));
-		return ResponseEntity.status(HttpStatus.OK).body(categoryService.selectItemType(itemType));
+	@ApiOperation(value = "중복없이 대분류만 조회", notes = "중복없이 대분류만 조회, 파라미터 없음")
+	@GetMapping("/category/distinct")
+	public ResponseEntity<ArrayList<CategoryDto>> selectItemType() throws Exception{
+		System.out.println(categoryService.selectDistinctItemType());
+		return ResponseEntity.status(HttpStatus.OK).body(categoryService.selectDistinctItemType());
 	}
-	
-	// 소분류 조회 : pathvariable
-	@RequestMapping(value = "/category/detail/{itemDType}", method = RequestMethod.GET)
-	public ResponseEntity<CategoryDto> selectDetailType(@PathVariable String itemDType) throws Exception{
-		System.out.println(categoryService.selectItemDType(itemDType));
-		return ResponseEntity.status(HttpStatus.OK).body(categoryService.selectItemDType(itemDType));
-	}
-	
 	
 }

@@ -1,6 +1,6 @@
 import style from "../../source/Moodal4.module.css";;
 
-function MoodalNotify() {
+function Notify() {
   return (
     <>
       <div id="my-modal" className={style.modal}>
@@ -44,4 +44,4 @@ function MoodalNotify() {
   );
 }
 
-export default MoodalNotify;
+export default Notify;

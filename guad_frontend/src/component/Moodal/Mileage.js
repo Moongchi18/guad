@@ -1,6 +1,6 @@
 import style from "../../source/Moodal5.module.css";
 
-function MoodalMileage() {
+function Mileage() {
   window.onload = function () {
     // Get DOM Elements
     const modal = document.getElementById("my-modal");
@@ -74,4 +74,4 @@ function MoodalMileage() {
     </>
   );
 }
-export default MoodalMileage;
+export default Mileage;

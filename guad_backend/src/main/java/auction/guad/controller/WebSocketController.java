@@ -50,11 +50,14 @@ public class WebSocketController {
 
     
 	@GetMapping("/bidlist")
-	public ArrayList<Integer> testListget(int itemNum) {
+	public Integer testListget(int itemNum) {
+		System.out.println("bidlist호출");
+		int length1 = list1.size();
+		int length2 = list2.size();
 		if(itemNum==1) {
-			return list1;
+			return list1.get(length1-1);
 		} else {
-			return list2;
+			return list2.get(length2-1);
 		}
 	}
 	
