@@ -1,9 +1,14 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import style from "../source/Selling.module.css";
-import Moodal2 from "./Moodal/ItemSuccess";
+import ItemSuccess from "./Moodal/ItemSuccess";
 
 function Selling() {
+  const selectListAPeriod = [1, 2, 3, 5, 7];
+  const selectListHour = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+  const now = new Date();
+  let tempDate = new Date();
+  
   const modalOpen = useRef();
 
   const closeModal = () => {
@@ -11,14 +16,27 @@ function Selling() {
   };
 
   const [sellType, setSellType] = useState("");
-  const [data, setData] = useState();
-  const [itemType, setItemType] = useState();
-  const [selectedItemType, setSelectedItemType] = useState();
+  const [data, setData] = useState('');
+  const [itemType, setItemType] = useState('');
+  const [selectedItemType, setSelectedItemType] = useState('대분류');
   const [itemDetailType, setItemDetailType] = useState([]);
-  const [selectedItemDetailType, setSelectedItemDetailType] = useState();
-  const [itemSub, setItemSub] = useState();
-  const [itemContents, setItemContents] = useState();
-  const [itemPrice, setItemPrice] = useState();
+  const [selectedItemDetailType, setSelectedItemDetailType] = useState('소분류');
+  const [itemSub, setItemSub] = useState('');
+  const [itemContents, setItemContents] = useState('');
+  const [itemPrice, setItemPrice] = useState('');
+  const [selectedDay, setSelectedDay] = useState('');
+  const [selectedHour, setSelectedHour] = useState(9);
+  const [aPeriod, setAPeriod] = useState(new Date());
+  const [aPeriodText, setAPeriodText] = useState(`${tempDate.getFullYear()}년 ${tempDate.getMonth()+1}월 ${tempDate.getDate()}일 ${selectedHour}시`);
+
+  const refSellType = useRef();
+  const refItemType = useRef();
+  const refItemDetailType = useRef();
+  const refItemSub = useRef();
+  const refItemContents = useRef();
+  const refItemPrice = useRef();
+  const refAPeriod = useRef();
+  const refImage = useRef();
 
   const handlerSellType = (e) => {
     const type = e.target.name;
@@ -37,40 +55,97 @@ function Selling() {
       }
     });
     setItemDetailType(newItemDetailType);
+    setSelectedItemDetailType("소분류");
   };
   const handlerSelectedItemDetailType = (e) =>
     setSelectedItemDetailType(e.target.value);
+  const handlerItemSub = (e) => setItemSub(e.target.value);
+  const handlerItemContents = (e) => setItemContents(e.target.value);
+  const handlerItemPrice = (e) => setItemPrice(e.target.value);
+  const handlerSelectedDay = (e) => {
+    setSelectedDay(e.target.value)
+    console.log(e.target.value)
+    tempDate.setDate(now.getDate() + e.target.value * 1)
+    setAPeriod(tempDate)
+    setAPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth()+1}월 ${tempDate.getDate()}일 ${selectedHour}시`)
+  };
+  const handlerSelectedHour = (e) => {
+    setSelectedHour(e.target.value)
+    tempDate.setHours(e.target.value * 1)
+    setAPeriod(tempDate)
+    setAPeriodText(`${aPeriod.getFullYear()}년 ${aPeriod.getMonth()+1}월 ${aPeriod.getDate()}일 ${tempDate.getHours()}시`)
+  }
+  
 
+  console.log("테스트 " + aPeriod.toLocaleDateString());
+  console.log("테스트 " + aPeriod.toLocaleString());
+  console.log("테스트 " + aPeriod.toLocaleTimeString());
+  console.log("테스트 " + aPeriod.toISOString());
+  console.log("테스트 " + aPeriod.toISOString().slice(0, 10) + " " + aPeriod.toISOString().slice(11,13) + ":00:00");
   const handlerItemRegist = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "http://localhost:8080/sellitem",
+    if (sellType === "") {
+      alert("거래종류를 선택하세요");
+      refSellType.current.focus();
+    } else if (selectedItemType === "대분류") {
+      alert("대분류를 선택하세요");
+      refItemType.current.focus();
+    } else if (selectedItemDetailType === "소분류") {
+      alert("소분류를 선택하세요");
+      refItemDetailType.current.focus();
+    } else if (itemSub === "" || itemSub === undefined) {
+      alert("제목을 작성해주세요");
+      refItemSub.current.focus();
+    } else if (itemContents === "" || itemContents === undefined) {
+      alert("내용을 작성해주세요");
+      refItemContents.current.focus();
+    } else if (
+      itemPrice === "" ||
+      itemPrice === undefined ||
+      itemPrice === null
+    ) {
+      alert("가격을 입력하세요");
+      refItemPrice.current.focus();
+    } else if (aPeriod === "" || aPeriod === undefined || aPeriod === null) {
+      alert("경매기간을 입력해주세요");
+      refAPeriod.current.focus();
+    }
+    // else if(aPeriod < now) {
+    //   alert("날짜비교 성공")
+    // }
+    else {
+      axios.post("http://localhost:8080/sellitem",
         // memberEmail: '', // 컨트롤러에서 토큰으로 정보확인 후 입력
         // writeDate: '', // 쿼리문에 now()
         {
           sellType,
           itemSub,
+          itemContents,
           itemPrice,
           itemType: selectedItemType,
           itemDType: selectedItemDetailType,
           aStartPrice: itemPrice,
-          // aPeriod: ''
+          aPeriod: `${aPeriod.toISOString().slice(0, 10)} ${aPeriod.toISOString().slice(11,13)} :00:00`
+          // aPeriod: aPeriod
         }
       )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    modalOpen.current.style = "display:block;";
+        .then(response => {
+          console.log(response)
+          modalOpen.current.style = "display:block;";
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
+  // 카테고리 불러오기
   useEffect(() => {
     axios.get("http://localhost:8080/category").then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       const temp1 = [];
       response.data.forEach((element) => temp1.push(element.itemType));
       const temp2 = temp1.filter(
@@ -97,6 +172,7 @@ function Selling() {
                 }
                 name="u"
                 onClick={handlerSellType}
+                ref={refSellType}
               >
                 오름 경매
               </button>
@@ -132,6 +208,7 @@ function Selling() {
                 className={style.select_one}
                 onChange={handlerSelectedItemType}
                 value={selectedItemType}
+                ref={refItemType}
               >
                 <option value="대분류">대분류</option>
                 {itemType &&
@@ -144,6 +221,7 @@ function Selling() {
               <select
                 onChange={handlerSelectedItemDetailType}
                 value={selectedItemDetailType}
+                ref={refItemDetailType}
               >
                 <option value="소분류">소분류</option>
                 {itemDetailType &&
@@ -160,7 +238,8 @@ function Selling() {
                 type="text"
                 placeholder="판매글 제목을 작성해주세요."
                 value={itemSub}
-                onchange={(e) => setItemSub(e.target.value)}
+                onChange={handlerItemSub}
+                ref={refItemSub}
               />
             </li>
             <li>
@@ -168,7 +247,8 @@ function Selling() {
               <textarea
                 placeholder="내용을 작성해주세요."
                 value={itemContents}
-                onchange={(e) => setItemContents(e.target.value)}
+                onChange={handlerItemContents}
+                ref={refItemContents}
               ></textarea>
             </li>
             <li>
@@ -177,14 +257,30 @@ function Selling() {
                 type="text"
                 placeholder="가격을 작성해주세요."
                 value={itemPrice}
-                onchange={(e) => setItemPrice(e.target.value)}
+                onChange={handlerItemPrice}
+                ref={refItemPrice}
               />
             </li>
             <li>
-              <label>경매기간 / 판매기간</label>
-              <select>
-                <option></option>
+              <label>경매기간(익일부터 계산)</label>
+              <select className={style.select_one} value={selectedDay} onChange={handlerSelectedDay}>
+                {selectListAPeriod.map((day, index) => (
+                  <option value={day} key={index}>
+                    {day}일
+                  </option>
+                ))}
               </select>
+              <br></br>
+              <label>판매종료 시간</label>
+              <select onChange={handlerSelectedHour} value={selectedHour}>
+                {selectListHour.map((hour, index) => (
+                  <option value={hour} key={index}>{hour >= 10 ? hour : '0' + hour}:00</option>
+                ))}
+              </select>
+              <br></br>
+              {/* <input type="datetime-local" value={aPeriod} onChange={handlerAPeriod} ref={refAPeriod} min={new Date()}></input> */}
+
+              <span>경매 종료 : </span><input type="text" value={aPeriodText} ref={refAPeriod} disabled></input>
             </li>
             <li>
               <label>사진등록</label>
@@ -208,7 +304,8 @@ function Selling() {
           >
             등록완료
           </button>
-          <Moodal2 closeModal={closeModal} modalOpen={modalOpen} />
+          {/* <Moodal2 closeModal={closeModal} modalOpen={modalOpen} /> */}
+          <ItemSuccess closeModal={closeModal} modalOpen={modalOpen} />
         </div>
       </div>
     </>

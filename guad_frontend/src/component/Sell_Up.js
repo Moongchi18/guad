@@ -1,27 +1,19 @@
+import { useRef } from "react";
 import style from "../source/SellItem.module.css";
-import Moodal3 from "./Moodal/NotifyWrite";
+import NotifyWrite from "./Moodal/NotifyWrite";
 
 function Sell_Up() {
-  window.onload = function () {
-    const modal = document.getElementById("my-modal");
-    const closeBtn1 = document.getElementById("close");
-    const closeBtn2 = document.getElementById("outMan");
-    const openBtn1 = document.getElementById("openMan");
+  const modalChange = useRef();
+  const closeModal = () => {
+    modalChange.current.style = "display:none;";
+  };
 
-    openBtn1.addEventListener("click", openModal);
-    closeBtn2.addEventListener("click", closeModal);
-
-    function closeModal() {
-      modal.style.display = "none";
-    }
-
-    function openModal() {
-      modal.style.display = "block";
-    }
+  const openModal = () => {
+    modalChange.current.style = "display:block;";
   };
   return (
     <>
-      <Moodal3 />
+      <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
       <div className={style.item_top}>
         <h2>
           <strong>오름</strong>판매
@@ -47,7 +39,7 @@ function Sell_Up() {
           <img
             src={require("../source/img/warn.png")}
             alt="신고"
-            id="openMan"
+            onClick={openModal}
           />
           <span className={style.top_head}>상품 정보</span>
           <span className={style.top_cate}>의류 / 가방</span>

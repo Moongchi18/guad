@@ -5,6 +5,7 @@ import axios from "axios";
 import MoodalMileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
 import BuyList from "./BuyList";
+import SellList from "./SellList";
 
 
 
@@ -48,9 +49,10 @@ function Mypage() {
             </div>
           </div>
         </div>
-
         <RegistList/>
         <BuyList/>
+        <SellList/>
+
 
       </div>
     </>

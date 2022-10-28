@@ -36,6 +36,9 @@ function Login({ history }) {
         console.log(error);
         sessionStorage.clear();
       });
+
+    // 임시 이동
+    history.push("/mypage");
   };
 
   useEffect(() => {

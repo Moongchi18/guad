@@ -8,14 +8,9 @@
 		ORDER BY ITEM_TYPE, ITEM_D_TYPE
 	</select>
 	
-	<select id="selectItemType" resultType="auction.guad.dto.CategoryDto">
+	<select id="selectDistinctItemType" resultType="auction.guad.dto.CategoryDto">
 		SELECT DISTINCT ITEM_TYPE FROM CATEGORY
-		WHERE ITEM_TYPE=#{itemType}
+		ORDER BY ITEM_TYPE
 	</select>
 	
-	<select id="selectItemDType" resultType="auction.guad.dto.CategoryDto">
-		SELECT * FROM CATEGORY
-		WHERE ITEM_D_TYPE=#{itemDType}
-	</select>
-
 </mapper>
