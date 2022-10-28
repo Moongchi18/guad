@@ -37,6 +37,7 @@ function Moodal() {
       setCcc4(false);
     }
   };
+
   const closeModal = () => {
     if (ccc1 == false || ccc2 == false || ccc3 == false || ccc4 == false) {
       alert("동의를 확인해주세요.");
