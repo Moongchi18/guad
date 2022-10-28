@@ -1,11 +1,11 @@
 import style from "../../source/Moodal4.module.css";;
 
-function Notify() {
+function Notify({closeModal, modalChange}) {
   return (
     <>
-      <div id="my-modal" className={style.modal}>
+      <div id="my-modal" className={style.modal} ref={modalChange}>
         <div className={style.modalcontent}>
-          <span class={style.close} id="close">
+          <span class={style.close} onClick={closeModal}>
             &times;
           </span>
           <div className={style.modalheader}>

@@ -3,7 +3,8 @@ import logo from "../../source/img/mypage.png";
 import logo_d from "../../source/img/mypage_d.png";
 import sell_1 from "../../source/img/selling_item_ex1.png";
 import sell_2 from "../../source/img/selling_item_ex2.png";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import Notify from "../Moodal/Notify";
 import axios from "axios";
 
 function Manager() {
@@ -14,9 +15,12 @@ function Manager() {
       .catch((error) => {});
   }, []);
 
+
+
+
+
   return (
     <>
-   
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>관리자 페이지</h1>
         <div>
