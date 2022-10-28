@@ -8,6 +8,8 @@ import axios from "axios";
 import MoodalMileage from "./MoodalMileage";
 import RegistList from "./RegistList";
 
+
+
 function Mypage() {
   const [sellList, setSellList] = useState({});
   const [buyList, setBuyList] = useState("");
@@ -48,8 +50,9 @@ function Mypage() {
             </div>
           </div>
         </div>
-        <RegistList  />
 
+        <RegistList  />
+   
 
       </div>
     </>

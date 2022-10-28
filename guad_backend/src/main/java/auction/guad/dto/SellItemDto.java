@@ -17,10 +17,10 @@ public class SellItemDto {
 	private String itemDType;
 	private Date writeDate;
 	private int hitCnt;
-	private int AStartPrice;
-	private int AMaxPrice;
-	private int AMinPrice;
-	private int APeriod;
+	private int aStartPrice;
+	private int aMaxPrice;
+	private int aMinPrice;
+	private int aPeriod;
 	
 	private String soldYn;
 	private Date soldDate;

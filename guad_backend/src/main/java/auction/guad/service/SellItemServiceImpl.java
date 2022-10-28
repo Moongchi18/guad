@@ -18,8 +18,13 @@ public class SellItemServiceImpl implements SellItemService{
 		return sellItemMapper.sellItemList();		
 	}
 	
-	public int insertSellItem(SellItemDto sellItemDto) throws Exception {
-		return sellItemMapper.insertSellItem(sellItemDto);
+	public boolean insertSellItem(SellItemDto sellItemDto) throws Exception {
+		int result = sellItemMapper.insertSellItem(sellItemDto);
+		if(result==1) {
+			return true;
+		} else {
+			return false;			
+		}
 		
 	}
 	

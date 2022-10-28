@@ -8,6 +8,12 @@
 	</select>
 	
 	<insert id="insertSellItem" parameterType="auction.guad.dto.SellItemDto">
+		INSERT INTO SELL_ITEM
+		(SELL_TYPE, MEMBER_EMAIL, ITEM_SUB, ITEM_CONTENTS, ITEM_PRICE, ITEM_TYPE, 
+		ITEM_D_TYPE, A_START_PRICE, A_MIN_PRICE)
+		VALUES
+		(#{sellType}, #{memberEmail}, #{itemSub}, #{itemContents}, #{itemPrice}, #{itemType}
+		, #{itemDType}, #{aStartPrice}, #{aMinPrice})
 		
 		
 	</insert>
