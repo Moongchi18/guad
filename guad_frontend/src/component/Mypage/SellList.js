@@ -6,27 +6,10 @@ import axios from "axios";
 
 function SellList() {
 
-  useEffect(() => {
-    changeColor();
-  }, []);
 
 
-  function changeColor() {
-    const button = document.getElementsByClassName(`${style.button}`);
-    console.log(button);
 
-    for (let i = 0; i < button.length; i++) {
-      if (button[i].toString = "거래완료") {
-        button[i].style.backgroundColor = '#217A4F';
-      } else if (button[i].toString = "거래중") {
-        button[i].style.backgroundColor = '#D9D9D9';
-      } else if (button[i].toString = "경매완료") {
-        button[i].style.backgroundColor = '#BA101E';
-      } else {
-        button[i].style.backgroundColor = '#253C76';
-      }
-    }
-  }
+
 
   return (
     <>
