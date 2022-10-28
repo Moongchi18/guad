@@ -21,7 +21,7 @@ function Join({ history }) {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [gender, setGender] = useState("");
+ 
 
   const [isEmail, setIsEmail] = useState(false);
   const [isNickname, setIsNickname] = useState(false);

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="auction.guad.mapper.AuctionMapper">
+
+
+	<!-- 입찰 -->
+	<insert id="tryAuction" parameterType="auction.guad.dto.AuctionDto">
+	 INSERT INTO AUCTION (AUCTION_NUM, ITEM_NUM, MEMBER_EMAIL, AUCTION_PRICE, AUCTION_TIME) values 
+	 (#{auctionNum}, #{itemNum}, #{{memberEmail}, #{auctionPrice}, now())
+	</insert>
+	
+	<!-- 입찰 취소 -->
+	<delete id="cancelAuction" parameterType="int">
+	 DELETE FROM AUCTION WHERE AUCTION_NUM = #{auctionNum}
+	</delete>
+	
+	
+
+</mapper>

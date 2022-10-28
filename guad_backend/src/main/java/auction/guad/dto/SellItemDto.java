@@ -1,5 +1,6 @@
 package auction.guad.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import lombok.Data;
@@ -20,7 +21,7 @@ public class SellItemDto {
 	private int aStartPrice;
 	private int aMaxPrice;
 	private int aMinPrice;
-	private int aPeriod;
+	private Timestamp aPeriod;
 	
 	private String soldYn;
 	private Date soldDate;
