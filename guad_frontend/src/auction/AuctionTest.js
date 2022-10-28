@@ -7,7 +7,7 @@ var stompClient = null
 const token = `Bearer ${sessionStorage.getItem("token")}`
 function AuctionTest({match}) {
     const [bid, setBid] = useState();
-    const [bidList, setBidList] = useState([]);
+    const [bidList, setBidList] = useState('');
     const [change, setChange] = useState(false);
     const [Dto, setDto] = useState({
         itemNum: match.params.itemNum,
@@ -20,11 +20,11 @@ function AuctionTest({match}) {
     }, [bidList])
 
     useEffect(() => {
-        axios.get("http://192.168.0.35:8080/bidlist?itemNum="+Dto.itemNum)
+        axios.get("http://localhost:8080/bidlist?itemNum="+Dto.itemNum)
         .then(response => {
             console.log(response.data)
-            const newBidList = [...response.data]
-            setBidList(newBidList)
+            // const newBidList = [...response.data]
+            setBidList(response.data)
         })
         .catch(error => console.log(error))
         // connect();
@@ -32,7 +32,7 @@ function AuctionTest({match}) {
 
     const connect = () => {
 
-        let Sock = new SockJS('http://192.168.0.35:8080/ws');
+        let Sock = new SockJS('http://localhost:8080/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }
@@ -66,12 +66,7 @@ function AuctionTest({match}) {
     return (
         <>
             <h2>입찰 리스트</h2>
-            {bidList.map((bid, index) => (
-                <p key={index}>{bid}</p>
-            ))
-            ||
-            "입찰 기록이 없습니다."
-            }
+            {bidList}
             <br></br>
             <input type="number" value={bid} onChange={handlerBidPrice}
                 style={{ border: "1px solid" }}
