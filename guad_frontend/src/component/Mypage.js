@@ -48,7 +48,7 @@ function Mypage() {
             </div>
           </div>
         </div>
-        <BuyList  />
+        <BuyList />
 
         <div className={style.category}>
           <h3>상품 구매 내역</h3>

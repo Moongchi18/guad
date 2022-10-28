@@ -3,6 +3,7 @@ package auction.guad.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import auction.guad.dto.MemberDto;
 import auction.guad.dto.MileageDto;
 import auction.guad.mapper.MileageMapper;
 
@@ -25,5 +26,13 @@ public class MileageServiceImpl implements MileageService{
 		
 	}
 	
+	public void useMileage(MemberDto member) throws Exception {
+		mileageMapper.useMileage(member);
+		mileageMapper.useMileage2(member);
+	}
 	
+	public void returnMileage(MemberDto member) throws Exception {
+		mileageMapper.returnMileage(member);
+		mileageMapper.returnMileage2(member);
+	}
 }

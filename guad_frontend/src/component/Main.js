@@ -4,7 +4,7 @@ import style from "../source/Main.module.css";
 function Main() {
   return (
     <>
-      <CarouselB />
+      {/* <CarouselB /> */}
       <div className={style.cont1}></div>
       <div className={style.cont2}>
         <h2>

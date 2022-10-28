@@ -4,6 +4,7 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 import BuyConfirm from "./Moodal/BuyConfirm";
 
 function SellItem() {
+  
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";

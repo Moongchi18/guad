@@ -34,7 +34,7 @@ public class MileageController {
 		mileageService.chargeMileage(mileage);
 	}
 
-	@ApiOperation(value = "회원 마일리지 조회", notes = "해당 회원의 마일리지 조회")
+	@ApiOperation(value = "마일리지 충전내역 조회", notes = "해당 회원의 마일리지 충전 내역 조회")
 	@RequestMapping(value = "/mileage/{mileageNum}", method = RequestMethod.GET)
 	public ResponseEntity<MileageDto> inquireMileage(
 			@Parameter(description = "회원 이메일", required = true, example = "1") @PathVariable("memberEmail") String memberEmail)

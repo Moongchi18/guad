@@ -1,6 +1,6 @@
 import style from "../../source/Mypage.module.css";
 import logo from "../../source/img/mypage.png";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import MoodalMileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
@@ -13,19 +13,46 @@ function Mypage() {
   const [sellList, setSellList] = useState({});
   const [buyList, setBuyList] = useState("");
 
-  useEffect(() => {
-    axios
-      .post("http://localhost:8080/api/mypage", {})
-      .then((response) => {
-        setSellList();
-        setBuyList();
-      })
-      .catch((error) => {});
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post("http://localhost:8080/api/mypage", {})
+  //     .then((response) => {
+  //       setSellList();
+  //       setBuyList();
+  //     })
+  //     .catch((error) => {});
+  // }, []);
+
+  // window.onload = function () {
+
+  //   const button = document.getElementsByClassName(`${style.button}`);
+  //   console.log(button);
+
+  //   for (let i = 0; i < button.length; i++) {
+  //     if ((button[i].toString = "거래완료")) {
+  //       button.style.backgroundColor = "#217A4F";
+  //     } else if ((button[i].toString = "거래중")) {
+  //       button.style.backgroundColor = "#D9D9D9";
+  //     } else if ((button[i].toString = "경매완료")) {
+  //       button.style.backgroundColor = "#BA101E";
+  //     } else {
+  //       button.style.backgroundColor = "#253C76";
+  //     }
+  //   }
+  // }
+
+  const modalChange = useRef();
+  const closeModal = () => {
+    modalChange.current.style = "display:none;";
+  };
+
+  const openModal = () => {
+    modalChange.current.style = "display:block;";
+  };
 
   return (
     <>
-      <MoodalMileage />
+      <MoodalMileage closeModal={closeModal} modalChange={modalChange}/>
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>마이페이지</h1>
         <div>
@@ -43,7 +70,7 @@ function Mypage() {
             </div>
             <div className={style.Mbox_button}>
               <button className={style.member}>회원정보</button>
-              <button className={style.mileage} id="mileage">
+              <button className={style.mileage} onClick={openModal}>
                 마일리지
               </button>
             </div>
