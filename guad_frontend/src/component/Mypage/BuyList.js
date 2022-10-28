@@ -46,11 +46,7 @@ function BuyList() {
             </h3>
           </div>
           <div className={style.buycheck}>
-<<<<<<< HEAD
             <button className={style.button}>거래완료</button>
-=======
-            <button type="button">거래완료</button>
->>>>>>> 552547d52ae3949ce6a6d84bce3348ea2a79cb06
             <h3>
               <strong>구매 일자 : </strong>2022년 10월 24일
             </h3>
