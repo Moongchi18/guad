@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import style from "../source/Moodal.module.css";
+import React, { useEffect, useRef, useState } from "react";
+import style from "../../source/Moodal.module.css";
 
 function Moodal() {
   const [ccc1, setCcc1] = useState(false);
@@ -7,7 +7,7 @@ function Moodal() {
   const [ccc3, setCcc3] = useState(false);
   const [ccc4, setCcc4] = useState(false);
 
-  const modal = document.getElementById("my-modal");
+  const modalOpen = useRef();
 
   const changeImg1 = () => {
     if (ccc1 == false) {
@@ -37,24 +37,24 @@ function Moodal() {
       setCcc4(false);
     }
   };
+
   const closeModal = () => {
     if (ccc1 == false || ccc2 == false || ccc3 == false || ccc4 == false) {
       alert("동의를 확인해주세요.");
     } else {
-      modal.style.display = "none";
+      modalOpen.current.style = "display:none;";
     }
   };
 
   useEffect(() => {
     (function openModal() {
-      const modal = document.querySelector("#my-modal");
-      modal.style.display = "block";
+      modalOpen.current.style = "display:block;";
     })();
   }, []);
 
   return (
     <>
-      <div id="my-modal" className={style.modal}>
+      <div id="my-modal" className={style.modal} ref={modalOpen}>
         <div className={style.modalcontent}>
           <div className={style.modalheader}>
             <span className={style.close} id="close" onClick={closeModal}>
@@ -75,8 +75,8 @@ function Moodal() {
                     <img
                       src={
                         ccc1
-                          ? require("../source/img/check01.png")
-                          : require("../source/img/check00.png")
+                          ? require("../../source/img/check01.png")
+                          : require("../../source/img/check00.png")
                       }
                       alt="체크"
                       id="cc1"
@@ -95,8 +95,8 @@ function Moodal() {
                     <img
                       src={
                         ccc2
-                          ? require("../source/img/check01.png")
-                          : require("../source/img/check00.png")
+                          ? require("../../source/img/check01.png")
+                          : require("../../source/img/check00.png")
                       }
                       alt="체크"
                       id="cc2"
@@ -116,8 +116,8 @@ function Moodal() {
                     <img
                       src={
                         ccc3
-                          ? require("../source/img/check01.png")
-                          : require("../source/img/check00.png")
+                          ? require("../../source/img/check01.png")
+                          : require("../../source/img/check00.png")
                       }
                       alt="체크"
                       id="cc3"
@@ -136,8 +136,8 @@ function Moodal() {
                     <img
                       src={
                         ccc4
-                          ? require("../source/img/check01.png")
-                          : require("../source/img/check00.png")
+                          ? require("../../source/img/check01.png")
+                          : require("../../source/img/check00.png")
                       }
                       alt="체크"
                       id="cc4"

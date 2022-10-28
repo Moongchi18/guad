@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
-import style from "../source/Moodal2.module.css";
+import style from "../../source/Moodal2.module.css";
 
-function Moodal2() {
+function Moodal2({ closeModal, modalOpen }) {
   useEffect(() => {}, []);
   return (
     <>
-      <div id="my-modal" className={style.modal}>
+      <div className={style.modal} ref={modalOpen}>
         <div className={style.modalcontent}>
           <div className={style.modalheader}>
             {/* 이건 닫기버튼 */}
-            <span className={style.close} id="close">
+            <span className={style.close} onClick={closeModal}>
               &times;
             </span>
-            <img src={require("../source/img/check03.png")} alt="2" />
+            <img src={require("../../source/img/check03.png")} alt="2" />
           </div>
           <div className={style.modalbody}>
             <h2>상품 등록에 성공했습니다!</h2>
@@ -20,9 +20,9 @@ function Moodal2() {
           </div>
           <div className={style.modalfooter}>
             <h2>상품명</h2>
-            <img src={require("../source/img/Line.png")} alt="33" />
+            <img src={require("../../source/img/Line.png")} alt="33" />
             <h3>개봉 후 1번 사용 무선 저소음 적축키보드</h3>
-            <button type="button" id="outMan">
+            <button type="button" onClick={closeModal}>
               확인
             </button>
           </div>

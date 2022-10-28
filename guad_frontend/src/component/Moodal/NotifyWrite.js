@@ -1,30 +1,13 @@
 import React, { useEffect } from "react";
-import style from "../source/Moodal3.module.css";
-
-function Moodal3() {
-  window.onload = function () {
-    const modal = document.getElementById("my-modal");
-    const closeBtn1 = document.getElementById("outMan");
-    const openBtn1 = document.getElementById("openMan");
-
-    openBtn1.addEventListener("click", openModal);
-    closeBtn1.addEventListener("click", closeModal);
-
-    function closeModal() {
-      modal.style.display = "none";
-    }
-
-    function openModal() {
-      modal.style.display = "block";
-    }
-  };
+import style from "../../source/Moodal3.module.css";
+function Moodal3({ closeModal, modalChange }) {
   useEffect(() => {}, []);
   return (
     <>
-      <div id="my-modal" className={style.modal}>
+      <div className={style.modal} ref={modalChange}>
         <div className={style.modalcontent}>
           <div className={style.modalheader}>
-            <img src={require("../source/img/big_warn.png")} alt="2" />
+            <img src={require("../../source/img/big_warn.png")} alt="2" />
             <h2>이 상품에 대해 신고하시겠습니까?</h2>
           </div>
           <div className={style.modalbody}>
@@ -35,7 +18,7 @@ function Moodal3() {
             <button type="button" className={style.redBtn}>
               신고하기
             </button>
-            <button type="text" id="outMan">
+            <button type="text" onClick={closeModal}>
               취소
             </button>
           </div>
