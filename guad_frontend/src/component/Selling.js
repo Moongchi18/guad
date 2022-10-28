@@ -77,11 +77,7 @@ function Selling() {
   }
   
 
-  console.log("테스트 " + aPeriod.toLocaleDateString());
-  console.log("테스트 " + aPeriod.toLocaleString());
-  console.log("테스트 " + aPeriod.toLocaleTimeString());
-  console.log("테스트 " + aPeriod.toISOString());
-  console.log("테스트 " + aPeriod.toISOString().slice(0, 10) + " " + aPeriod.toISOString().slice(11,13) + ":00:00");
+  console.log("aPeriod 테스트 " + aPeriod.toISOString().slice(0, 10) + " " + aPeriod.toISOString().slice(11,13) + ":00:00");
   const handlerItemRegist = (e) => {
     e.preventDefault();
     if (sellType === "") {
@@ -125,8 +121,8 @@ function Selling() {
           itemType: selectedItemType,
           itemDType: selectedItemDetailType,
           aStartPrice: itemPrice,
-          aPeriod: `${aPeriod.toISOString().slice(0, 10)} ${aPeriod.toISOString().slice(11,13)} :00:00`
-          // aPeriod: aPeriod
+          aaaPeriod: `${aPeriod.toISOString().slice(0, 10)} ${aPeriod.toISOString().slice(11,13)} :00:00`
+          // aaaPeriod: "test"
         }
       )
         .then(response => {
