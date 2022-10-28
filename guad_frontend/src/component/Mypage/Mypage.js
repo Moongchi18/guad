@@ -10,27 +10,18 @@ import SellList from "./SellList";
 
 
 function Mypage() {
- 
-  // useEffect(() => {
-  //   axios
-  //     .post("http://localhost:8080/api/mypage", {})
-  //     .then((response) => {
-  //       setSellList();
-  //       setBuyList();
-  //     })
-  //     .catch((error) => {});
-  // }, []);
 
   window.onload = function(){
     const button = document.getElementsByClassName(`${style.button}`);
     console.log(button);
-
+    console.log(button[0]);
+    
     for (let i = 0; i < button.length; i++) {
-      if (button[i].toString = "거래완료") {
+      if (button[i].textContent = "거래완료") {
         button[i].style.backgroundColor = '#217A4F';
-      } else if (button[i].toString = "거래중") {
+      } else if (button[i].textContent = "거래중") {
         button[i].style.backgroundColor = '#D9D9D9';
-      } else if (button[i].toString = "경매완료") {
+      } else if (button[i].textContent = "경매완료") {
         button[i].style.backgroundColor = '#BA101E';
       } else {
         button[i].style.backgroundColor = '#253C76';
