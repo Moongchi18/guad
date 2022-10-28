@@ -43,7 +43,7 @@ function Join({ history }) {
 
   const handlerJoin = () => {
     axios
-      .post("http://localhost:8080/member", { email: email, nickname: nickname, pass: password, phone: phone, address: address })
+      .post("http://localhost:8080/member", { email: email, nickname: nickname, pass: password, phone: phone, address: address, gender: g_check })
       .then((response) => console.log(response))
     history.push("/login")
       .catch((error) => console.log(error));
