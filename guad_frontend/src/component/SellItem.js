@@ -1,29 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import style from "../source/SellItem.module.css";
 import Moodal3 from "./Moodal3";
 import Moodal6 from "./Moodal6";
 
 function SellItem() {
-  window.ready = function () {
-    const modal2 = document.getElementById("my-modal2");
-    const closeBtn2 = document.getElementById("outMan2");
-    const openBtn2 = document.getElementById("openMan2");
+  const modalChange = useRef();
+  const closeModal = () => {
+    modalChange.current.style = "display:none;";
+  };
 
-    openBtn2.addEventListener("click", openModal2);
-    closeBtn2.addEventListener("click", closeModal2);
+  const openModal = () => {
+    modalChange.current.style = "display:block;";
+  };
 
-    function closeModal2() {
-      modal2.style.display = "none";
-    }
-    function openModal2() {
-      modal2.style.display = "block";
-    }
+  const modalChange2 = useRef();
+  const closeModal2 = () => {
+    modalChange2.current.style = "display:none;";
+  };
+
+  const openModal2 = () => {
+    modalChange2.current.style = "display:block;";
   };
   useEffect(() => {}, []);
   return (
     <>
-      {/* <Moodal6 /> */}
-      <Moodal3 />
+      <Moodal6 closeModal2={closeModal2} modalChange2={modalChange2} />
+      <Moodal3 closeModal={closeModal} modalChange={modalChange} />
       <div className={style.item_top}>
         <h2>일반판매</h2>
         <div className={style.img_item}>
@@ -38,7 +40,7 @@ function SellItem() {
           <img
             src={require("../source/img/warn.png")}
             alt="신고"
-            id="openMan"
+            onClick={openModal}
           />
           <span className={style.top_head}>상품 정보</span>
           <span className={style.top_cate}>의류 / 가방</span>
@@ -63,7 +65,7 @@ function SellItem() {
             <span className={style.sell_number}>450,000</span>
           </div>
           <div className={style.button_bb}>
-            <button type="button" className={style.bb_buy} id="openMan2">
+            <button type="button" className={style.bb_buy} onClick={openModal2}>
               구매
             </button>
             <span className={style.bb_date}>2022년 10월 31일까지</span>
