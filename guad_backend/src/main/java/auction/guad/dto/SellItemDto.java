@@ -20,7 +20,7 @@ public class SellItemDto {
 	private int auctionStartPrice;
 	private int auctionMaxPrice;
 	private int auctionMinPrice;
-	private Data auctionPeriod;
+	private Date auctionPeriod;
 	
 	private String soldYn;
 	private Date soldDate;
