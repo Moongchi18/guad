@@ -1,7 +1,7 @@
-import style from "../source/Mypage.module.css";
+import style from "../../source/Mypage.module.css";
 import { useState } from "react";
 
-function BuyList() {
+function RegistList() {
     const [sellList, setSellList] = useState({});
 
   return (
@@ -21,18 +21,18 @@ function BuyList() {
         {sellList && (
           <div>
             <div className={style.item_bb}>
-              <img src={require("../source/img/selling_item_ex2.png")} alt="1"></img>
+              <img src={require("../../source/img/selling_item_ex2.png")} alt="1"></img>
               <img
-                src={require("../source/img/del1.png")}
+                src={require("../../source/img/del1.png")}
                 alt="1"
                 className={style.del_icon}
               ></img>
             </div>
 
             <div className={style.item_bb}>
-              <img src={require("../source/img/selling_item_ex2.png")} alt="1"></img>
+              <img src={require("../../source/img/selling_item_ex2.png")} alt="1"></img>
               <img
-                src={require("../source/img/del2.png")}
+                src={require("../../source/img/del2.png")}
                 alt="1"
                 className={style.del_icon}
               ></img>
@@ -44,4 +44,4 @@ function BuyList() {
   );
 }
 
-export default BuyList;
+export default RegistList;

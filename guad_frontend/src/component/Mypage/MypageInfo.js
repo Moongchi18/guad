@@ -1,6 +1,6 @@
-import style from "../source/MypageInfo.module.css";
-import logo from "../source/img/mypage.png";
-import MoodalMileage from "./MoodalMileage";
+import style from "../../source/MypageInfo.module.css";
+import logo from "../../source/img/mypage.png";
+import MoodalMileage from "../MoodalMileage";
 
 function MypageInfo() {
   return (

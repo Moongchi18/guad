@@ -8,7 +8,8 @@ import AuctionTest from "./auction/AuctionTest";
 import Auction from "./auction/Auction";
 import Footer from "./component/Footer";
 import Main from "./component/Main";
-import MypageInfo from "./component/MypageInfo";
+import Mypage from "./component/Mypage/Mypage";
+import MypageInfo from "./component/Mypage/MypageInfo";
 import Manager from "./component/Manager";
 import ManagerNotify from "./component/ManagerNotify";
 
@@ -24,7 +25,7 @@ import Selling from "./component/Selling";
 import M_Sample from "./component/M_Sample";
 import ChatTest from "./auction/ChatTest";
 
-import Mypage from "./component/Mypage";
+
 import Sell_Up from "./component/Sell_Up";
 import Sell_End from "./component/Sell_End";
 
