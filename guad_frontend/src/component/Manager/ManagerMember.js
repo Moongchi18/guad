@@ -1,6 +1,6 @@
-import logo from "../source/img/mypage.png";
-import logo_d from "../source/img/mypage_d.png";
-import style from "../source/ManagerMember.module.css";
+import logo from "../../source/img/mypage.png";
+import logo_d from "../../source/img/mypage_d.png";
+import style from "../../source/ManagerMember.module.css";
 
 function ManagerMember() {
   return (

@@ -1,5 +1,5 @@
 import style from "../source/Join.module.css";
-import Moodal from "./Moodal";
+import Moodal from "./Moodal/Terms";
 import { useState } from "react";
 import axios from "axios";
 

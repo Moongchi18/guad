@@ -1,4 +1,4 @@
-import style from "../source/Moodal5.module.css";
+import style from "../../source/Moodal5.module.css";
 
 function MoodalMileage() {
   window.onload = function () {

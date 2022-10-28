@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import style from "../source/SellItem.module.css";
-import Moodal3 from "./Moodal3";
-import Moodal6 from "./Moodal6";
+import Moodal3 from "./Moodal/NotifyWrite";
+import Moodal6 from "./Moodal/BuyConfirm";
 
 function SellItem() {
   const modalChange = useRef();

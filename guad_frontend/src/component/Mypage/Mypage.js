@@ -1,12 +1,10 @@
-import style from "../source/Mypage.module.css";
-import logo from "../source/img/mypage.png";
-import sell_1 from "../source/img/selling_item_ex1.png";
-import sell_2 from "../source/img/selling_item_ex2.png";
-import plus from "../source/img/icons_plus.png";
+import style from "../../source/Mypage.module.css";
+import logo from "../../source/img/mypage.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MoodalMileage from "./MoodalMileage";
+import MoodalMileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
+import BuyList from "./BuyList";
 
 
 
@@ -51,8 +49,8 @@ function Mypage() {
           </div>
         </div>
 
-        <RegistList  />
-   
+        <RegistList/>
+        <BuyList/>
 
       </div>
     </>

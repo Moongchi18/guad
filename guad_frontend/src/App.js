@@ -8,9 +8,11 @@ import AuctionTest from "./auction/AuctionTest";
 import Auction from "./auction/Auction";
 import Footer from "./component/Footer";
 import Main from "./component/Main";
-import MypageInfo from "./component/MypageInfo";
-import Manager from "./component/Manager";
-import ManagerNotify from "./component/ManagerNotify";
+import Mypage from "./component/Mypage/Mypage";
+import MypageInfo from "./component/Mypage/MypageInfo";
+import Manager from "./component/Manager/Manager";
+import ManagerNotify from "./component/Manager/ManagerNotify";
+import ManagerMember from "./component/Manager/ManagerMember";
 
 import Join from "./component/Join";
 import JoinG from "./component/JoinG";
@@ -19,11 +21,11 @@ import axios from "axios";
 import SellItem from "./component/SellItem";
 import ChatRoom from "./auction/ChatRoom";
 
-import ManagerMember from "./component/ManagerMember";
+
 import Selling from "./component/Selling";
 import ChatTest from "./auction/ChatTest";
 
-import Mypage from "./component/Mypage";
+
 import Sell_Up from "./component/Sell_Up";
 import Sell_End from "./component/Sell_End";
 import Sell_After from "./component/Sell_After";

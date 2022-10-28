@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import style from "../source/Selling.module.css";
-import Moodal2 from "./Moodal2";
+import Moodal2 from "./Moodal/BuySucces";
 
 function Selling() {
   const modalOpen = useRef();

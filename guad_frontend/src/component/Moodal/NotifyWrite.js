@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import style from "../source/Moodal3.module.css";
-
+import style from "../../source/Moodal3.module.css";
 function Moodal3({ closeModal, modalChange }) {
   useEffect(() => {}, []);
   return (
@@ -8,7 +7,7 @@ function Moodal3({ closeModal, modalChange }) {
       <div className={style.modal} ref={modalChange}>
         <div className={style.modalcontent}>
           <div className={style.modalheader}>
-            <img src={require("../source/img/big_warn.png")} alt="2" />
+            <img src={require("../../source/img/big_warn.png")} alt="2" />
             <h2>이 상품에 대해 신고하시겠습니까?</h2>
           </div>
           <div className={style.modalbody}>

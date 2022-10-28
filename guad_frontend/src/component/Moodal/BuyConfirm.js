@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import style from "../source/Moodal6.module.css";
+import style from "../../source/Moodal6.module.css";
 
 function Moodal6({ closeModal2, modalChange2 }) {
   useEffect(() => {}, []);
@@ -12,7 +12,7 @@ function Moodal6({ closeModal2, modalChange2 }) {
           </div>
           <div className={style.modalbody2}>
             <div className={style.info_b}>
-              <img src={require("../source/img/item01.png")} alt="상품이미지" />
+              <img src={require("../../source/img/item01.png")} alt="상품이미지" />
               <div className={style.info_in}>
                 <span className={style.info1}>상품 정보</span>
                 <span className={style.info2}>디올 가방 재고 처리합니다!</span>
