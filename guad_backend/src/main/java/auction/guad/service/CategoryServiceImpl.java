@@ -17,19 +17,15 @@ public class CategoryServiceImpl implements CategoryService{
 		this.categoryMapper = categoryMapper;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@Override
 	public ArrayList<CategoryDto> selectAllCategory() throws Exception {
 		return categoryMapper.selectAllCategory();
 	}
 
 	@Override
-	public ArrayList<CategoryDto> selectItemType(String itemType) throws Exception {
-		return categoryMapper.selectItemType(itemType);
-	}
-
-	@Override
-	public CategoryDto selectItemDType(String itemDType) throws Exception {
-		return categoryMapper.selectItemDType(itemDType);
+	public ArrayList<CategoryDto> selectDistinctItemType() throws Exception {
+		return categoryMapper.selectDistinctItemType();
 	}
 
 }
