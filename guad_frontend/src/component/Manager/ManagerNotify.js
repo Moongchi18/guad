@@ -3,43 +3,27 @@ import logo from "../../source/img/mypage.png";
 import sell_1 from "../../source/img/selling_item_ex1.png";
 import sell_2 from "../../source/img/selling_item_ex2.png";
 import Notify from "../Moodal/Notify";
+import { useEffect, useState, useRef } from "react";
+
 function ManagerNotify() {
-  
-  window.onload = function () {
-    // Get DOM Elements
-    const modal = document.querySelector("#my-modal");
+  const modalChange = useRef();
 
-    const modalBtn = document.getElementsByClassName(`${style.notify_list}`);
-    const closeBtn = document.querySelector("#close");
-    console.log(modalBtn);
-    // Events
-    for(let i=0; i<modalBtn.length; i++)  {
-      modalBtn[i].addEventListener("click", openModal);
-    }
-    closeBtn.addEventListener("click", closeModal);
-    window.addEventListener("click", outsideClick);
-
-    // Open
-    function openModal() {
-      modal.style.display = "block";
-    }
-
-    // Close
-    function closeModal() {
-      modal.style.display = "none";
-    }
-
-    // Close If Outside Click
-    function outsideClick(e) {
-      if (e.target == modal) {
-        modal.style.display = "none";
-      }
-    }
+  const closeModal = () => {
+    modalChange.current.style = "display:none;";
   };
+
+  const openModal = () => {
+    modalChange.current.style = "display:block;";
+  };
+
+  // Events
+  // for (let i = 0; i < modalBtn.length; i++) {
+  //   modalBtn[i].addEventListener("click", openModal);
+  // }
 
   return (
     <>
-      <Notify />
+      <Notify closeModal={closeModal} modalChange={modalChange} />
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>관리자 페이지</h1>
         <div>
@@ -53,8 +37,8 @@ function ManagerNotify() {
               </h3>
             </div>
             <div className={style.Mbox_button}>
-              <button className={style.member}>회원정보</button>
-              <button className={style.mileage}>마일리지</button>
+              <button className={style.member}>회원관리</button>
+              <button className={style.mileage}>신고내역</button>
             </div>
           </div>
         </div>

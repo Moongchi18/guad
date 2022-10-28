@@ -18,8 +18,8 @@ function ManagerMember() {
               </h3>
             </div>
             <div className={style.Mbox_button}>
-              <button className={style.member}>회원정보</button>
-              <button className={style.mileage}>마일리지</button>
+              <button className={style.member}>회원관리</button>
+              <button className={style.mileage}>신고내역</button>
             </div>
           </div>
         </div>

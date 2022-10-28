@@ -46,7 +46,7 @@ function BuyList() {
             </h3>
           </div>
           <div className={style.buycheck}>
-            <button>거래완료</button>
+            <button className={style.button}>거래완료</button>
             <h3>
               <strong>구매 일자 : </strong>2022년 10월 24일
             </h3>
@@ -83,7 +83,7 @@ function BuyList() {
             </h3>
           </div>
           <div className={style.buycheck}>
-            <button>거래중</button>
+            <button className={style.button}>거래중</button>
             <h3>
               <strong>구매 일자 : </strong>2022년 10월 24일
             </h3>

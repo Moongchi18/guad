@@ -1,40 +1,14 @@
 import style from "../../source/Moodal5.module.css";
+import { useEffect, useRef, useState } from "react";
 
-function Mileage() {
-  window.onload = function () {
-    // Get DOM Elements
-    const modal = document.getElementById("my-modal");
-    const modalBtn = document.getElementById("mileage");
-    const closeBtn = document.getElementById("close");
+function Mileage({closeModal, modalChange}) {
 
-    // Events
-    modalBtn.addEventListener("click", openModal);
-    closeBtn.addEventListener("click", closeModal);
-    window.addEventListener("click", outsideClick);
-
-    // Open
-    function openModal() {
-      modal.style.display = "block";
-    }
-
-    // Close
-    function closeModal() {
-      modal.style.display = "none";
-    }
-
-    // Close If Outside Click
-    function outsideClick(e) {
-      if (e.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-  };
 
   return (
     <>
-      <div id="my-modal" class={style.modal}>
+      <div id="my-modal" class={style.modal} ref={modalChange}>
         <div class={style.modalcontent}>
-          <span class={style.close} id="close">
+          <span class={style.close} onClick={closeModal}>
             &times;
           </span>
           <div class={style.modalheader}>
