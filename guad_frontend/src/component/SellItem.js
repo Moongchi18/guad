@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import style from "../source/SellItem.module.css";
-import Moodal3 from "./Moodal/NotifyWrite";
-import Moodal6 from "./Moodal/BuyConfirm";
+import NotifyWrite from "./Moodal/NotifyWrite";
+import BuyConfirm from "./Moodal/BuyConfirm";
 
 function SellItem() {
   const modalChange = useRef();
@@ -24,8 +24,8 @@ function SellItem() {
   useEffect(() => {}, []);
   return (
     <>
-      <Moodal6 closeModal2={closeModal2} modalChange2={modalChange2} />
-      <Moodal3 closeModal={closeModal} modalChange={modalChange} />
+      <BuyConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
+      <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
       <div className={style.item_top}>
         <h2>일반판매</h2>
         <div className={style.img_item}>

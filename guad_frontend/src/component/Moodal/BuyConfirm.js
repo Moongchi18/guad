@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import style from "../../source/Moodal6.module.css";
 
-function Moodal6({ closeModal2, modalChange2 }) {
+function BuyConfirm({ closeModal2, modalChange2 }) {
   useEffect(() => {}, []);
   return (
     <>
@@ -68,4 +68,4 @@ function Moodal6({ closeModal2, modalChange2 }) {
     </>
   );
 }
-export default Moodal6;
+export default BuyConfirm;
