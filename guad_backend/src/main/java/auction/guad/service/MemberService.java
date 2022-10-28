@@ -20,5 +20,6 @@ public interface MemberService extends UserDetailsService{
 
 	public int repetitionEmailCheck(String email) throws Exception;
 	public int repetitionNicknameCheck(String nickname) throws Exception;
-
+	
+	
 }

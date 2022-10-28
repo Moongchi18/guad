@@ -12,4 +12,22 @@
 		
 	</select>
 	
+	
+	<!-- 마일리지 사용 -->
+	<update id="useMileage" parameterType="auction.guad.dto.MemberDto">
+	UPDATE MEMBER SET MILEAGE_USED = (MILEAGE_USED + (#{mileageUsed}) WHERE MEMBER_NUM = #{memberNum}
+	</update>
+	<update id="useMileage2" parameterType="auction.guad.dto.MemberDto">
+	UPDATE MEMBER SET MILEAGE = (MILEAGE - MILEAGE_USED) WHERE MEMBER_NUM = #{memberNum}
+	</update>
+	
+	<!-- 마일리지 반환 -->
+	<update id="returnMileage" parameterType="auction.guad.dto.MemberDto">
+	UPDATE MEMBER SET MILEAGE_USED = (MILEAGE_USED - (#{mileageUsed}) WHERE MEMBER_NUM = #{memberNum}
+	</update>
+	<update id="returnMileage2" parameterType="auction.guad.dto.MemberDto">
+	UPDATE MEMBER SET MILEAGE = (MILEAGE + (#{mileageUsed})) WHERE MEMBER_NUM = #{memberNum}
+	</update>
+	
+	
 </mapper>
