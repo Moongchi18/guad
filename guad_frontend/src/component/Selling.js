@@ -24,7 +24,7 @@ function Selling() {
   const [itemSub, setItemSub] = useState('');
   const [itemContents, setItemContents] = useState('');
   const [itemPrice, setItemPrice] = useState('');
-  const [selectedDay, setSelectedDay] = useState('');
+  const [selectedDay, setSelectedDay] = useState(1);
   const [selectedHour, setSelectedHour] = useState(9);
   const [auctionPeriod, setAuctionPeriod] = useState(new Date());
   const [auctionPeriodText, setAuctionPeriodText] = useState(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour}시`);
@@ -65,23 +65,25 @@ function Selling() {
   const handlerSelectedDay = (e) => {
     setSelectedDay(e.target.value)
     console.log(e.target.value)
-    tempDate.setDate(now.getDate() + e.target.value * 1)
+    console.log(selectedHour)
+    tempDate.setDate(now.getDate() + e.target.value * 1 + 1)
+    tempDate.setHours(selectedHour)
     console.log("<<<<<<<<<<<" + tempDate)
     setAuctionPeriod(tempDate)
-    setAuctionPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour}시`)
+    setAuctionPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour==='24' ? 0:selectedHour}시`)
   };
   const handlerSelectedHour = (e) => {
     setSelectedHour(e.target.value)
-    tempDate.setDate(tempDate.getDate() + selectedDay*1)
+    tempDate.setDate(now.getDate() + selectedDay*1 +1)
     console.log(selectedDay)
     tempDate.setHours(e.target.value * 1)
     console.log("<<<<<<<<<<<" + tempDate)
     setAuctionPeriod(tempDate)
-    setAuctionPeriodText(`${auctionPeriod.getFullYear()}년 ${auctionPeriod.getMonth() + 1}월 ${auctionPeriod.getDate()}일 ${tempDate.getHours()}시`)
+    setAuctionPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${tempDate.getHours()==='24' ? 0:tempDate.getHours()}시`)
   }
 
-
-  // console.log("auctionPeriod 테스트 " + auctionPeriod.to());
+  
+  console.log("auctionPeriod 테스트 " + auctionPeriod);
   const handlerItemRegist = (e) => {
     e.preventDefault();
     if (sellType === "") {
@@ -278,7 +280,9 @@ function Selling() {
               <br></br>
               {/* <input type="datetime-local" value={auctionPeriod} onChange={handlerAPeriod} ref={refAPeriod} min={new Date()}></input> */}
 
-              <span>경매 종료 : </span><input type="text" value={auctionPeriodText} ref={refAPeriod} disabled></input>
+              <span>경매 종료 : </span><input type="text" value={auctionPeriodText}  disabled></input>
+              <br></br>
+              <span>auctionPeriod : </span><input type="text" value={auctionPeriod}  disabled></input>
             </li>
             <li>
               <label>사진등록</label>
