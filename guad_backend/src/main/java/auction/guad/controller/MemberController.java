@@ -75,10 +75,11 @@ public class MemberController {
 	@ApiOperation(value = "회원정보 수정(MemberDto)", notes = "회원정보 수정, 파라미터 : MemberDto")
 	@PutMapping("/member/pw")
 	public ResponseEntity<String> updateMember(@RequestBody MemberDto member) throws Exception {
+		System.out.println("<<<<<<<<<<<<<<<" + user);
 		if(memberService.selectMemberDetailByEmail(member.getEmail())==null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("입력하신 정보를 찾을 수 없습니다.");
 		}
-		memberService.updateMemberByEmail(member);
+		memberService.updateMemberByEmail(member); 
 		return ResponseEntity.ok("회원정보 수정에 성공했습니다");
 	}
 
@@ -120,10 +121,11 @@ public class MemberController {
 	
 	// 이메일 중복 체크
 	@ApiOperation(value = "회원가입 - id중복체크(email)", notes = "회원가입 - id중복체크, 파라미터 : email")
-	@PostMapping(value="/member/idcheck")
+	@PostMapping("/member/idcheck")
 	public ResponseEntity<Integer> repetitionEmailCheck(@RequestBody MemberDto member) throws Exception {
 		Integer result = memberService.repetitionEmailCheck(member.getEmail());
 		System.out.println("<<<<<<<<<<<<<<<<호출");
+		System.out.println(result);
 		if(result == 1) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);			
 		} else if(result == 0) {
@@ -137,6 +139,7 @@ public class MemberController {
 	@ApiOperation(value = "회원가입 - nickname중복체크(nickname)", notes = "회원가입 - nickname중복체크, 파라미터 : nickname")
 	@PostMapping(value="/member/nicknamecheck")
 	public ResponseEntity<Integer> repetitionNicknameCheck(@RequestBody MemberDto member) throws Exception {
+		System.out.println("호출");
 		Integer result1 = memberService.repetitionNicknameCheck(member.getNickname());
 		if(result1 == 1) {			
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

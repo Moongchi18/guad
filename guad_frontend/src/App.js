@@ -10,6 +10,7 @@ import Footer from "./component/Footer";
 import Main from "./component/Main";
 import Mypage from "./component/Mypage/Mypage";
 import MypageInfo from "./component/Mypage/MypageInfo";
+import Mileage from "./component/Moodal/Mileage";
 import Manager from "./component/Manager/Manager";
 import ManagerNotify from "./component/Manager/ManagerNotify";
 import ManagerMember from "./component/Manager/ManagerMember";
@@ -56,6 +57,7 @@ function App() {
 
       <Route path="/mypage" component={Mypage} exact={true} />
       <Route path="/mypage/info" component={MypageInfo} exact={true} />
+      <Route path="/mileage" component={Mileage} exact={true} />     
       <Route path="/manager" component={Manager} exact={true} />
       <Route path="/manager/member" component={ManagerMember} exact={true} />
       <Route path="/manager/notify" component={ManagerNotify} exact={true} />

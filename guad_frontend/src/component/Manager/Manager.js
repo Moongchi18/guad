@@ -15,10 +15,6 @@ function Manager() {
       .catch((error) => {});
   }, []);
 
-
-
-
-
   return (
     <>
       <div className={style.All_Mbox}>

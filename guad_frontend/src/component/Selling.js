@@ -29,7 +29,7 @@ function Selling() {
   const [auctionPeriod, setAuctionPeriod] = useState(new Date()); // 경매 종료 날짜 + 시간
   const [auctionPeriodText, setAuctionPeriodText] = useState(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour}시`); // 경매 종료 날짜 + 시간 표시양식
   const [discountRate, setDiscountRate] = useState(''); // 내림경매 - 시간당 내릴 가격/비율
-  const [discountMethod, setDiscountMethod] = useState(false); // 내림경매 방식 - 랜덤discount true/false
+  const [discountMethod, setDiscountMethod] = useState(true); // 내림경매 방식 - 랜덤discount true/false
 
   const refSellType = useRef();
   const refItemType = useRef();
@@ -38,6 +38,7 @@ function Selling() {
   const refItemContents = useRef();
   const refItemPrice = useRef();
   const refAPeriod = useRef();
+  const refDiscountMethod = useRef();
   const refImage = useRef();
 
   const handlerSellType = (e) => {
@@ -82,6 +83,10 @@ function Selling() {
     console.log("<<<<<<<<<<<" + tempDate)
     setAuctionPeriod(tempDate)
     setAuctionPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${tempDate.getHours() === '24' ? 0 : tempDate.getHours()}시`)
+  }
+  const handlerDiscountMethod = (e) => {
+    console.log(e.target.checked)
+    setDiscountMethod(e.target.checked)
   }
   const handlerDiscountRate = (e) => {
     setDiscountRate(e.target.value)
@@ -145,6 +150,8 @@ function Selling() {
         });
     }
   };
+  // console.log(refDiscountMethod.current.value)
+  // console.log(refDiscountMethod.current.checked)
 
   // 카테고리 불러오기
   useEffect(() => {
@@ -294,17 +301,22 @@ function Selling() {
               <li>
                 <label>시간당 내릴 가격</label>
                 <form>
-                  <input type="radio" id="true" name="down" value="고정내림"></input>
+                  <input type="radio" name="down" onChange={handlerDiscountMethod} value="고정내림" defaultChecked={true}></input>
                   <label>고정내림</label>
                   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                  <input type="radio" id="false" name="down" value="랜덤내림" ></input>
+                  <input type="radio" name="down" value="랜덤내림" ></input>
                   <label>랜덤내림</label>
                 </form>
-                <input type="text"
-                  value={discountRate}
-                  onChange={handlerDiscountRate}
-                  placeholder="내릴 가격을 입력하세요">
-                </input>
+                {/* {refDiscountMethod.current.checked ?
+                  <input type="text"
+                    value={discountRate}
+                    onChange={handlerDiscountRate}
+                    placeholder="내릴 가격을 입력하세요">
+                  </input>
+                  :
+                  <textarea>랜덤내림이란? 경매시작 가격에서부터 최저가격까지 시간당 랜덤으로 하락해서 경매에 재미를 더하는 방법</textarea>
+
+                } */}
               </li>
               : ''
             }

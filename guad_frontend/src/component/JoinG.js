@@ -21,7 +21,7 @@ function JoinG({history}) {
       .post("http://localhost:8080/member", { email : sessionStorage.getItem("token"), nickname: nickname, phone: phone, address: address, gender: g_check })
       .then((response) => console.log(response))
     history.push("/")
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error)); 
   };
 
   const [nickname, setNickname] = useState("");
@@ -63,6 +63,8 @@ function JoinG({history}) {
   }
 
   const nicknameCheck = (e) => {
+    console.log(nickname)
+    console.log(sessionStorage.getItem("token"))
     e.preventDefault();
     axios
       .post("http://localhost:8080/member/nicknamecheck", JSON.stringify({ nickname: nickname }), { headers: { "Content-Type": 'application/json' } })
