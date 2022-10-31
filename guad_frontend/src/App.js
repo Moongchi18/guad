@@ -26,16 +26,16 @@ import Selling from "./component/Selling";
 import ChatTest from "./auction/ChatTest";
 
 import Sell_Up from "./component/Sell_Up";
+import Sell_Down from "./component/Sell_Down";
 import Sell_End from "./component/Sell_End";
 import Sell_After from "./component/Sell_After";
 
 import { useState, useRef } from "react";
-import Sell_Down from "./component/Sell_Down";
-
+import MypageCheck from "./component/Mypage/MypageCheck";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
-  
+
   function handlerIsLogin() {
     setIsLogin(true);
   }
@@ -43,7 +43,7 @@ function App() {
   function handlerIsLogout() {
     setIsLogin(false);
   }
-  console.log(isLogin)
+
 
   axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("token");
@@ -51,14 +51,19 @@ function App() {
     return config;
   });
 
- 
   return (
     <>
       <Header handlerIsLogout={handlerIsLogout}/>
       <Route path="/g_login" component={GoogleLoginForm} exact={true}/>
       <Route path="/login" render={(props) => (<Login handlerIsLogin={handlerIsLogin} {...props}/>)}/>
-      
       <Route path="/upload" component={FileUploadForm} exact={true} />
+      <Route
+        path="/login"
+        component={Login}
+        exact={true}
+        handlerIsLogin={handlerIsLogin}
+      />
+
       <Route
         path="/auction/test/:itemNum"
         component={AuctionTest}
@@ -72,6 +77,7 @@ function App() {
 
       <Route path="/mypage" component={Mypage} exact={true} />
       <Route path="/mypage/info" component={MypageInfo} exact={true} />
+      <Route path="/mypage/check" component={MypageCheck} exact={true} />
       <Route path="/mileage" component={Mileage} exact={true} />
       <Route path="/manager" component={Manager} exact={true} />
       <Route path="/manager/member" component={ManagerMember} exact={true} />

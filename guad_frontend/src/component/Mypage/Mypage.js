@@ -7,29 +7,25 @@ import RegistList from "./RegistList";
 import BuyList from "./BuyList";
 import SellList from "./SellList";
 
-
-
 function Mypage() {
-
-  window.onload = function(){
+  window.onload = function () {
     const button = document.getElementsByClassName(`${style.button}`);
     console.log(button);
     console.log(button[0]);
-    
+
     for (let i = 0; i < button.length; i++) {
-      if (button[i].textContent = "거래완료") {
-        button[i].style.backgroundColor = '#217A4F';
-      } else if (button[i].textContent = "거래중") {
-        button[i].style.backgroundColor = '#D9D9D9';
-      } else if (button[i].textContent = "경매완료") {
-        button[i].style.backgroundColor = '#BA101E';
+      if ((button[i].textContent = "거래완료")) {
+        button[i].style.backgroundColor = "#217A4F";
+      } else if ((button[i].textContent = "거래중")) {
+        button[i].style.backgroundColor = "#D9D9D9";
+      } else if ((button[i].textContent = "경매완료")) {
+        button[i].style.backgroundColor = "#BA101E";
       } else {
-        button[i].style.backgroundColor = '#253C76';
+        button[i].style.backgroundColor = "#253C76";
       }
-    };
+    }
   };
 
-  
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -39,9 +35,11 @@ function Mypage() {
     modalChange.current.style = "display:block;";
   };
 
+  useEffect(() => {}, []);
+
   return (
     <>
-      <MoodalMileage closeModal={closeModal} modalChange={modalChange}/>
+      <MoodalMileage closeModal={closeModal} modalChange={modalChange} />
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>마이페이지</h1>
         <div>
@@ -59,16 +57,23 @@ function Mypage() {
             </div>
             <div className={style.Mbox_button}>
               <Link to="/mypage/info">
-              <button className={style.member}>회원정보</button></Link>
-              <button className={style.mileage} onClick={openModal}>
+                <button className={style.member} type="button">
+                  회원정보
+                </button>
+              </Link>
+              <button
+                className={style.mileage}
+                onClick={openModal}
+                type="button"
+              >
                 마일리지
               </button>
             </div>
           </div>
         </div>
-        <RegistList/>
-        <BuyList/>
-        <SellList/>
+        <RegistList />
+        <BuyList />
+        <SellList />
       </div>
     </>
   );
