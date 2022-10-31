@@ -26,11 +26,11 @@ import Selling from "./component/Selling";
 import ChatTest from "./auction/ChatTest";
 
 import Sell_Up from "./component/Sell_Up";
+import Sell_Down from "./component/Sell_Down";
 import Sell_End from "./component/Sell_End";
 import Sell_After from "./component/Sell_After";
 
 import { useState, useRef } from "react";
-import Sell_Down from "./component/Sell_Down";
 
 
 function App() {

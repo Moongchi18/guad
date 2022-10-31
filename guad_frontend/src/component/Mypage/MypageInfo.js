@@ -5,7 +5,7 @@ import MoodalMileage from "../Moodal/Mileage";
 function MypageInfo() {
   return (
     <>
-      <MoodalMileage/>
+      <MoodalMileage />
       <div className={style.All_Mboxi}>
         <h1 className={style.page_namei}>마이페이지</h1>
         <div>
@@ -23,7 +23,9 @@ function MypageInfo() {
             </div>
             <div className={style.Mbox_buttoni}>
               <button className={style.memberi}>회원정보</button>
-              <button className={style.mileagei} id="mileage">마일리지</button>
+              <button className={style.mileagei} id="mileage">
+                마일리지
+              </button>
             </div>
           </div>
         </div>
