@@ -46,6 +46,8 @@ function MypageInfo() {
           </div>
           <h3>상세주소</h3>
           <input defaultValue={"대일빌딩 7층 1번 강의실"}></input>
+          <h3>전화번호</h3>
+          <input type="text" />
           <h3>변경 비밀번호</h3>
           <input type="password" />
           <h3>비밀번호 확인</h3>
