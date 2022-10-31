@@ -29,20 +29,29 @@ import ChatTest from "./auction/ChatTest";
 import Sell_Up from "./component/Sell_Up";
 import Sell_End from "./component/Sell_End";
 import Sell_After from "./component/Sell_After";
+import { useState, useRef } from "react";
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  function handlerIsLogin(value) {
+    setIsLogin(value)
+  }
+
+  
   axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("token");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;
   });
+
+ 
   return (
     <>
       <Header />
-      <Route path="/g_login" component={GoogleLoginForm} exact={true} />
-      <Route path="/login" component={Login} exact={true} />
+      <Route path="/g_login" component={GoogleLoginForm} exact={true}/>
+      <Route path="/login" component={Login} exact={true} handlerIsLogin={handlerIsLogin} />
       <Route path="/upload" component={FileUploadForm} exact={true} />
-      <Route path="/header" component={Header} exact={true} />
+      <Route path="/header" component={Header} exact={true} handlerIsLogin={handlerIsLogin} />
       <Route
         path="/auction/test/:itemNum"
         component={AuctionTest}
