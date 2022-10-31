@@ -1,11 +1,10 @@
 import style from "../../source/MypageInfo.module.css";
 import logo from "../../source/img/mypage.png";
-import MoodalMileage from "../Moodal/Mileage";
+import { Link } from "react-router-dom";
 
-function MypageInfo() {
+function MypageCheck() {
   return (
     <>
-      <MoodalMileage />
       <div className={style.All_Mboxi}>
         <h1 className={style.page_namei}>마이페이지</h1>
         <div>
@@ -32,29 +31,16 @@ function MypageInfo() {
         <div className={style.categoryi}>
           <h3>회원정보 수정</h3>
         </div>
-        <div className={style.member_infoi}>
-          <div>
-            <h3 className={style.fixi}>아이디</h3>
-            <h3>s5s5z@naver.com</h3>
-            <h3 className={style.fixi}>닉네임</h3>
-            <h3>시흥기린</h3>
-          </div>
-          <div>
-            <h3 className={style.addressi}>주소</h3>
-            <input defaultValue={"서울시 종로구 인사동 12"}></input>
-            <button className={style.searchi}>검색</button>
-          </div>
-          <h3>상세주소</h3>
-          <input defaultValue={"대일빌딩 7층 1번 강의실"}></input>
-          <h3>변경 비밀번호</h3>
-          <input type="password" />
-          <h3>비밀번호 확인</h3>
-          <input type="password" />
+        <div className={style.check}>
+          <label>정보를 수정하려면 비밀번호를 확인해주세요.</label>
+          <input type="password" placeholder="비밀번호를 입력해주세요." />
+          <Link to="/mypage/info">
+            <button type="button">확인</button>
+          </Link>
         </div>
-        <button className={style.updatei}>정보수정</button>
       </div>
     </>
   );
 }
 
-export default MypageInfo;
+export default MypageCheck;

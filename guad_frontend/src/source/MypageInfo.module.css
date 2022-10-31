@@ -147,6 +147,12 @@
   cursor: pointer;
   font-weight: 300;
 }
+.searchi:hover {
+  background-color: #797979;
+  color: white;
+  transition: 0.3s all ease;
+  border: none;
+}
 
 .addressi {
   width: 100px !important;
@@ -162,4 +168,41 @@
   border-radius: 5px;
   cursor: pointer;
   font-weight: 300;
+}
+.updatei:hover {
+  background-color: #797979;
+  color: white;
+  transition: 0.3s all ease;
+}
+.check {
+  font-weight: 300;
+  margin-bottom: 170px;
+}
+.check label {
+  display: block;
+  margin: 160px 320px 10px 0;
+}
+.check input {
+  width: 500px;
+  height: 40px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  padding-left: 20px;
+  margin-right: 5px;
+}
+.check button {
+  background-color: #d9d9d9;
+  color: black;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 17px;
+  cursor: pointer;
+}
+.check button:hover {
+  background-color: #797979;
+  color: white;
+  transition: 0.3s all ease;
 }
