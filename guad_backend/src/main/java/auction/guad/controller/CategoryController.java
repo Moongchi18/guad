@@ -34,7 +34,7 @@ public class CategoryController {
 		System.out.println(categoryService.selectAllCategory());
 		return ResponseEntity.status(HttpStatus.OK).body(categoryService.selectAllCategory());
 	}
-	
+	 
 	@ApiOperation(value = "중복없이 대분류만 조회()", notes = "중복없이 대분류만 조회, 파라미터 : ''")
 	@GetMapping("/category/distinct")
 	public ResponseEntity<ArrayList<CategoryDto>> selectItemType() throws Exception{

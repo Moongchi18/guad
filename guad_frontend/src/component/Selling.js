@@ -38,7 +38,8 @@ function Selling() {
   const refItemContents = useRef();
   const refItemPrice = useRef();
   const refAPeriod = useRef();
-  const refDiscountMethod = useRef();
+  const refDiscountRate = useRef();
+  const refMinPrice = useRef();
   const refImage = useRef();
 
   const handlerSellType = (e) => {
@@ -85,8 +86,11 @@ function Selling() {
     setAuctionPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${tempDate.getHours() === '24' ? 0 : tempDate.getHours()}시`)
   }
   const handlerDiscountMethod = (e) => {
-    console.log(e.target.checked)
-    setDiscountMethod(e.target.checked)
+    if(e.target.value === '고정내림'){
+      setDiscountMethod(true)
+    } else {
+      setDiscountMethod(false)
+    }
   }
   const handlerDiscountRate = (e) => {
     setDiscountRate(e.target.value)
@@ -150,8 +154,7 @@ function Selling() {
         });
     }
   };
-  // console.log(refDiscountMethod.current.value)
-  // console.log(refDiscountMethod.current.checked)
+  console.log(discountMethod)
 
   // 카테고리 불러오기
   useEffect(() => {
@@ -304,10 +307,10 @@ function Selling() {
                   <input type="radio" name="down" onChange={handlerDiscountMethod} value="고정내림" defaultChecked={true}></input>
                   <label>고정내림</label>
                   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                  <input type="radio" name="down" value="랜덤내림" ></input>
+                  <input type="radio" name="down" onChange={handlerDiscountMethod} value="랜덤내림" ></input>
                   <label>랜덤내림</label>
                 </form>
-                {/* {refDiscountMethod.current.checked ?
+                {discountMethod ?
                   <input type="text"
                     value={discountRate}
                     onChange={handlerDiscountRate}
@@ -316,7 +319,9 @@ function Selling() {
                   :
                   <textarea>랜덤내림이란? 경매시작 가격에서부터 최저가격까지 시간당 랜덤으로 하락해서 경매에 재미를 더하는 방법</textarea>
 
-                } */}
+                }
+                <label>최저 가격</label>
+                <input type="text" placeholder="내림경매의 최저가격을 설정해주세요"></input>
               </li>
               : ''
             }
