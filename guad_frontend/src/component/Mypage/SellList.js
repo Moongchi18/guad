@@ -5,12 +5,6 @@ import sell_2 from "../../source/img/selling_item_ex2.png";
 import axios from "axios";
 
 function SellList() {
-
-
-
-
-
-
   return (
     <>
 

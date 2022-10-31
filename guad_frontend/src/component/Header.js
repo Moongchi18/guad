@@ -9,11 +9,10 @@ function Header(props) {
   const [mypage, SetMypage] = useState();
 
   useEffect(() => {
-    if(sessionStorage.length != 0) {
+    if (sessionStorage.length != 0) {
       SetMypage(true);
-    }else if(sessionStorage.length == 0) {
+    } else if (sessionStorage.length == 0) {
       SetMypage(false);
-      
     }
   }, [sessionStorage.length]);
 
@@ -22,10 +21,9 @@ function Header(props) {
     props.handlerIsLogout();
     sessionStorage.clear();
     alert("로그아웃 되었습니다.");
-  }
+  };
 
-
-  console.log(props)
+  console.log(props);
   return (
     <>
       <div className={style.header_b}>
@@ -43,26 +41,20 @@ function Header(props) {
 
             {sessionStorage.length == 0 && (
               <li>
-                <Link id="login" to="/login">
-                  로그인
-                </Link>
+                <Link to="/login">로그인</Link>
               </li>
             )}
 
             {sessionStorage.length != 0 && (
               <li type="button" onClick={handleSignOut}>
-                <Link id="logout" to="/">
-                  로그아웃
-                </Link>
+                <Link to="/">로그아웃</Link>
               </li>
             )}
 
             {mypage == true && (
-            <li>
-              <Link id="mypage" to="/mypage">
-                마이페이지
-              </Link>
-            </li>
+              <li>
+                <Link to="/mypage">마이페이지</Link>
+              </li>
             )}
           </ul>
           <input type="text" className={style.search_b} />

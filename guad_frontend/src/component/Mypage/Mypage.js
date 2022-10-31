@@ -56,11 +56,9 @@ function Mypage() {
               </h3>
             </div>
             <div className={style.Mbox_button}>
-              <Link to="/mypage/info">
-                <button className={style.member} type="button">
-                  회원정보
-                </button>
-              </Link>
+              <button className={style.member} type="button">
+                회원정보
+              </button>
               <button
                 className={style.mileage}
                 onClick={openModal}
