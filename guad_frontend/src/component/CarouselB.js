@@ -5,10 +5,13 @@ function CarouselB() {
   useEffect(() => {}, []);
   return (
     <>
+      <div className={style.all_cont}>
+        <h3>THE</h3>
+        <h3>GREAT</h3>
+        <h3>DEAL</h3>
+        <h3>AUCTION</h3>
         <h3>OLENAELIM</h3>
-        <h3>DEAL AUCTION</h3>
-        <h3>BID</h3>
-        <h3>MONEY</h3>
+      </div>
     </>
   );
 }
