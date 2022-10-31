@@ -9,6 +9,7 @@ header {
   width: 1200px;
   margin: 0 auto;
   font-family: "SBAggroB";
+  background-color: transparent;
 }
 .h_logo_b {
   margin: 40px 0 20px;

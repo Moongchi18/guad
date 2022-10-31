@@ -1,9 +1,8 @@
 .All_Mbox {
-  width: 100%;
   text-align: center;
   font-family: "SBAggroB";
   width: 1130px;
-  margin: 0 auto 50px;
+  margin: 0 auto 170px;
 }
 
 .page_name {
@@ -41,13 +40,14 @@
   font-size: 20px;
 }
 .mileage_box h3 {
+  font-weight: 300;
   margin-bottom: 10px;
   width: 720px;
   color: #ffffff;
 }
 
 .mileage_box strong {
-  font-weight: bold;
+  font-weight: normal;
   color: #000000;
   font-size: 30px;
 }
@@ -62,11 +62,16 @@
   height: 40px;
   text-align: center;
   border-radius: 3px;
-  border: 1px solid #e0e0e0;
   background-color: #ffffff;
   color: #8c8c8c;
   font-size: 17px;
   margin-bottom: 5px;
+  font-weight: 300;
+}
+.Mbox_button button:hover {
+  background-color: #ff8b95;
+  color: white;
+  transition: 0.3s all ease;
 }
 
 .Mbox_button .member {
@@ -79,15 +84,17 @@
 }
 
 .category {
+  padding-bottom: 10px;
   text-align: left;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 15px;
 }
 
 .category .list {
   font-size: 20px;
   display: inline-block;
-  margin-left: 25px;
-  margin-right: 100px;
+  margin: 0 100px 0 25px;
+  font-weight: 300;
 }
 
 .category .name {
@@ -137,7 +144,6 @@
 .user_list .name {
   text-align: center;
   width: 220px;
-  height: 100px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -145,7 +151,6 @@
 .user_list .id {
   text-align: center;
   width: 400px;
-  height: 100px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -153,12 +158,14 @@
 .user_list .address {
   text-align: center;
   width: 390px;
-  height: 100px;
   display: inline-block;
   vertical-align: middle;
 }
 
 .user_list > div > h3 {
+  font-size: 15px;
+  font-weight: 300;
   overflow: hidden;
-  
+  padding-bottom: 90px;
+  padding-top: 10px;
 }
