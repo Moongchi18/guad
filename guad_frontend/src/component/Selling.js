@@ -7,27 +7,29 @@ function Selling() {
   const selectListAPeriod = [1, 2, 3, 5, 7];
   const selectListHour = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
   const now = new Date();
-  let tempDate = new Date();
-  
+  const tempDate = new Date();
+
   const modalOpen = useRef();
 
   const closeModal = () => {
     modalOpen.current.style = "display:none;";
   };
 
-  const [sellType, setSellType] = useState("");
-  const [data, setData] = useState('');
-  const [itemType, setItemType] = useState('');
-  const [selectedItemType, setSelectedItemType] = useState('대분류');
-  const [itemDetailType, setItemDetailType] = useState([]);
-  const [selectedItemDetailType, setSelectedItemDetailType] = useState('소분류');
-  const [itemSub, setItemSub] = useState('');
-  const [itemContents, setItemContents] = useState('');
-  const [itemPrice, setItemPrice] = useState('');
-  const [selectedDay, setSelectedDay] = useState('');
-  const [selectedHour, setSelectedHour] = useState(9);
-  const [aPeriod, setAPeriod] = useState(new Date());
-  const [aPeriodText, setAPeriodText] = useState(`${tempDate.getFullYear()}년 ${tempDate.getMonth()+1}월 ${tempDate.getDate()}일 ${selectedHour}시`);
+  const [sellType, setSellType] = useState('u'); // 판매방식 u : up, d : down, n : normal
+  const [data, setData] = useState(''); // 서버에서 카테고리를 받아와서 담을 dto
+  const [itemType, setItemType] = useState(''); // 상품 대분류
+  const [selectedItemType, setSelectedItemType] = useState('대분류'); // 선택된 대분류
+  const [itemDetailType, setItemDetailType] = useState([]); // 상품 소분류
+  const [selectedItemDetailType, setSelectedItemDetailType] = useState('소분류'); // 선택된 소분류
+  const [itemSub, setItemSub] = useState(''); // 상품 판매글 제목
+  const [itemContents, setItemContents] = useState(''); // 상품 판매글 내용
+  const [itemPrice, setItemPrice] = useState(''); // 일반판매 상품 가격
+  const [selectedDay, setSelectedDay] = useState(1); // 선택된 경매기간
+  const [selectedHour, setSelectedHour] = useState(9); // 선택된 경매종료 시간
+  const [auctionPeriod, setAuctionPeriod] = useState(new Date()); // 경매 종료 날짜 + 시간
+  const [auctionPeriodText, setAuctionPeriodText] = useState(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour}시`); // 경매 종료 날짜 + 시간 표시양식
+  const [discountRate, setDiscountRate] = useState(''); // 내림경매 - 시간당 내릴 가격/비율
+  const [discountMethod, setDiscountMethod] = useState(false); // 내림경매 방식 - 랜덤discount true/false
 
   const refSellType = useRef();
   const refItemType = useRef();
@@ -65,23 +67,27 @@ function Selling() {
   const handlerSelectedDay = (e) => {
     setSelectedDay(e.target.value)
     console.log(e.target.value)
-    tempDate.setDate(now.getDate() + e.target.value * 1)
-    setAPeriod(tempDate)
-    setAPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth()+1}월 ${tempDate.getDate()}일 ${selectedHour}시`)
+    console.log(selectedHour)
+    tempDate.setDate(now.getDate() + e.target.value * 1 + 1)
+    tempDate.setHours(selectedHour)
+    console.log("<<<<<<<<<<<" + tempDate)
+    setAuctionPeriod(tempDate)
+    setAuctionPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour === '24' ? 0 : selectedHour}시`)
   };
   const handlerSelectedHour = (e) => {
     setSelectedHour(e.target.value)
+    tempDate.setDate(now.getDate() + selectedDay * 1 + 1)
+    console.log(selectedDay)
     tempDate.setHours(e.target.value * 1)
-    setAPeriod(tempDate)
-    setAPeriodText(`${aPeriod.getFullYear()}년 ${aPeriod.getMonth()+1}월 ${aPeriod.getDate()}일 ${tempDate.getHours()}시`)
+    console.log("<<<<<<<<<<<" + tempDate)
+    setAuctionPeriod(tempDate)
+    setAuctionPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${tempDate.getHours() === '24' ? 0 : tempDate.getHours()}시`)
   }
-  
+  const handlerDiscountRate = (e) => {
+    setDiscountRate(e.target.value)
+  }
 
-  console.log("테스트 " + aPeriod.toLocaleDateString());
-  console.log("테스트 " + aPeriod.toLocaleString());
-  console.log("테스트 " + aPeriod.toLocaleTimeString());
-  console.log("테스트 " + aPeriod.toISOString());
-  console.log("테스트 " + aPeriod.toISOString().slice(0, 10) + " " + aPeriod.toISOString().slice(11,13) + ":00:00");
+  console.log("auctionPeriod 테스트 " + auctionPeriod);
   const handlerItemRegist = (e) => {
     e.preventDefault();
     if (sellType === "") {
@@ -106,14 +112,13 @@ function Selling() {
     ) {
       alert("가격을 입력하세요");
       refItemPrice.current.focus();
-    } else if (aPeriod === "" || aPeriod === undefined || aPeriod === null) {
+    } else if (auctionPeriod === "" || auctionPeriod === undefined || auctionPeriod === null) {
       alert("경매기간을 입력해주세요");
       refAPeriod.current.focus();
-    }
-    // else if(aPeriod < now) {
-    //   alert("날짜비교 성공")
-    // }
-    else {
+    } else {
+      const dateDto = new Date(auctionPeriod.toISOString().slice(0, 10) + " " + (auctionPeriod.getHours()) + ":00:00");
+      console.log(dateDto)
+
       axios.post("http://localhost:8080/sellitem",
         // memberEmail: '', // 컨트롤러에서 토큰으로 정보확인 후 입력
         // writeDate: '', // 쿼리문에 now()
@@ -124,9 +129,8 @@ function Selling() {
           itemPrice,
           itemType: selectedItemType,
           itemDType: selectedItemDetailType,
-          aStartPrice: itemPrice,
-          aPeriod: `${aPeriod.toISOString().slice(0, 10)} ${aPeriod.toISOString().slice(11,13)} :00:00`
-          // aPeriod: aPeriod
+          auctionStartPrice: itemPrice,
+          auctionPeriod: dateDto
         }
       )
         .then(response => {
@@ -252,7 +256,7 @@ function Selling() {
               ></textarea>
             </li>
             <li>
-              <label>경매 시작가 / 판매 가격</label>
+              <label>{sellType === 'n' ? '판매가격' : '경매 시작가격'}</label>
               <input
                 type="text"
                 placeholder="가격을 작성해주세요."
@@ -261,27 +265,49 @@ function Selling() {
                 ref={refItemPrice}
               />
             </li>
-            <li>
-              <label>경매기간(익일부터 계산)</label>
-              <select className={style.select_one} value={selectedDay} onChange={handlerSelectedDay}>
-                {selectListAPeriod.map((day, index) => (
-                  <option value={day} key={index}>
-                    {day}일
-                  </option>
-                ))}
-              </select>
-              <br></br>
-              <label>판매종료 시간</label>
-              <select onChange={handlerSelectedHour} value={selectedHour}>
-                {selectListHour.map((hour, index) => (
-                  <option value={hour} key={index}>{hour >= 10 ? hour : '0' + hour}:00</option>
-                ))}
-              </select>
-              <br></br>
-              {/* <input type="datetime-local" value={aPeriod} onChange={handlerAPeriod} ref={refAPeriod} min={new Date()}></input> */}
+            {sellType !== 'n' &&
+              <li>
+                <label>경매기간(익일부터 계산)</label>
+                <select className={style.select_one} value={selectedDay} onChange={handlerSelectedDay}>
+                  {selectListAPeriod.map((day, index) => (
+                    <option value={day} key={index}>
+                      {day}일
+                    </option>
+                  ))}
+                </select>
+                <br></br>
+                <label>판매종료 시간</label>
+                <select onChange={handlerSelectedHour} value={selectedHour}>
+                  {selectListHour.map((hour, index) => (
+                    <option value={hour} key={index}>{hour >= 10 ? hour : '0' + hour}:00</option>
+                  ))}
+                </select>
+                <br></br>
+                {/* <input type="datetime-local" value={auctionPeriod} onChange={handlerAPeriod} ref={refAPeriod} min={new Date()}></input> */}
 
-              <span>경매 종료 : </span><input type="text" value={aPeriodText} ref={refAPeriod} disabled></input>
-            </li>
+                <span>경매 종료 : </span><input type="text" value={auctionPeriodText} disabled></input>
+                <br></br>
+                <span>auctionPeriod : </span><input type="text" value={auctionPeriod} disabled></input>
+              </li>
+            }
+            {sellType === 'd' ?
+              <li>
+                <label>시간당 내릴 가격</label>
+                <form>
+                  <input type="radio" id="true" name="down" value="고정내림"></input>
+                  <label>고정내림</label>
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <input type="radio" id="false" name="down" value="랜덤내림" ></input>
+                  <label>랜덤내림</label>
+                </form>
+                <input type="text"
+                  value={discountRate}
+                  onChange={handlerDiscountRate}
+                  placeholder="내릴 가격을 입력하세요">
+                </input>
+              </li>
+              : ''
+            }
             <li>
               <label>사진등록</label>
               <p>필수로 1장 이상의 사진을 등록해야 합니다.</p>

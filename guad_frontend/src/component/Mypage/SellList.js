@@ -5,35 +5,15 @@ import sell_2 from "../../source/img/selling_item_ex2.png";
 import axios from "axios";
 
 function SellList() {
-  const [sellList, setSellList] = useState({});
 
-  // useEffect(() => {
-  //   axios
-  //     .post("http://localhost:8080/api/mypage", {})
-  //     .then((response) => {})
-  //     .catch((error) => {});
-  // }, []);
 
-  function buttoncolorChange() {
-    const button = document.getElementsByClassName(`${style.button}`);
-    console.log(button[0]);
 
-    for (let i = 0; i < button.length; i++) {
-      if ((button[i].toString = "거래완료")) {
-        button.style.backgroundColor = "#217A4F";
-      } else if ((button[i].toString = "거래중")) {
-        button.style.backgroundColor = "#D9D9D9";
-      } else if ((button[i].toString = "경매완료")) {
-        button.style.backgroundColor = "#BA101E";
-      } else {
-        button.style.backgroundColor = "#253C76";
-      }
-    }
-  }
+
+
 
   return (
     <>
-    <button onClick={buttoncolorChange}>test</button>
+
       <div className={style.category}>
         <h3>판매 내역</h3>
       </div>

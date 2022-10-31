@@ -24,21 +24,19 @@ function Login({ history }) {
     axios
       .post("http://localhost:8080/login", { email: email, pass: password })
       .then((response) => {
-        if (response.status === 200 && response.data !== " ") {
           sessionStorage.setItem("token", response.data);
+          alert("로그인 되었습니다.")
           history.push("/");
-        } else {
-          sessionStorage.clear();
-        }
+     
         // console.log(response.data)
       })
       .catch((error) => {
         console.log(error);
+        alert("로그인에 실패했습니다.")
         sessionStorage.clear();
       });
 
-    // 임시 이동
-    history.push("/mypage");
+
   };
 
   useEffect(() => {

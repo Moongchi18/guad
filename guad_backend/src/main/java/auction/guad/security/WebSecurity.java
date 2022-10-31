@@ -46,9 +46,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			.and()
 			.addFilter(getAuthenticationFilter())
 			.addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
-			.oauth2Login()
-			.loginPage("/loginForm")
-			.and()
+//			.oauth2Login()
+//			.loginPage("/loginForm")
+//			.and()
 			.cors();
 		
 	}													 				

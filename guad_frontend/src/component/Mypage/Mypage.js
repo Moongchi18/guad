@@ -1,6 +1,6 @@
 import style from "../../source/Mypage.module.css";
 import logo from "../../source/img/mypage.png";
-import { useEffect, useState, Link } from "react";
+import { useEffect, useState, Link, useRef } from "react";
 import axios from "axios";
 import MoodalMileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
@@ -10,22 +10,38 @@ import SellList from "./SellList";
 
 
 function Mypage() {
-  const [sellList, setSellList] = useState({});
-  const [buyList, setBuyList] = useState("");
 
-  useEffect(() => {
-    axios
-      .post("http://localhost:8080/api/mypage", {})
-      .then((response) => {
-        setSellList();
-        setBuyList();
-      })
-      .catch((error) => {});
-  }, []);
+  window.onload = function(){
+    const button = document.getElementsByClassName(`${style.button}`);
+    console.log(button);
+    console.log(button[0]);
+    
+    for (let i = 0; i < button.length; i++) {
+      if (button[i].textContent = "거래완료") {
+        button[i].style.backgroundColor = '#217A4F';
+      } else if (button[i].textContent = "거래중") {
+        button[i].style.backgroundColor = '#D9D9D9';
+      } else if (button[i].textContent = "경매완료") {
+        button[i].style.backgroundColor = '#BA101E';
+      } else {
+        button[i].style.backgroundColor = '#253C76';
+      }
+    };
+  };
+
+  
+  const modalChange = useRef();
+  const closeModal = () => {
+    modalChange.current.style = "display:none;";
+  };
+
+  const openModal = () => {
+    modalChange.current.style = "display:block;";
+  };
 
   return (
     <>
-      <MoodalMileage />
+      <MoodalMileage closeModal={closeModal} modalChange={modalChange}/>
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>마이페이지</h1>
         <div>
@@ -43,21 +59,16 @@ function Mypage() {
             </div>
             <div className={style.Mbox_button}>
               <Link to="/mypage/info">
-              <button className={style.member}>회원정보</button>
-              </Link>
-              <Link to="mileage">
-              <button className={style.mileage} id="mileage">
+              <button className={style.member}>회원정보</button></Link>
+              <button className={style.mileage} onClick={openModal}>
                 마일리지
               </button>
-              </Link>
             </div>
           </div>
         </div>
         <RegistList/>
         <BuyList/>
         <SellList/>
-
-
       </div>
     </>
   );

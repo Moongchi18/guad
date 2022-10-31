@@ -1,4 +1,5 @@
 package auction.guad.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class SellItemController {
 
 	@Autowired
 	private SellItemService sellItemService;
-	
+
 	@ApiOperation(value = "목록 조회", notes = "등록된 게시물 목록을 조회")
 	@RequestMapping(value = "/sellitem", method = RequestMethod.GET)
 	public List<SellItemDto> openSellItemList() throws Exception {
@@ -32,19 +33,17 @@ public class SellItemController {
 	@ApiOperation(value = "게시물 등록", notes = "게시물 제목과 내용을 저장")
 	@RequestMapping(value = "/sellitem", method = RequestMethod.POST)
 	public ResponseEntity<Boolean> insertSellItem(
-			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }") 
-			@RequestBody SellItemDto sellItem, @AuthenticationPrincipal User user)
-			throws Exception {
+			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody SellItemDto sellItem,
+			@AuthenticationPrincipal User user) throws Exception {
+		sellItem.setMemberEmail(user.getUsername());
 		System.out.println(user);
-		System.out.println("<<<<<<<<<" +sellItem);
-		System.out.println("<<<<<<<<<" +sellItem.getAPeriod());
-//		boolean result = sellItemService.insertSellItem(sellItem);
-//		if(result) {
-//			return ResponseEntity.status(HttpStatus.OK).body(result);
-//		} else {
-//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
-//		}
-		return ResponseEntity.status(HttpStatus.OK).body(null);
+		boolean result = sellItemService.insertSellItem(sellItem);
+		if (result) {
+			return ResponseEntity.status(HttpStatus.OK).body(result);
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+		}
+//		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}
 
 	@ApiOperation(value = "게시물 상세 조회", notes = "등록된 게시물 상세 정보를 조회")
@@ -62,7 +61,8 @@ public class SellItemController {
 	}
 
 	@RequestMapping(value = "/sellItem/{itemNum}", method = RequestMethod.PUT)
-	public void updateSellItem(@PathVariable("itemNum") int itemNum, @RequestBody SellItemDto sellItemDto) throws Exception {
+	public void updateSellItem(@PathVariable("itemNum") int itemNum, @RequestBody SellItemDto sellItemDto)
+			throws Exception {
 		sellItemDto.setItemNum(itemNum);
 		sellItemService.updateSellItem(sellItemDto);
 	}
@@ -72,5 +72,3 @@ public class SellItemController {
 		sellItemService.deleteSellItem(itemNum);
 	}
 }
-
-

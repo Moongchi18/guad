@@ -3,7 +3,8 @@ import logo from "../../source/img/mypage.png";
 import logo_d from "../../source/img/mypage_d.png";
 import sell_1 from "../../source/img/selling_item_ex1.png";
 import sell_2 from "../../source/img/selling_item_ex2.png";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import Notify from "../Moodal/Notify";
 import axios from "axios";
 
 function Manager() {
@@ -16,7 +17,6 @@ function Manager() {
 
   return (
     <>
-   
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>관리자 페이지</h1>
         <div>
@@ -30,8 +30,8 @@ function Manager() {
               </h3>
             </div>
             <div className={style.Mbox_button}>
-              <button className={style.member}>회원정보</button>
-              <button className={style.mileage}>마일리지</button>
+              <button className={style.member}>회원관리</button>
+              <button className={style.mileage}>신고내역</button>
             </div>
           </div>
         </div>
