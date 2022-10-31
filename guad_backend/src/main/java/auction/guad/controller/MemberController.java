@@ -7,8 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import auction.guad.dto.MemberDto;
 import auction.guad.service.MemberService;
 import auction.guad.vo.RequestVo;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class MemberController {
@@ -28,7 +32,8 @@ public class MemberController {
 	}
 
 	// 회원가입
-	@RequestMapping(value = "/member", method = RequestMethod.POST)
+	@ApiOperation(value = "회원가입(MemberDto)", notes = "회원가입, 파라미터 : MemberDto")
+	@PostMapping("/member")
 	public ResponseEntity<String> insertMember(@RequestBody MemberDto member) throws Exception {
 		System.out.println("<<<<<<<<<<<<<<<<<<<<<<" +member);
 		int memberNum = memberService.insertMember(member);
@@ -40,7 +45,8 @@ public class MemberController {
 	}
 
 	// email로 회원정보 조회
-	@RequestMapping(value = "/member/id", method = RequestMethod.POST)
+	@ApiOperation(value = "회원정보 조회(email)", notes = "회원정보 조회, 파라미터 : email")
+	@PostMapping("/member/id")
 	public ResponseEntity<MemberDto> myPageByEmail(@RequestBody RequestVo request) throws Exception {
 		MemberDto memberDto = memberService.selectMemberDetailByEmail(request.getEmail());
 		if (memberDto == null) {
@@ -51,7 +57,8 @@ public class MemberController {
 	}
 	
 	// email, pass로 회원정보 조회
-	@RequestMapping(value = "/member/pw", method = RequestMethod.POST)
+	@ApiOperation(value = "회원정보 조회(email, pass)", notes = "회원정보 조회, 파라미터 : email, pass")
+	@PostMapping("/member/pw")
 	public ResponseEntity<MemberDto> myPageByEmailAndPass(@RequestBody RequestVo request) throws Exception {
 		MemberDto memberDto = memberService.selectMemberDetailByEmail(request.getEmail());
 		if (memberDto == null) {
@@ -65,7 +72,8 @@ public class MemberController {
 	
 
 	// 회원정보 수정
-	@RequestMapping(value = "/member", method = RequestMethod.PATCH)
+	@ApiOperation(value = "회원정보 수정(MemberDto)", notes = "회원정보 수정, 파라미터 : MemberDto")
+	@PutMapping("/member/pw")
 	public ResponseEntity<String> updateMember(@RequestBody MemberDto member) throws Exception {
 		if(memberService.selectMemberDetailByEmail(member.getEmail())==null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("입력하신 정보를 찾을 수 없습니다.");
@@ -75,7 +83,8 @@ public class MemberController {
 	}
 
 	// 회원 탈퇴(flag)
-	@RequestMapping(value = "/member/delete", method = RequestMethod.PATCH)
+	@ApiOperation(value = "회원탈퇴-flag(email)", notes = "회원탈퇴-flag, 파라미터 : email")
+	@PutMapping("/member/delete")
 	public ResponseEntity<String> deleteMember(@RequestBody RequestVo request) throws Exception {
 		MemberDto member = memberService.selectMemberDetailByEmail(request.getEmail());
 		if(member==null) {
@@ -87,25 +96,30 @@ public class MemberController {
 	}
 	
 	// 관리자용 회원 목록 조회
-	@RequestMapping(value = "/admin/member", method = RequestMethod.GET)
+	@ApiOperation(value = "관리자용 회원 목록 조회()", notes = "관리자용 회원 목록 조회, 파라미터 : ''")
+	@GetMapping("/admin/member")
 	public List<MemberDto> adminMemberList(@AuthenticationPrincipal User user) throws Exception {
 		System.out.println("/admin/member 호출 >>>>>>>>>>>>>>>>>>" + user);
 		return memberService.managerSelectMemberListExceptPass();
 	}
 	
 	// 관리자용 탈퇴 회원 목록 조회
+	@ApiOperation(value = "관리자용 탈퇴회원-flage 조회()", notes = "관리자용 탈퇴회원 조회, 파라미터 : ''")
 	@RequestMapping(value = "/admin/member/delete", method = RequestMethod.GET)
+	@GetMapping("/admin/member/delete")
 	public List<MemberDto> admindeleteMemberList() throws Exception {
 		return memberService.managerSelectMemberListExceptPassAnddelete();
 	}
 	
 	// 관리자용 회원 상세 조회
-	@RequestMapping(value = "/admin/member/{email}", method = RequestMethod.GET)
+	@ApiOperation(value = "관리자용 회원 상세 조회(email)", notes = "관리자용 회원 상세 조회, 파라미터 : email")
+	@GetMapping("/admin/member/{email}")
 	public MemberDto admindeleteMemberList(@PathVariable String email) throws Exception {
 		return memberService.managerSelectMemberDetailByEmail(email);
 	}
 	
 	// 이메일 중복 체크
+	@ApiOperation(value = "회원가입 - id중복체크(email)", notes = "회원가입 - id중복체크, 파라미터 : email")
 	@PostMapping(value="/member/idcheck")
 	public ResponseEntity<Integer> repetitionEmailCheck(@RequestBody MemberDto member) throws Exception {
 		Integer result = memberService.repetitionEmailCheck(member.getEmail());
@@ -120,6 +134,7 @@ public class MemberController {
 	}
 	
 	// 닉네임 중복 체크
+	@ApiOperation(value = "회원가입 - nickname중복체크(nickname)", notes = "회원가입 - nickname중복체크, 파라미터 : nickname")
 	@PostMapping(value="/member/nicknamecheck")
 	public ResponseEntity<Integer> repetitionNicknameCheck(@RequestBody MemberDto member) throws Exception {
 		Integer result1 = memberService.repetitionNicknameCheck(member.getNickname());
