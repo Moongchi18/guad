@@ -356,7 +356,7 @@ function Selling() {
                     ref={refAuctionDiscountPerHour}
                   />
                   :
-                  <textarea>랜덤내림이란? 경매시작 가격에서부터 최저가격까지 시간당 랜덤으로 하락해서 경매에 재미를 더하는 방법</textarea>
+                  <textarea defaultValue="랜덤내림이란? 경매시작 가격에서부터 최저가격까지 시간당 랜덤으로 하락해서 경매에 재미를 더하는 방법"></textarea>
 
                 }
               </li>
