@@ -57,12 +57,6 @@ function App() {
       <Route path="/g_login" component={GoogleLoginForm} exact={true}/>
       <Route path="/login" render={(props) => (<Login handlerIsLogin={handlerIsLogin} {...props}/>)}/>
       <Route path="/upload" component={FileUploadForm} exact={true} />
-      <Route
-        path="/login"
-        component={Login}
-        exact={true}
-        handlerIsLogin={handlerIsLogin}
-      />
 
       <Route
         path="/auction/test/:itemNum"
