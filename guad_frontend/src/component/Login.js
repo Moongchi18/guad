@@ -5,13 +5,15 @@ import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
 
-function Login({history, handlerIsLogin, isLogin}) {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const changeEmail = (e) => setEmail(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
 
+  // handlerIsLogin(true);
+  // console.log(isLogin)
 
 
   const handlerSubmit = (e) => {
@@ -21,16 +23,17 @@ function Login({history, handlerIsLogin, isLogin}) {
       .then((response) => {
         sessionStorage.setItem("token", response.data)
         alert("로그인 되었습니다.");
-        history.push("/");
-        // console.log(response.data)
+        props.handlerIsLogin();
+        props.history.push("/");
+        console.log(response.data)
       })
+
       .catch((error) => {
         console.log(error);
         alert("로그인에 실패했습니다.");
         sessionStorage.clear();
       });
-      // props.child();
-      handlerIsLogin(true);
+      
   };
 
   useEffect(() => {
@@ -42,6 +45,10 @@ function Login({history, handlerIsLogin, isLogin}) {
     hoverBox.addEventListener("mouseout", function () {
       hoverItem.setAttribute("src", require("../source/img/gg2.png"));
     });
+    console.log(props.isLogin)
+    console.log(props)
+    console.log("호출")
+
   }, []);
 
   return (

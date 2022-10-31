@@ -35,11 +35,16 @@ import Sell_Down from "./component/Sell_Down";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
-  function handlerIsLogin(value) {
-    setIsLogin(value)
+  
+  function handlerIsLogin() {
+    setIsLogin(true);
   }
 
-  
+  function handlerIsLogout() {
+    setIsLogin(false);
+  }
+  console.log(isLogin)
+
   axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("token");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
@@ -49,11 +54,11 @@ function App() {
  
   return (
     <>
-      <Header />
+      <Header handlerIsLogout={handlerIsLogout}/>
       <Route path="/g_login" component={GoogleLoginForm} exact={true}/>
-      <Route path="/login" component={Login} exact={true} handlerIsLogin={handlerIsLogin} />
+      <Route path="/login" render={(props) => (<Login handlerIsLogin={handlerIsLogin} {...props}/>)}/>
+      
       <Route path="/upload" component={FileUploadForm} exact={true} />
-      <Route path="/header" component={Header} exact={true} handlerIsLogin={handlerIsLogin} />
       <Route
         path="/auction/test/:itemNum"
         component={AuctionTest}
