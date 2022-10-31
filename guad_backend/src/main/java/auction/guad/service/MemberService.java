@@ -2,6 +2,8 @@ package auction.guad.service;
 
 import java.util.ArrayList;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import auction.guad.dto.MemberDto;
@@ -20,6 +22,6 @@ public interface MemberService extends UserDetailsService{
 
 	public int repetitionEmailCheck(String email) throws Exception;
 	public int repetitionNicknameCheck(String nickname) throws Exception;
-	
+	public int checkPass(User user, MemberDto member) throws Exception;
 	
 }

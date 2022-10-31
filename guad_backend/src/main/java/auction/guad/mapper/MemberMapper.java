@@ -3,6 +3,8 @@ package auction.guad.mapper;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 
 import auction.guad.dto.MemberDto;
 
@@ -21,5 +23,7 @@ public interface MemberMapper {
 	
 	int repetitionEmailCheck(String email) throws Exception;
 	int repetitionNicknameCheck(String nickname) throws Exception;
-
+	
+	int checkPass(User user, MemberDto member) throws Exception;
+	
 }

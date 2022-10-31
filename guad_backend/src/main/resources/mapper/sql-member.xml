@@ -74,4 +74,9 @@
 		WHERE NICKNAME = #{nickname}
 	</select>
 	
+	<!-- 비밀번호 체크 -->
+	<select id="checkPass" resultType="int">
+	SELECT COUNT(*) FROM MEMBER WHERE pass = #{pass}
+	</select>
+	
 </mapper>

@@ -3,15 +3,18 @@ package auction.guad.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import auction.guad.dto.MemberDto;
 import auction.guad.mapper.MemberMapper;
 import auction.guad.security.PrincipalDetails;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Service
 //public class MemberServiceImpl extends DefaultOAuth2UserService  implements MemberService {
@@ -95,4 +98,8 @@ public class MemberServiceImpl implements MemberService {
 		return 0;
 	}
 
+	@Override
+	public int checkPass(@AuthenticationPrincipal User user, @RequestBody MemberDto member) throws Exception {
+		return memberMapper.checkPass(user, member);
+	}
 }

@@ -2,11 +2,16 @@ package auction.guad.controller;
 
 import java.util.List;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.dto.MemberDto;
@@ -24,13 +30,16 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class MemberController {
+
 	
 	MemberService memberService;
+	BCryptPasswordEncoder encoder;
+	
 	@Autowired
 	public MemberController(MemberService memberService) {
 		this.memberService = memberService;
-	}
-
+	}	
+	
 	// 회원가입
 	@ApiOperation(value = "회원가입(MemberDto)", notes = "회원가입, 파라미터 : MemberDto")
 	@PostMapping("/member")
@@ -44,17 +53,19 @@ public class MemberController {
 		}
 	}
 
-	// email로 회원정보 조회
-	@ApiOperation(value = "회원정보 조회(email)", notes = "회원정보 조회, 파라미터 : email")
-	@PostMapping("/member/id")
-	public ResponseEntity<MemberDto> myPageByEmail(@RequestBody RequestVo request) throws Exception {
-		MemberDto memberDto = memberService.selectMemberDetailByEmail(request.getEmail());
+	// 로그인 토큰으로 회원정보 조회
+	@ApiOperation(value = "회원정보 조회()", notes = "회원정보 조회, 파라미터 : ''")
+	@GetMapping("/member")
+	public ResponseEntity<MemberDto> myPageByEmail(@AuthenticationPrincipal User user) throws Exception {
+		System.out.println(">>>>>>>>>>>>>>>" + user);
+		MemberDto memberDto = memberService.selectMemberDetailByEmail(user.getUsername());
 		if (memberDto == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
 			return ResponseEntity.ok(memberDto);
 		}
 	}
+	
 	
 	// email, pass로 회원정보 조회
 	@ApiOperation(value = "회원정보 조회(email, pass)", notes = "회원정보 조회, 파라미터 : email, pass")
@@ -73,10 +84,10 @@ public class MemberController {
 
 	// 회원정보 수정
 	@ApiOperation(value = "회원정보 수정(MemberDto)", notes = "회원정보 수정, 파라미터 : MemberDto")
-	@PutMapping("/member/pw")
-	public ResponseEntity<String> updateMember(@RequestBody MemberDto member) throws Exception {
+	@PutMapping("/member")
+	public ResponseEntity<String> updateMember(@RequestBody MemberDto member, @AuthenticationPrincipal User user) throws Exception {
 		System.out.println("<<<<<<<<<<<<<<<" + user);
-		if(memberService.selectMemberDetailByEmail(member.getEmail())==null) {
+		if(memberService.selectMemberDetailByEmail(user.getUsername())==null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("입력하신 정보를 찾을 수 없습니다.");
 		}
 		memberService.updateMemberByEmail(member); 
@@ -150,4 +161,23 @@ public class MemberController {
 		}
 		
 	}
+		
+	    @PostMapping("/member/passCheck")
+	    public ResponseEntity<Boolean> passCheck(@AuthenticationPrincipal User user, @RequestBody MemberDto member) throws Exception {
+	    	
+	    	String pass = member.getPass();
+	    	String userPass = user.getPassword();
+	    	int result3 = memberService.checkPass(user, member); 
+	    	if (result3 > 0) {
+	    	return ResponseEntity.status(HttpStatus.OK).body(null);
+	    } else {
+	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	    }
+	}
+	    
+	    @GetMapping("/member/authen")
+	    public void test(@AuthenticationPrincipal User user) {
+	    	System.out.println(">>>>>>>>>>>>>>>>>>>" + user.getPassword());
+	    	
+	    }
 }
