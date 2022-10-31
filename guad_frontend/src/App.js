@@ -35,9 +35,15 @@ import MypageCheck from "./component/Mypage/MypageCheck";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
-  function handlerIsLogin(value) {
-    setIsLogin(value);
+
+  function handlerIsLogin() {
+    setIsLogin(true);
   }
+
+  function handlerIsLogout() {
+    setIsLogin(false);
+  }
+
 
   axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("token");
@@ -47,21 +53,11 @@ function App() {
 
   return (
     <>
-      <Header />
-      <Route path="/g_login" component={GoogleLoginForm} exact={true} />
-      <Route
-        path="/login"
-        component={Login}
-        exact={true}
-        handlerIsLogin={handlerIsLogin}
-      />
+      <Header handlerIsLogout={handlerIsLogout}/>
+      <Route path="/g_login" component={GoogleLoginForm} exact={true}/>
+      <Route path="/login" render={(props) => (<Login handlerIsLogin={handlerIsLogin} {...props}/>)}/>
       <Route path="/upload" component={FileUploadForm} exact={true} />
-      <Route
-        path="/header"
-        component={Header}
-        exact={true}
-        handlerIsLogin={handlerIsLogin}
-      />
+
       <Route
         path="/auction/test/:itemNum"
         component={AuctionTest}
