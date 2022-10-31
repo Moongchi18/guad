@@ -1,6 +1,6 @@
 import style from "../../source/Mypage.module.css";
 import logo from "../../source/img/mypage.png";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, Link, useRef } from "react";
 import axios from "axios";
 import MoodalMileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
@@ -58,7 +58,8 @@ function Mypage() {
               </h3>
             </div>
             <div className={style.Mbox_button}>
-              <button className={style.member}>회원정보</button>
+              <Link to="/mypage/info">
+              <button className={style.member}>회원정보</button></Link>
               <button className={style.mileage} onClick={openModal}>
                 마일리지
               </button>
