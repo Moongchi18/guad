@@ -28,7 +28,7 @@ function Selling() {
   const [selectedHour, setSelectedHour] = useState(9); // 선택된 경매종료 시간
 
   const [auctionMaxPrice, setAuctionMaxPrice] = useState('') // 오름경매 - 즉시구매가격
-  const [auctinoMinPrice, setAuctinoMinPrice] = useState(''); // 내림경매 - 최저가격, 시작가격 ~ 최저가격
+  const [auctionMinPrice, setAuctionMinPrice] = useState(''); // 내림경매 - 최저가격, 시작가격 ~ 최저가격
   const [auctionPeriod, setAuctionPeriod] = useState(new Date()); // 경매 종료 날짜 + 시간
   const [auctionPeriodText, setAuctionPeriodText] = useState(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour}시`); // 경매 종료 날짜 + 시간 표시양식
   const [auctionRandomMethod, setAuctionRandomMethod] = useState(true); // 내림경매 방식 - 랜덤discount true/false
@@ -86,7 +86,7 @@ function Selling() {
     setAuctionPeriod(tempDate)
     setAuctionPeriodText(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${tempDate.getHours() === '24' ? 0 : tempDate.getHours()}시`)
   }
-  const handlerAuctionMinPrice = (e) => setAuctinoMinPrice(e.target.value)
+  const handlerAuctionMinPrice = (e) => setAuctionMinPrice(e.target.value)
   const handlerAuctionRandomMethod = (e) => {
     if (e.target.value === '고정내림') {
       setAuctionRandomMethod(true)
@@ -98,7 +98,7 @@ function Selling() {
     setAuctionDiscountPerHour(e.target.value)
   }
 
-  console.log("auctionPeriod 테스트 " + auctionPeriod);
+  console.log("auctionMinPrice 테스트 " + auctionMinPrice);
   const handlerItemRegist = (e) => {
     e.preventDefault();
     if (sellType === "") {
@@ -125,21 +125,21 @@ function Selling() {
     } else if (auctionPeriod === "") {
       alert("경매기간을 입력해주세요");
       refAuctionPeriod.current.focus();
-    } else if (sellType === 'd' && auctinoMinPrice === '') {
+    } else if (sellType === 'd' && auctionMinPrice === '') {
       alert("최저가격을 입력해주세요");
       refAuctionMinPrice.current.focus();
-    } else if (sellType === 'd' && auctionRandomMethod && auctionDiscountPerHour === '') {
-      alert("시간당 내릴 가격을 입력해주세요");
-      refAuctionDiscountPerHour.current.focus();
+    // } else if (sellType === 'd' && auctionRandomMethod && auctionDiscountPerHour === '') {
+    //   alert("시간당 내릴 가격을 입력해주세요");
+    //   refAuctionDiscountPerHour.current.focus();
     }
     else {
       const sellPrice = sellType === 'n' ? itemPrice : '';
-      const sendAuctionPeriod = sellType === 'u' || sellType === 'd' ? auctionPeriod : '';
+      const sendAuctionPeriod = sellType === 'u' || sellType === 'd' ? auctionPeriod : ' ';
       const auctionStartPrice = sellType === 'u' || sellType === 'd' ? itemPrice : '';
       const sendAuctionMaxPrice = sellType === 'u' ? auctionMaxPrice : '';
       const sendAuctionRandomMethod = sellType === 'd' ? auctionRandomMethod : '';
       const sendAuctionDiscountPerHout = sellType === 'd' && auctionRandomMethod ? auctionDiscountPerHour : '';
-      const sendAuctionMinPrice = sellType === 'd' ? auctionDiscountPerHour : '';
+      const sendAuctionMinPrice = sellType === 'd' ? auctionMinPrice : '';
 
       axios.post("http://localhost:8080/sellitem",
         // memberEmail: '', // 컨트롤러에서 토큰으로 정보확인 후 입력
@@ -157,7 +157,7 @@ function Selling() {
           auctionMaxPrice: sendAuctionMaxPrice,
           auctionRandomMethod: sendAuctionRandomMethod,
           auctionDiscountPerHour: sendAuctionDiscountPerHout,
-          auctinoMinPrice: sendAuctionMinPrice
+          auctionMinPrice: sendAuctionMinPrice
         }
       )
         .then(response => {
@@ -336,7 +336,7 @@ function Selling() {
                 <input
                   type="text"
                   placeholder="내림경매의 최저가격을 설정해주세요"
-                  value={auctinoMinPrice}
+                  value={auctionMinPrice}
                   onChange={handlerAuctionMinPrice}
                   ref={refAuctionMinPrice}
                 />

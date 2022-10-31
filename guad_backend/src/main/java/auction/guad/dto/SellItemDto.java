@@ -22,6 +22,8 @@ public class SellItemDto {
 	private int auctionMaxPrice;
 	private int auctionMinPrice;
 	private Timestamp auctionPeriod;
+	private boolean auctionRandomMethod;
+	private int auctionDiscountPerHour;
 	
 	private String soldYn;
 	private Date soldDate;
