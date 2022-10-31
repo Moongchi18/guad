@@ -66,11 +66,12 @@ public class MemberController {
 
 	// 회원정보 수정
 	@RequestMapping(value = "/member", method = RequestMethod.PATCH)
-	public ResponseEntity<String> updateMember(@RequestBody MemberDto member) throws Exception {
+	public ResponseEntity<String> updateMember(@RequestBody MemberDto member, @AuthenticationPrincipal User user) throws Exception {
+		System.out.println("<<<<<<<<<<<<<<<" + user);
 		if(memberService.selectMemberDetailByEmail(member.getEmail())==null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("입력하신 정보를 찾을 수 없습니다.");
 		}
-		memberService.updateMemberByEmail(member);
+		memberService.updateMemberByEmail(member); 
 		return ResponseEntity.ok("회원정보 수정에 성공했습니다");
 	}
 
@@ -106,10 +107,11 @@ public class MemberController {
 	}
 	
 	// 이메일 중복 체크
-	@PostMapping(value="/member/idcheck")
+	@PostMapping("/member/idcheck")
 	public ResponseEntity<Integer> repetitionEmailCheck(@RequestBody MemberDto member) throws Exception {
 		Integer result = memberService.repetitionEmailCheck(member.getEmail());
 		System.out.println("<<<<<<<<<<<<<<<<호출");
+		System.out.println(result);
 		if(result == 1) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);			
 		} else if(result == 0) {
@@ -122,6 +124,7 @@ public class MemberController {
 	// 닉네임 중복 체크
 	@PostMapping(value="/member/nicknamecheck")
 	public ResponseEntity<Integer> repetitionNicknameCheck(@RequestBody MemberDto member) throws Exception {
+		System.out.println("호출");
 		Integer result1 = memberService.repetitionNicknameCheck(member.getNickname());
 		if(result1 == 1) {			
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

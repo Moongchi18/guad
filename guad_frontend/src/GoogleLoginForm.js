@@ -9,12 +9,10 @@ function GoogleLoginForm({history}) {
   function handlerCallbackResponse(response) {
     console.log("Encoded JWT ID token " + response.credential);
     var userObject = jwt_decode(response.credential);
-    console.log(userObject.email);
     setUser(userObject);
 
     //로그인 하면 로그인 버튼 가리기
     document.getElementById("signInDiv").hidden = true;
-
     //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
     axios
       .post("http://localhost:8080/api/google/auth", {
@@ -22,14 +20,11 @@ function GoogleLoginForm({history}) {
         email: userObject.email,
       })
       .then((response) => {
-        console.log(response);
-        console.log(user.email);
         alert("오르내림에 오신걸 환영합니다.");
         sessionStorage.setItem("token", response.data);
         history.push("/join_g");
       })
       .catch((error) => {
-        console.log(error);
         alert("로그인에 실패했습니다.");
       });
   }
