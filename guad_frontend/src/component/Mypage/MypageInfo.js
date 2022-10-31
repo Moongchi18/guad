@@ -5,7 +5,7 @@ import MoodalMileage from "../Moodal/Mileage";
 function MypageInfo() {
   return (
     <>
-     <MoodalMileage/>
+      <MoodalMileage/>
       <div className={style.All_Mboxi}>
         <h1 className={style.page_namei}>마이페이지</h1>
         <div>
