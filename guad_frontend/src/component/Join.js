@@ -178,13 +178,13 @@ function Join({ history}) {
             </li>
             <li className={style.pass_in}>
               <label>비밀번호</label>
-              <input type="pass" placeholder="비밀번호를 입력해주세요." value={pass} onChange={changePass} />
+              <input type="password" placeholder="비밀번호를 입력해주세요." value={pass} onChange={changePass} />
               {pass.length > 0 && <p style={isPass ? { color: '#248f48' } : { color: '#ff2727' }}>{passMessage}</p>}
             </li>
             <li className={style.check_in}>
               <label>비밀번호 확인</label>
               <input
-                type="pass"
+                type="password"
                 placeholder="비밀번호를 다시 입력해주세요."
                 value={passConfirm}
                 onChange={changePassConfirm}

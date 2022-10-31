@@ -34,7 +34,7 @@
 	
 	<!-- 회원 상세 조회 -->
 	<select id="selectMemberDetailByEmail" parameterType="String" resultType="auction.guad.dto.MemberDto">
-		SELECT NICKNAME, EMAIL, ADDRESS, MILEAGE, MILEAGE_USED
+		SELECT NICKNAME, EMAIL, ADDRESS, PHONE, MILEAGE, MILEAGE_USED
 		FROM MEMBER
 		WHERE EMAIL = #{email}
 	</select>
@@ -52,7 +52,7 @@
 	<!-- 회원 정보 수정 -->
 	<!-- 컨트롤러/서비스에서 db비번 = 기존비번 확인하고 일치하면 new비번을 db에 업데이트-->
 	<update id="updateMemberByEmail" parameterType="auction.guad.dto.MemberDto">
-		UPDATE MEMBER SET ADDRESS = #{address}, PASS = #{pass}
+		UPDATE MEMBER SET ADDRESS = #{address}, PHONE = #{phone}, PASS = #{pass}
 		WHERE EMAIL = #{email}
 	</update>
 	
@@ -74,9 +74,9 @@
 		WHERE NICKNAME = #{nickname}
 	</select>
 	
-	<!-- 비밀번호 체크 -->
+	<!-- 비밀번호 체크 
 	<select id="checkPass" resultType="int">
-	SELECT COUNT(*) FROM MEMBER WHERE pass = #{pass}
-	</select>
+	SELECT pass FROM MEMBER WHERE pass = #{pass}
+	</select> -->
 	
 </mapper>

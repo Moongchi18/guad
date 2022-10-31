@@ -64,6 +64,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateMemberByEmail(MemberDto memberDto) throws Exception {
+		memberDto.setPass(bCryptPasswordEncoder.encode(memberDto.getPass()));
 		memberMapper.updateMemberByEmail(memberDto);
 	}
 
@@ -99,7 +100,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int checkPass(@AuthenticationPrincipal User user, @RequestBody MemberDto member) throws Exception {
-		return memberMapper.checkPass(user, member);
+	public boolean checkPass(@AuthenticationPrincipal User user, @RequestBody MemberDto member) throws Exception {
+		String userPass = user.getPassword();
+		String pass = member.getPass();
+		boolean result5 = bCryptPasswordEncoder.matches(pass, userPass);
+		return result5;
 	}
 }

@@ -24,6 +24,6 @@ public interface MemberMapper {
 	int repetitionEmailCheck(String email) throws Exception;
 	int repetitionNicknameCheck(String nickname) throws Exception;
 	
-	int checkPass(User user, MemberDto member) throws Exception;
-	
+//	int checkPass(User user, MemberDto member) throws Exception;
+
 }
