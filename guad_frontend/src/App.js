@@ -43,7 +43,7 @@ function App() {
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route path="/login" component={Login} exact={true} />
       <Route path="/upload" component={FileUploadForm} exact={true} />
-      <Route path="/header" component={Header} exact={true} />
+
       <Route
         path="/auction/test/:itemNum"
         component={AuctionTest}

@@ -1,6 +1,7 @@
 import style from "../../source/Mypage.module.css";
 import logo from "../../source/img/mypage.png";
-import { useEffect, useState, Link, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import MoodalMileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
@@ -8,23 +9,23 @@ import BuyList from "./BuyList";
 import SellList from "./SellList";
 
 function Mypage() {
-  window.onload = function () {
-    const button = document.getElementsByClassName(`${style.button}`);
-    console.log(button);
-    console.log(button[0]);
+  // window.onload = function () {
+  //   const button = document.getElementsByClassName(`${style.button}`);
+  //   console.log(button);
+  //   console.log(button[0]);
 
-    for (let i = 0; i < button.length; i++) {
-      if ((button[i].textContent = "거래완료")) {
-        button[i].style.backgroundColor = "#217A4F";
-      } else if ((button[i].textContent = "거래중")) {
-        button[i].style.backgroundColor = "#D9D9D9";
-      } else if ((button[i].textContent = "경매완료")) {
-        button[i].style.backgroundColor = "#BA101E";
-      } else {
-        button[i].style.backgroundColor = "#253C76";
-      }
-    }
-  };
+  //   for (let i = 0; i < button.length; i++) {
+  //     if ((button[i].textContent = "거래완료")) {
+  //       button[i].style.backgroundColor = "#217A4F";
+  //     } else if ((button[i].textContent = "거래중")) {
+  //       button[i].style.backgroundColor = "#D9D9D9";
+  //     } else if ((button[i].textContent = "경매완료")) {
+  //       button[i].style.backgroundColor = "#BA101E";
+  //     } else {
+  //       button[i].style.backgroundColor = "#253C76";
+  //     }
+  //   }
+  // };
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -34,8 +35,6 @@ function Mypage() {
   const openModal = () => {
     modalChange.current.style = "display:block;";
   };
-
-  useEffect(() => {}, []);
 
   return (
     <>
@@ -56,7 +55,7 @@ function Mypage() {
               </h3>
             </div>
             <div className={style.Mbox_button}>
-              <Link to="/mypage/info">
+              <Link to="/mypage/check">
                 <button className={style.member} type="button">
                   회원정보
                 </button>
