@@ -10,6 +10,7 @@ import Footer from "./component/Footer";
 import Main from "./component/Main";
 import Mypage from "./component/Mypage/Mypage";
 import MypageInfo from "./component/Mypage/MypageInfo";
+import Mileage from "./component/Moodal/Mileage";
 import Manager from "./component/Manager/Manager";
 import ManagerNotify from "./component/Manager/ManagerNotify";
 import ManagerMember from "./component/Manager/ManagerMember";
@@ -21,15 +22,16 @@ import axios from "axios";
 import SellItem from "./component/SellItem";
 import ChatRoom from "./auction/ChatRoom";
 
-
 import Selling from "./component/Selling";
 import ChatTest from "./auction/ChatTest";
-
 
 import Sell_Up from "./component/Sell_Up";
 import Sell_End from "./component/Sell_End";
 import Sell_After from "./component/Sell_After";
+
 import { useState, useRef } from "react";
+import Sell_Down from "./component/Sell_Down";
+
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -65,6 +67,7 @@ function App() {
 
       <Route path="/mypage" component={Mypage} exact={true} />
       <Route path="/mypage/info" component={MypageInfo} exact={true} />
+      <Route path="/mileage" component={Mileage} exact={true} />
       <Route path="/manager" component={Manager} exact={true} />
       <Route path="/manager/member" component={ManagerMember} exact={true} />
       <Route path="/manager/notify" component={ManagerNotify} exact={true} />
@@ -75,6 +78,7 @@ function App() {
       <Route path="/sell_item" component={SellItem} exact={true} />
       <Route path="/selling" component={Selling} exact={true} />
       <Route path="/sell_up" component={Sell_Up} exact={true} />
+      <Route path="/sell_down" component={Sell_Down} exact={true} />
       <Route path="/sell_end" component={Sell_End} exact={true} />
       <Route path="/sell_after" component={Sell_After} exact={true} />
 

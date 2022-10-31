@@ -28,14 +28,14 @@ public class CategoryController {
 		this.categoryService = categoryService;
 	}
 	
-	@ApiOperation(value = "카테고리 테이블 전체 조회", notes = "카테고리 테이블 전체 조회, 파라미터 없음")
+	@ApiOperation(value = "카테고리 테이블 전체 조회()", notes = "카테고리 테이블 전체 조회, 파라미터 : ''")
 	@GetMapping("/category")
 	public ResponseEntity<ArrayList<CategoryDto>> selectAllCategory() throws Exception{
 		System.out.println(categoryService.selectAllCategory());
 		return ResponseEntity.status(HttpStatus.OK).body(categoryService.selectAllCategory());
 	}
 	
-	@ApiOperation(value = "중복없이 대분류만 조회", notes = "중복없이 대분류만 조회, 파라미터 없음")
+	@ApiOperation(value = "중복없이 대분류만 조회()", notes = "중복없이 대분류만 조회, 파라미터 : ''")
 	@GetMapping("/category/distinct")
 	public ResponseEntity<ArrayList<CategoryDto>> selectItemType() throws Exception{
 		System.out.println(categoryService.selectDistinctItemType());

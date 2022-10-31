@@ -14,6 +14,9 @@
 .item_top > h2 > strong {
   color: #098060;
 }
+.item_top > h2.down > strong {
+  color: #e63947;
+}
 .img_item {
   width: 420px;
   display: inline-block;
@@ -168,6 +171,11 @@
   color: #fff;
   transition: 0.3s all ease-in;
 }
+.button_bb .bb_down:hover {
+  background-color: #e63947;
+  color: #fff;
+  transition: 0.3s all ease-in;
+}
 .end_bb span {
   display: block;
   font-family: "SBAggroB";
@@ -217,9 +225,17 @@
   font-weight: 300;
   line-height: 2.5;
 }
-.bb_buy:focus {
-  background-color: #098060;
-  color: #fff;
+.bb_down {
+  cursor: pointer;
+  display: block;
+  width: 660px;
+  height: 60px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 25px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  line-height: 2.5;
 }
 .bb_date {
   color: #8c8c8c;
@@ -327,6 +343,46 @@
 }
 .sell_review > button:hover {
   background-color: #098060;
+  color: white;
+  transition: 0.3s all ease;
+}
+
+/* sell_down */
+.review {
+  width: 1130px;
+  margin: 0 auto;
+  font-family: "SBAggroB";
+  text-align: right;
+  padding-top: 50px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+.review h2 {
+  font-size: 30px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.review textarea {
+  resize: none;
+  font-weight: 300;
+  width: 1130px;
+  height: 200px;
+  background-color: #eee;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 10px;
+}
+.review button {
+  width: 150px;
+  height: 40px;
+  background-color: #eee;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 10px 0 126px;
+  cursor: pointer;
+}
+.review button:hover {
+  background-color: rgb(161, 161, 161);
   color: white;
   transition: 0.3s all ease;
 }

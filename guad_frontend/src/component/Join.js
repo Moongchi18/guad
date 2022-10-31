@@ -3,13 +3,13 @@ import Terms from "./Moodal/Terms";
 import { useState } from "react";
 import axios from "axios";
 
-function Join({ history }) {
+function Join({ history}) {
   const [g_check, setG_check] = useState("");
 
   const CheckGen = (e) => {
     const gen = e.target.name;
     if (gen === "man") {
-      setG_check("m");
+      setG_check("m"); 
     } else {
       setG_check("w");
     }
@@ -41,10 +41,11 @@ function Join({ history }) {
 
 
 
-  const handlerJoin = () => {
+  const handlerJoin = () => { 
     axios
       .post("http://localhost:8080/member", { email: email, nickname: nickname, pass: password, phone: phone, address: address, gender: g_check })
       .then((response) => console.log(response))
+      alert("회원가입이 완료되었습니다.")
     history.push("/login")
       .catch((error) => console.log(error));
   };
@@ -121,16 +122,16 @@ function Join({ history }) {
   }
 
   const idCheck = (e) => {
+    console.log(email)
     e.preventDefault();
     axios
-      .post("http://localhost:8080/member/idcheck", JSON.stringify({ email: email }), { headers: { "Content-Type": 'application/json' } })
-      .then((response) => {
-        if (response.status === 200) {
-          setUsableIdMessage("사용 가능한 아이디입니다.") 
-          setIsUsableId(true)
-        } 
-      })
-      .catch(error => {
+    .post("http://localhost:8080/member/idcheck", JSON.stringify({ email: email }), { headers: { "Content-Type": 'application/json' } })
+    .then((response) => {
+        setUsableIdMessage("사용 가능한 아이디입니다.") 
+        setIsUsableId(true)
+      console.log("idcheck")
+    })
+    .catch(error => {
           setIsUsableId(false)
           setUsableIdMessage("이미 사용중인 아이디 입니다.");      
       })
@@ -153,6 +154,7 @@ function Join({ history }) {
   }
 
   return (
+  
     <>
       <Terms />
       <div className={style.join_all}>
