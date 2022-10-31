@@ -31,7 +31,7 @@ function Selling() {
   const [auctionMinPrice, setAuctionMinPrice] = useState(''); // 내림경매 - 최저가격, 시작가격 ~ 최저가격
   const [auctionPeriod, setAuctionPeriod] = useState(new Date()); // 경매 종료 날짜 + 시간
   const [auctionPeriodText, setAuctionPeriodText] = useState(`${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${tempDate.getDate()}일 ${selectedHour}시`); // 경매 종료 날짜 + 시간 표시양식
-  const [auctionRandomMethod, setAuctionRandomMethod] = useState(true); // 내림경매 방식 - 랜덤discount true/false
+  const [auctionRandomMethod, setAuctionRandomMethod] = useState(false); // 내림경매 방식 - 랜덤discount true/false
   const [auctionDiscountPerHour, setAuctionDiscountPerHour] = useState('') // 내림경매 - 시간당
 
   const refSellType = useRef();
@@ -89,9 +89,9 @@ function Selling() {
   const handlerAuctionMinPrice = (e) => setAuctionMinPrice(e.target.value)
   const handlerAuctionRandomMethod = (e) => {
     if (e.target.value === '고정내림') {
-      setAuctionRandomMethod(true)
-    } else {
       setAuctionRandomMethod(false)
+    } else {
+      setAuctionRandomMethod(true)
     }
   }
   const handlerAuctionDiscountPerHour = (e) => {
@@ -138,7 +138,7 @@ function Selling() {
       const auctionStartPrice = sellType === 'u' || sellType === 'd' ? itemPrice : '';
       const sendAuctionMaxPrice = sellType === 'u' ? auctionMaxPrice : '';
       const sendAuctionRandomMethod = sellType === 'd' ? auctionRandomMethod : '';
-      const sendAuctionDiscountPerHout = sellType === 'd' && auctionRandomMethod ? auctionDiscountPerHour : '';
+      const sendAuctionDiscountPerHout = sellType === 'd' && !auctionRandomMethod ? auctionDiscountPerHour : '';
       const sendAuctionMinPrice = sellType === 'd' ? auctionMinPrice : '';
 
       axios.post("http://localhost:8080/sellitem",
@@ -348,7 +348,7 @@ function Selling() {
                   <input type="radio" name="down" onChange={handlerAuctionRandomMethod} value="랜덤내림" ></input>
                   <label>랜덤내림</label>
                 </form>
-                {auctionRandomMethod ?
+                {!auctionRandomMethod ?
                   <input type="text"
                     value={auctionDiscountPerHour}
                     onChange={handlerAuctionDiscountPerHour}
