@@ -5,38 +5,32 @@ import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
 
-function Login({ history }) {
+function Login({history, handlerIsLogin, isLogin}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const changeEmail = (e) => setEmail(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
 
-  // const handlerSubmit = () => {
-  //   axios
-  //     .post("http://localhost:8080/login", { email: email, pass: password })
-  //     .then((response) => console.log(response))
-  //     .catch((error) => console.log(error));
-  // };
+
 
   const handlerSubmit = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:8080/login", { email: email, pass: password })
       .then((response) => {
-          sessionStorage.setItem("token", response.data);
-          alert("로그인 되었습니다.")
-          history.push("/");
-     
+        sessionStorage.setItem("token", response.data)
+        alert("로그인 되었습니다.");
+        history.push("/");
         // console.log(response.data)
       })
       .catch((error) => {
         console.log(error);
-        alert("로그인에 실패했습니다.")
+        alert("로그인에 실패했습니다.");
         sessionStorage.clear();
       });
-
-
+      // props.child();
+      handlerIsLogin(true);
   };
 
   useEffect(() => {
@@ -78,13 +72,13 @@ function Login({ history }) {
             로그인
           </button>
           <Link to="/join_g">
-          <button className={[style.g_join, style.btn_bb].join(" ")} id="gg">
-            <img
-              src={require("../source/img/gg2.png")}
-              alt="구글 로그인"
-              id="ggg"
-            />
-          </button>
+            <button className={[style.g_join, style.btn_bb].join(" ")} id="gg">
+              <img
+                src={require("../source/img/gg2.png")}
+                alt="구글 로그인"
+                id="ggg"
+              />
+            </button>
           </Link>
           <Link to="/join">
             <button
