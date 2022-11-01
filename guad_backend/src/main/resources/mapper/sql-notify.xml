@@ -18,4 +18,9 @@
 	</select>
 
 	<!-- 신고 상세조회 -->
+	<select id="notifyDetail" resultType="auction.guad.dto.NotifyDto">
+		SELECT NOTIFY_NUM, ITEM_NUM, MEMBER_EMAIL, NOTIFY_TITLE, NOTIFY_CONTENTS, NOTIFY_TIME FROM NOTIFY
+		WHERE NOTIFY_NUM = #{notifyNum}
+	</select>
+	
 </mapper>
