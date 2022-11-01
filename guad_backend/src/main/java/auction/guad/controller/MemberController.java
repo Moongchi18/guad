@@ -73,9 +73,9 @@ public class MemberController {
 
 	// 회원정보 수정
 	@ApiOperation(value = "회원정보 수정(MemberDto)", notes = "회원정보 수정, 파라미터 : MemberDto")
-	@PutMapping("/member/pw")
+	@PostMapping("/member/update")
 	public ResponseEntity<String> updateMember(@RequestBody MemberDto member) throws Exception {
-		System.out.println("<<<<<<<<<<<<<<<" + user);
+		
 		if(memberService.selectMemberDetailByEmail(member.getEmail())==null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("입력하신 정보를 찾을 수 없습니다.");
 		}
