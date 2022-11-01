@@ -251,6 +251,11 @@
 .aa_btn {
   margin-right: 10px;
 }
+.aa_btn:hover {
+  background-color: #098060;
+  color: #fff;
+  transition: 0.3s all ease-in;
+}
 .aa_buy {
   cursor: pointer;
   display: inline-block;
