@@ -43,4 +43,14 @@ public class SellItemServiceImpl implements SellItemService{
 			sellItemMapper.deleteSellItem(itemNum);
 	}
 
+	@Override
+	public int selectAllItemCount() throws Exception {
+		return sellItemMapper.selectAllItemCount();
+	}
+	
+	@Override
+	public int selectItemTypeCount(String itemType) throws Exception {
+		return sellItemMapper.selectItemTypeCount(itemType);
+	}
+
 }

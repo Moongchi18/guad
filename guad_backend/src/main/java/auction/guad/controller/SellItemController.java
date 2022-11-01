@@ -26,8 +26,10 @@ public class SellItemController {
 
 	@ApiOperation(value = "목록 조회", notes = "등록된 게시물 목록을 조회")
 	@RequestMapping(value = "/sellitem", method = RequestMethod.GET)
-	public List<SellItemDto> openSellItemList() throws Exception {
-		return sellItemService.sellItemList();
+//	public List<SellItemDto> openSellItemList() throws Exception {
+		public int openSellItemList() throws Exception {
+		System.out.println("개수 : <<<<<<<<<<" + sellItemService.selectAllItemCount());
+		return sellItemService.selectItemTypeCount("가구&인테리어");
 	}
 
 	@ApiOperation(value = "게시물 등록", notes = "게시물 제목과 내용을 저장")
