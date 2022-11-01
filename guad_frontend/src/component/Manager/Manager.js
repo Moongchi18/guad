@@ -4,6 +4,7 @@ import logo_d from "../../source/img/mypage_d.png";
 import sell_1 from "../../source/img/selling_item_ex1.png";
 import sell_2 from "../../source/img/selling_item_ex2.png";
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import Notify from "../Moodal/Notify";
 import axios from "axios";
 
