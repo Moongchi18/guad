@@ -35,17 +35,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 		// 이 주소를 구독한 채널에 메세지를 전송할 수 있게 등록
 		registry.setUserDestinationPrefix("/sub");
         
-		////////////// chatroom
-//        registry.setApplicationDestinationPrefixes("/app");
-//        registry.enableSimpleBroker("/chatroom","/user");
-//        registry.setUserDestinationPrefix("/user");
-		/////////////////////////////////////////////
-		// enableSimpleBroker : /sub가 prefix로 붙은 destination의 클라이언트에게
-		// 메세지를 보낼 수 있도록 SimpleBroker를 등록한다
-//		registry.enableSimpleBroker("/sub");
-
-		// /pub가 prefix로 붙은 메세지들을 @MessageMapping이 붙은 method로 바운드
-//		registry.setApplicationDestinationPrefixes("/pub");
 	}
 	
 //	@Override

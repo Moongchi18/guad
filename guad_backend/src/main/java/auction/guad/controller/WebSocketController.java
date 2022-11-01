@@ -38,8 +38,9 @@ public class WebSocketController {
 	int result;
 
     @MessageMapping("/message")
-    @SendTo("/chatroom/public")
+    @SendTo("/sub/public")
     public Message receiveMessage(@Payload Message message){
+    	System.out.println("테스트<<<<<<<<<<<<<<<<<<<<<<<<<");
         return message;
     }
 

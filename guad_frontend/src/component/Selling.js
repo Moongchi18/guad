@@ -351,18 +351,19 @@ function Selling({ history }) {
                     </option>
                   ))}
                 </select>
-                <br></br>
+                <br />
                 {/* <input type="datetime-local" value={auctionPeriod} onChange={handlerAPeriod} ref={refAuctionPeriod} min={new Date()}></input> */}
-
-                <span>경매 종료 : </span>
-                <input type="text" value={auctionPeriodText} disabled></input>
-                <br></br>
-                <span>auctionPeriod : </span>
-                <input type="text" value={auctionPeriod} disabled></input>
+                <div className={style.auction_d}>
+                  <span>경매 시작 : </span>
+                  <input type="text" value={auctionPeriod} disabled></input>
+                  <br />
+                  <span>경매 종료 : </span>
+                  <input type="text" value={auctionPeriodText} disabled></input>
+                </div>
               </li>
             )}
             {sellType === "d" ? (
-              <li>
+              <li className={style.down_b}>
                 <label>최저 가격</label>
                 <input
                   type="text"
@@ -371,7 +372,7 @@ function Selling({ history }) {
                   onChange={handlerAuctionMinPrice}
                   ref={refAuctionMinPrice}
                 />
-                <label>시간당 내릴 가격</label>
+                <label className={style.chose_p}>시간당 내릴 가격</label>
                 <form ref={refAuctionRandomMethod}>
                   <input
                     type="radio"
@@ -381,7 +382,6 @@ function Selling({ history }) {
                     defaultChecked={true}
                   ></input>
                   <label>고정내림</label>
-                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <input
                     type="radio"
                     name="down"
@@ -399,13 +399,17 @@ function Selling({ history }) {
                     ref={refAuctionDiscountPerHour}
                   />
                 ) : (
-                  <textarea defaultValue="랜덤내림이란? 경매시작 가격에서부터 최저가격까지 시간당 랜덤으로 하락해서 경매에 재미를 더하는 방법"></textarea>
+                  <p>
+                    <strong>랜덤내림이란?</strong>
+                    경매시작 가격에서부터 최저가격까지 시간당 랜덤으로 하락해서
+                    경매에 재미를 더하는 방법
+                  </p>
                 )}
               </li>
             ) : (
               ""
             )}
-            <li>
+            <li className={style.photo_b}>
               <label>사진등록</label>
               <p>필수로 1장 이상의 사진을 등록해야 합니다.</p>
               <div>

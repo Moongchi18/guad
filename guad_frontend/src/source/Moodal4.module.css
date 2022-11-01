@@ -75,6 +75,9 @@
 .fix{
   color: #9F9F9F;
 }
+
+
+
 .modalbody .seller{
   text-align: left;
 
@@ -94,7 +97,7 @@
 .modalbody .category > h3 {
   display: inline-block !important;
   text-align: left;
-  margin-right: 23px;
+  margin-right: 51px;
 }
 
 .message {
