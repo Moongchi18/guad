@@ -4,7 +4,15 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 import BuyConfirm from "./Moodal/BuyConfirm";
 
 function SellItem() {
-  
+  const [itemNum, setItemNum] =useState(10);
+
+  useEffect(() => {
+    setItemNum(document.getElementById(`${style.item_num}`).innerText);
+    
+  },[])
+
+  console.log(">>>>" + itemNum);
+
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -22,11 +30,14 @@ function SellItem() {
   const openModal2 = () => {
     modalChange2.current.style = "display:block;";
   };
-  useEffect(() => {}, []);
+
+
+
   return (
     <>
-      <BuyConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
+      <BuyConfirm closeModal2={closeModal2} modalChange2={modalChange2} itemNum={itemNum}/>
+      <NotifyWrite closeModal={closeModal} modalChange={modalChange} itemNum={itemNum}/>
+      <div id={style.item_num} className={style.item_num}>2</div>
       <div className={style.item_top}>
         <h2>일반판매</h2>
         <div className={style.img_item}>

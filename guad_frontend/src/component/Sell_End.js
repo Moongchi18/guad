@@ -3,16 +3,15 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 import { useRef } from "react";
 
 function Sell_End() {
-
+ 
   const modalChange = useRef();
-
   const closeModal = () => {
     modalChange.current.style = "display:none;";
   };
-
   const openModal = () => {
     modalChange.current.style = "display:block;";
   };
+
 
 
   return (

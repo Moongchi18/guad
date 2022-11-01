@@ -1,8 +1,17 @@
-import { useRef } from "react";
+import { useRef, useEffect,useState } from "react";
 import style from "../source/SellItem.module.css";
 import NotifyWrite from "./Moodal/NotifyWrite";
 
+
 function Sell_Down() {
+  const [itemNum, setItemNum] =useState(10);
+
+  useEffect(() => {
+    setItemNum(document.getElementById(`${style.item_num}`).innerText);
+    console.log(">>>>" + itemNum);
+  },[])
+
+
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -11,9 +20,13 @@ function Sell_Down() {
   const openModal = () => {
     modalChange.current.style = "display:block;";
   };
+
+
+
   return (
     <>
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
+      <NotifyWrite closeModal={closeModal} modalChange={modalChange} itmeNum={itemNum}/>
+      <div id={style.item_num} className={style.item_num}>2</div>
       <div className={style.item_top}>
         <h2 className={style.down}>
           <strong>내림</strong>판매
