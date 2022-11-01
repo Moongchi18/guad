@@ -36,7 +36,7 @@ public class SellItemController {
 			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody SellItemDto sellItem,
 			@AuthenticationPrincipal User user) throws Exception {
 		sellItem.setMemberEmail(user.getUsername());
-		System.out.println(user);
+		System.out.println("minPrice>>>>>>>>>>>>>>>>>>>"+sellItem.getAuctionMinPrice());
 		boolean result = sellItemService.insertSellItem(sellItem);
 		if (result) {
 			return ResponseEntity.status(HttpStatus.OK).body(result);

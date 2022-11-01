@@ -17,16 +17,16 @@ function Join({ history}) {
 
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [pass, setPass] = useState("");
+  const [passConfirm, setPassConfirm] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
  
 
   const [isEmail, setIsEmail] = useState(false);
   const [isNickname, setIsNickname] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
-  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [isPass, setIsPass] = useState(false);
+  const [isPassConfirm, setIsPassConfirm] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
   const [isUsableId, setIsUsableId] = useState(false);
@@ -34,8 +34,8 @@ function Join({ history}) {
 
   const [emailMessage, setEmailMessage] = useState('');
   const [nicknameMessage, setNicknameMessage] = useState('');
-  const [passwordMessage, setPasswordMessage] = useState('');
-  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('');
+  const [passMessage, setPassMessage] = useState('');
+  const [passConfirmMessage, setPassConfirmMessage] = useState('');
   const [usableIdMessage, setUsableIdMessage] = useState('');
   const [usableNicknameMessage, setUsableNicknameMessage] = useState('');
 
@@ -43,7 +43,7 @@ function Join({ history}) {
 
   const handlerJoin = () => { 
     axios
-      .post("http://localhost:8080/member", { email: email, nickname: nickname, pass: password, phone: phone, address: address, gender: g_check })
+      .post("http://localhost:8080/member", { email, nickname, pass, phone, address, gender: g_check })
       .then((response) => console.log(response))
       alert("회원가입이 완료되었습니다.")
     history.push("/login")
@@ -66,33 +66,33 @@ function Join({ history}) {
       setIsEmail(true)
     }
   }
-  const changePassword = (e) => {
+  const changePass = (e) => {
 
-    setPassword(e.target.value);
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
-    const passwordCurrent = e.target.value
-    setPassword(passwordCurrent)
+    setPass(e.target.value);
+    const passRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
+    const passCurrent = e.target.value
+    setPass(passCurrent)
 
-    if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!')
-      setIsPassword(false)
+    if (!passRegex.test(passCurrent)) {
+      setPassMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!')
+      setIsPass(false)
     } else {
-      setPasswordMessage('안전한 비밀번호에요 : )')
-      setIsPassword(true)
+      setPassMessage('안전한 비밀번호에요 : )')
+      setIsPass(true)
     }
   }
 
-  const changePasswordConfirm = (e) => {
-    setPasswordConfirm(e.target.value);
-    const passwordConfirmCurrent = e.target.value
-    setPasswordConfirm(passwordConfirmCurrent)
+  const changePassConfirm = (e) => {
+    setPassConfirm(e.target.value);
+    const passConfirmCurrent = e.target.value
+    setPassConfirm(passConfirmCurrent)
 
-    if (password === passwordConfirmCurrent) {
-      setPasswordConfirmMessage('비밀번호를 똑같이 입력했어요 : )')
-      setIsPasswordConfirm(true)
+    if (pass === passConfirmCurrent) {
+      setPassConfirmMessage('비밀번호를 똑같이 입력했어요 : )')
+      setIsPassConfirm(true)
     } else {
-      setPasswordConfirmMessage('비밀번호가 틀려요. 다시 확인해주세요 ㅜ ㅜ')
-      setIsPasswordConfirm(false)
+      setPassConfirmMessage('비밀번호가 틀려요. 다시 확인해주세요 ㅜ ㅜ')
+      setIsPassConfirm(false)
     }
   }
   const changeNickname = (e) => {
@@ -178,18 +178,18 @@ function Join({ history}) {
             </li>
             <li className={style.pass_in}>
               <label>비밀번호</label>
-              <input type="password" placeholder="비밀번호를 입력해주세요." value={password} onChange={changePassword} />
-              {password.length > 0 && <p style={isPassword ? { color: '#248f48' } : { color: '#ff2727' }}>{passwordMessage}</p>}
+              <input type="password" placeholder="비밀번호를 입력해주세요." value={pass} onChange={changePass} />
+              {pass.length > 0 && <p style={isPass ? { color: '#248f48' } : { color: '#ff2727' }}>{passMessage}</p>}
             </li>
             <li className={style.check_in}>
               <label>비밀번호 확인</label>
               <input
                 type="password"
                 placeholder="비밀번호를 다시 입력해주세요."
-                value={passwordConfirm}
-                onChange={changePasswordConfirm}
+                value={passConfirm}
+                onChange={changePassConfirm}
               />
-              {passwordConfirm.length > 0 && <p style={isPasswordConfirm ? { color: '#248f48' } : { color: '#ff2727' }}>{passwordConfirmMessage}</p>}
+              {passConfirm.length > 0 && <p style={isPassConfirm ? { color: '#248f48' } : { color: '#ff2727' }}>{passConfirmMessage}</p>}
             </li>
             <li className={style.tel_in}>
               <label>전화번호</label>
@@ -228,7 +228,7 @@ function Join({ history}) {
             </li>
           </ul>
         </div>
-        <button className={style.last_btn} onClick={handlerJoin} disabled={!(isNickname && isEmail && isPassword && isPasswordConfirm && isPhone && isAddress)}>회원가입</button>
+        <button className={style.last_btn} onClick={handlerJoin} disabled={!(isNickname && isEmail && isPass && isPassConfirm && isPhone && isAddress)}>회원가입</button>
       </div>
       <div></div>
     </>

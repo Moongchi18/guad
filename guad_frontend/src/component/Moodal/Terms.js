@@ -2,44 +2,46 @@ import React, { useEffect, useRef, useState } from "react";
 import style from "../../source/Moodal.module.css";
 
 function Terms() {
+  const [allCheck, setAllCheck] = useState(false);
   const [ccc1, setCcc1] = useState(false);
   const [ccc2, setCcc2] = useState(false);
   const [ccc3, setCcc3] = useState(false);
-  const [ccc4, setCcc4] = useState(false);
 
   const modalOpen = useRef();
 
-  const changeImg1 = () => {
-    if (ccc1 == false) {
-      setCcc1(true);
-    } else {
-      setCcc1(false);
+  useEffect(() => {
+    if (ccc1 && ccc2 && ccc3) {
+      setAllCheck(true)
+    } else if (!ccc1 || !ccc2 || !ccc3) {
+      setAllCheck(false)
     }
+  }, [ccc1, ccc2, ccc3])
+
+  const handlerAllCheck = () => {
+    if (allCheck === false) {
+      setAllCheck(true);
+      setCcc1(true)
+      setCcc2(true)
+      setCcc3(true)
+    } else {
+      setAllCheck(false);
+      setCcc1(false)
+      setCcc2(false)
+      setCcc3(false)
+    }
+  };
+  const changeImg1 = () => {
+    setCcc1(!ccc1)
   };
   const changeImg2 = () => {
-    if (ccc2 == false) {
-      setCcc2(true);
-    } else {
-      setCcc2(false);
-    }
+    setCcc2(!ccc2);
   };
   const changeImg3 = () => {
-    if (ccc3 == false) {
-      setCcc3(true);
-    } else {
-      setCcc3(false);
-    }
-  };
-  const changeImg4 = () => {
-    if (ccc4 == false) {
-      setCcc4(true);
-    } else {
-      setCcc4(false);
-    }
+    setCcc3(!ccc3)
   };
 
   const closeModal = () => {
-    if (ccc1 == false || ccc2 == false || ccc3 == false || ccc4 == false) {
+    if (ccc1 === false || ccc2 === false) {
       alert("동의를 확인해주세요.");
     } else {
       modalOpen.current.style = "display:none;";
@@ -68,13 +70,13 @@ function Terms() {
                 <button
                   type="button"
                   className={style.check_1}
-                  onClick={changeImg1}
+                  onClick={handlerAllCheck}
                 >
                   전체동의<strong> &#40;선택항목 포함&#41;</strong>
                   <span>
                     <img
                       src={
-                        ccc1
+                        allCheck
                           ? require("../../source/img/check01.png")
                           : require("../../source/img/check00.png")
                       }
@@ -88,13 +90,13 @@ function Terms() {
                 <button
                   type="button"
                   className={[style.check_2, style.check_9].join("")}
-                  onClick={changeImg2}
+                  onClick={changeImg1}
                 >
                   이용약관 동의 &#40;필수&#41;<strong> 보기</strong>
                   <span>
                     <img
                       src={
-                        ccc2
+                        ccc1
                           ? require("../../source/img/check01.png")
                           : require("../../source/img/check00.png")
                       }
@@ -108,14 +110,14 @@ function Terms() {
                 <button
                   type="button"
                   className={[style.check_3, style.check_9].join("")}
-                  onClick={changeImg3}
+                  onClick={changeImg2}
                 >
                   개인정보 수집 및 이용동의 &#40;필수&#41;
                   <strong> 보기</strong>
                   <span>
                     <img
                       src={
-                        ccc3
+                        ccc2
                           ? require("../../source/img/check01.png")
                           : require("../../source/img/check00.png")
                       }
@@ -129,13 +131,13 @@ function Terms() {
                 <button
                   type="button"
                   className={[style.check_4, style.check_9].join("")}
-                  onClick={changeImg4}
+                  onClick={changeImg3}
                 >
                   마케팅정보 이용 동의 추가 &#40;선택&#41;<strong> 보기</strong>
                   <span>
                     <img
                       src={
-                        ccc4
+                        ccc3
                           ? require("../../source/img/check01.png")
                           : require("../../source/img/check00.png")
                       }

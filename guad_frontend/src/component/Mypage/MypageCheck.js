@@ -1,8 +1,28 @@
 import style from "../../source/MypageInfo.module.css";
 import logo from "../../source/img/mypage.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
-function MypageCheck() {
+
+
+function MypageCheck({history}) {
+  
+  const [pass, setPass] = useState('');
+  
+  const changePass = (e) => {
+    setPass(e.target.value);
+  }
+
+  const handleCheck = () => {
+    axios.post("http://localhost:8080/mypage/passcheck", {pass})
+    .then((response) => 
+      history.push("/mypage/info")
+    )
+    .catch((error) => 
+    alert("비밀번호를 확인해주세요"));
+  } 
+    
   return (
     <>
       <div className={style.All_Mboxi}>
@@ -33,10 +53,10 @@ function MypageCheck() {
         </div>
         <div className={style.check}>
           <label>정보를 수정하려면 비밀번호를 확인해주세요.</label>
-          <input type="password" placeholder="비밀번호를 입력해주세요." />
-          <Link to="/mypage/info">
-            <button type="button">확인</button>
-          </Link>
+          <input type="password" placeholder="비밀번호를 입력해주세요." onChange={changePass}/>
+          
+            <button type="button" onClick={handleCheck} value={pass}>확인</button>
+         
         </div>
       </div>
     </>

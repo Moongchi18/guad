@@ -1,7 +1,14 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import style from "../../source/Moodal3.module.css";
+import axios from "axios";
+
 function NotifyWrite({ closeModal, modalChange }) {
-  useEffect(() => {}, []);
+
+  const [notifyTitle, setNotifyTitle] = useState('');
+  const [notifyContents, setMemberPass] = useState('');
+
+
+  useEffect(() => { }, []);
   return (
     <>
       <div className={style.modal} ref={modalChange}>
