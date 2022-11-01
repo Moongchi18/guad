@@ -71,6 +71,8 @@ li.item_info:nth-child(4n) {
   position: absolute;
   right: 10px;
   bottom: 10px;
+  width: 30px;
+  height: 30px;
 }
 .item_info > a > span {
   display: block;
