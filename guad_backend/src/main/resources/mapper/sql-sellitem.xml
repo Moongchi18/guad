@@ -37,7 +37,9 @@
 	<select id="selectSellItemList" resultType="auction.guad.dto.SellItemDto">
 		SELECT I.*
 		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
-		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'n'
+		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y'
+		ORDER BY I.ITEM_NUM DESC LIMIT #{startRow},#{count}
+		
 	</select>
 	
 	<!-- 판매 -->

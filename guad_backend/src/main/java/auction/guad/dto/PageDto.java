@@ -22,5 +22,4 @@ public class PageDto {
 		this.totalPage = totalPage;
 	}
 	
-	
 }

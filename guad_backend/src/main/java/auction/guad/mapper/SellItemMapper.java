@@ -9,14 +9,14 @@ import auction.guad.dto.SellItemDto;
 @Mapper
 public interface SellItemMapper {
 
- List<SellItemDto> sellItemList() throws Exception;
- int insertSellItem(SellItemDto sellItemDto) throws Exception;
- SellItemDto selectSellItemDetail(int itemNum) throws Exception;
- void updateSellItem(SellItemDto sellItemDto) throws Exception;
- void deleteSellItem(int itemNum) throws Exception;
- 
- int selectAllItemCount() throws Exception;
- int selectItemTypeCount(String itemType) throws Exception;
-
-	
+	List<SellItemDto> sellItemList() throws Exception;
+	int insertSellItem(SellItemDto sellItemDto) throws Exception;
+	SellItemDto selectSellItemDetail(int itemNum) throws Exception;
+	void updateSellItem(SellItemDto sellItemDto) throws Exception;
+	void deleteSellItem(int itemNum) throws Exception;
+	int selectAllItemCount() throws Exception;
+	int selectItemTypeCount(String itemType) throws Exception;
+	int selectSellTypeCount(String sellType) throws Exception;
+	int selectSellTypeItemTypeCount(String sellType, String itemType) throws Exception;
+	List<SellItemDto> selectSellItemList(int startRow, int count) throws Exception;
 }
