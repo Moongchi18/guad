@@ -41,7 +41,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		// csrf차단 기능 해제 : jwt토큰을 사용하므로 csrf차단기능이 않음
 		http.csrf().disable();
 		http.authorizeRequests()
-			.antMatchers("/admin/**").hasRole("y")
+			.antMatchers("/**/admin/**").hasRole("y")
 			.anyRequest().permitAll()
 			.and()
 			.addFilter(getAuthenticationFilter())
