@@ -45,6 +45,7 @@ public class WebSocketController {
     @MessageMapping("/message")
     @SendTo("/sub/public")
     public Message receiveMessage(@Payload Message message){
+    	System.out.println("테스트<<<<<<<<<<<<<<<<<<<<<<<<<");
         return message;
     }
 

@@ -4,6 +4,7 @@ import logo_d from "../../source/img/mypage_d.png";
 import sell_1 from "../../source/img/selling_item_ex1.png";
 import sell_2 from "../../source/img/selling_item_ex2.png";
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import Notify from "../Moodal/Notify";
 import axios from "axios";
 
@@ -31,7 +32,9 @@ function Manager() {
             </div>
             <div className={style.Mbox_button}>
               <button className={style.member}>회원관리</button>
+              <Link to="/manager/notify">
               <button className={style.mileage}>신고내역</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -56,13 +59,13 @@ function Manager() {
         </div>
 
         <div className={style.notify}>
-          <div className={style.notify_list}>
-            <img src={sell_1} alt="1"></img>
+          <div className={`${style.notify_list} ${style.list_one}`}>
+            <img src={sell_1} alt="1" />
             <h3>셀린느 폴코 트리오페...</h3>
           </div>
 
           <div className={style.notify_list}>
-            <img src={sell_2} alt="1"></img>
+            <img src={sell_2} alt="1" />
             <h3>셀린느 폴코 트리오페...</h3>
           </div>
         </div>

@@ -139,7 +139,7 @@ function Sell_List() {
                 </div>
                 <span className={style.tex1}>의류/가방</span>
                 <span className={style.tex2}>
-                  디올 오피디아 스몰 패턴 도트백{" "}
+                  디올 오피디아 스몰 패턴 도트백
                 </span>
                 <span className={style.tex3}>
                   경매시작가<strong>450,000</strong>
@@ -158,7 +158,7 @@ function Sell_List() {
                 </div>
                 <span className={style.tex1}>의류/가방</span>
                 <span className={style.tex2}>
-                  디올 오피디아 스몰 패턴 도트백{" "}
+                  디올 오피디아 스몰 패턴 도트백
                 </span>
                 <span className={style.tex3}>
                   경매시작가<strong>450,000</strong>
