@@ -12,9 +12,16 @@ const Up_Chat = ({ nickname }) => {
     username: nickname,
     message: "",
   });
-  useEffect(() => {
-    connect();
-  }, []);
+
+  const openChat1 = useRef();
+  const openChat2 = useRef();
+  const openChat3 = useRef();
+  const openChat4 = useRef();
+
+  const ClickChat = () => {
+    openChat1.current.style = "top:598px;";
+    openChat2.current.style = "";
+  };
 
   console.log(nickname);
   const connect = () => {
@@ -60,12 +67,17 @@ const Up_Chat = ({ nickname }) => {
       sendValue();
     }
   };
+  useEffect(() => {
+    connect();
+  }, []);
   return (
     <>
       <div className={style.container}>
         <div className={style.chat_box}>
+          {/* target top:598px */}
           <div className={style.chat_content}>
             <ul className={style.chat_messages}>
+              {/* target height:0px */}
               {publicChats.map((chat, index) => (
                 <li
                   className={`${style.message} ${
@@ -97,6 +109,9 @@ const Up_Chat = ({ nickname }) => {
                 onChange={handleMessage}
                 onKeyPress={handlerEnterKeyPress}
               />
+              <button type="button" className={style.onChat}>
+                채팅 참여
+              </button>
             </div>
           </div>
         </div>
