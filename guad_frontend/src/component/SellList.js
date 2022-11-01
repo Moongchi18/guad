@@ -1,9 +1,11 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
 function Sell_List() {
   const [cate, setCate] = useState("");
+  const [itemType, setItemType] = useState([])
 
   const checkCate = (e) => {
     const gory = e.target.name;
@@ -17,6 +19,25 @@ function Sell_List() {
       setCate("n");
     }
   };
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/category/distinct")
+    .then(response => {
+      const list = [];
+      response.data.map(d => list.push(d.itemType))
+      setItemType(list);
+    })
+    .catch(error => console.log(error))
+
+    axios.get("http://localhost:8080/sellitem")
+    .then(response => {
+      console.log(response)
+    })
+    .catch(error => console.log(error))
+  }, [])
+  
+  console.log(itemType)
+
   return (
     <>
       <div className={style.sell_all}>
@@ -25,7 +46,10 @@ function Sell_List() {
             전체상품 <span>53</span>개
           </h2>
           <select>
-            <option value="카테고리 선택">카테고리 선택</option>
+            <option value="전체">전체</option>
+            {itemType && itemType.map((type, index) => 
+              <option key={index} value={type}>{type}</option>
+            )}
           </select>
           <ul>
             <li>

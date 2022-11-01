@@ -3,7 +3,7 @@ import logo from "../../source/img/mypage.png";
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import MoodalMileage from "../Moodal/Mileage";
+import Mileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
 import BuyList from "./BuyList";
 import SellList from "./SellList";
@@ -38,7 +38,7 @@ function Mypage() {
 
   return (
     <>
-      <MoodalMileage closeModal={closeModal} modalChange={modalChange} />
+      <Mileage closeModal={closeModal} modalChange={modalChange} />
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>마이페이지</h1>
         <div>
