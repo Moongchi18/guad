@@ -2,31 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
+import SellListItem from "./SellListItem";
 
 function Sell_List() {
   const [data, setData] = useState([]);
-  const [presentData, setPresentData] = useState([{ sellType: '', itemType: '' }]);
   const [itemTypeList, setItemTypeList] = useState([]);
   const [sellItemDto, setSellItemDto] = useState({
-    itemNum: "",
     sellType: "",
-    memberEmail: "",
-    itemSub: "",
-    itemContents: "",
-    itemPrice: "",
     itemType: "",
-    itemDType: "",
-    writeDate: "",
-    hitCnt: "",
-    auctionStartPrice: "",
-    auctionMaxPrice: "",
-    auctionMinPrice: "",
-    auctionPeriod: "",
-    auctionRandomMethod: "",
-    auctionDiscountPerHour: "",
-    soldYn: "",
-    deleteYn: "",
   });
+  const [count, setCount] = useState();
 
   const checkSellType = (e) => {
     const gory = e.target.name;
@@ -39,7 +24,8 @@ function Sell_List() {
     } else if (gory === "normal") {
       setSellItemDto({ ...sellItemDto, sellType: "n" });
     }
-    setPresentData(data)
+    setData(data)
+    setCount(0)
   };
 
   useEffect(() => {
@@ -55,8 +41,8 @@ function Sell_List() {
     axios
       .get("http://localhost:8080/sellitem")
       .then((response) => {
+        console.log(response)
         setData(response.data.itemList);
-        setPresentData(response.data.itemList);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -64,16 +50,24 @@ function Sell_List() {
   // const handlerItemType = (e) => setItemType(e.target.value);
   const handlerItemType = (e) => {
     setSellItemDto({ ...sellItemDto, itemType: e.target.value })
-    setPresentData(data)
+    setData(data)
+    setCount(0)
   };
 
-  console.log(data);
+  const handlerCount = (e) => {
+    if(e>=0){
+      setCount(e+1)
+    } else{
+      setCount(0)
+    }
+  }
+
   return (
     <>
       <div className={style.sell_all}>
         <div className={style.sell_top}>
           <h2>
-            전체상품 <span>{sellItemDto.length}</span>개
+            전체상품 <span>{count}</span>개
           </h2>
           <select value={sellItemDto.itemType} onChange={handlerItemType}>
             <option value="">전체</option>
@@ -147,62 +141,30 @@ function Sell_List() {
           <ul>
             {sellItemDto.sellType === "" &&
               sellItemDto.itemType === "" &&
-              presentData.map((item, index) => (
-                <li className={style.item_info} key={index}>
-                  <Link to={`/sell_item/${item.itemNum}`}>
-                    <div className={style.item_bb}>
-                      <img
-                        src={require("../source/img/item01.png")}
-                        alt="제품1"
-                      />
-                      <img
-                        src={item.sellType === 'd' ? require("../source/img/del1_b.png") : (item.sellType === 'u' ? require("../source/img/del2_b.png") : require("../source/img/white.png"))}
-                        alt="망치"
-                        className={style.del_icon}
-                      />
-                    </div>
-                    <span className={style.tex1}>{item.itemType}</span>
-                    <span className={style.tex2}>{item.itemSub}</span>
-                    <span className={style.tex3}>
-                      {item.sellType === "n" ? "판매가격" : "경매시작가"}
-                      <strong>
-                        {item.sellType === "n"
-                          ? item.itemPrice
-                          : item.auctionStartPrice}
-                      </strong>
-                    </span>
-                  </Link>
-                </li>
-              ))}
+              data.map((item, index) => (
+                <SellListItem item={item} key={index} index={index} handlerCount={handlerCount} />
+              ))
+            }
             {sellItemDto.sellType !== '' &&
-              sellItemDto.itemType === "" &&
-              presentData.filter(item => item.sellType === sellItemDto.sellType)
+              sellItemDto.itemType === '' &&
+              data.filter(item => item.sellType === sellItemDto.sellType)
                 .map((item, index) => (
-                  <li className={style.item_info} key={index}>
-                    <Link to={`/sell_item/${item.itemNum}`}>
-                      <div className={style.item_bb}>
-                        <img
-                          src={require("../source/img/item01.png")}
-                          alt="제품1"
-                        />
-                        <img
-                          src={item.sellType === 'd' ? require("../source/img/del1_b.png") : (item.sellType === 'u' ? require("../source/img/del2_b.png") : require("../source/img/white.png"))}
-                          alt="망치"
-                          className={style.del_icon}
-                        />
-                      </div>
-                      <span className={style.tex1}>{item.itemType}</span>
-                      <span className={style.tex2}>{item.itemSub}</span>
-                      <span className={style.tex3}>
-                        {item.sellType === "n" ? "판매가격" : "경매시작가"}
-                        <strong>
-                          {item.sellType === "n"
-                            ? item.itemPrice
-                            : item.auctionStartPrice}
-                        </strong>
-                      </span>
-                    </Link>
-                  </li>
+                  <SellListItem item={item} key={index} index={index} handlerCount={handlerCount} />
+                ))
+            }
+            {sellItemDto.sellType === '' &&
+              sellItemDto.itemType !== '' &&
+              data.filter(item => item.itemType === sellItemDto.itemType)
+                .map((item, index) => (
+                  <SellListItem item={item} key={index} index={index} handlerCount={handlerCount} />
+                ))
+            }
+            {/*  */}
+            {sellItemDto.sellType !== '' &&
+              sellItemDto.itemType !== '' &&
+              data.filter(item => item.itemType === sellItemDto.itemType && item.sellType === sellItemDto.sellType)
+                .map((item, index) => (
+                  <SellListItem item={item} key={index} index={index} handlerCount={handlerCount} />
                 ))
             }
           </ul>

@@ -35,9 +35,8 @@ function Selling({ history }) {
   const [auctionMinPrice, setAuctionMinPrice] = useState(""); // 내림경매 - 최저가격, 시작가격 ~ 최저가격
   const [auctionPeriod, setAuctionPeriod] = useState(new Date()); // 경매 종료 날짜 + 시간
   const [auctionPeriodText, setAuctionPeriodText] = useState(
-    `${tempDate.getFullYear()}년 ${
-      tempDate.getMonth() + 1
-    }월 ${tempDate.getDate()}일 ${selectedHour}시`
+    `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1
+    }월 ${tempDate.getDate() + 2}일 ${selectedHour}시`
   ); // 경매 종료 날짜 + 시간 표시양식
   const [auctionRandomMethod, setAuctionRandomMethod] = useState(false); // 내림경매 방식 - 랜덤discount true/false
   const [auctionDiscountPerHour, setAuctionDiscountPerHour] = useState(""); // 내림경매 - 시간당
@@ -86,8 +85,7 @@ function Selling({ history }) {
     tempDate.setHours(selectedHour);
     setAuctionPeriod(tempDate);
     setAuctionPeriodText(
-      `${tempDate.getFullYear()}년 ${
-        tempDate.getMonth() + 1
+      `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1
       }월 ${tempDate.getDate()}일 ${selectedHour === "24" ? 0 : selectedHour}시`
     );
   };
@@ -97,13 +95,12 @@ function Selling({ history }) {
     tempDate.setHours(e.target.value * 1);
     setAuctionPeriod(tempDate);
     setAuctionPeriodText(
-      `${tempDate.getFullYear()}년 ${
-        tempDate.getMonth() + 1
-      }월 ${tempDate.getDate()}일 ${
-        tempDate.getHours() === "24" ? 0 : tempDate.getHours()
+      `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1
+      }월 ${tempDate.getDate()}일 ${tempDate.getHours() === "24" ? 0 : tempDate.getHours()
       }시`
     );
   };
+  const nowText = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate() + 1}일 12시`;
   const handlerAuctionMinPrice = (e) => setAuctionMinPrice(e.target.value);
   const handlerAuctionRandomMethod = (e) => {
     if (e.target.value === "고정내림") {
@@ -146,9 +143,9 @@ function Selling({ history }) {
     } else if (sellType === "d" && auctionMinPrice === "") {
       alert("최저가격을 입력해주세요");
       refAuctionMinPrice.current.focus();
-      // } else if (sellType === 'd' && auctionRandomMethod && auctionDiscountPerHour === '') {
-      //   alert("시간당 내릴 가격을 입력해주세요");
-      //   refAuctionDiscountPerHour.current.focus();
+    } else if (sellType === 'd' && !auctionRandomMethod && auctionDiscountPerHour === '') {
+      alert("시간당 내릴 가격을 입력해주세요");
+      refAuctionDiscountPerHour.current.focus();
     } else {
       const sellPrice = sellType === "n" ? itemPrice : "";
       const sendAuctionPeriod =
@@ -355,7 +352,7 @@ function Selling({ history }) {
                 {/* <input type="datetime-local" value={auctionPeriod} onChange={handlerAPeriod} ref={refAuctionPeriod} min={new Date()}></input> */}
                 <div className={style.auction_d}>
                   <span>경매 시작 : </span>
-                  <input type="text" value={auctionPeriod} disabled></input>
+                  <input type="text" value={nowText} disabled></input>
                   <br />
                   <span>경매 종료 : </span>
                   <input type="text" value={auctionPeriodText} disabled></input>
@@ -431,8 +428,7 @@ function Selling({ history }) {
           >
             등록완료
           </button>
-          {/* <Moodal2 closeModal={closeModal} modalOpen={modalOpen} /> */}
-          <ItemSuccess closeModal={closeModal} modalOpen={modalOpen} />
+          <ItemSuccess closeModal={closeModal} modalOpen={modalOpen} itemSub={itemSub} itemContents={itemContents} />
         </div>
       </div>
     </>

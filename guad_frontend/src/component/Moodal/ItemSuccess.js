@@ -1,8 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../../source/Moodal2.module.css";
 
-function Moodal2({ closeModal, modalOpen }) {
-  useEffect(() => {}, []);
+function Moodal2({ closeModal, modalOpen, itemSub, itemContents }) {
+  const [sub, setSub] = useState('');
+  const [contents, setContents] = useState('');
+  useEffect(() => {
+    setSub(itemSub)
+    setContents(itemContents)
+  }, [itemSub, itemContents])
   return (
     <>
       <div className={style.modal} ref={modalOpen}>
@@ -19,9 +24,9 @@ function Moodal2({ closeModal, modalOpen }) {
             <h3>판매목록에서 확인해보세요.</h3>
           </div>
           <div className={style.modalfooter}>
-            <h2>상품명</h2>
+            <h2>{sub}</h2>
             <img src={require("../../source/img/Line.png")} alt="33" />
-            <h3>개봉 후 1번 사용 무선 저소음 적축키보드</h3>
+            <h3>{contents}</h3>
             <button type="button" onClick={closeModal}>
               확인
             </button>
