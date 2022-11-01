@@ -28,8 +28,7 @@
   flex-direction: row;
 }
 .chat_box {
-  background-color: #098060;
-  height: 600px;
+  background-color: #888888;
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -37,14 +36,15 @@
   font-family: "nanumsquare";
   font-weight: normal;
   position: absolute;
-  top: 37px;
+  top: 598px;
+  transition: 0.3s all ease;
 }
 .member_list {
   width: 20%;
 }
 
 .chat_messages {
-  height: 93%;
+  height: 0%;
   overflow: scroll;
   overflow-x: hidden;
 }
@@ -64,15 +64,22 @@
   display: block;
   width: 295px;
   padding: 10px 5px 10px 5px;
-  margin-top: 5px;
   border-radius: 5px;
-  background-color: #eee;
+  background-color: #888888;
   font-weight: bold;
 }
 .onChat:hover {
-  background-color: #01c993;
-  color: white;
+  background-color: #eee;
+  color: #098060;
   transition: 0.3s all ease;
+}
+.close_c {
+  display: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  color: white;
+  background-color: rgb(185, 185, 185);
 }
 
 .avatar {
@@ -91,9 +98,9 @@
   display: flex;
   flex-direction: row;
   margin: 5px 10px;
-  background-color: rgb(141, 141, 141);
+  background-color: #e6f3e6;
   border-radius: 5px;
-  color: white;
+  color: black;
 }
 .message_data {
   padding: 5px;

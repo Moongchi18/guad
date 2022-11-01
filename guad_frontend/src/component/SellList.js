@@ -5,6 +5,7 @@ import style from "../source/SellList.module.css";
 
 function Sell_List() {
   const [data, setData] = useState([]);
+  const [presentData, setPresentData] = useState([{ sellType: '', itemType: '' }]);
   const [itemTypeList, setItemTypeList] = useState([]);
   const [sellItemDto, setSellItemDto] = useState({
     itemNum: "",
@@ -38,6 +39,7 @@ function Sell_List() {
     } else if (gory === "normal") {
       setSellItemDto({ ...sellItemDto, sellType: "n" });
     }
+    setPresentData(data)
   };
 
   useEffect(() => {
@@ -54,13 +56,16 @@ function Sell_List() {
       .get("http://localhost:8080/sellitem")
       .then((response) => {
         setData(response.data.itemList);
+        setPresentData(response.data.itemList);
       })
       .catch((error) => console.log(error));
   }, []);
 
   // const handlerItemType = (e) => setItemType(e.target.value);
-  const handlerItemType = (e) =>
-    setSellItemDto({ ...sellItemDto, sellType: e.target.value });
+  const handlerItemType = (e) => {
+    setSellItemDto({ ...sellItemDto, itemType: e.target.value })
+    setPresentData(data)
+  };
 
   console.log(data);
   return (
@@ -71,7 +76,7 @@ function Sell_List() {
             전체상품 <span>{sellItemDto.length}</span>개
           </h2>
           <select value={sellItemDto.itemType} onChange={handlerItemType}>
-            <option value="전체">전체</option>
+            <option value="">전체</option>
             {itemTypeList &&
               itemTypeList.map((type, index) => (
                 <option key={index} value={type}>
@@ -142,13 +147,18 @@ function Sell_List() {
           <ul>
             {sellItemDto.sellType === "" &&
               sellItemDto.itemType === "" &&
-              data.map((item, index) => (
-                <li className={style.item_info}>
-                  <Link to={`/sell_item/${item.itemNum}`} key={index}>
+              presentData.map((item, index) => (
+                <li className={style.item_info} key={index}>
+                  <Link to={`/sell_item/${item.itemNum}`}>
                     <div className={style.item_bb}>
                       <img
                         src={require("../source/img/item01.png")}
                         alt="제품1"
+                      />
+                      <img
+                        src={item.sellType === 'd' ? require("../source/img/del1_b.png") : (item.sellType === 'u' ? require("../source/img/del2_b.png") : require("../source/img/del3_b.png"))}
+                        alt="망치"
+                        className={style.del_icon}
                       />
                     </div>
                     <span className={style.tex1}>{item.itemType}</span>
@@ -164,6 +174,37 @@ function Sell_List() {
                   </Link>
                 </li>
               ))}
+            {sellItemDto.sellType !== '' &&
+              sellItemDto.itemType === "" &&
+              presentData.filter(item => item.sellType === sellItemDto.sellType)
+                .map((item, index) => (
+                  <li className={style.item_info} key={index}>
+                    <Link to={`/sell_item/${item.itemNum}`}>
+                      <div className={style.item_bb}>
+                        <img
+                          src={require("../source/img/item01.png")}
+                          alt="제품1"
+                        />
+                        <img
+                          src={item.sellType === 'd' ? require("../source/img/del1_b.png") : (item.sellType === 'u' ? require("../source/img/del2_b.png") : require("../source/img/del3_b.png"))}
+                          alt="망치"
+                          className={style.del_icon}
+                        />
+                      </div>
+                      <span className={style.tex1}>{item.itemType}</span>
+                      <span className={style.tex2}>{item.itemSub}</span>
+                      <span className={style.tex3}>
+                        {item.sellType === "n" ? "판매가격" : "경매시작가"}
+                        <strong>
+                          {item.sellType === "n"
+                            ? item.itemPrice
+                            : item.auctionStartPrice}
+                        </strong>
+                      </span>
+                    </Link>
+                  </li>
+                ))
+            }
           </ul>
           <span className={style.count_p}>
             <ul>
