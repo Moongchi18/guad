@@ -10,12 +10,11 @@ import axios from "axios";
 function ManagerNotify(history) {
 
   const [datas, setDatas] = useState([]);
-
+  console.log(datas);
   useEffect(() => {
     axios.get(`http://localhost:8080/notify/admin/list`)
       .then(response => {
-        setDatas(response.data)
-        console.log(datas);
+        setDatas(response.data);
       })
       .catch(error => {
         if (error.response.status === 403) {
@@ -60,29 +59,26 @@ function ManagerNotify(history) {
         <div className={style.category}>
           <h3>신고내역</h3>
         </div>
-        {/* {
-                        datas && datas.map(member => (
-                            <tr key={member.memberSeq}>
-                                <td>{member.memberSeq}</td>
-                                <td className="title">
-                                    <Link to={`/member/detail/${member.memberSeq}`}>{member.memberName}</Link>
-                                </td>
-                                <td>{member.memberEmail}</td>
-                                <td>{member.createdDateTime}</td>
-                            </tr>
-                        ))
-                    } */}
+        <div className={style.notify}>
+        {
+          datas && datas.map(notify => (
+            <div key={notify.notifyNum} className={style.notify_list} onClick={openModal} >
+                <img src={sell_1} alt="1"></img>
+                <h3>{notify.notifyTitle}</h3>
+            </div>
+          ))
+        }
 
-        <div className={style.notify} onClick={openModal}>
           <div className={style.notify_list}>
             <img src={sell_1} alt="1"></img>
             <h3>셀린느 폴코 트리오페두두무무수수후후우우주주</h3>
           </div>
 
-          <div className={style.notify_list} onClick={openModal}>
+          <div className={style.notify_list}>
             <img src={sell_2} alt="1"></img>
             <h3>셀린느 폴코 트리오페이뒤에어떤말이와도점점점으로표시된다.</h3>
           </div>
+
         </div>
       </div>
     </>
