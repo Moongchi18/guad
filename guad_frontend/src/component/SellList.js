@@ -156,7 +156,7 @@ function Sell_List() {
                         alt="제품1"
                       />
                       <img
-                        src={item.sellType === 'd' ? require("../source/img/del1_b.png") : (item.sellType === 'u' ? require("../source/img/del2_b.png") : require("../source/img/del3_b.png"))}
+                        src={item.sellType === 'd' ? require("../source/img/del1_b.png") : (item.sellType === 'u' ? require("../source/img/del2_b.png") : require("../source/img/white.png"))}
                         alt="망치"
                         className={style.del_icon}
                       />
@@ -186,7 +186,7 @@ function Sell_List() {
                           alt="제품1"
                         />
                         <img
-                          src={item.sellType === 'd' ? require("../source/img/del1_b.png") : (item.sellType === 'u' ? require("../source/img/del2_b.png") : require("../source/img/del3_b.png"))}
+                          src={item.sellType === 'd' ? require("../source/img/del1_b.png") : (item.sellType === 'u' ? require("../source/img/del2_b.png") : require("../source/img/white.png"))}
                           alt="망치"
                           className={style.del_icon}
                         />
