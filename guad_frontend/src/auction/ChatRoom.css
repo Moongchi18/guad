@@ -51,6 +51,10 @@
 .chat-messages {
   height: 80%;
   border: 1px solid #000;
+  overflow-y: scroll;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: red;
 }
 
 .send-message {

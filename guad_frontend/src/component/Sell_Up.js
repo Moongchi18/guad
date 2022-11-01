@@ -9,14 +9,19 @@ function Sell_Up() {
   const [nickname, setNickname] = useState("");
   const [start, setStart] = useState(false);
   const ClickStart = () => {
-    setStart(true);
+    if (sessionStorage.length != 0) {
+      setStart(true);
+    } else {
+      alert("로그인해주세요!");
+      setStart(false);
+    }
   };
   const [itemNum, setItemNum] = useState(10);
 
   useEffect(() => {
     setItemNum(document.getElementById(`${style.item_num}`).innerText);
     console.log(">>>>" + itemNum);
-  }, []);
+  }, [sessionStorage.length]);
 
   console.log(">>>>" + itemNum);
 
