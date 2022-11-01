@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
 function Sell_List() {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [itemTypeList, setItemTypeList] = useState([]);
   const [sellItemDto, setSellItemDto] = useState({
     itemNum: '',
@@ -59,7 +59,7 @@ function Sell_List() {
   // const handlerItemType = (e) => setItemType(e.target.value);
   const handlerItemType = (e) => setSellItemDto({ ...sellItemDto, "sellType": e.target.value });
 
-  console.log(sellItemDto)
+  console.log(data)
   return (
     <>
       <div className={style.sell_all}>
@@ -127,10 +127,20 @@ function Sell_List() {
         <div className={style.sell_bot}>
           <ul>
             <li className={style.item_info}>
-              {data && data.filter((item, index) => (
-                data.itemType === sellItemDto.itemType && data.sellType === sellItemDto.sellType
-                )).map((item, index) => (
-                  <Link to={`/sell_item/${item.itemNum}`}>{item.itemSub}</Link>
+              {sellItemDto.sellType === '' && sellItemDto.itemType === '' &&
+                data.map((item, index) => (
+                  <Link to={`/sell_item/${item.itemNum}`} key={index}>
+                    <div className={style.item_bb}>
+                      <img src={require("../source/img/item01.png")} alt="제품1" />
+                    </div>
+                    <span className={style.tex1}>{item.itemType}</span>
+                    <span className={style.tex2}>
+                      {item.itemSub}
+                    </span>
+                    <span className={style.tex3}>
+                      {item.sellType === 'n' ? '판매가격':'경매시작가'}<strong>{item.sellType === 'n' ? item.itemPrice:item.auctionStartPrice}</strong>
+                    </span>
+                  </Link>
                 ))
               }
               <Link to="/sell_item/">
