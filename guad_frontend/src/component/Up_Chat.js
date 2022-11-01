@@ -18,6 +18,7 @@ const Up_Chat = ({ nickname }) => {
   const openChat3 = useRef();
   const openChat4 = useRef();
   const openChat5 = useRef();
+  const openChat6 = useRef();
 
   const ClickChat = () => {
     openChat1.current.style = "top:37px; height:600px;"; // .chat_box
@@ -25,6 +26,7 @@ const Up_Chat = ({ nickname }) => {
     inputCursor.current.style = "display:inline-block;";
     openChat4.current.style = "display:none;";
     openChat5.current.style = "display:inline-block;";
+    openChat6.current.style = "height:none";
   };
   const OffChat = () => {
     openChat1.current.style = "top:598px; height:none;"; // .chat_box
@@ -32,6 +34,7 @@ const Up_Chat = ({ nickname }) => {
     inputCursor.current.style = "display:none;";
     openChat4.current.style = "display:block;";
     openChat5.current.style = "display:none;";
+    openChat6.current.style = "height:40px;";
   };
   console.log(nickname);
   const connect = () => {
@@ -84,7 +87,7 @@ const Up_Chat = ({ nickname }) => {
     <>
       <div className={style.container}>
         <div className={style.chat_box} ref={openChat1}>
-          <div className={style.chat_content}>
+          <div className={style.chat_content} ref={openChat6}>
             <ul className={style.chat_messages} ref={openChat2}>
               <button
                 type="button"
