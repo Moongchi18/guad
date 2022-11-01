@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import style from "../../source/Moodal3.module.css";
 import axios from "axios";
 
-function NotifyWrite({ closeModal, modalChange, history , itemNum}) {
+function NotifyWrite({ closeModal, modalChange, itemNum}) {
 
   const [notifyTitle, setNotifyTitle] = useState('');
   const [notifyContents, setMemberPass] = useState('');
@@ -23,7 +23,7 @@ function NotifyWrite({ closeModal, modalChange, history , itemNum}) {
       })
       .then(response => {
         alert("신고접수 되었습니다.");
-        history.push("/");
+        closeModal();
       })
       .catch(error => {
         console.log(error)

@@ -1,6 +1,11 @@
 import style from "../../source/Moodal4.module.css";;
 
 function Notify({closeModal, modalChange}) {
+
+
+
+
+
   return (
     <>
       <div id="my-modal" className={style.modal} ref={modalChange}>
@@ -19,7 +24,7 @@ function Notify({closeModal, modalChange}) {
               <h3>asd@naver.com</h3>
             </div>
             <div className={style.category}>
-              <h3 className={style.fix}>카테고리</h3>
+              <h3 className={style.fix}>제목</h3>
               <h3>상품 상태 불량</h3>
             </div>
           </div>
@@ -32,10 +37,10 @@ function Notify({closeModal, modalChange}) {
           </div>
           <div className={style.modalfooter}>
             <button type="button" className={style.redBtn}>
-              신고하기
+              접수확인
             </button>
             <button type="text" id="outMan">
-              취소
+              보류
             </button>
           </div>
         </div>
