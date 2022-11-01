@@ -4,8 +4,27 @@ import sell_1 from "../../source/img/selling_item_ex1.png";
 import sell_2 from "../../source/img/selling_item_ex2.png";
 import Notify from "../Moodal/Notify";
 import { useEffect, useState, useRef } from "react";
+import axios from "axios";
 
-function ManagerNotify() {
+
+function ManagerNotify(history) {
+
+  const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/notify/admin/list`)
+      .then(response => {
+        setDatas(response.data)
+        console.log(datas);
+      })
+      .catch(error => {
+        if (error.response.status === 403) {
+          alert("접근 권한이 없습니다. 로그인 후 다시 접속해 주세요.");
+          // history.push("/login");
+        }
+      });
+  }, []);
+
   const modalChange = useRef();
 
   const closeModal = () => {
@@ -41,6 +60,18 @@ function ManagerNotify() {
         <div className={style.category}>
           <h3>신고내역</h3>
         </div>
+        {/* {
+                        datas && datas.map(member => (
+                            <tr key={member.memberSeq}>
+                                <td>{member.memberSeq}</td>
+                                <td className="title">
+                                    <Link to={`/member/detail/${member.memberSeq}`}>{member.memberName}</Link>
+                                </td>
+                                <td>{member.memberEmail}</td>
+                                <td>{member.createdDateTime}</td>
+                            </tr>
+                        ))
+                    } */}
 
         <div className={style.notify} onClick={openModal}>
           <div className={style.notify_list}>

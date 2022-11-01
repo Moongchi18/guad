@@ -48,14 +48,18 @@ public class NotifyController {
 	}
 	
 	@ApiOperation(value = "신고리스트 조회(NotifyDto)", notes = "신고 목록 조회, 파라미터 : NotifyDto")
-	@GetMapping("/admin/notify")
+	@GetMapping("/admin/list")
 	public List<NotifyDto> notifyList(@AuthenticationPrincipal User user) throws Exception {
+		System.out.println(">>>>>>>>>>>>>>>>>>>>" + notifyService.notifyList());
 		return notifyService.notifyList();
 	}
 	
 	@ApiOperation(value = "신고리스트 상세 조회(NotifyDto)", notes = "신고 상세 조회, 파라미터 : NotifyDto")
 	@GetMapping("/admin/notify/{notifyNum}")
 	public NotifyDto notifyDetail(@PathVariable String notifyNum) throws Exception {
+		
+		System.out.println(notifyService.notifyDetail(notifyNum));
+		
 		return notifyService.notifyDetail(notifyNum);
 	}
 	
