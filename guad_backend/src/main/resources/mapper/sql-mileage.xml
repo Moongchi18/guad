@@ -3,10 +3,12 @@
 
 <mapper namespace="auction.guad.mapper.MileageMapper">
 
- <insert id="chargeMileage" parameterType="auction.guad.dto.MileageDto">
+
+	<!-- 마일리지 충전 -->
+	 <insert id="chargeMileage" parameterType="auction.guad.dto.MileageDto">
+		INSERTO INTO MILEAGE (MEMBER_EMAIL, CHARGE_DATE, CHARGE_AMOUNT) VALUES (#{memberEmail}, now(), #{charegeAmount})
 		
-		
-	</insert>
+	 </insert>
 	
 	<select id="inquireMileageByEmail" parameterType="int" resultType="auction.guad.dto.MileageDto">
 		

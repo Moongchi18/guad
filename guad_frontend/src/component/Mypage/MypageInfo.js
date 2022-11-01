@@ -19,6 +19,8 @@ function MypageInfo({ history }) {
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [passConfirm, setPassConfirm] = useState('');
+  const [email2, setEmail2] = useState('');
+
 
   const [isPass, setIsPass] = useState(false);
   const [isPassConfirm, setIsPassConfirm] = useState(false);
@@ -28,16 +30,14 @@ function MypageInfo({ history }) {
  
   const changePhone = (e) => {
     setPhone(e.target.value)
-    if (e.target.value.length > 0) {
-      setIsPhone(true)
-    }
+        
   }
 
   const changeAddress = (e) => {
     setAddress(e.target.value)
-    if (e.target.value.length > 0) {
-      setIsAddress(true)
-    }
+    // if (e.target.value.length > 0) {
+    //   setIsAddress(true)
+    // }
   }
 
   const changePass = (e) => {
@@ -76,19 +76,20 @@ function MypageInfo({ history }) {
           nickname: response.data.nickname,
           phone: response.data.phone,
           address: response.data.address,
-          mileage: response.data.mileage,
-        
+          mileage: response.data.mileage        
         })
+        setEmail2(response.data.email)
       })   
   }, [])
 
   const handlerUpdate = () => {
+    console.log({phone, address, pass, email2})
     axios
-      .post("http://localhost:8080/member/update", { phone, address, pass })
+      .post("http://localhost:8080/member/update", { phone, address, pass, email : email2 })
       .then(response => {
        
         alert("수정이 완료되었습니다.")
-        history.push("/mypage/info")
+        history.push("/mypage")
 
       })
   }
@@ -143,7 +144,7 @@ function MypageInfo({ history }) {
           <h3>비밀번호 확인</h3>
           <input type="password" onChange={changePassConfirm} value={passConfirm} />
         </div>
-        <button className={style.updatei} onClick={handlerUpdate} disabled={!(isPass && isPassConfirm && isPhone && isAddress)}>정보수정</button>
+        <button className={style.updatei} onClick={handlerUpdate} disabled={!(isPass && isPassConfirm )}>정보수정</button>
       </div>
     </>
   );

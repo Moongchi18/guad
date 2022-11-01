@@ -5,16 +5,21 @@
 
 
 	<!-- 입찰 -->
-	<insert id="tryAuction" parameterType="auction.guad.dto.AuctionDto">
-	 INSERT INTO AUCTION (AUCTION_NUM, ITEM_NUM, MEMBER_EMAIL, AUCTION_PRICE, AUCTION_TIME) values 
-	 (#{auctionNum}, #{itemNum}, #{{memberEmail}, #{auctionPrice}, now())
+	<insert id="tryAuction"
+		parameterType="auction.guad.controller.model.Auction">
+		INSERT INTO AUCTION (ITEM_NUM, MEMBER_EMAIL, AUCTION_PRICE,
+		AUCTION_TIME) values
+		(#{itemNum}, #{memberEmail}, #{auctionPrice}, now())
+	<!-- 	<selectKey keyProperty="auctionNum" resultType="Integer">
+			select last_insert_try()
+		</selectKey> -->
 	</insert>
-	
+
 	<!-- 입찰 취소 -->
 	<delete id="cancelAuction" parameterType="int">
-	 DELETE FROM AUCTION WHERE AUCTION_NUM = #{auctionNum}
+		DELETE FROM AUCTION WHERE AUCTION_NUM = #{auctionNum}
 	</delete>
-	
-	
+
+
 
 </mapper>

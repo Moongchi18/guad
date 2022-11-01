@@ -27,6 +27,21 @@ function Mypage() {
   //   }
   // };
 
+  const [data, setData] = useState({
+    mileage : 0
+  });
+  
+  
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/member")
+      .then(response => {        
+        setData({          
+          mileage: response.data.mileage        
+        })        
+      })   
+  }, [])
+
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -51,7 +66,7 @@ function Mypage() {
                 <strong>시흥 기린</strong>님 환영합니다!
               </h3>
               <h3>
-                현재마일리지 <strong>1,000,000</strong>원
+                현재마일리지 <strong>{data.mileage}</strong>원
               </h3>
             </div>
             <div className={style.Mbox_button}>

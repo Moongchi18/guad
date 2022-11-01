@@ -4,8 +4,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,10 +30,10 @@ public class MileageController {
 	private MileageService mileageService;
 	
 	@ApiOperation(value = "마일리지 충전", notes = "입금 금액 마일리지 충전")
-	@RequestMapping(value = "/mileage", method = RequestMethod.POST)
-	public void chargeMileage(
-			@Parameter(description = "충전 정보", required = true, example = "{ price: 금액, date: 날짜 }") @RequestBody MileageDto mileage)
+	@PostMapping("/mileage")
+	public void chargeMileage(@RequestBody MileageDto mileage, @AuthenticationPrincipal User user)
 			throws Exception {
+	    mileage.setMemberEmail(user.getUsername());
 		mileageService.chargeMileage(mileage);
 	}
 
