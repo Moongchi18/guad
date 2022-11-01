@@ -19,8 +19,10 @@ const Up_Chat = ({ nickname }) => {
   const openChat4 = useRef();
 
   const ClickChat = () => {
-    openChat1.current.style = "top:598px;";
-    openChat2.current.style = "";
+    openChat1.current.style = "top:37px; height:600px;"; // .chat_box
+    openChat2.current.style = "height:93%;"; // .chat_message
+    inputCursor.current.style = "display:inline-block;";
+    openChat4.current.style = "display:none;";
   };
 
   console.log(nickname);
@@ -73,10 +75,10 @@ const Up_Chat = ({ nickname }) => {
   return (
     <>
       <div className={style.container}>
-        <div className={style.chat_box}>
+        <div className={style.chat_box} ref={openChat1}>
           {/* target top:598px */}
           <div className={style.chat_content}>
-            <ul className={style.chat_messages}>
+            <ul className={style.chat_messages} ref={openChat2}>
               {/* target height:0px */}
               {publicChats.map((chat, index) => (
                 <li
@@ -109,7 +111,12 @@ const Up_Chat = ({ nickname }) => {
                 onChange={handleMessage}
                 onKeyPress={handlerEnterKeyPress}
               />
-              <button type="button" className={style.onChat}>
+              <button
+                type="button"
+                className={style.onChat}
+                ref={openChat4}
+                onClick={ClickChat}
+              >
                 채팅 참여
               </button>
             </div>
