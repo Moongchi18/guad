@@ -1,11 +1,12 @@
 package auction.guad.service;
 
-import auction.guad.dto.AuctionDto;
+import auction.guad.controller.model.Auction;
+
 
 public interface AuctionService {
 	
-	public int tryAuction(AuctionDto auc) throws Exception;
-	public void cancelAuction(AuctionDto auc) throws Exception;
+	public int tryAuction(Auction auc) throws Exception;
+	public void cancelAuction(Auction auc) throws Exception;
 	
 	
 

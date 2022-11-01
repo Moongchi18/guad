@@ -11,9 +11,9 @@ function AuctionTest({match}) {
     const [change, setChange] = useState(false);
     const [Dto, setDto] = useState({
         itemNum: match.params.itemNum,
-        auctionMaxPrice: 0,
-        nickname: '홍길동',
-        email: '123@123',
+        auctionPrice: 0,
+        nickname: '',
+        email: '',
     });
     useEffect(() => {
         connect();
@@ -60,7 +60,7 @@ function AuctionTest({match}) {
 
     const handlerBidPrice = e => {
         setBid(e.target.value)
-        setDto({ ...Dto, "auctionMaxPrice": e.target.value })
+        setDto({ ...Dto, "auctionPrice": e.target.value })
     }
 
     return (

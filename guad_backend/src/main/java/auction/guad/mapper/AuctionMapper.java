@@ -2,12 +2,13 @@ package auction.guad.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import auction.guad.dto.AuctionDto;
+import auction.guad.controller.model.Auction;
+
 
 @Mapper
 public interface AuctionMapper {
 
-	int tryAuction(AuctionDto auc) throws Exception;
-	void cancelAuction(AuctionDto auc) throws Exception;
+	int tryAuction(Auction auc) throws Exception;
+	void cancelAuction(Auction auc) throws Exception;
 	
 }

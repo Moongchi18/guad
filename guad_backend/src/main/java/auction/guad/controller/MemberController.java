@@ -78,7 +78,7 @@ public class MemberController {
 	@PostMapping("/member/update")
 	public ResponseEntity<String> updateMember(@RequestBody MemberDto member, @AuthenticationPrincipal User user)
 			throws Exception {
-		System.out.println("<<<<<<<<<<<<<<<" + user);
+		
 		if (memberService.selectMemberDetailByEmail(user.getUsername()) == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("입력하신 정보를 찾을 수 없습니다.");
 		}
