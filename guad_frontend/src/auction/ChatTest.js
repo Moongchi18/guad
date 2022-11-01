@@ -22,7 +22,7 @@ const ChatTest = ({match}) => {
     }
 
     const onConnected = () => {
-        stompClient.subscribe('/chatroom/public', onMessageReceived);
+        stompClient.subscribe('/sub/public', onMessageReceived);
     }    
 
     const onError = (err) => {
@@ -47,7 +47,7 @@ const ChatTest = ({match}) => {
                 message: userData.message,
               };
               console.log(chatMessage);
-              stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+              stompClient.send("/pub/message", {}, JSON.stringify(chatMessage));
               setUserData({...userData,"message": ""});
               inputCursor.current.focus();
             }
