@@ -1,8 +1,9 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import style from "../source/Sell_After.module.css";
 import BuyReview from "./Moodal/BuyReview";
 
-function Sell_After() {
+function Sell_After({ history }) {
   const modalOpen = useRef();
 
   const closeModal = () => {
@@ -48,12 +49,16 @@ function Sell_After() {
         </div>
       </div>
       <div className={style.btn_area}>
-        <button type="button" className={style.my}>
-          마이 페이지로 가기
-        </button>
-        <button type="button" className={style.go}>
-          쇼핑 계속하기
-        </button>
+        <Link to="/mypage">
+          <button type="button" className={style.my}>
+            마이 페이지로 가기
+          </button>
+        </Link>
+        <Link to="/sell_list">
+          <button type="button" className={style.go}>
+            쇼핑 계속하기
+          </button>
+        </Link>
       </div>
     </>
   );
