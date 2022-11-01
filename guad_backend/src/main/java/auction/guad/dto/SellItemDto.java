@@ -31,9 +31,13 @@ public class SellItemDto {
 	private Date deleteDate;
 	
 	private MemberDto memberDto;
-
+	
+	public SellItemDto() {
+	}	
+	
 	public SellItemDto(MemberDto memberDto) {
 		this.memberDto = memberDto;
 	}
+
 	
 }
