@@ -15,17 +15,16 @@ function Login(props) {
   // handlerIsLogin(true);
   // console.log(isLogin)
 
-
   const handlerSubmit = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:8080/login", { email: email, pass: password })
       .then((response) => {
-        sessionStorage.setItem("token", response.data)
+        sessionStorage.setItem("token", response.data);
         alert("로그인 되었습니다.");
         props.handlerIsLogin();
         props.history.push("/");
-        console.log(response.data)
+        console.log(response.data);
       })
 
       .catch((error) => {
@@ -33,7 +32,6 @@ function Login(props) {
         alert("로그인에 실패했습니다.");
         sessionStorage.clear();
       });
-
   };
 
   useEffect(() => {
@@ -45,10 +43,9 @@ function Login(props) {
     hoverBox.addEventListener("mouseout", function () {
       hoverItem.setAttribute("src", require("../source/img/gg2.png"));
     });
-    console.log(props.isLogin)
-    console.log(props)
-    console.log("호출")
-
+    console.log(props.isLogin);
+    console.log(props);
+    console.log("호출");
   }, []);
 
   return (
@@ -56,7 +53,7 @@ function Login(props) {
       <div className={style.All_box}>
         <div className={style.login_box}>
           <img src={logo} className={style.Logo} alt="로고" />
-          <span className="logintext">가입한 계정으로 로그인</span>
+          <span className={style.logintext}>가입한 계정으로 로그인</span>
           <input
             className={style.in_box}
             placeholder="아이디"
