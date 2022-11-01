@@ -12,11 +12,7 @@
 }
 
 .container {
-  width: 325px;
-  height: 500px;
   display: inline-block;
-  position: absolute;
-  top: 37px;
 }
 
 .register {
@@ -40,6 +36,8 @@
   border-radius: 5px;
   font-family: "nanumsquare";
   font-weight: normal;
+  position: absolute;
+  top: 37px;
 }
 .member_list {
   width: 20%;
@@ -55,10 +53,26 @@
 }
 
 .input_message {
+  display: none;
   width: 295px;
   padding: 5px;
   margin-top: 5px;
   border-radius: 5px;
+}
+
+.onChat {
+  display: block;
+  width: 295px;
+  padding: 10px 5px 10px 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+  background-color: #eee;
+  font-weight: bold;
+}
+.onChat:hover {
+  background-color: #01c993;
+  color: white;
+  transition: 0.3s all ease;
 }
 
 .avatar {
