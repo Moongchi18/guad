@@ -93,6 +93,7 @@
   background-color: #f0f0f0;
   border-radius: 5px;
   padding-left: 20px;
+  margin-bottom: 20px;
 }
 .in_box > ul > li:nth-child(6) {
   margin-bottom: 55px;
@@ -105,12 +106,13 @@
   padding-left: 20px;
   background: #f0f0f0;
 }
-.in_box > ul > li:nth-child(7) input[type=text] {
+.in_box > ul > li:nth-child(7) input[type="text"] {
   width: 600px;
   height: 50px;
   background-color: #f0f0f0;
   border-radius: 5px;
   padding-left: 20px;
+  margin-bottom: 20px;
 }
 .in_box > ul > li:nth-child(7) {
   margin-bottom: 90px;
@@ -147,4 +149,49 @@
 .subBtn:hover {
   background-color: #0fa880;
   transition: 0.3s all ease;
+}
+.down_b .chose_p {
+  float: left;
+}
+.down_b form {
+  float: right;
+}
+.down_b form label {
+  vertical-align: top;
+}
+.down_b form input {
+  margin: 0 5px 0 20px;
+}
+.down_b p {
+  display: block;
+  width: 620px;
+  height: 40px;
+  padding: 5px 0;
+  margin-top: 30px;
+  text-align: left;
+  font-size: 15px;
+  font-family: "nanumsquare";
+}
+.down_b p strong {
+  color: #ff0000;
+  font-size: 17px;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.photo_b p {
+  font-weight: 300;
+  font-size: 15px;
+  color: #ff0000;
+  text-align: left;
+}
+.auction_d {
+  display: block;
+  text-align: left;
+}
+.auction_d input {
+  background-color: white;
+  font-weight: 300;
+  margin-bottom: 5px;
 }
