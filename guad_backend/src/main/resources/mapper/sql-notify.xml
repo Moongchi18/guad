@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="auction.guad.mapper.NotifyMapper">
+
+	<!-- 신고접수 -->
+	<insert id="insertNotify" parameterType="auction.guad.dto.NotifyDto">
+		INSERT INTO NOTIFY(ITEM_NUM, MEMBER_EMAIL, NOTIFY_TITLE, NOTIFY_CONTENTS, NOTIFY_TIME) 
+			VALUES (#{itemNum}, #{memberEmail}, #{notifyTitle}, #{notifyContents}, now())
+		<selectKey keyProperty="notifyNum" resultType="Integer">
+        	select last_insert_id()
+    	</selectKey>
+	</insert>
+
+</mapper>

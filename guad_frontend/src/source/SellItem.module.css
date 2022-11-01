@@ -27,6 +27,10 @@
   width: 420px;
   height: 420px;
 }
+.item_num {
+  display: none;
+}
+
 .up1 {
   width: 420px;
   height: 420px;

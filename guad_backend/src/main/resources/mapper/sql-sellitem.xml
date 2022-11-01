@@ -3,10 +3,48 @@
 
 <mapper namespace="auction.guad.mapper.SellItemMapper">
 	
+	<!-- 모든 상품 개수 / MEMBER, SELL_ITEM 테이블의 DELETE_YN 체크-->
+	<select id="selectAllItemCount" resultType="int">
+		SELECT count(*)
+		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y'
+	</select>
+	<!-- 분류별 상품 개수 -->
+	<select id="selectItemTypeCount" resultType="int">
+		SELECT count(*)
+		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y' 
+			AND I.ITEM_TYPE = #{itemType}
+	</select>
+
+	<!-- 판매타입별 상품 개수 -->
+	<select id="selectSellTypeCount" resultType="int">
+		SELECT count(*)
+		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y' 
+			AND I.SELL_TYPE = #{sellType}
+	</select>
+	
+	<!-- 분류별, 판매타입별 상품 개수 -->
+	<select id="selectSellTypeItemTypeCount" resultType="int">
+		SELECT count(*)
+		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y' 
+			AND I.SELL_TYPE = #{sellType} AND I.ITEM_TYPE = #{itemType}
+	</select>
+	
+	<!-- 모든 상품목록 가져오기 -->
 	<select id="selectSellItemList" resultType="auction.guad.dto.SellItemDto">
+		SELECT I.*
+		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y'
+		ORDER BY I.ITEM_NUM DESC LIMIT #{startRow},#{count}
 		
 	</select>
 	
+	<!-- 판매 -->
+	
+	<!-- 경매 및 일반 상품등록 -->
 	<insert id="insertSellItem" parameterType="auction.guad.dto.SellItemDto">
 		INSERT INTO SELL_ITEM
 		(SELL_TYPE, MEMBER_EMAIL, ITEM_SUB, ITEM_CONTENTS, ITEM_PRICE, ITEM_TYPE, 

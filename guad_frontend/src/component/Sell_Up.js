@@ -6,11 +6,20 @@ import Up_After from "./Up_After";
 import Up_Before from "./Up_Before";
 
 function Sell_Up() {
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState("");
   const [start, setStart] = useState(false);
   const ClickStart = () => {
     setStart(true);
   };
+  const [itemNum, setItemNum] = useState(10);
+
+  useEffect(() => {
+    setItemNum(document.getElementById(`${style.item_num}`).innerText);
+    console.log(">>>>" + itemNum);
+  }, []);
+
+  console.log(">>>>" + itemNum);
+
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -20,16 +29,24 @@ function Sell_Up() {
     modalChange.current.style = "display:block;";
   };
   useEffect(() => {
-    axios.get("http://localhost:8080/member")
-    .then(response => {
-        console.log(response.data.nickname)
+    axios
+      .get("http://localhost:8080/member")
+      .then((response) => {
+        console.log(response.data.nickname);
         setNickname(response.data.nickname);
-    })
-    .catch(error => console.log(error))
-}, [])
+      })
+      .catch((error) => console.log(error));
+  }, []);
   return (
     <>
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
+      <NotifyWrite
+        closeModal={closeModal}
+        modalChange={modalChange}
+        itemNum={itemNum}
+      />
+      <div id={style.item_num} className={style.item_num}>
+        2
+      </div>
       <div className={style.item_top}>
         <h2>
           <strong>오름</strong>판매
@@ -51,8 +68,12 @@ function Sell_Up() {
             <li></li>
           </ul>
         </div>
-        {start == false && <Up_Before openModal={openModal} ClickStart={ClickStart}/>}
-        {start == true && <Up_After openModal={openModal} nickname={nickname}/>}
+        {start == false && (
+          <Up_Before openModal={openModal} ClickStart={ClickStart} />
+        )}
+        {start == true && (
+          <Up_After openModal={openModal} nickname={nickname} />
+        )}
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
