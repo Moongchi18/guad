@@ -73,6 +73,14 @@
   color: #098060;
   transition: 0.3s all ease;
 }
+.close_c {
+  display: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  color:white;
+  background-color: rgb(185, 185, 185);
+}
 
 .avatar {
   background-color: cornflowerblue;
