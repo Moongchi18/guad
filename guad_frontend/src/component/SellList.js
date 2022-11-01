@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
 function Sell_List() {
+  const [data, setData] = useState();
   const [itemTypeList, setItemTypeList] = useState([]);
   const [sellItemDto, setSellItemDto] = useState({
     itemNum: '',
@@ -29,34 +30,34 @@ function Sell_List() {
   const checkSellType = (e) => {
     const gory = e.target.name;
     if (gory === "all") {
-      setSellItemDto({...sellItemDto,sellType:''})
+      setSellItemDto({ ...sellItemDto, sellType: '' })
     } else if (gory === "up") {
-      setSellItemDto({...sellItemDto,sellType:'u'})
+      setSellItemDto({ ...sellItemDto, sellType: 'u' })
     } else if (gory === "down") {
-      setSellItemDto({...sellItemDto,sellType:'d'})
-    } else if(gory === 'normal') {
-      setSellItemDto({...sellItemDto,sellType:'n'})
+      setSellItemDto({ ...sellItemDto, sellType: 'd' })
+    } else if (gory === 'normal') {
+      setSellItemDto({ ...sellItemDto, sellType: 'n' })
     }
   };
 
   useEffect(() => {
     axios.get("http://localhost:8080/category/distinct")
-    .then(response => {
-      const list = [];
-      response.data.map(d => list.push(d.itemType))
-      setItemTypeList(list);
-    })
-    .catch(error => console.log(error))
+      .then(response => {
+        const list = [];
+        response.data.map(d => list.push(d.itemType))
+        setItemTypeList(list);
+      })
+      .catch(error => console.log(error))
 
     axios.get("http://localhost:8080/sellitem")
-    .then(response => {
-      setSellItemDto(response.data.itemList)
-    })
-    .catch(error => console.log(error))
+      .then(response => {
+        setData(response.data.itemList)
+      })
+      .catch(error => console.log(error))
   }, [])
-  
+
   // const handlerItemType = (e) => setItemType(e.target.value);
-  const handlerItemType = (e) => setSellItemDto({...sellItemDto, "sellType": e.target.value});
+  const handlerItemType = (e) => setSellItemDto({ ...sellItemDto, "sellType": e.target.value });
 
   console.log(sellItemDto)
   return (
@@ -68,7 +69,7 @@ function Sell_List() {
           </h2>
           <select value={sellItemDto.itemType} onChange={handlerItemType}>
             <option value="전체">전체</option>
-            {itemTypeList && itemTypeList.map((type, index) => 
+            {itemTypeList && itemTypeList.map((type, index) =>
               <option key={index} value={type}>{type}</option>
             )}
           </select>
@@ -79,7 +80,7 @@ function Sell_List() {
                 name="all"
                 onClick={checkSellType}
                 className={
-                  sellItemDto.itemType === "" ? `${style.SellType}` : `${style.SellType}`
+                  sellItemDto.sellType === "" ? `${style.cate_true}` : `${style.cate_false}`
                 }
               >
                 전 품목
@@ -91,7 +92,7 @@ function Sell_List() {
                 name="up"
                 onClick={checkSellType}
                 className={
-                  sellItemDto.itemType === "u" ? `${style.SellType}` : `${style.SellType}`
+                  sellItemDto.sellType === "u" ? `${style.cate_true}` : `${style.cate_false}`
                 }
               >
                 오름경매
@@ -103,7 +104,7 @@ function Sell_List() {
                 name="down"
                 onClick={checkSellType}
                 className={
-                  sellItemDto.itemType === "d" ? `${style.SellType}` : `${style.SellType}`
+                  sellItemDto.sellType === "d" ? `${style.cate_true}` : `${style.cate_false}`
                 }
               >
                 내림경매
@@ -115,7 +116,7 @@ function Sell_List() {
                 name="normal"
                 onClick={checkSellType}
                 className={
-                  sellItemDto.itemType === "n" ? `${style.SellType}` : `${style.SellType}`
+                  sellItemDto.sellType === "n" ? `${style.cate_true}` : `${style.cate_false}`
                 }
               >
                 일반판매
@@ -126,7 +127,13 @@ function Sell_List() {
         <div className={style.sell_bot}>
           <ul>
             <li className={style.item_info}>
-              <Link to="/sell_item">
+              {data && data.filter((item, index) => (
+                data.itemType === sellItemDto.itemType && data.sellType === sellItemDto.sellType
+                )).map((item, index) => (
+                  <Link to={`/sell_item/${item.itemNum}`}>{item.itemSub}</Link>
+                ))
+              }
+              <Link to="/sell_item/">
                 <div className={style.item_bb}>
                   <img src={require("../source/img/item01.png")} alt="제품1" />
                 </div>
