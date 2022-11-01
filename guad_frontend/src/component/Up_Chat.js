@@ -12,10 +12,27 @@ const Up_Chat = ({ nickname }) => {
     username: nickname,
     message: "",
   });
-  useEffect(() => {
-    connect();
-  }, []);
 
+  const openChat1 = useRef();
+  const openChat2 = useRef();
+  const openChat3 = useRef();
+  const openChat4 = useRef();
+  const openChat5 = useRef();
+
+  const ClickChat = () => {
+    openChat1.current.style = "top:37px; height:600px;"; // .chat_box
+    openChat2.current.style = "height:93%;"; // .chat_message
+    inputCursor.current.style = "display:inline-block;";
+    openChat4.current.style = "display:none;";
+    openChat5.current.style = "display:inline-block;";
+  };
+  const OffChat = () => {
+    openChat1.current.style = "top:598px; height:none;"; // .chat_box
+    openChat2.current.style = "height:0%;"; // .chat_message
+    inputCursor.current.style = "display:none;";
+    openChat4.current.style = "display:block;";
+    openChat5.current.style = "display:none;";
+  };
   console.log(nickname);
   const connect = () => {
     let Sock = new SockJS("http://localhost:8080/ws");
@@ -60,12 +77,23 @@ const Up_Chat = ({ nickname }) => {
       sendValue();
     }
   };
+  useEffect(() => {
+    connect();
+  }, []);
   return (
     <>
       <div className={style.container}>
-        <div className={style.chat_box}>
+        <div className={style.chat_box} ref={openChat1}>
           <div className={style.chat_content}>
-            <ul className={style.chat_messages}>
+            <ul className={style.chat_messages} ref={openChat2}>
+              <button
+                type="button"
+                className={style.close_c}
+                ref={openChat5}
+                onClick={OffChat}
+              >
+                &times;
+              </button>
               {publicChats.map((chat, index) => (
                 <li
                   className={`${style.message} ${
@@ -97,6 +125,14 @@ const Up_Chat = ({ nickname }) => {
                 onChange={handleMessage}
                 onKeyPress={handlerEnterKeyPress}
               />
+              <button
+                type="button"
+                className={style.onChat}
+                ref={openChat4}
+                onClick={ClickChat}
+              >
+                채팅 참여
+              </button>
             </div>
           </div>
         </div>
