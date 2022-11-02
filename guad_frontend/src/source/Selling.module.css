@@ -180,12 +180,25 @@
   font-weight: bold;
 }
 
+.fileupload {
+  display: inline-block;
+  width: 630px;
+}
+
 .photo_b p {
   font-weight: 300;
   font-size: 15px;
   color: #ff0000;
   text-align: left;
 }
+
+.photo_b img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  margin: 0 5px 0 5px;
+}
+
 .auction_d {
   display: block;
   text-align: left;
@@ -194,4 +207,14 @@
   background-color: white;
   font-weight: 300;
   margin-bottom: 5px;
+}
+
+/* 파일 업로드 */
+input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 }
