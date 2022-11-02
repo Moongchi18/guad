@@ -1,10 +1,22 @@
+import { useRef } from "react";
 import logo from "../../source/img/mypage.png";
 import logo_d from "../../source/img/mypage_d.png";
 import style from "../../source/ManagerMember.module.css";
+import MemeberInfo from "../Moodal/MemberInfo";
 
 function ManagerMember() {
+  const modalChange = useRef();
+
+  const closeModal = () => {
+    modalChange.current.style = "display:none;";
+  };
+
+  const openModal = () => {
+    modalChange.current.style = "display:block;";
+  };
   return (
     <>
+      <MemeberInfo modalChange={modalChange} closeModal={closeModal} />
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>관리자 페이지</h1>
         <div>
@@ -33,7 +45,7 @@ function ManagerMember() {
         <div className={style.user_detail}>
           <div className={style.user_list}>
             <div className={style.logo}>
-              <img src={logo_d} alt="1"></img>
+              <img src={logo_d} alt="1" />
             </div>
             <div className={style.name}>
               <h3>시흥기린</h3>
