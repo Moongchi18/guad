@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import style from "../../source/Moodal6.module.css";
 
-function BuyConfirm({ closeModal2, modalChange2 }) {
+function BuyConfirm({ closeModal2, modalChange2, item }) {
   useEffect(() => {}, []);
   return (
     <>

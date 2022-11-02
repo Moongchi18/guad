@@ -13,17 +13,19 @@ function SellItem({ history, match }) {
   useEffect(() => {
     axios.get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
       .then(response => {
-        console.log(response.data.auctionPeriod)
+        console.log(response.data)
         setItem(response.data)
-        const date = response.date.auctionPeriod
-        // const date2 = new Date(date1.get)
-        console.log(new Date(response.date.auctionPeriod))
-        setAcutionPeriodText(`${date.getHours()}년 ${date.getMonth()}월 ${date.getDate()}일까지`)
+        const date = new Date(response.data.auctionPeriod.slice(0, 10) + ' ' + response.data.auctionPeriod.slice(12, 19))
+        console.log(date)
+        date.setHours(date.getHours() + 9)
+        console.log(date)
+        setAcutionPeriodText(`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일 ${date.getHours()}시까지`)
       })
       .catch(error => console.log(error))
     axios.get(`http://localhost:8080/review/${match.params.itemNum}`)
       .then(response => {
         setReview(response.data)
+        console.log(response.data)
       })
       .catch(error => console.log(error))
   }, [])
@@ -50,11 +52,11 @@ function SellItem({ history, match }) {
 
   return (
     <>
-      <BuyConfirm closeModal2={closeModal2} modalChange2={modalChange2} itemNum={item.itemNum} />
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} itemNum={item.itemNum} />
+      <BuyConfirm closeModal2={closeModal2} modalChange2={modalChange2} itemNum={item.itemNum} item={item} />
+      <NotifyWrite closeModal={closeModal} modalChange={modalChange} itemNum={item.itemNum} item={item}/>
       <div id={style.item_num} className={style.item_num}>{item.itemNum}</div>
       <div className={style.item_top}>
-        <h2>{item.sellType === 'd' ? '일반판매'
+        <h2>{item.sellType === 'n' ? '일반판매'
           : (item.sellType === 'u' ? '오름경매'
             : '내림경매')}</h2>
         <div className={style.img_item}>
@@ -91,24 +93,20 @@ function SellItem({ history, match }) {
           </div>
           <div className={style.sell_bb}>
             <span className={style.sell_price}>판매가</span>
-            <span className={style.sell_number}>{item.sellType === 'n' ? item.itemPrice:item.auctionStartPrice}</span>
+            <span className={style.sell_number}>{item.sellType === 'n' ? item.itemPrice : item.auctionStartPrice}</span>
           </div>
           <div className={style.button_bb}>
             <button type="button" className={style.bb_buy} onClick={openModal2}>
               구매
             </button>
-            <span className={style.bb_date}>2022년 10월 31일까지</span>
+            <span className={style.bb_date}>{!auctionPeriodText ? '' : auctionPeriodText}</span>
           </div>
         </div>
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
         <p>
-          따끈따끈한 신상 가방 재고 처리합니다.
-          <br />
-          상태는 A급 엄청 깔끔하게 관리했습니다.
-          <br />
-          많은 관심 부탁드립니다.
+          {item.itemContents}
         </p>
         <div className={style.sell_review}>
           <h2>판매자님에 대한 리뷰</h2>
@@ -117,6 +115,16 @@ function SellItem({ history, match }) {
         </div>
         <div className={style.sell_review_show}>
           <ul>
+            {!review ? "등록된 리뷰가 없습니다." :
+              review.map((rev, index) => (
+                <li key={index}>
+                  <span>{rev.writerNickname}</span>
+                  <img src={require("../source/img/gray_star.png")} alt="회색별" />
+                  <span>{rev.starPoint}</span>
+                  <span className={style.review_write}>{rev.contents}</span>
+                </li>
+              ))
+            }
             <li>
               <span>시흥기린</span>
               <img src={require("../source/img/gray_star.png")} alt="회색별" />
