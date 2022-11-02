@@ -5,94 +5,90 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function MypageInfo({ history }) {
-
   const [data, setData] = useState({
-    email: '',
-    pass: '',
-    nickname: '',
-    phone: '',
-    address: '',
-    mileage: ''
-  })
+    email: "",
+    pass: "",
+    nickname: "",
+    phone: "",
+    address: "",
+    mileage: "",
+  });
 
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [pass, setPass] = useState('');
-  const [passConfirm, setPassConfirm] = useState('');
-  const [email2, setEmail2] = useState('');
-
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [pass, setPass] = useState("");
+  const [passConfirm, setPassConfirm] = useState("");
+  const [email2, setEmail2] = useState("");
 
   const [isPass, setIsPass] = useState(false);
   const [isPassConfirm, setIsPassConfirm] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
- 
- 
+
   const changePhone = (e) => {
-    setPhone(e.target.value)
-        
-  }
+    setPhone(e.target.value);
+  };
 
   const changeAddress = (e) => {
-    setAddress(e.target.value)
+    setAddress(e.target.value);
     // if (e.target.value.length > 0) {
     //   setIsAddress(true)
     // }
-  }
+  };
 
   const changePass = (e) => {
-
     setPass(e.target.value);
-    const passRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
-    const passCurrent = e.target.value
-    setPass(passCurrent)
+    const passRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passCurrent = e.target.value;
+    setPass(passCurrent);
 
-    if (!passRegex.test(passCurrent)) {      
-      setIsPass(false)
+    if (!passRegex.test(passCurrent)) {
+      setIsPass(false);
     } else {
-      setIsPass(true)
+      setIsPass(true);
     }
-  }
+  };
 
   const changePassConfirm = (e) => {
     setPassConfirm(e.target.value);
-    const passConfirmCurrent = e.target.value
-    setPassConfirm(passConfirmCurrent)
+    const passConfirmCurrent = e.target.value;
+    setPassConfirm(passConfirmCurrent);
 
     if (pass === passConfirmCurrent) {
-      setIsPassConfirm(true)
-    } else {      
-      setIsPassConfirm(false)
+      setIsPassConfirm(true);
+    } else {
+      setIsPassConfirm(false);
     }
-  }
+  };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/member")
-      .then(response => {
-        console.log(response.data)
-        setData({
-          email: response.data.email,
-          nickname: response.data.nickname,
-          phone: response.data.phone,
-          address: response.data.address,
-          mileage: response.data.mileage        
-        })
-        setEmail2(response.data.email)
-      })   
-  }, [])
+    axios.get("http://localhost:8080/member").then((response) => {
+      console.log(response.data);
+      setData({
+        email: response.data.email,
+        nickname: response.data.nickname,
+        phone: response.data.phone,
+        address: response.data.address,
+        mileage: response.data.mileage,
+      });
+      setEmail2(response.data.email);
+    });
+  }, []);
 
   const handlerUpdate = () => {
-    console.log({phone, address, pass, email2})
+    console.log({ phone, address, pass, email2 });
     axios
-      .post("http://localhost:8080/member/update", { phone, address, pass, email : email2 })
-      .then(response => {
-       
-        alert("수정이 완료되었습니다.")
-        history.push("/mypage")
-
+      .post("http://localhost:8080/member/update", {
+        phone,
+        address,
+        pass,
+        email: email2,
       })
-  }
+      .then((response) => {
+        alert("수정이 완료되었습니다.");
+        history.push("/mypage");
+      });
+  };
   return (
     <>
       <MoodalMileage />
@@ -137,14 +133,24 @@ function MypageInfo({ history }) {
           <h3>상세주소</h3>
           <input defaultValue={"대일빌딩 7층 1번 강의실"}></input>
           <h3>전화번호</h3>
-          <input defaultValue={data.phone} onChange={changePhone}/>
+          <input defaultValue={data.phone} onChange={changePhone} />
 
           <h3>변경 비밀번호</h3>
-          <input type="password" onChange={changePass} value={pass}/>
+          <input type="password" onChange={changePass} value={pass} />
           <h3>비밀번호 확인</h3>
-          <input type="password" onChange={changePassConfirm} value={passConfirm} />
+          <input
+            type="password"
+            onChange={changePassConfirm}
+            value={passConfirm}
+          />
         </div>
-        <button className={style.updatei} onClick={handlerUpdate} disabled={!(isPass && isPassConfirm )}>정보수정</button>
+        <button
+          className={style.updatei}
+          onClick={handlerUpdate}
+          disabled={!(isPass && isPassConfirm)}
+        >
+          정보수정
+        </button>
       </div>
     </>
   );
