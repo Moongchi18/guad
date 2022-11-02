@@ -68,31 +68,32 @@ function MypageInfo({ history }) {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/member")
-      .then(response => {
-        console.log(response.data)
-        setData({
-          email: response.data.email,
-          nickname: response.data.nickname,
-          phone: response.data.phone,
-          address: response.data.address,
-          mileage: response.data.mileage        
-        })
-        setUserEmail(response.data.email)
-      })   
-  }, [])
+    axios.get("http://localhost:8080/member").then((response) => {
+      console.log(response.data);
+      setData({
+        email: response.data.email,
+        nickname: response.data.nickname,
+        phone: response.data.phone,
+        address: response.data.address,
+        mileage: response.data.mileage,
+      });
+      setUserEmail(response.data.email);
+    });
+  }, []);
 
   const handlerUpdate = () => {   
     axios
-      .post("http://localhost:8080/member/update", { phone, address, pass, email : userEmail })
-      .then(response => {
-       
-        alert("수정이 완료되었습니다.")
-        history.push("/mypage")
-
+      .post("http://localhost:8080/member/update", {
+        phone,
+        address,
+        pass,
+        email: userEmail,
       })
-  }
+      .then((response) => {
+        alert("수정이 완료되었습니다.");
+        history.push("/mypage");
+      });
+  };
   return (
     <>
       <MoodalMileage />
