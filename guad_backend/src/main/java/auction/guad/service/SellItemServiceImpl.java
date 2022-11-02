@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.mapper.SellItemMapper;
+import auction.guad.vo.SellItemJoinMemberVo;
 
 @Service
 public class SellItemServiceImpl implements SellItemService {
@@ -21,6 +22,7 @@ public class SellItemServiceImpl implements SellItemService {
 		return sellItemMapper.sellItemList();
 	}
 
+	@Override
 	public boolean insertSellItem(SellItemDto sellItemDto) throws Exception {
 		int result = sellItemMapper.insertSellItem(sellItemDto);
 		if (result == 1) {
@@ -31,16 +33,19 @@ public class SellItemServiceImpl implements SellItemService {
 
 	}
 
-	public SellItemDto selectSellItemDetail(int itemNum) throws Exception {
+	@Override
+	public SellItemJoinMemberVo selectSellItemDetail(int itemNum) throws Exception {
 		return sellItemMapper.selectSellItemDetail(itemNum);
 
 	}
 
+	@Override
 	public void updateSellItem(SellItemDto sellItemDto) throws Exception {
 		sellItemMapper.updateSellItem(sellItemDto);
 
 	}
 
+	@Override
 	public void deleteSellItem(int itemNum) throws Exception {
 		sellItemMapper.deleteSellItem(itemNum);
 	}
@@ -94,5 +99,6 @@ public class SellItemServiceImpl implements SellItemService {
 		List<SellItemDto> itemList = sellItemMapper.selectSellItemList(startRow, COUNT_PER_PAGE);
 		return new PageDto(itemList, currentPage, startPage, endPage, totalPage);
 	}
+
 
 }

@@ -9,35 +9,28 @@ import auction.guad.dto.ReviewDto;
 import auction.guad.mapper.ReviewMapper;
 
 @Service
-public class ReviewServiceImpl implements ReviewService{
+public class ReviewServiceImpl implements ReviewService {
 
-	
 	@Autowired
 	private ReviewMapper reviewMapper;
-	
-	public List<ReviewDto> reviewList() throws Exception {
-		return reviewMapper.reviewList();		
-	}
-	
-	public int insertReview(ReviewDto reviewDto) throws Exception {
-		return reviewMapper.insertReview(reviewDto);
-		
-	}
-	
-	
-	public ReviewDto selectReviewDetail(int reviewNum) throws Exception {
-		return reviewMapper.selectReviewDetail(reviewNum);
-		
-	}
-	
-	public void updateReview(ReviewDto reviewDto) throws Exception {
-		    reviewMapper.updateReview(reviewDto);
-		
-	}
-	
-	public void deleteReview(int reviewNum) throws Exception {
-			reviewMapper.deleteReview(reviewNum);
+
+	public List<ReviewDto> selectReviewListByItemNum(int itemNum) throws Exception {
+		return reviewMapper.selectReviewListByItemNum(itemNum);
 	}
 
-	
+	@Override
+	public int insertReview(ReviewDto reviewDto) throws Exception {
+		return reviewMapper.insertReview(reviewDto);
+	}
+
+	@Override
+	public void updateReview(ReviewDto reviewDto) throws Exception {
+		reviewMapper.updateReview(reviewDto);
+	}
+
+	@Override
+	public void deleteReview(int reviewNum) throws Exception {
+		reviewMapper.deleteReview(reviewNum);
+	}
+
 }

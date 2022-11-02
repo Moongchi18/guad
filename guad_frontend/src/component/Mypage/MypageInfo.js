@@ -82,8 +82,8 @@ function MypageInfo({ history }) {
   }, []);
 
   const handlerUpdate = () => {
-    if (isPassConfirm != true) {
-      alert("이건아니야");
+    if (!(isPass && isPassConfirm)) {
+      alert("두 비밀번호가 일치하지 않습니다.");
     } else {
       axios
         .post("http://localhost:8080/member/update", {
@@ -97,6 +97,9 @@ function MypageInfo({ history }) {
           history.push("/mypage");
         });
     }
+  };
+  const warn = () => {
+    alert("정보 수정을 완료해주세요!");
   };
   return (
     <>
@@ -118,7 +121,12 @@ function MypageInfo({ history }) {
             </div>
             <div className={style.Mbox_buttoni}>
               <button className={style.memberi}>회원정보</button>
-              <button className={style.mileagei} id="mileage">
+              <button
+                className={style.mileagei}
+                id="mileage"
+                onClick={warn}
+                type="button"
+              >
                 마일리지
               </button>
             </div>
@@ -181,7 +189,6 @@ function MypageInfo({ history }) {
             type="button"
             className={`${style.updatei} ${style.btni}`}
             onClick={handlerUpdate}
-            disabled={!(isPass && isPassConfirm)}
           >
             정보수정
           </button>

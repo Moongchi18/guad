@@ -4,8 +4,8 @@
 <mapper namespace="auction.guad.mapper.ReviewMapper">
 	
 	<!-- 리뷰 조회 -->
-	<select id="selectReviewList" resultType="auction.guad.dto.ReviewDto">
-		select * from review
+	<select id="selectReviewListByItemNum" resultType="auction.guad.dto.ReviewDto">
+		SELECT * FROM REVIEW WHERE ITEM_NUM = #{itemNum}
 	</select>
 	
 	<!-- 리뷰 작성 -->

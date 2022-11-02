@@ -1,4 +1,4 @@
-package auction.guad.dto;
+package auction.guad.vo;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -6,7 +6,8 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class SellItemDto {
+public class SellItemJoinMemberVo {
+
 	private int itemNum;
 	private String sellType;
 	private String memberEmail;
@@ -29,5 +30,8 @@ public class SellItemDto {
 	private Date soldDate;
 	private String deleteYn;
 	private Date deleteDate;
-
+	
+//////////////////////////////////////////////////////////////////
+	private String nickname;
+	
 }

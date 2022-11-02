@@ -2,73 +2,90 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="auction.guad.mapper.SellItemMapper">
-	
-	<!-- 모든 상품 개수 / MEMBER, SELL_ITEM 테이블의 DELETE_YN 체크-->
+
+	<!-- 모든 상품 개수 / MEMBER, SELL_ITEM 테이블의 DELETE_YN 체크 -->
 	<select id="selectAllItemCount" resultType="int">
 		SELECT count(*)
-		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
-		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y'
+		FROM
+		SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE I.DELETE_YN
+		= 'n' AND M.DELETE_YN != 'y'
 	</select>
 	<!-- 분류별 상품 개수 -->
 	<select id="selectItemTypeCount" resultType="int">
 		SELECT count(*)
-		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
-		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y' 
-			AND I.ITEM_TYPE = #{itemType}
+		FROM
+		SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE I.DELETE_YN
+		= 'n' AND M.DELETE_YN != 'y'
+		AND I.ITEM_TYPE = #{itemType}
 	</select>
 
 	<!-- 판매타입별 상품 개수 -->
 	<select id="selectSellTypeCount" resultType="int">
 		SELECT count(*)
-		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
-		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y' 
-			AND I.SELL_TYPE = #{sellType}
+		FROM
+		SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE I.DELETE_YN
+		= 'n' AND M.DELETE_YN != 'y'
+		AND I.SELL_TYPE = #{sellType}
 	</select>
-	
+
 	<!-- 분류별, 판매타입별 상품 개수 -->
 	<select id="selectSellTypeItemTypeCount" resultType="int">
-		SELECT count(*)
-		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
-		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y' 
-			AND I.SELL_TYPE = #{sellType} AND I.ITEM_TYPE = #{itemType}
-	</select>
-	
-	<!-- 모든 상품목록 가져오기 -->
-	<select id="selectSellItemList" resultType="auction.guad.dto.SellItemDto">
-		SELECT I.*
+		SELECT
+		count(*)
 		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
 		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y'
-		ORDER BY I.ITEM_NUM DESC
-		
+		AND I.SELL_TYPE = #{sellType} AND I.ITEM_TYPE = #{itemType}
 	</select>
-	
+
+	<!-- 모든 상품목록 가져오기 -->
+	<select id="selectSellItemList"
+		resultType="auction.guad.dto.SellItemDto">
+		SELECT I.*
+		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL
+		= M.EMAIL
+		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y'
+		ORDER BY
+		I.ITEM_NUM DESC
+
+	</select>
+
 	<!-- 판매 -->
-	
+
 	<!-- 경매 및 일반 상품등록 -->
-	<insert id="insertSellItem" parameterType="auction.guad.dto.SellItemDto">
+	<insert id="insertSellItem"
+		parameterType="auction.guad.dto.SellItemDto">
 		INSERT INTO SELL_ITEM
-		(SELL_TYPE, MEMBER_EMAIL, ITEM_SUB, ITEM_CONTENTS, ITEM_PRICE, ITEM_TYPE, 
-		ITEM_D_TYPE, AUCTION_START_PRICE, AUCTION_MAX_PRICE, AUCTION_MIN_PRICE, 
+		(SELL_TYPE, MEMBER_EMAIL, ITEM_SUB,
+		ITEM_CONTENTS, ITEM_PRICE, ITEM_TYPE,
+		ITEM_D_TYPE, AUCTION_START_PRICE, AUCTION_MAX_PRICE, AUCTION_MIN_PRICE,
 		AUCTION_PERIOD, AUCTION_RANDOM_METHOD, AUCTION_DISCOUNT_PER_HOUR)
 		VALUES
-		(#{sellType}, #{memberEmail}, #{itemSub}, #{itemContents}, #{itemPrice}, #{itemType}
-		, #{itemDType}, #{auctionStartPrice}, #{auctionMaxPrice}, #{auctionMinPrice}, 
+		(#{sellType}, #{memberEmail}, #{itemSub}, #{itemContents},
+		#{itemPrice}, #{itemType}
+		, #{itemDType}, #{auctionStartPrice},
+		#{auctionMaxPrice}, #{auctionMinPrice},
 		#{auctionPeriod}, #{auctionRandomMethod}, #{auctionDiscountPerHour})
-		
-		
 	</insert>
-	
-	<select id="selectSellItemDetail" parameterType="int" resultType="auction.guad.dto.SellItemDto">
-		
+
+	<select id="selectSellItemDetail" parameterType="int"
+		resultType="auction.guad.vo.SellItemJoinMemberVo">
+		SELECT * 
+		FROM SELL_ITEM I LEFT JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE ITEM_NUM = #{itemNum}
 	</select>
-	
-	<update id="updateSellItem" parameterType="auction.guad.dto.SellItemDto">
-		
+
+	<update id="updateSellItem"
+		parameterType="auction.guad.dto.SellItemDto">
+
 	</update>
-	
+
 	<delete id="deleteSellItem" parameterType="int">
-		
+
 	</delete>
-	
+
+
 
 </mapper>
