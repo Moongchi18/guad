@@ -17,7 +17,15 @@ function SellItem({ history, match }) {
       .get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
       .then((response) => {
         console.log(response.data);
+
         setItem(response.data);
+        const tempPrice =
+        response.data.sellType === "n"
+        ? response.data.itemPrice
+        : response.data.auctionStartPrice;
+        setPresentPrice(tempPrice.toLocaleString());
+        setPrice(tempPrice);
+        
         const date = new Date(
           response.data.auctionPeriod.slice(0, 10) +
             " " +
@@ -29,12 +37,6 @@ function SellItem({ history, match }) {
             date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
-        const tempPrice =
-          response.data.sellType === "n"
-            ? response.data.itemPrice
-            : response.data.auctionStartPrice;
-        setPresentPrice(tempPrice.toLocaleString());
-        setPrice(tempPrice);
       })
       .catch((error) => console.log(error));
     axios
