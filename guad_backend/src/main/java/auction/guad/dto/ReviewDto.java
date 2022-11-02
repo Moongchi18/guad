@@ -8,7 +8,9 @@ import lombok.Data;
 public class ReviewDto {
 	private int reviewNum;
 	private int itemNum;
-	private String memberEmail;
+	private String sellerEmail;
+	private String writerEmail;
+	private	String writerNickname; 
 	
 	private String contents;
 	private int starPoint;

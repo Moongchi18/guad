@@ -36,7 +36,7 @@ function Header(props) {
               <Link to="/sell_List">판매목록</Link>
             </li>
             <li>
-              <Link to="selling">상품등록</Link>
+              <Link to="/selling">상품등록</Link>
             </li>
 
             {sessionStorage.length == 0 && (
