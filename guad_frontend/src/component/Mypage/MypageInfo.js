@@ -2,7 +2,7 @@ import style from "../../source/MypageInfo.module.css";
 import logo from "../../source/img/mypage.png";
 import MoodalMileage from "../Moodal/Mileage";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function MypageInfo({ history }) {
   const [data, setData] = useState({
@@ -24,6 +24,8 @@ function MypageInfo({ history }) {
   const [isPassConfirm, setIsPassConfirm] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
+  const [passMessage, setPassMessage] = useState("");
+  const [passConfirmMessage, setPassConfirmMessage] = useState("");
 
   const changePhone = (e) => {
     setPhone(e.target.value);
@@ -43,8 +45,10 @@ function MypageInfo({ history }) {
     setPass(passCurrent);
 
     if (!passRegex.test(passCurrent)) {
+      setPassMessage("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!");
       setIsPass(false);
     } else {
+      setPassMessage("안전한 비밀번호에요 : )");
       setIsPass(true);
     }
   };
@@ -77,17 +81,21 @@ function MypageInfo({ history }) {
 
   const handlerUpdate = () => {
     console.log({ phone, address, pass, email2 });
-    axios
-      .post("http://localhost:8080/member/update", {
-        phone,
-        address,
-        pass,
-        email: email2,
-      })
-      .then((response) => {
-        alert("수정이 완료되었습니다.");
-        history.push("/mypage");
-      });
+    if (pass == passConfirm) {
+      axios
+        .post("http://localhost:8080/member/update", {
+          phone,
+          address,
+          pass,
+          email: email2,
+        })
+        .then((response) => {
+          alert("수정이 완료되었습니다.");
+          history.push("/mypage");
+        });
+    } else {
+      alert("비밀번호가 서로 다릅니다.");
+    }
   };
   return (
     <>
@@ -127,30 +135,56 @@ function MypageInfo({ history }) {
           </div>
           <div>
             <h3 className={style.addressi}>주소</h3>
-            <input defaultValue={data.address} onChange={changeAddress}></input>
+            <input defaultValue={data.address} onChange={changeAddress} />
             <button className={style.searchi}>검색</button>
           </div>
           <h3>상세주소</h3>
-          <input defaultValue={"대일빌딩 7층 1번 강의실"}></input>
+          <input defaultValue={"대일빌딩 7층 1번 강의실"} />
           <h3>전화번호</h3>
           <input defaultValue={data.phone} onChange={changePhone} />
 
           <h3>변경 비밀번호</h3>
-          <input type="password" onChange={changePass} value={pass} />
+          <input
+            type="password"
+            onChange={changePass}
+            value={pass}
+            placeholder="숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+          />
+          {pass.length > 0 && (
+            <p style={isPass ? { color: "#248f48" } : { color: "#ff2727" }}>
+              {passMessage}
+            </p>
+          )}
           <h3>비밀번호 확인</h3>
           <input
             type="password"
             onChange={changePassConfirm}
             value={passConfirm}
+            placeholder="변경할 비밀번호를 다시 입력해주세요!"
           />
+          {passConfirm.length > 0 && (
+            <p
+              style={
+                isPassConfirm ? { color: "#248f48" } : { color: "#ff2727" }
+              }
+            >
+              {passConfirmMessage}
+            </p>
+          )}
         </div>
-        <button
-          className={style.updatei}
-          onClick={handlerUpdate}
-          disabled={!(isPass && isPassConfirm)}
-        >
-          정보수정
-        </button>
+        <div className={style.btn_area}>
+          <button type="button" className={`${style.getouti} ${style.btni}`}>
+            회원탈퇴
+          </button>
+          <button
+            type="button"
+            className={`${style.updatei} ${style.btni}`}
+            onClick={handlerUpdate}
+            disabled={!(isPass && isPassConfirm)}
+          >
+            정보수정
+          </button>
+        </div>
       </div>
     </>
   );
