@@ -18,12 +18,12 @@ function MypageInfo({ history }) {
   const [phone, setPhone] = useState("");
   const [pass, setPass] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
-  const [email2, setEmail2] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const [isPass, setIsPass] = useState(false);
   const [isPassConfirm, setIsPassConfirm] = useState(false);
-  const [isPhone, setIsPhone] = useState(false);
-  const [isAddress, setIsAddress] = useState(false);
+  // const [isPhone, setIsPhone] = useState(false);
+  // const [isAddress, setIsAddress] = useState(false);
   const [passMessage, setPassMessage] = useState("");
   const [passConfirmMessage, setPassConfirmMessage] = useState("");
 
@@ -77,27 +77,29 @@ function MypageInfo({ history }) {
         address: response.data.address,
         mileage: response.data.mileage,
       });
-      setEmail2(response.data.email);
+      setUserEmail(response.data.email);
     });
   }, []);
 
   const handlerUpdate = () => {
-    console.log({ phone, address, pass, email2 });
-    if (pass == passConfirm) {
+    if (!(isPass && isPassConfirm)) {
+      alert("두 비밀번호가 일치하지 않습니다.");
+    } else {
       axios
         .post("http://localhost:8080/member/update", {
           phone,
           address,
           pass,
-          email: email2,
+          email: userEmail,
         })
         .then((response) => {
           alert("수정이 완료되었습니다.");
           history.push("/mypage");
         });
-    } else {
-      alert("비밀번호가 서로 다릅니다.");
     }
+  };
+  const warn = () => {
+    alert("정보 수정을 완료해주세요!");
   };
   return (
     <>
@@ -119,7 +121,12 @@ function MypageInfo({ history }) {
             </div>
             <div className={style.Mbox_buttoni}>
               <button className={style.memberi}>회원정보</button>
-              <button className={style.mileagei} id="mileage">
+              <button
+                className={style.mileagei}
+                id="mileage"
+                onClick={warn}
+                type="button"
+              >
                 마일리지
               </button>
             </div>
@@ -182,7 +189,6 @@ function MypageInfo({ history }) {
             type="button"
             className={`${style.updatei} ${style.btni}`}
             onClick={handlerUpdate}
-            disabled={!(isPass && isPassConfirm)}
           >
             정보수정
           </button>

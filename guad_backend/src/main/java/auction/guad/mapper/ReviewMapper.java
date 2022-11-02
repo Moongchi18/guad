@@ -9,9 +9,8 @@ import auction.guad.dto.ReviewDto;
 @Mapper
 public interface ReviewMapper {
 
- List<ReviewDto> reviewList() throws Exception;
+ List<ReviewDto> selectReviewListByItemNum(int itemNum) throws Exception;
  int insertReview(ReviewDto reviewDto) throws Exception;
- ReviewDto selectReviewDetail(int reviewNum) throws Exception;
  void updateReview(ReviewDto reviewDto) throws Exception;
  void deleteReview(int reviewNum) throws Exception;
 	

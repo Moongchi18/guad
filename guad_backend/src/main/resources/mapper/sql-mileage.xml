@@ -5,10 +5,12 @@
 
 
 	<!-- 마일리지 충전 -->
-	 <insert id="chargeMileage" parameterType="auction.guad.dto.MileageDto">
-		INSERTO INTO MILEAGE (MEMBER_EMAIL, CHARGE_DATE, CHARGE_AMOUNT) VALUES (#{memberEmail}, now(), #{charegeAmount})
-		
-	 </insert>
+    <insert id="chargeMileage2" parameterType="auction.guad.dto.MileageDto">
+		INSERT INTO MILEAGE (CHARGE_AMOUNT, MEMBER_EMAIL) VALUES (#{chargeAmount}, #{memberEmail})		
+	 </insert> 
+	<update id="chargeMileage" parameterType="auction.guad.dto.MemberDto">
+		UPDATE MEMBER SET Mileage = mileage+(#{chargeAmount}) WHERE EMAIL = #{memberEmail}
+	</update>
 	
 	<select id="inquireMileageByEmail" parameterType="int" resultType="auction.guad.dto.MileageDto">
 		

@@ -2,8 +2,7 @@ package auction.guad.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,21 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.dto.ReviewDto;
 import auction.guad.service.ReviewService;
-
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
-@RequestMapping("/api/review")
 public class ReviewController {
 
 	@Autowired
 	private ReviewService reviewService;
 	
-	@ApiOperation(value = "리뷰 목록 조회", notes = "등록된 리뷰 목록을 조회")
-	@RequestMapping(value = "/review", method = RequestMethod.GET)
-	public List<ReviewDto> openReviewList() throws Exception {
-		return reviewService.reviewList();
+	@ApiOperation(value = "리뷰 목록 조회(email)", notes = "email로 등록된 리뷰 목록을 조회, 파라미터 : email")
+	@GetMapping("/review/{itemNum}")
+	public List<ReviewDto> selectReviewListByEmail(@PathVariable("itemNum")int itemNum) throws Exception {
+		System.out.println("리뷰호출");
+		return reviewService.selectReviewListByItemNum(itemNum);
 	}
 
 	@ApiOperation(value = "리뷰 등록", notes = "리뷰 제목과 내용을 저장")
@@ -35,20 +33,6 @@ public class ReviewController {
 			@Parameter(description = "리뷰 정보", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody ReviewDto review)
 			throws Exception {
 		reviewService.insertReview(review);
-	}
-
-	@ApiOperation(value = "리뷰 상세 조회", notes = "등록된 리뷰 상세 정보를 조회")
-	@RequestMapping(value = "/review/{reviewNum}", method = RequestMethod.GET)
-	public ResponseEntity<ReviewDto> openReviewDetail(
-			@Parameter(description = "리뷰 번호", required = true, example = "1") @PathVariable("reviewNum") int reviewNum)
-			throws Exception {
-		ReviewDto reviewDto = reviewService.selectReviewDetail(reviewNum);
-		if (reviewDto == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		} else {
-			
-			return ResponseEntity.ok(reviewDto);
-		}
 	}
 
 	@RequestMapping(value = "/review/{reviewNum}", method = RequestMethod.PUT)

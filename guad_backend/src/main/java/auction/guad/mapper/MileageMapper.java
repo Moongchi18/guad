@@ -10,8 +10,8 @@ import auction.guad.dto.MileageDto;
 @Mapper
 public interface MileageMapper {
  
-	
-	int chargeMileage(MileageDto mileageDto) throws Exception;
+    void chargeMileage2(MileageDto mileageDto) throws Exception;
+	void chargeMileage(MileageDto mileageDto) throws Exception;
 	MileageDto inquireMileageByEmail(String memberEmail) throws Exception;
 	void useMileage(MemberDto member) throws Exception;
 	void useMileage2(MemberDto member) throws Exception;

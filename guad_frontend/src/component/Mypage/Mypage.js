@@ -30,14 +30,17 @@ function Mypage() {
   const [data, setData] = useState({
     mileage: 0,
   });
+  const [isChange,setIsChange] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/member").then((response) => {
-      setData({
-        mileage: response.data.mileage,
-      });
-    });
-  }, []);
+    axios
+      .get("http://localhost:8080/member")
+      .then(response => {        
+        setData({          
+          mileage: response.data.mileage        
+        })       
+      })   
+  }, [isChange])
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -48,9 +51,13 @@ function Mypage() {
     modalChange.current.style = "display:block;";
   };
 
+  const handlerChange = () => {
+    setIsChange(!isChange)
+  }
+
   return (
     <>
-      <Mileage closeModal={closeModal} modalChange={modalChange} />
+      <Mileage closeModal={closeModal} modalChange={modalChange} handlerChange={handlerChange} isChange={isChange}/>
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>마이페이지</h1>
         <div>

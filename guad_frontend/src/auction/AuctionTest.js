@@ -50,6 +50,7 @@ function AuctionTest({match}) {
     const onMessageReceived = (payload) => {
         var payloadData = JSON.parse(payload.body);
         console.log(payloadData)
+        setDto()
         setChange(!change);
     }
 

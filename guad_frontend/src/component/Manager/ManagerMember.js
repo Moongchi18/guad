@@ -1,10 +1,35 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useRef } from "react";
 import logo from "../../source/img/mypage.png";
 import logo_d from "../../source/img/mypage_d.png";
 import style from "../../source/ManagerMember.module.css";
+import MemeberInfo from "../Moodal/MemberInfo";
 
 function ManagerMember() {
+  const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/admin/member").then((response) => {
+      console.log(response.data);
+      setDatas(response.data);
+    });
+  }, []);
+
+  const [move_e, setMove_e] = useState("");
+
+  const modalChange = useRef();
+
+  const closeModal = () => {
+    modalChange.current.style = "display:none;";
+  };
+
+  const openModal = () => {
+    modalChange.current.style = "display:block;";
+  };
   return (
     <>
+      <MemeberInfo modalChange={modalChange} closeModal={closeModal} />
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>관리자 페이지</h1>
         <div>
@@ -31,35 +56,23 @@ function ManagerMember() {
         </div>
 
         <div className={style.user_detail}>
-          <div className={style.user_list}>
-            <div className={style.logo}>
-              <img src={logo_d} alt="1"></img>
-            </div>
-            <div className={style.name}>
-              <h3>시흥기린</h3>
-            </div>
-            <div className={style.id}>
-              <h3>s5s5z@naver.com</h3>
-            </div>
-            <div className={style.address}>
-              <h3>서울시 종로구 인사동길 12 대일빌등 7층 1번 강의실</h3>
-            </div>
-          </div>
-
-          <div className={style.user_list}>
-            <div className={style.logo}>
-              <img src={logo_d} alt="1"></img>
-            </div>
-            <div className={style.name}>
-              <h3>부산물개2222</h3>
-            </div>
-            <div className={style.id}>
-              <h3>12345@naver.com</h3>
-            </div>
-            <div className={style.address}>
-              <h3>부산광역시 부산진구 연수로 11번길 5722222222222222222</h3>
-            </div>
-          </div>
+          {datas &&
+            datas.map((memberList) => (
+              <div className={style.user_list}>
+                <div className={style.logo} onClick={openModal}>
+                  <img src={logo_d} alt="1" value={memberList.memberNum} />
+                </div>
+                <div className={style.name}>
+                  <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
+                </div>
+                <div className={style.id}>
+                  <h3 key={memberList.memberNum}>{memberList.email}</h3>
+                </div>
+                <div className={style.address}>
+                  <h3 key={memberList.memberNum}>{memberList.address}</h3>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
     </>

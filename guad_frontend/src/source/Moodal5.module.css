@@ -26,6 +26,7 @@
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
   font-family: "SBAggroB";
+  border-radius: 10px;
 }
 
 .close {
