@@ -3,19 +3,23 @@ import logo from "../../source/img/mypage.png";
 import logo_d from "../../source/img/mypage_d.png";
 import sell_1 from "../../source/img/selling_item_ex1.png";
 import sell_2 from "../../source/img/selling_item_ex2.png";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Notify from "../Moodal/Notify";
 import axios from "axios";
 
 function Manager() {
-  useEffect(() => {
-    axios
-      .post("http://localhost:8080/api/mypage", {})
-      .then((response) => {})
-      .catch((error) => {});
-  }, []);
 
+  const [datas, setDatas] = useState([]);
+ 
+  useEffect(() => {
+    axios.get("http://localhost:8080/admin/member")
+    .then((response) => {
+      console.log(response.data);
+      setDatas(response.data);      
+    });
+  }, []);
+  
   return (
     <>
       <div className={style.All_Mbox}>
@@ -43,18 +47,14 @@ function Manager() {
         <div className={style.category}>
           <h3>최근 가입 회원</h3>
         </div>
-
         <div className={style.join}>
+        { datas && datas.map(memberList => (
           <div className={style.user_list}>
-            <img src={logo_d} alt="1"></img>
-            <h3>시흥기린</h3>
-          </div>
-
-          <div className={style.user_list}>
-            <img src={logo_d} alt="1"></img>
-            <h3>부산물개</h3>
-          </div>
-        </div>
+            <img src={logo_d} alt="1"></img>            
+            <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
+            </div> 
+          ) )}
+          </div>        
 
         <div className={style.category}>
           <h3>신고내역</h3>
