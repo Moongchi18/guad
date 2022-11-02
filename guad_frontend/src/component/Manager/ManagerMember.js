@@ -8,7 +8,6 @@ import MemeberInfo from "../Moodal/MemberInfo";
 
 function ManagerMember() {
   const [datas, setDatas] = useState([]);
-  const [moveEmail, setMoveEmail] = useState("11");
 
   const modalChange = useRef();
 
@@ -18,25 +17,17 @@ function ManagerMember() {
 
   const openModal = (e) => {
     modalChange.current.style = "display:block;";
-    setMoveEmail(e.target.name);
-    console.log(moveEmail);
   };
 
   useEffect(() => {
     axios.get("http://localhost:8080/admin/member").then((response) => {
       console.log(response.data);
-      console.log(response.data[0].email);
       setDatas(response.data);
     });
   }, []);
 
   return (
     <>
-      <MemeberInfo
-        modalChange={modalChange}
-        closeModal={closeModal}
-        moveEmail={moveEmail}
-      />
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>관리자 페이지</h1>
         <div>
@@ -82,6 +73,11 @@ function ManagerMember() {
                 <div className={style.address}>
                   <h3>{memberList.address}</h3>
                 </div>
+                <MemeberInfo
+                  modalChange={modalChange}
+                  closeModal={closeModal}
+                  moveEmail={memberList.email}
+                />
               </div>
             ))}
         </div>

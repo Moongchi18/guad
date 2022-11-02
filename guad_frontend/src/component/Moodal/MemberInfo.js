@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import style from "../../source/Moodal7.module.css";
 
 function MemeberInfo({ modalChange, closeModal, moveEmail }) {
-  console.log(moveEmail);
+  console.log("여긴 모달" + moveEmail);
   return (
     <>
       <div id="my-modal" className={style.modal} ref={modalChange}>
@@ -18,7 +18,7 @@ function MemeberInfo({ modalChange, closeModal, moveEmail }) {
               </li>
               <li>
                 <p className={style.front}>아이디</p>
-                <p className={style.back}>s678z@naver.com</p>
+                <p className={style.back}>{moveEmail}</p>
               </li>
               <li>
                 <p className={style.front}>주소</p>
