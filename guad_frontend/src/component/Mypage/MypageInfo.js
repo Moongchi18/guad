@@ -59,8 +59,10 @@ function MypageInfo({ history }) {
     setPassConfirm(passConfirmCurrent);
 
     if (pass === passConfirmCurrent) {
+      setPassConfirmMessage("비밀번호를 똑같이 입력했어요 : )");
       setIsPassConfirm(true);
     } else {
+      setPassConfirmMessage("비밀번호가 틀려요. 다시 확인해주세요 ㅜ ㅜ");
       setIsPassConfirm(false);
     }
   };
