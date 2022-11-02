@@ -74,7 +74,7 @@ function App() {
       <Route path="/join" component={Join} exact={true} />
       <Route path="/join_g" component={JoinG} exact={true} />
       <Route path="/sell_list" component={SellList} exact={true} />
-      <Route path="/sell_item" component={SellItem} exact={true} />
+      <Route path="/sell_item/:itemNum" component={SellItem} exact={true} />
       <Route path="/selling" component={Selling} exact={true} />
       <Route path="/sell_up" component={Sell_Up} exact={true} />
       <Route path="/sell_down" component={Sell_Down} exact={true} />
