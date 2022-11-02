@@ -98,6 +98,9 @@ function MypageInfo({ history }) {
         });
     }
   };
+  const warn = () => {
+    alert("정보 수정을 완료해주세요!");
+  };
   return (
     <>
       <MoodalMileage />
@@ -118,7 +121,12 @@ function MypageInfo({ history }) {
             </div>
             <div className={style.Mbox_buttoni}>
               <button className={style.memberi}>회원정보</button>
-              <button className={style.mileagei} id="mileage">
+              <button
+                className={style.mileagei}
+                id="mileage"
+                onClick={warn}
+                type="button"
+              >
                 마일리지
               </button>
             </div>
