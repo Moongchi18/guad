@@ -18,7 +18,7 @@ function MypageInfo({ history }) {
   const [phone, setPhone] = useState("");
   const [pass, setPass] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
-  const [email2, setEmail2] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const [isPass, setIsPass] = useState(false);
   const [isPassConfirm, setIsPassConfirm] = useState(false);
@@ -68,32 +68,33 @@ function MypageInfo({ history }) {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/member")
-      .then(response => {
-        console.log(response.data)
-        setData({
-          email: response.data.email,
-          nickname: response.data.nickname,
-          phone: response.data.phone,
-          address: response.data.address,
-          mileage: response.data.mileage        
-        })
-        setUserEmail(response.data.email)
-      })   
-  }, [])
+    axios.get("http://localhost:8080/member").then((response) => {
+      console.log(response.data);
+      setData({
+        email: response.data.email,
+        nickname: response.data.nickname,
+        phone: response.data.phone,
+        address: response.data.address,
+        mileage: response.data.mileage,
+      });
+      setUserEmail(response.data.email);
+    });
+  }, []);
 
   const handlerUpdate = () => {
-    console.log({phone, address, pass, userEmail})
+    console.log({ phone, address, pass, userEmail });
     axios
-      .post("http://localhost:8080/member/update", { phone, address, pass, email : userEmail })
-      .then(response => {
-       
-        alert("수정이 완료되었습니다.")
-        history.push("/mypage")
-
+      .post("http://localhost:8080/member/update", {
+        phone,
+        address,
+        pass,
+        email: userEmail,
       })
-  }
+      .then((response) => {
+        alert("수정이 완료되었습니다.");
+        history.push("/mypage");
+      });
+  };
   return (
     <>
       <MoodalMileage />
