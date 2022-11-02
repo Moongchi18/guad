@@ -82,8 +82,8 @@ function MypageInfo({ history }) {
   }, []);
 
   const handlerUpdate = () => {
-    if (isPassConfirm != true) {
-      alert("이건아니야");
+    if (!(isPass && isPassConfirm)) {
+      alert("두 비밀번호가 일치하지 않습니다.");
     } else {
       axios
         .post("http://localhost:8080/member/update", {
@@ -181,7 +181,6 @@ function MypageInfo({ history }) {
             type="button"
             className={`${style.updatei} ${style.btni}`}
             onClick={handlerUpdate}
-            disabled={!(isPass && isPassConfirm)}
           >
             정보수정
           </button>
