@@ -6,7 +6,7 @@ import axios from "axios";
 import Mileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
 import BuyList from "./BuyList";
-import SellList from "./SellList";
+import SellList from "../SellList";
 
 function Mypage() {
   // window.onload = function () {
