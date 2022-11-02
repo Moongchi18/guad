@@ -114,24 +114,26 @@
 }
 
 .notify .notify_list {
-  width: 250px;
   display: inline-block;
   text-align: center;
+  margin-right: 30px;
 }
 .notify .notify_list h3 {
-  width: 190px;
-  display: inline-block;
-  font-size: 20px;
-  font-family: "nanumsquare";
-  font-weight: normal;
+  width: 140px;
+  display: block;
+  padding-top: 1px;
+  font-size: 15px;
+  font-weight: 300;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #545454;
+  cursor: pointer;
 }
 
 .notify .notify_list > img {
-  width: 230px;
-  height: 230px;
+  width: 150px;
+  height: 150px;
   border-radius: 10px;
   display: inline-block;
   cursor: pointer;
