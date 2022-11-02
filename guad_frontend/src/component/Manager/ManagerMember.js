@@ -44,7 +44,7 @@ function ManagerMember() {
 
         <div className={style.user_detail}>
           <div className={style.user_list}>
-            <div className={style.logo}>
+            <div className={style.logo} onClick={openModal}>
               <img src={logo_d} alt="1" />
             </div>
             <div className={style.name}>
