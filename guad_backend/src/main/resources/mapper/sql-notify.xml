@@ -18,9 +18,10 @@
 	</select>
 
 	<!-- 신고 상세조회 -->
-	<select id="notifyDetail" resultType="auction.guad.dto.NotifyDto">
-		SELECT NOTIFY_NUM, ITEM_NUM, MEMBER_EMAIL, NOTIFY_TITLE, NOTIFY_CONTENTS, NOTIFY_TIME FROM NOTIFY
-		WHERE NOTIFY_NUM = #{notifyNum}
+	<select id="notifyDetail" resultType="auction.guad.vo.NotifyVo">
+		SELECT N.NOTIFY_NUM, N.ITEM_NUM, N.MEMBER_EMAIL, N.NOTIFY_TITLE, N.NOTIFY_CONTENTS, N.NOTIFY_TIME, S.MEMBER_EMAIL AS SELLER_EMAIL, I.IMG_NUM 
+		FROM NOTIFY N LEFT JOIN SELL_ITEM S ON N.ITEM_NUM = S.ITEM_NUM LEFT JOIN IMG I ON N.ITEM_NUM = I.ITEM_NUM
+		WHERE N.NOTIFY_NUM = #{notifyNum} ORDER BY I.IMG_NUM DESC LIMIT 1
 	</select>
-	
+
 </mapper>

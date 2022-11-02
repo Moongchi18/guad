@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import auction.guad.dto.MemberDto;
 import auction.guad.dto.NotifyDto;
 import auction.guad.service.NotifyService;
+import auction.guad.vo.NotifyVo;
 import io.swagger.annotations.ApiOperation;
 
 
@@ -56,11 +57,13 @@ public class NotifyController {
 	
 	@ApiOperation(value = "신고리스트 상세 조회(NotifyDto)", notes = "신고 상세 조회, 파라미터 : NotifyDto")
 	@GetMapping("/admin/{notifyNum}")
-	public NotifyDto notifyDetail(@PathVariable String notifyNum) throws Exception {
+	public NotifyVo notifyDetail(@PathVariable String notifyNum) throws Exception {
 		System.out.println(">>>>>>>>>>>>>>>>>"+ notifyNum);
 		System.out.println(">>>>>>>>>>>>>>>>>"+ notifyService.notifyDetail(notifyNum));
 		
+		
 		return notifyService.notifyDetail(notifyNum);
+		
 	}
 	
 }
