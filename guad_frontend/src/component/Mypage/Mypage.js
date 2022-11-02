@@ -32,14 +32,12 @@ function Mypage() {
   });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/member")
-      .then(response => {        
-        setData({          
-          mileage: response.data.mileage        
-        })        
-      })   
-  }, [data])
+    axios.get("http://localhost:8080/member").then((response) => {
+      setData({
+        mileage: response.data.mileage,
+      });
+    });
+  }, []);
 
   const modalChange = useRef();
   const closeModal = () => {

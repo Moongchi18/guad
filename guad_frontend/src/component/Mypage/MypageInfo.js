@@ -81,18 +81,22 @@ function MypageInfo({ history }) {
     });
   }, []);
 
-  const handlerUpdate = () => {   
-    axios
-      .post("http://localhost:8080/member/update", {
-        phone,
-        address,
-        pass,
-        email: userEmail,
-      })
-      .then((response) => {
-        alert("수정이 완료되었습니다.");
-        history.push("/mypage");
-      });
+  const handlerUpdate = () => {
+    if (isPassConfirm != true) {
+      alert("이건아니야");
+    } else {
+      axios
+        .post("http://localhost:8080/member/update", {
+          phone,
+          address,
+          pass,
+          email: userEmail,
+        })
+        .then((response) => {
+          alert("수정이 완료되었습니다.");
+          history.push("/mypage");
+        });
+    }
   };
   return (
     <>
