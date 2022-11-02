@@ -211,7 +211,6 @@ function Selling({ history }) {
   const formData = new FormData();
   const [imgBase64, setImgBase64] = useState([]);
   const [imgBase, setImgBase] = useState([1,2,3]);
-  const [length, setLength] = useState(0);
   const [imgFile, setImgFile] = useState(null);
  
 
@@ -222,25 +221,32 @@ function Selling({ history }) {
     //fd.append("file", event.target.files)
     const newImgBase = [ 1, 2, 3]
     setImgBase64([]);
-    for (var i = 0; i < event.target.files.length; i++) {
-      if (event.target.files[i]) {
-        let reader = new FileReader();
-        reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
-        // 파일 상태 업데이트
-        reader.onloadend = () => {
-          // 2. 읽기가 완료되면 아래코드가 실행됩니다.
-          const base64 = reader.result;
-          newImgBase.pop()
-          
-         
-          if (base64) {
-            //  images.push(base64.toString())
-            var base64Sub = base64.toString()
-            setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
-            setImgBase(newImgBase)
-            //  setImgBase64(newObj);
-            // 파일 base64 상태 업데이트
-            //  console.log(images)
+
+    if (event.target.files.length >= 4) {
+      alert('이미지는 최대 3개 까지 업로드가 가능합니다.');
+      const newImgBase = [ 1, 2, 3]
+      setImgBase(newImgBase)
+      setImgBase64([]);
+    }else {
+      for (var i = 0; i < event.target.files.length; i++) {
+        if (event.target.files[i]) {
+          let reader = new FileReader();
+          reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
+          // 파일 상태 업데이트
+          reader.onloadend = () => {
+            // 2. 읽기가 완료되면 아래코드가 실행됩니다.
+            const base64 = reader.result;
+            newImgBase.pop()
+            
+            if (base64) {
+              //  images.push(base64.toString())
+              var base64Sub = base64.toString()
+              setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
+              setImgBase(newImgBase)
+              //  setImgBase64(newObj);
+              // 파일 base64 상태 업데이트
+              //  console.log(images)
+            }
           }
         }
       }
