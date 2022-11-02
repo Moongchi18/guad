@@ -9,6 +9,16 @@ import MemeberInfo from "../Moodal/MemberInfo";
 function ManagerMember() {
   const [datas, setDatas] = useState([]);
 
+  const modalChange = useRef();
+
+  const closeModal = () => {
+    modalChange.current.style = "display:none;";
+  };
+
+  const openModal = (e) => {
+    modalChange.current.style = "display:block;";
+  };
+
   useEffect(() => {
     axios.get("http://localhost:8080/admin/member").then((response) => {
       console.log(response.data);
@@ -16,20 +26,8 @@ function ManagerMember() {
     });
   }, []);
 
-  const [move_e, setMove_e] = useState("");
-
-  const modalChange = useRef();
-
-  const closeModal = () => {
-    modalChange.current.style = "display:none;";
-  };
-
-  const openModal = () => {
-    modalChange.current.style = "display:block;";
-  };
   return (
     <>
-      <MemeberInfo modalChange={modalChange} closeModal={closeModal} />
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>관리자 페이지</h1>
         <div>
@@ -58,19 +56,28 @@ function ManagerMember() {
         <div className={style.user_detail}>
           {datas &&
             datas.map((memberList) => (
-              <div className={style.user_list}>
-                <div className={style.logo} onClick={openModal}>
+              <div className={style.user_list} key={memberList.memberNum}>
+                <div
+                  className={style.logo}
+                  onClick={openModal}
+                  name={memberList.email}
+                >
                   <img src={logo_d} alt="1" value={memberList.memberNum} />
                 </div>
                 <div className={style.name}>
-                  <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
+                  <h3>{memberList.nickname}</h3>
                 </div>
                 <div className={style.id}>
-                  <h3 key={memberList.memberNum}>{memberList.email}</h3>
+                  <h3>{memberList.email}</h3>
                 </div>
                 <div className={style.address}>
-                  <h3 key={memberList.memberNum}>{memberList.address}</h3>
+                  <h3>{memberList.address}</h3>
                 </div>
+                <MemeberInfo
+                  modalChange={modalChange}
+                  closeModal={closeModal}
+                  moveEmail={memberList.email}
+                />
               </div>
             ))}
         </div>
