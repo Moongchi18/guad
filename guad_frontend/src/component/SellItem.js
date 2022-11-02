@@ -5,36 +5,46 @@ import BuyConfirm from "./Moodal/BuyConfirm";
 import axios from "axios";
 
 function SellItem({ history, match }) {
-  const [item, setItem] = useState({})
-  const [review, setReview] = useState([])
+  const [item, setItem] = useState({});
+  const [review, setReview] = useState([]);
   const [auctionPeriodText, setAcutionPeriodText] = useState();
   const [presentPrice, setPresentPrice] = useState(0);
   const [price, setPrice] = useState(0);
 
-  console.log(presentPrice)
+  console.log(presentPrice);
   useEffect(() => {
-    axios.get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
-      .then(response => {
-        console.log(response.data)
-        setItem(response.data)
-        const date = new Date(response.data.auctionPeriod.slice(0, 10) + ' ' + response.data.auctionPeriod.slice(12, 19))
-        console.log(date)
-        date.setHours(date.getHours() + 9)
-        console.log(date)
-        setAcutionPeriodText(`${date.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일 ${date.getHours()}시까지`)
-        const tempPrice = response.data.sellType === 'n' ? response.data.itemPrice:response.data.auctionStartPrice
-        console.log(tempPrice)
-        setPresentPrice(tempPrice.toLocaleString())
-        setPrice(tempPrice)
+    axios
+      .get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
+      .then((response) => {
+        console.log(response.data);
+        setItem(response.data);
+        const date = new Date(
+          response.data.auctionPeriod.slice(0, 10) +
+            " " +
+            response.data.auctionPeriod.slice(12, 19)
+        );
+        date.setHours(date.getHours() + 9);
+        setAcutionPeriodText(
+          `${date.getFullYear()}년 ${
+            date.getMonth() + 1
+          }월 ${date.getDate()}일 ${date.getHours()}시까지`
+        );
+        const tempPrice =
+          response.data.sellType === "n"
+            ? response.data.itemPrice
+            : response.data.auctionStartPrice;
+        setPresentPrice(tempPrice.toLocaleString());
+        setPrice(tempPrice);
       })
-      .catch(error => console.log(error))
-    axios.get(`http://localhost:8080/review/${match.params.itemNum}`)
-      .then(response => {
-        setReview(response.data)
-        console.log(response.data)
+      .catch((error) => console.log(error));
+    axios
+      .get(`http://localhost:8080/review/${match.params.itemNum}`)
+      .then((response) => {
+        setReview(response.data);
+        console.log(response.data);
       })
-      .catch(error => console.log(error))
-  }, [])
+      .catch((error) => console.log(error));
+  }, []);
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -54,17 +64,32 @@ function SellItem({ history, match }) {
     modalChange2.current.style = "display:block;";
   };
 
-
-
   return (
     <>
-      <BuyConfirm closeModal2={closeModal2} modalChange2={modalChange2} itemNum={item.itemNum} item={item} presentPrice={presentPrice} price={price}/>
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} itemNum={item.itemNum}/>
-      <div id={style.item_num} className={style.item_num}>{item.itemNum}</div>
+      <BuyConfirm
+        closeModal2={closeModal2}
+        modalChange2={modalChange2}
+        itemNum={item.itemNum}
+        item={item}
+        presentPrice={presentPrice}
+        price={price}
+      />
+      <NotifyWrite
+        closeModal={closeModal}
+        modalChange={modalChange}
+        itemNum={item.itemNum}
+      />
+      <div id={style.item_num} className={style.item_num}>
+        {item.itemNum}
+      </div>
       <div className={style.item_top}>
-        <h2>{item.sellType === 'n' ? '일반판매'
-          : (item.sellType === 'u' ? '오름경매'
-            : '내림경매')}</h2>
+        <h2>
+          {item.sellType === "n"
+            ? "일반판매"
+            : item.sellType === "u"
+            ? "오름경매"
+            : "내림경매"}
+        </h2>
         <div className={style.img_item}>
           <img src={require("../source/img/big_item.png")} alt="제품사진" />
           <ul>
@@ -105,15 +130,15 @@ function SellItem({ history, match }) {
             <button type="button" className={style.bb_buy} onClick={openModal2}>
               구매
             </button>
-            <span className={style.bb_date}>{!auctionPeriodText ? '' : auctionPeriodText}</span>
+            <span className={style.bb_date}>
+              {!auctionPeriodText ? "" : auctionPeriodText}
+            </span>
           </div>
         </div>
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
-        <p>
-          {item.itemContents}
-        </p>
+        <p>{item.itemContents}</p>
         <div className={style.sell_review}>
           <h2>판매자님에 대한 리뷰</h2>
           <img src={require("../source/img/red_star.png")} alt="붉은별" />
@@ -121,16 +146,19 @@ function SellItem({ history, match }) {
         </div>
         <div className={style.sell_review_show}>
           <ul>
-            {!review ? "등록된 리뷰가 없습니다." :
-              review.map((rev, index) => (
-                <li key={index}>
-                  <span>{rev.writerNickname}</span>
-                  <img src={require("../source/img/gray_star.png")} alt="회색별" />
-                  <span>{rev.starPoint}</span>
-                  <span className={style.review_write}>{rev.contents}</span>
-                </li>
-              ))
-            }
+            {!review
+              ? "등록된 리뷰가 없습니다."
+              : review.map((rev, index) => (
+                  <li key={index}>
+                    <span>{rev.writerNickname}</span>
+                    <img
+                      src={require("../source/img/gray_star.png")}
+                      alt="회색별"
+                    />
+                    <span>{rev.starPoint}</span>
+                    <span className={style.review_write}>{rev.contents}</span>
+                  </li>
+                ))}
             <li>
               <span>시흥기린</span>
               <img src={require("../source/img/gray_star.png")} alt="회색별" />

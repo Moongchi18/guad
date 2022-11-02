@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import style from "../../source/Moodal6.module.css";
 
 function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price }) {
@@ -9,21 +10,22 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price }) {
   const [result, setResult] = useState(0);
 
   useEffect(() => {
-    setDto(item)
-    setPurchasePrice(presentPrice)
+    setDto(item);
+    setPurchasePrice(presentPrice);
   }, [item, presentPrice]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/member")
-    .then(response => {
-      console.log(response.data)
-      setMember(response.data)
-      const tempResult = response.data.mileage - price
-      console.log(tempResult)
-      setResult(tempResult)
-    })
-    .catch(error => console.log(error))
-  }, [price])
+    axios
+      .get("http://localhost:8080/member")
+      .then((response) => {
+        console.log(response.data);
+        setMember(response.data);
+        const tempResult = response.data.mileage - price;
+        console.log(tempResult);
+        setResult(tempResult);
+      })
+      .catch((error) => console.log(error));
+  }, [price]);
 
   return (
     <>
@@ -34,7 +36,10 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price }) {
           </div>
           <div className={style.modalbody2}>
             <div className={style.info_b}>
-              <img src={require("../../source/img/item01.png")} alt="상품이미지" />
+              <img
+                src={require("../../source/img/item01.png")}
+                alt="상품이미지"
+              />
               <div className={style.info_in}>
                 <span className={style.info1}>상품 정보</span>
                 <span className={style.info2}>{dto.itemSub}</span>
@@ -69,14 +74,15 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price }) {
             <p>
               거래 후 마일리지 <strong>{member && result}</strong>
             </p>
-
-            <button
-              type="button"
-              className={style.outbtn1}
-              onClick={closeModal2}
-            >
-              결제완료
-            </button>
+            <Link to="/sell_after">
+              <button
+                type="button"
+                className={style.outbtn1}
+                onClick={closeModal2}
+              >
+                결제완료
+              </button>
+            </Link>
             <button
               type="button"
               className={style.outbtn2}
