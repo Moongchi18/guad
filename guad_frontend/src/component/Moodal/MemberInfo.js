@@ -1,14 +1,6 @@
 import style from "../../source/Moodal7.module.css";
 
-
-
 function MemeberInfo({ modalChange, closeModal }) {
-
-useEffect(() => {
-  setItemNum(document.getElementById(`${style.item_num}`).innerText);
-    
-  },[])
-
 
   return (
     <>
