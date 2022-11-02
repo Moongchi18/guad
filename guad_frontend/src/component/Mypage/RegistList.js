@@ -2,11 +2,11 @@ import style from "../../source/Mypage.module.css";
 import { useState } from "react";
 
 function RegistList() {
-    const [sellList, setSellList] = useState({});
+  const [sellList, setSellList] = useState({});
 
   return (
     <>
-      <div className={style.category}>
+      <div className={`${style.category} ${style.category1}`}>
         <h3>등록 상품 내역</h3>
       </div>
       <div className={style.insert_list}>
@@ -21,7 +21,10 @@ function RegistList() {
         {sellList && (
           <div>
             <div className={style.item_bb}>
-              <img src={require("../../source/img/selling_item_ex2.png")} alt="1"></img>
+              <img
+                src={require("../../source/img/selling_item_ex2.png")}
+                alt="1"
+              ></img>
               <img
                 src={require("../../source/img/del1.png")}
                 alt="1"
@@ -30,7 +33,10 @@ function RegistList() {
             </div>
 
             <div className={style.item_bb}>
-              <img src={require("../../source/img/selling_item_ex2.png")} alt="1"></img>
+              <img
+                src={require("../../source/img/selling_item_ex2.png")}
+                alt="1"
+              ></img>
               <img
                 src={require("../../source/img/del2.png")}
                 alt="1"

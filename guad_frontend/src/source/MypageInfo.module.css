@@ -130,6 +130,16 @@
   padding-left: 10px;
   font-weight: 300;
 }
+.member_infoi > input::placeholder {
+  font-size: 13px;
+  color: #a5a5a5;
+}
+.member_infoi > p {
+  font-size: 13px;
+  font-weight: 300;
+  margin-top: 5px;
+  margin-left: 100px;
+}
 
 .member_infoi > div > input {
   text-align: left;
@@ -162,17 +172,27 @@
 .addressi {
   width: 100px !important;
 }
-
-.updatei {
-  text-align: center;
+.btn_area {
   display: block;
   margin: 70px auto;
+  text-align: center;
+  font-weight: 300;
+}
+.btni {
+  color: #989898;
   background-color: #d9d9d9;
   width: 150px;
   height: 40px;
   border-radius: 5px;
   cursor: pointer;
-  font-weight: 300;
+}
+.getouti {
+  margin-right: 10px;
+}
+.getouti:hover {
+  background-color: #e63947;
+  color: white;
+  transition: 0.3s all ease;
 }
 .updatei:hover {
   background-color: #797979;

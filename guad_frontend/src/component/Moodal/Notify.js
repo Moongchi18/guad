@@ -38,7 +38,7 @@ function Notify({ closeModal, modalChange, notifyNum}) {
                 <div className={style.modalbody}>
                   <div className={style.seller}>
                     <h3 className={style.seller}>판매자</h3>
-                    <h3>asd@naver.com</h3>
+                    <h3>{datas.sellerEmail}</h3>
                   </div>
                   <div className={style.category}>
                     <h3 className={style.title}>제목</h3>

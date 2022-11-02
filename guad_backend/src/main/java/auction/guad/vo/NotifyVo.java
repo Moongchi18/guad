@@ -1,12 +1,13 @@
-package auction.guad.dto;
+package auction.guad.vo;
 
 import java.util.Date;
+
 
 import lombok.Data;
 
 @Data
-public class NotifyDto {
-
+public class NotifyVo {
+	
 	private int notifyNum;
 	private int itemNum;
 	private String memberEmail;
@@ -15,4 +16,8 @@ public class NotifyDto {
 	private String notifyContents;
 	private Date notifyTime;
 	
+	
+	private int imgNum;
+	private String sellerEmail;
+
 }

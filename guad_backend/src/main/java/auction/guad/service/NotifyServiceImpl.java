@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import auction.guad.dto.MemberDto;
 import auction.guad.dto.NotifyDto;
 import auction.guad.mapper.NotifyMapper;
+import auction.guad.vo.NotifyVo;
 
 @Service
 public class NotifyServiceImpl implements NotifyService{
@@ -30,7 +31,7 @@ public class NotifyServiceImpl implements NotifyService{
 	}
 
 	@Override
-	public NotifyDto notifyDetail(String notifyNum) throws Exception {
+	public NotifyVo notifyDetail(String notifyNum) throws Exception {
 		
 		return notifyMapper.notifyDetail(notifyNum);
 		
