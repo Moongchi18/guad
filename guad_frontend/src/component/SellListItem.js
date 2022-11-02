@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
-function SellListItem({ item, index, handlerCount}) {
-    handlerCount(index)
+function SellListItem({ item }) {
     return (
         <>
             <li className={style.item_info}>
