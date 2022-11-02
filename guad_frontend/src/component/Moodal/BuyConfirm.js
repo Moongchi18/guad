@@ -1,8 +1,30 @@
-import React, { useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import style from "../../source/Moodal6.module.css";
 
-function BuyConfirm({ closeModal2, modalChange2, item }) {
-  useEffect(() => {}, []);
+function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price }) {
+  const [dto, setDto] = useState([]);
+  const [purchasePrice, setPurchasePrice] = useState();
+  const [member, setMember] = useState({});
+  const [result, setResult] = useState(0);
+
+  useEffect(() => {
+    setDto(item)
+    setPurchasePrice(presentPrice)
+  }, [item, presentPrice]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/member")
+    .then(response => {
+      console.log(response.data)
+      setMember(response.data)
+      const tempResult = response.data.mileage - price
+      console.log(tempResult)
+      setResult(tempResult)
+    })
+    .catch(error => console.log(error))
+  }, [price])
+
   return (
     <>
       <div className={style.modal2} ref={modalChange2}>
@@ -15,17 +37,17 @@ function BuyConfirm({ closeModal2, modalChange2, item }) {
               <img src={require("../../source/img/item01.png")} alt="상품이미지" />
               <div className={style.info_in}>
                 <span className={style.info1}>상품 정보</span>
-                <span className={style.info2}>디올 가방 재고 처리합니다!</span>
+                <span className={style.info2}>{dto.itemSub}</span>
                 <span className={style.info3}>상품 가격</span>
-                <span className={style.info4}>450,000</span>
+                <span className={style.info4}>{purchasePrice}</span>
               </div>
             </div>
             <div className={style.info_c}>
               <span>
-                내 마일리지<strong>1,000,000</strong>
+                내 마일리지<strong>{member.mileage}</strong>
               </span>
               <span>
-                상품 가격<strong>- 450,000</strong>
+                상품 가격<strong>- {purchasePrice}</strong>
               </span>
             </div>
 
@@ -45,7 +67,7 @@ function BuyConfirm({ closeModal2, modalChange2, item }) {
           <div className={style.modalfooter2}>
             <h2>거래결과</h2>
             <p>
-              거래 후 마일리지 <strong>550,00</strong>
+              거래 후 마일리지 <strong>{member && result}</strong>
             </p>
 
             <button

@@ -8,8 +8,10 @@ function SellItem({ history, match }) {
   const [item, setItem] = useState({})
   const [review, setReview] = useState([])
   const [auctionPeriodText, setAcutionPeriodText] = useState();
+  const [presentPrice, setPresentPrice] = useState(0);
+  const [price, setPrice] = useState(0);
 
-  console.log(match.params.itemNum)
+  console.log(presentPrice)
   useEffect(() => {
     axios.get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
       .then(response => {
@@ -19,7 +21,11 @@ function SellItem({ history, match }) {
         console.log(date)
         date.setHours(date.getHours() + 9)
         console.log(date)
-        setAcutionPeriodText(`${date.getFullYear()}년 ${date.getMonth()}월 ${date.getDate()}일 ${date.getHours()}시까지`)
+        setAcutionPeriodText(`${date.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일 ${date.getHours()}시까지`)
+        const tempPrice = response.data.sellType === 'n' ? response.data.itemPrice:response.data.auctionStartPrice
+        console.log(tempPrice)
+        setPresentPrice(tempPrice.toLocaleString())
+        setPrice(tempPrice)
       })
       .catch(error => console.log(error))
     axios.get(`http://localhost:8080/review/${match.params.itemNum}`)
@@ -52,8 +58,8 @@ function SellItem({ history, match }) {
 
   return (
     <>
-      <BuyConfirm closeModal2={closeModal2} modalChange2={modalChange2} itemNum={item.itemNum} item={item} />
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} itemNum={item.itemNum} item={item}/>
+      <BuyConfirm closeModal2={closeModal2} modalChange2={modalChange2} itemNum={item.itemNum} item={item} presentPrice={presentPrice} price={price}/>
+      <NotifyWrite closeModal={closeModal} modalChange={modalChange} itemNum={item.itemNum}/>
       <div id={style.item_num} className={style.item_num}>{item.itemNum}</div>
       <div className={style.item_top}>
         <h2>{item.sellType === 'n' ? '일반판매'
@@ -93,7 +99,7 @@ function SellItem({ history, match }) {
           </div>
           <div className={style.sell_bb}>
             <span className={style.sell_price}>판매가</span>
-            <span className={style.sell_number}>{item.sellType === 'n' ? item.itemPrice : item.auctionStartPrice}</span>
+            <span className={style.sell_number}>{presentPrice}</span>
           </div>
           <div className={style.button_bb}>
             <button type="button" className={style.bb_buy} onClick={openModal2}>
