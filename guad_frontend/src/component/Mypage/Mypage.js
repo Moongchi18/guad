@@ -6,7 +6,7 @@ import axios from "axios";
 import Mileage from "../Moodal/Mileage";
 import RegistList from "./RegistList";
 import BuyList from "./BuyList";
-import SellList from "../SellList";
+import UserSellList from "./UserSellList";
 
 function Mypage() {
   // window.onload = function () {
@@ -28,19 +28,16 @@ function Mypage() {
   // };
 
   const [data, setData] = useState({
-    mileage : 0
+    mileage: 0,
   });
-  
-  
+
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/member")
-      .then(response => {        
-        setData({          
-          mileage: response.data.mileage        
-        })        
-      })   
-  }, [])
+    axios.get("http://localhost:8080/member").then((response) => {
+      setData({
+        mileage: response.data.mileage,
+      });
+    });
+  }, []);
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -87,7 +84,7 @@ function Mypage() {
         </div>
         <RegistList />
         <BuyList />
-        <SellList />
+        <UserSellList />
       </div>
     </>
   );
