@@ -79,7 +79,7 @@ function App() {
       <Route path="/sell_up" component={Sell_Up} exact={true} />
       <Route path="/sell_down" component={Sell_Down} exact={true} />
       <Route path="/sell_end" component={Sell_End} exact={true} />
-      <Route path="/sell_after" component={Sell_After} exact={true} />
+      <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />
       <Footer />
     </>
   );

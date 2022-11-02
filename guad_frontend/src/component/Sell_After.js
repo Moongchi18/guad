@@ -1,9 +1,23 @@
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import style from "../source/Sell_After.module.css";
 import BuyReview from "./Moodal/BuyReview";
 
-function Sell_After({ history }) {
+function Sell_After({ history, match }) {
+
+  const [item, setItem] = useState("");
+  
+  useEffect(() => {
+    axios.get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
+    .then((response) => {
+      console.log(response.data);
+      setItem(response.data);      
+    });
+  }, []);
+
   const modalOpen = useRef();
 
   const closeModal = () => {
@@ -33,7 +47,7 @@ function Sell_After({ history }) {
             <p> / </p>
             <p>가방</p>
           </span>
-          <span className={style.title}>디올 가방 재고 처리합니다!</span>
+          <span className={style.title}>{item.itemContents}</span>
           <p className={style.add}>
             배송주소<strong>서울시 종로구 인사동길 12 대일빌딩 7층</strong>
           </p>
