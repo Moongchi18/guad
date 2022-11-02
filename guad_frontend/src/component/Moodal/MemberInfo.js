@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import style from "../../source/Moodal7.module.css";
 
 function MemeberInfo({ modalChange, closeModal }) {
-  useEffect(() => {}, []);
 
   return (
     <>
