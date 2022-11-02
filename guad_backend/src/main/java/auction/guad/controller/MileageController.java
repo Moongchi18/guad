@@ -18,16 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 import auction.guad.dto.MemberDto;
 import auction.guad.dto.MileageDto;
 import auction.guad.service.MileageServiceImpl;
+import auction.guad.service.MemberService;
 import auction.guad.service.MileageService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
-@RequestMapping("/api/mileage")
 public class MileageController {
 
 	@Autowired
-	private MileageService mileageService;
+	MileageService mileageService;	
+ 
+	MemberService memberService;
 	
 	@ApiOperation(value = "마일리지 충전", notes = "입금 금액 마일리지 충전")
 	@PostMapping("/mileage")
@@ -35,6 +37,7 @@ public class MileageController {
 			throws Exception {
 	    mileage.setMemberEmail(user.getUsername());
 		mileageService.chargeMileage(mileage);
+		
 	}
 
 	@ApiOperation(value = "마일리지 충전내역 조회", notes = "해당 회원의 마일리지 충전 내역 조회")

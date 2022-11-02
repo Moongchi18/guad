@@ -24,4 +24,6 @@ public interface MemberService extends UserDetailsService{
 	public int repetitionNicknameCheck(String nickname) throws Exception;
 	public boolean checkPass(User user, MemberDto member) throws Exception;
 	
+//	public void mileageCharge(MemberDto memberDto) throws Exception;
+//	
 }

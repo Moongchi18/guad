@@ -3,7 +3,7 @@
   text-align: center;
   font-family: "SBAggroB";
   width: 1130px;
-  margin: 0 auto 50px;
+  margin: 0 auto 140px;
 }
 
 .page_name {
@@ -83,7 +83,10 @@
 }
 
 .category {
-  margin-top: 50px;
+  margin-top: 100px;
+}
+.category1 {
+  margin-top: 40px;
 }
 
 .category h3 {
@@ -119,14 +122,15 @@
 
 .item_bb {
   display: inline-block;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   position: relative;
-  margin: 30px 30px 0 0;
+  margin: 30px 30px 30px 0;
 }
 
 .item_bb .del_icon {
-  width: 20px;
+  width: 30px;
+  height: 30px;
   padding: 0 !important;
   position: absolute;
   right: 5px;
@@ -135,21 +139,19 @@
 
 .buy_list {
   text-align: left;
-  height: 180px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .buy_list_info {
-  margin-top: 30px;
+  margin-top: 45px;
   display: inline-block;
   vertical-align: top;
-  margin-left: 30px;
 }
 
 .buy_list_info h3 {
   padding-top: 12px;
   font-weight: 300;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .buy_list_info strong {
@@ -238,12 +240,11 @@
 
 .sell_list {
   text-align: left;
-  height: 180px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .sell_list_info {
-  margin-top: 30px;
+  margin-top: 45px;
   display: inline-block;
   vertical-align: top;
 }
@@ -251,7 +252,7 @@
 .sell_list_info h3 {
   padding-top: 12px;
   font-weight: 300;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .sell_list_info strong {

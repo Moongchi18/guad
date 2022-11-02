@@ -2,21 +2,25 @@ import style from "../../source/Moodal5.module.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
-function Mileage({ closeModal, modalChange }) {
+function Mileage({ closeModal, modalChange, history, handlerChange, isChange }) {
   const [data, setData] = useState({
-    mileage: 0,
+    email : '',
+    mileage: 0
   });
 
   const [chargeMileage, setChargeMileage] = useState(0);
   const [totalMileage, setTotalMileage] = useState(0);
-
+  const [userEmail, setUserEmail] = useState('');
+  
   useEffect(() => {
     axios.get("http://localhost:8080/member").then((response) => {
       setData({
-        mileage: response.data.mileage,
+        email : response.data.email,
+        mileage: response.data.mileage
       });
+      setUserEmail(response.data.email)
     });
-  }, []);
+  }, [isChange]);
 
   const changeMileage = (e) => {
     setChargeMileage(e.target.value);
@@ -24,9 +28,17 @@ function Mileage({ closeModal, modalChange }) {
   };
 
   const handleCharge = () => {
-    axios.post("http://localhost:8080/mileage", {chargeAmount : chargeMileage})
-    .then(response => console.log(response)
-    ,alert('마일리지 충전이 완료되었습니다'))
+    console.log(userEmail, chargeMileage)
+    axios.post("http://localhost:8080/mileage", {chargeAmount : chargeMileage, memberEmail : userEmail})
+    .then((response) => {
+      console.log(response)
+      alert("충전이 완료되었습니다.")
+      handlerChange()
+      setData({...data, mileage:data.mileage+chargeMileage})
+      setChargeMileage(0)
+
+      modalChange.current.style = "display:none;"                 
+    })
   }
 
 

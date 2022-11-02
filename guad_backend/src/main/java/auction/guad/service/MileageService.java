@@ -5,7 +5,7 @@ import auction.guad.dto.MileageDto;
 
 public interface MileageService {
 	
-	public int chargeMileage(MileageDto mileageDto) throws Exception;
+	public void chargeMileage(MileageDto mileageDto) throws Exception;
 	public MileageDto inquireMileageByEmail(String memberEmail) throws Exception;
 	
 	public void useMileage(MemberDto member) throws Exception;
