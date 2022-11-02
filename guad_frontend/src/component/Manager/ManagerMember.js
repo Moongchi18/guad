@@ -6,19 +6,17 @@ import logo_d from "../../source/img/mypage_d.png";
 import style from "../../source/ManagerMember.module.css";
 import MemeberInfo from "../Moodal/MemberInfo";
 
-
-
 function ManagerMember() {
-
   const [datas, setDatas] = useState([]);
- 
+
   useEffect(() => {
-    axios.get("http://localhost:8080/admin/member")
-    .then((response) => {
+    axios.get("http://localhost:8080/admin/member").then((response) => {
       console.log(response.data);
-      setDatas(response.data);      
+      setDatas(response.data);
     });
   }, []);
+
+  const [move_e, setMove_e] = useState("");
 
   const modalChange = useRef();
 
@@ -29,7 +27,7 @@ function ManagerMember() {
   const openModal = () => {
     modalChange.current.style = "display:block;";
   };
-  return ( 
+  return (
     <>
       <MemeberInfo modalChange={modalChange} closeModal={closeModal} />
       <div className={style.All_Mbox}>
@@ -58,22 +56,23 @@ function ManagerMember() {
         </div>
 
         <div className={style.user_detail}>
-        { datas && datas.map(memberList => (
-          <div className={style.user_list}>
-            <div className={style.logo} onClick={openModal}>
-              <img src={logo_d} alt="1" value={memberList.memberNum}/>
-            </div>
-            <div className={style.name}>
-              <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
-            </div>
-            <div className={style.id}>
-              <h3 key={memberList.memberNum}>{memberList.email}</h3>
-            </div>
-            <div className={style.address}>
-              <h3 key={memberList.memberNum}>{memberList.address}</h3> 
-            </div>
-          </div>          
-        ))}
+          {datas &&
+            datas.map((memberList) => (
+              <div className={style.user_list}>
+                <div className={style.logo} onClick={openModal}>
+                  <img src={logo_d} alt="1" value={memberList.memberNum} />
+                </div>
+                <div className={style.name}>
+                  <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
+                </div>
+                <div className={style.id}>
+                  <h3 key={memberList.memberNum}>{memberList.email}</h3>
+                </div>
+                <div className={style.address}>
+                  <h3 key={memberList.memberNum}>{memberList.address}</h3>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
     </>
