@@ -4,10 +4,9 @@ import sell_1 from "../../source/img/selling_item_ex1.png";
 import sell_2 from "../../source/img/selling_item_ex2.png";
 import axios from "axios";
 
-function SellList() {
+function UserSellList() {
   return (
     <>
-
       <div className={style.category}>
         <h3>판매 내역</h3>
       </div>
@@ -158,4 +157,4 @@ function SellList() {
   );
 }
 
-export default SellList;
+export default UserSellList;
