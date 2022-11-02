@@ -1,14 +1,8 @@
+import { useEffect } from "react";
 import style from "../../source/Moodal7.module.css";
 
-
-
 function MemeberInfo({ modalChange, closeModal }) {
-
-useEffect(() => {
-  setItemNum(document.getElementById(`${style.item_num}`).innerText);
-    
-  },[])
-
+  useEffect(() => {}, []);
 
   return (
     <>
