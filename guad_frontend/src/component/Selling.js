@@ -207,6 +207,100 @@ function Selling({ history }) {
       setData(response.data);
     });
   }, []);
+  //////////////////////파일 업로드//////////////////////
+  const formData = new FormData();
+  const [imgBase64, setImgBase64] = useState([]);
+  const [imgBase, setImgBase] = useState([1,2,3]);
+  const [length, setLength] = useState(0);
+  const [imgFile, setImgFile] = useState(null);
+ 
+
+  console.log(">>>>>>>>" + imgBase.length);
+  console.log(imgBase);
+
+  const handleChangeFile = (event) => {
+    //fd.append("file", event.target.files)
+    const newImgBase = [ 1, 2, 3]
+    setImgBase64([]);
+    for (var i = 0; i < event.target.files.length; i++) {
+      if (event.target.files[i]) {
+        let reader = new FileReader();
+        reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
+        // 파일 상태 업데이트
+        reader.onloadend = () => {
+          // 2. 읽기가 완료되면 아래코드가 실행됩니다.
+          const base64 = reader.result;
+          newImgBase.pop()
+          
+         
+          if (base64) {
+            //  images.push(base64.toString())
+            var base64Sub = base64.toString()
+            setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
+            setImgBase(newImgBase)
+            //  setImgBase64(newObj);
+            // 파일 base64 상태 업데이트
+            //  console.log(images)
+          }
+        }
+      }
+    }
+  }
+
+  // const imgBaseRemove= (id) => {
+  //   setImgBase(imgBase.filter(imgBase => imgBase.id !==id));
+  // }
+
+  const WriteBoard = async () => {
+    const fd = new FormData();
+    Object.values(imgFile).forEach((file) => fd.append("file", file));
+
+    // fd.append(
+    //   "comment",
+    //   comment
+    // );
+
+    await axios.post('http://localhost:8110/test/WriteBoard.do', fd, {
+      headers: {
+        "Content-Type": `multipart/form-data; `,
+      }
+    })
+      .then((response) => {
+        if (response.data) {
+          console.log(response.data)
+          history.push("/test1");
+        }
+      })
+      .catch((error) => {
+        // 예외 처리
+      })
+  }
+
+
+  const handlerClickSubmit = (e) => {
+    e.preventDefault();
+
+    axios({
+      method: "post",
+      url: `http://localhost:8080/upload/fileUploadMultiple`,
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then((response) => {
+        console.log(response)
+        alert("파일업로드가 완료되었습니다.");
+      })
+      .catch((error) => {
+        console.log(error)
+        alert("파일업로드에 실패했습니다.")
+      });
+  }
+  /////////////////////////////////////////////////////
+
+
+
   return (
     <>
       <div className={style.all_box}>
@@ -409,16 +503,39 @@ function Selling({ history }) {
             <li className={style.photo_b}>
               <label>사진등록</label>
               <p>필수로 1장 이상의 사진을 등록해야 합니다.</p>
-              <div>
-                <img src={require("../source/img/pic.png")} alt="사진1" />
-                <img
-                  src={require("../source/img/pic.png")}
-                  alt="사진2"
-                  className={style.mid_imgg}
-                />
-                <img src={require("../source/img/pic.png")} alt="사진3" />
+
+              <div className={style.fileupload}>
+                {imgBase64.map((item) => {
+                  return (
+                    <label for="file">
+                      <img
+                        className={style.mid_img}
+                        src={item}
+                        alt="First slide"
+                      />
+                    </label>
+                  )
+                })}
+
+
+                {imgBase.map((item) => (
+                  <label for="file" key={item}>
+                    <img src={require("../source/img/pic.png")} alt="사진1" />
+                  </label>
+                ))}
+
               </div>
             </li>
+            {/*  파일 업로드 */}
+            <div className={style.filebox}>
+              <input type="file" id="file" className={style.upload} onChange={handleChangeFile} multiple="multiple" />
+
+            </div>
+
+
+            {/* <button onClick={WriteBoard} style={{ border: '2px solid black', width: '700px', fontSize: '40px' }}>작성완료</button> */}
+            {/*  파일 업로드 */}
+
           </ul>
           <button
             type="button"

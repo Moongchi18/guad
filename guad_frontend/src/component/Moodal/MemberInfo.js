@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import style from "../../source/Moodal7.module.css";
 
 function MemeberInfo({ modalChange, closeModal }) {
+
   return (
     <>
       <div id="my-modal" className={style.modal} ref={modalChange}>
