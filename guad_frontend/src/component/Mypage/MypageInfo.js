@@ -18,12 +18,12 @@ function MypageInfo({ history }) {
   const [phone, setPhone] = useState("");
   const [pass, setPass] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
-  const [email2, setEmail2] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const [isPass, setIsPass] = useState(false);
   const [isPassConfirm, setIsPassConfirm] = useState(false);
-  const [isPhone, setIsPhone] = useState(false);
-  const [isAddress, setIsAddress] = useState(false);
+  // const [isPhone, setIsPhone] = useState(false);
+  // const [isAddress, setIsAddress] = useState(false);
   const [passMessage, setPassMessage] = useState("");
   const [passConfirmMessage, setPassConfirmMessage] = useState("");
 
@@ -83,8 +83,7 @@ function MypageInfo({ history }) {
       })   
   }, [])
 
-  const handlerUpdate = () => {
-    console.log({phone, address, pass, userEmail})
+  const handlerUpdate = () => {   
     axios
       .post("http://localhost:8080/member/update", { phone, address, pass, email : userEmail })
       .then(response => {
