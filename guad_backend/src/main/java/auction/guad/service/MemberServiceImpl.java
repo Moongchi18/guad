@@ -106,4 +106,10 @@ public class MemberServiceImpl implements MemberService {
 		boolean result5 = bCryptPasswordEncoder.matches(pass, userPass);
 		return result5;
 	}
+	
+//	@Override
+//	public void mileageCharge(MemberDto member) throws Exception {
+//	    memberMapper.mileageCharge(member);
+//	    
+//	}
 }

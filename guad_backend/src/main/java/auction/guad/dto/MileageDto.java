@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class MileageDto {
-	private int chargeNum;
+	private int mileageNum;
 	private String memberEmail;
 	private Date chargeDate;
 	private int chargeAmount;

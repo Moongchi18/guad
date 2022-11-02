@@ -74,6 +74,10 @@
 		WHERE NICKNAME = #{nickname}
 	</select>
 	
+	<update id="chargeMileage" parameterType="auction.guad.dto.MemberDto">
+		UPDATE MEMBER SET Mileage = mileage+(#{chargeAmount}) WHERE EMAIL = #{memberEmail}
+	</update>
+	
 	<!-- 비밀번호 체크 
 	<select id="checkPass" resultType="int">
 	SELECT pass FROM MEMBER WHERE pass = #{pass}

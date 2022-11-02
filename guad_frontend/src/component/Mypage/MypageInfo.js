@@ -19,7 +19,7 @@ function MypageInfo({ history }) {
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [passConfirm, setPassConfirm] = useState('');
-  const [email2, setEmail2] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
 
   const [isPass, setIsPass] = useState(false);
@@ -78,14 +78,14 @@ function MypageInfo({ history }) {
           address: response.data.address,
           mileage: response.data.mileage        
         })
-        setEmail2(response.data.email)
+        setUserEmail(response.data.email)
       })   
   }, [])
 
   const handlerUpdate = () => {
-    console.log({phone, address, pass, email2})
+    console.log({phone, address, pass, userEmail})
     axios
-      .post("http://localhost:8080/member/update", { phone, address, pass, email : email2 })
+      .post("http://localhost:8080/member/update", { phone, address, pass, email : userEmail })
       .then(response => {
        
         alert("수정이 완료되었습니다.")

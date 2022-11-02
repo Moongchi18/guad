@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import auction.guad.dto.MemberDto;
 import auction.guad.dto.MileageDto;
+import auction.guad.mapper.MemberMapper;
 import auction.guad.mapper.MileageMapper;
 
 @Service
@@ -12,12 +13,12 @@ public class MileageServiceImpl implements MileageService{
 
 	
 	@Autowired
-	private MileageMapper mileageMapper;
+	private MileageMapper mileageMapper;	
 	
 	
-	public int chargeMileage(MileageDto mileageDto) throws Exception {
-		return mileageMapper.chargeMileage(mileageDto);
-		
+	public void chargeMileage(MileageDto mileage) throws Exception {	          
+	    mileageMapper.chargeMileage(mileage);
+	    mileageMapper.chargeMileage2(mileage);
 	}
 	
 	

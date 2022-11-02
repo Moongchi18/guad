@@ -40,7 +40,7 @@ function Mypage() {
           mileage: response.data.mileage        
         })        
       })   
-  }, [])
+  }, [data])
 
   const modalChange = useRef();
   const closeModal = () => {
