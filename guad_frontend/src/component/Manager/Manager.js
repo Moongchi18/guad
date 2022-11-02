@@ -33,7 +33,7 @@ function Manager() {
             <div className={style.Mbox_button}>
               <button className={style.member}>회원관리</button>
               <Link to="/manager/notify">
-              <button className={style.mileage}>신고내역</button>
+                <button className={style.mileage}>신고내역</button>
               </Link>
             </div>
           </div>

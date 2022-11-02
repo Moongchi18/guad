@@ -12,7 +12,12 @@ function SellListItem({ item }) {
                             alt="제품1"
                         />
                         <img
-                            src={item.sellType === 'd' ? require("../source/img/del1_b.png") : (item.sellType === 'u' ? require("../source/img/del2_b.png") : require("../source/img/white.png"))}
+                            src={item.sellType === 'd'
+                                ? require("../source/img/del1_b.png")
+                                : item.sellType === "u"
+                                    ? require("../source/img/del2_b.png")
+                                    : require("../source/img/del4_b.png")
+                            }
                             alt="망치"
                             className={style.del_icon}
                         />
@@ -32,5 +37,4 @@ function SellListItem({ item }) {
         </>
     )
 }
-
 export default SellListItem;
