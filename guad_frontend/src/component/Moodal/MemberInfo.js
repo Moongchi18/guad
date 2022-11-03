@@ -1,8 +1,24 @@
-import { useEffect } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import style from "../../source/Moodal7.module.css";
 
-function MemeberInfo({ modalChange, closeModal, moveEmail }) {
-  console.log("여긴 모달" + moveEmail);
+function MemeberInfo({ modalChange, closeModal, infoEmail }) {
+  const [datas, setDatas] = useState({});
+  console.log(datas);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/admin/member/${infoEmail}`)
+      .then((response) => {
+        setDatas(response.data);
+      })
+      .catch((error) => {
+        if (error.response.status === 403) {
+          alert("접근 권한이 없습니다. 로그인 후 다시 접속해 주세요.");
+        }
+      });
+  }, [infoEmail]);
+
   return (
     <>
       <div id="my-modal" className={style.modal} ref={modalChange}>
@@ -14,21 +30,19 @@ function MemeberInfo({ modalChange, closeModal, moveEmail }) {
             <ul>
               <li>
                 <p className={style.front}>닉네임</p>
-                <p className={style.back}>시흥기린</p>
+                <p className={style.back}>{datas.nickname}</p>
               </li>
               <li>
                 <p className={style.front}>아이디</p>
-                <p className={style.back}>{moveEmail}</p>
+                <p className={style.back}>{datas.email}</p>
               </li>
               <li>
                 <p className={style.front}>주소</p>
-                <p className={style.back}>
-                  서울시 종로구 인사동길 12 대일빌딩 7층 204동 307호
-                </p>
+                <p className={style.back}>{datas.address}</p>
               </li>
               <li>
                 <p className={style.front}>전화번호</p>
-                <p className={style.back}>01066664444</p>
+                <p className={style.back}>{datas.phone}</p>
               </li>
             </ul>
           </div>

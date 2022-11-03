@@ -9,17 +9,15 @@ import Notify from "../Moodal/Notify";
 import axios from "axios";
 
 function Manager() {
-
   const [datas, setDatas] = useState([]);
- 
+
   useEffect(() => {
-    axios.get("http://localhost:8080/admin/member")
-    .then((response) => {
+    axios.get("http://localhost:8080/admin/member").then((response) => {
       console.log(response.data);
-      setDatas(response.data);      
+      setDatas(response.data);
     });
   }, []);
-  
+
   return (
     <>
       <div className={style.All_Mbox}>
@@ -48,13 +46,14 @@ function Manager() {
           <h3>최근 가입 회원</h3>
         </div>
         <div className={style.join}>
-        { datas && datas.map(memberList => (
-          <div className={style.user_list}>
-            <img src={logo_d} alt="1"></img>            
-            <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
-            </div> 
-          ) )}
-          </div>        
+          {datas &&
+            datas.map((memberList) => (
+              <div className={style.user_list} key={memberList.memberNum}>
+                <img src={logo_d} alt="1"></img>
+                <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
+              </div>
+            ))}
+        </div>
 
         <div className={style.category}>
           <h3>신고내역</h3>
