@@ -41,7 +41,9 @@ function ManagerMember() {
         infoEmail={infoEmail}
       />
       <div className={style.All_Mbox}>
-        <h1 className={style.page_name}>관리자 페이지</h1>
+        <Link to="/manager">
+          <h1 className={style.page_name}>관리자 페이지</h1>
+        </Link>
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
