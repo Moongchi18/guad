@@ -6,16 +6,6 @@ function MemeberInfo({ modalChange, closeModal, infoEmail }) {
   const [datas, setDatas] = useState({});
   console.log(datas);
 
-  const DeleteMember = () => {
-    axios
-      .post("http://localhost:8080/admin/member/delete", {
-        
-      })
-      .then((response) => {
-        alert("회원강퇴 성공!");
-      });
-  };
-
   useEffect(() => {
     axios
       .get(`http://localhost:8080/admin/member/${infoEmail}`)
@@ -57,9 +47,7 @@ function MemeberInfo({ modalChange, closeModal, infoEmail }) {
             </ul>
           </div>
           <div className={style.modalfooter}>
-            <button className={style.out_btn} onClick={DeleteMember}>
-              회원강퇴
-            </button>
+            <button className={style.out_btn}>회원강퇴</button>
             <button className={style.yet_btn} onClick={closeModal}>
               보류
             </button>
