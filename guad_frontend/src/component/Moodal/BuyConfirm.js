@@ -8,11 +8,35 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
   const [purchasePrice, setPurchasePrice] = useState();
   const [member, setMember] = useState({});
   const [result, setResult] = useState(0);
-  const [email, setEmail] = useState('');
+  const [requestTrade, setRequestTrade] = useState({
+    sellType: '',
+    sellerEmail: '서버에서 입력',
+    sellerPhone: '서버에서 입력',
+    buyerEmail: '서버에서 입력',
+    buyerPhone: '서버에서 입력',
+    address: '',
+    itemSub: '',
+    itemPrice: '',
+    soldDate: '쿼리문에 입력',
+    itemNum: '',
+    soldYn: '',
+    mileage: ''
+  })
 
   useEffect(() => {
     setDto(item);
     setPurchasePrice(presentPrice);
+
+    setRequestTrade({...requestTrade, 
+      sellType: item.sellType,
+      address: '주소',
+      itemSub: item.itemSub,
+      itemPrice: price,
+      soldDate: '',
+      itemNum: item.itemNum,
+      soldYn: item.soldYn,
+      mileage: member.mileage
+    })
   }, [item, presentPrice]);
 
   useEffect(() => {
@@ -22,7 +46,6 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
         console.log(response.data);
         setMember(response.data);
         const tempResult = response.data.mileage - price;
-        setEmail(member.email)
         console.log(tempResult);
         setResult(tempResult);
       })
@@ -30,15 +53,23 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
   }, [price]);
 
   const handlerTrade = () => {
+    console.log(requestTrade)
     if (item.soldYn !== 'n') {
       alert("이미 판매된 상품입니다.")
     } else if (result < 0) {
       alert("마일리지가 부족합니다. 충전 후 이용해주세요.")
       history.push("/mypage");
     } else {
-      axios.post("http://localhost:8080/")
+      axios.post("http://localhost:8080/sell", requestTrade)
+      .then(response => {
+        console.log(response)
+        alert("결제에 성공했습니다.")
+        history.push("/mypage");
+      })
+      .catch(error => console.log(error))
     }
   }
+  console.log(dto)
 
   return (
     <>

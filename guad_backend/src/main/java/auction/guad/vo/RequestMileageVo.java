@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class RequestMileageVo {
 
-	private String memberEmail;
+	private String email;
 	private Date chargeDate;
 	private int chargeAmount;
 	private String chargeMethod;
@@ -15,8 +15,8 @@ public class RequestMileageVo {
 	// 
 	private int itemPrice;
 
-	public RequestMileageVo(String memberEmail, int itemPrice) {
-		this.memberEmail = memberEmail;
+	public RequestMileageVo(String email, int itemPrice) {
+		this.email = email;
 		this.itemPrice = itemPrice;
 	}
 	
