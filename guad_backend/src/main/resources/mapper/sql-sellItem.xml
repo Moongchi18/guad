@@ -37,7 +37,8 @@
 		count(*)
 		FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
 		WHERE I.DELETE_YN = 'n' AND M.DELETE_YN != 'y'
-		AND I.SELL_TYPE = #{sellType} AND I.ITEM_TYPE = #{itemType}
+		AND I.SELL_TYPE =
+		#{sellType} AND I.ITEM_TYPE = #{itemType}
 	</select>
 
 	<!-- 모든 상품목록 가져오기 -->
@@ -60,25 +61,39 @@
 		INSERT INTO SELL_ITEM
 		(SELL_TYPE, MEMBER_EMAIL, ITEM_SUB,
 		ITEM_CONTENTS, ITEM_PRICE, ITEM_TYPE,
-		ITEM_D_TYPE, AUCTION_START_PRICE, AUCTION_MAX_PRICE, AUCTION_MIN_PRICE,
-		AUCTION_PERIOD, AUCTION_RANDOM_METHOD, AUCTION_DISCOUNT_PER_HOUR)
+		ITEM_D_TYPE, AUCTION_START_PRICE,
+		AUCTION_MAX_PRICE, AUCTION_MIN_PRICE,
+		AUCTION_PERIOD,
+		AUCTION_RANDOM_METHOD, AUCTION_DISCOUNT_PER_HOUR)
 		VALUES
-		(#{sellType}, #{memberEmail}, #{itemSub}, #{itemContents},
+		(#{sellType},
+		#{memberEmail}, #{itemSub}, #{itemContents},
 		#{itemPrice}, #{itemType}
 		, #{itemDType}, #{auctionStartPrice},
-		#{auctionMaxPrice}, #{auctionMinPrice},
-		#{auctionPeriod}, #{auctionRandomMethod}, #{auctionDiscountPerHour})
+		#{auctionMaxPrice},
+		#{auctionMinPrice},
+		#{auctionPeriod}, #{auctionRandomMethod},
+		#{auctionDiscountPerHour})
 	</insert>
 
 	<select id="selectSellItemDetail" parameterType="int"
 		resultType="auction.guad.vo.SellItemJoinMemberVo">
-		SELECT * 
-		FROM SELL_ITEM I LEFT JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
-		WHERE ITEM_NUM = #{itemNum}
+		SELECT *
+		FROM SELL_ITEM I LEFT JOIN MEMBER M ON
+		I.MEMBER_EMAIL = M.EMAIL
+		WHERE
+		ITEM_NUM = #{itemNum}
 	</select>
 
 	<update id="updateSellItem"
 		parameterType="auction.guad.dto.SellItemDto">
+
+	</update>
+
+	<update id="updateSoldYn" parameterType="int">
+		UPDATE SELL_ITEM SET
+		SOLD_YN = 'y'
+		WHERE ITEM_NUM = #{itemNum}
 
 	</update>
 

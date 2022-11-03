@@ -19,6 +19,7 @@ public class RequestTradeVo {
 	
 	private Date soldDate;
 	
+	private int itemNum;
 	private char soldYn;
 	private int mileage;
 	

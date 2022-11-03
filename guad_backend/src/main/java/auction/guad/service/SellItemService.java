@@ -20,4 +20,5 @@ public interface SellItemService {
 	int selectSellTypeItemTypeCount(String sellType, String itemType) throws Exception;
 	
 	PageDto selectSellItemList(int currentPage) throws Exception;
+	public int updateSoldYn(int itemNum) throws Exception;
 }

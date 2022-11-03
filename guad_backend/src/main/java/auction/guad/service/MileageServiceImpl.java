@@ -7,6 +7,7 @@ import auction.guad.dto.MemberDto;
 import auction.guad.dto.MileageDto;
 import auction.guad.mapper.MemberMapper;
 import auction.guad.mapper.MileageMapper;
+import auction.guad.vo.RequestMileageVo;
 
 @Service
 public class MileageServiceImpl implements MileageService{
@@ -27,9 +28,9 @@ public class MileageServiceImpl implements MileageService{
 		
 	}
 	
-	public void useMileage(MemberDto member) throws Exception {
-		mileageMapper.useMileage(member);
-		mileageMapper.usedMileage(member);
+	public void useMileage(RequestMileageVo requestMileageVo) throws Exception {
+		mileageMapper.useMileage(requestMileageVo);
+		mileageMapper.usedMileage(requestMileageVo);
 	}
 	
 	public void returnMileage(MemberDto member) throws Exception {

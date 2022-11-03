@@ -100,5 +100,11 @@ public class SellItemServiceImpl implements SellItemService {
 		return new PageDto(itemList, currentPage, startPage, endPage, totalPage);
 	}
 
+	@Override
+	public int updateSoldYn(int itemNum) throws Exception {
+		int result = sellItemMapper.updateSoldYn(itemNum);
+		return result;
+	}
+
 
 }
