@@ -24,6 +24,8 @@ function GoogleLoginForm({history}) {
         // sessionStorage.token에 값이 입력되면 app.js에서 axios 요청 header에 token을 입력. header에 한글이 입력되면 에러발생
         // 현재 서버쪽에서 http://localhost:8080/api/google/auth 요청 성공 시 response.data에 '로그인 성공'이라는 한글을 반환되서 에러 발생
         // sessionStorage.setItem("token", response.data);
+       
+        sessionStorage.setItem("email", userObject.email);
         history.push("/join_g");
       })
       .catch((error) => {
