@@ -127,8 +127,9 @@
   cursor: pointer;
 }
 .user_list h3 {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 300;
+  padding-top: 10px;
 }
 .notify {
   text-align: left;

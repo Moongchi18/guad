@@ -48,6 +48,8 @@ function SellItem({ history, match }) {
       .catch((error) => console.log(error));
   }, []);
 
+  console.log(auctionPeriodText)
+
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -75,6 +77,7 @@ function SellItem({ history, match }) {
         item={item}
         presentPrice={presentPrice}
         price={price}
+        history={history}
       />
       <NotifyWrite
         closeModal={closeModal}
