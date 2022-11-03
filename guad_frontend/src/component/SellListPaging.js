@@ -4,7 +4,7 @@ function SellListPaging({ page, count, handlerSetPage }) {
     return (
         <Pagination
             activePage={page}
-            itemsCountPerPage={7}
+            itemsCountPerPage={12}
             totalItemsCount={count}
             pageRangeDisplayed={5}
             prevPageText={'‹'}
