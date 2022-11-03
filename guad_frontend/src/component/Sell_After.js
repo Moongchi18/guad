@@ -10,7 +10,7 @@ function Sell_After({ history, match }) {
   const [member, setMember] = useState('');
   
   useEffect(() => {
-    axios.get("http://localhost:8080/sell")
+    axios.get(`http://localhost:8080/sell/${match.params.itemNum}`)
     .then((response) => {
       console.log(response.data);
       setItem(response.data);      
@@ -28,7 +28,7 @@ function Sell_After({ history, match }) {
   };
   return (
     <>
-      <BuyReview closeModal={closeModal} modalOpen={modalOpen} />
+      <BuyReview closeModal={closeModal} modalOpen={modalOpen} item={item}/>
       <div className={style.cont1}>
         <h2>구매 확인</h2>
         <div className={style.top}>

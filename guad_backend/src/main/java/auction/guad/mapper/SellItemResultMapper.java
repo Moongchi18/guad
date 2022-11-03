@@ -9,6 +9,6 @@ import auction.guad.vo.RequestTradeVo;
 public interface SellItemResultMapper {
 	
 	int insertSellItemResult(RequestTradeVo requestTrade) throws Exception;
-	SellItemResultDto selectOneByBuyerEmail(String buyerEmail) throws Exception;
+	RequestTradeVo selectOneByBuyerEmailAndItemNum(String buyerEmail, int itemNum) throws Exception;
 
 }

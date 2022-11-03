@@ -4,18 +4,22 @@
 <mapper namespace="auction.guad.mapper.SellItemResultMapper">
 
 	<!-- 상품 구매 -->
-	<insert id="insertSellItemResult" parameterType="auction.guad.vo.RequestTradeVo">
+	<insert id="insertSellItemResult"
+		parameterType="auction.guad.vo.RequestTradeVo">
 		INSERT INTO SELL_ITEM_RESULT
-			(SELL_TYPE, SELLER_EMAIL, SELLER_PHONE, BUYER_EMAIL, 
-			BUYER_PHONE, ADDRESS, ITEM_SUB, ITEM_PRICE, SOLD_DATE)
-		VALUES(#{sellType}, #{sellerEmail}, #{sellerPhone}, #{buyerEmail},
-			#{buyerPhone}, #{address}, #{itemSub}, #{itemPrice}, now())							
+		(ITEM_NUM, SELL_TYPE, SELLER_EMAIL, SELLER_PHONE, BUYER_EMAIL,
+		BUYER_PHONE, ADDRESS, ITEM_SUB, ITEM_PRICE, SOLD_DATE)
+		VALUES(#{itemNum},
+		#{sellType}, #{sellerEmail}, #{sellerPhone}, #{buyerEmail},
+		#{buyerPhone}, #{address}, #{itemSub}, #{itemPrice}, now())
 	</insert>
-	
+
 	<!-- 구매기록 조회 / 아이디 + desc limit 1 -->
-	<select id="selectOneByBuyerEmail" resultType="auction.guad.dto.SellItemResultDto">
-		SELECT * FROM SELL_ITEM_RESULT
-		WHERE BUYER_EMAIL = #{buyerEmail}
-		ORDER BY ITEM_NUM_RESULT DESC LIMIT 1
+	<select id="selectOneByBuyerEmailAndItemNum"
+		resultType="auction.guad.vo.RequestTradeVo">
+		SELECT R.*, M.NICKNAME, I.ITEM_CONTENTS FROM SELL_ITEM_RESULT R LEFT JOIN
+		SELL_ITEM I ON R.ITEM_NUM = I.ITEM_NUM
+		LEFT JOIN MEMBER M ON R.SELLER_EMAIL = M.EMAIL WHERE BUYER_EMAIL = #{buyerEmail}
+		AND I.ITEM_NUM = #{itemNum};
 	</select>
 </mapper>
