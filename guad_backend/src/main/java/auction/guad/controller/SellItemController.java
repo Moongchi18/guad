@@ -1,5 +1,10 @@
 package auction.guad.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
@@ -37,13 +43,53 @@ public class SellItemController {
 		return sellItemService.selectSellItemList(page);
 	}
 	
-
+/////////////////////////////////////////////////////////////////////////////////////	
+	
+	
+	
 	@ApiOperation(value = "상품 등록(SellItemDto)", notes = "게시물 제목과 내용을 저장, 파라미터 : SellItemDto")
 	@PostMapping("/sellitem")
 	public ResponseEntity<Boolean> insertSellItem(
-			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody SellItemDto sellItem,
+			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }")
+			@RequestBody SellItemDto sellItem,
+			@RequestParam(value="file", required=false) MultipartFile[] files,
 			@AuthenticationPrincipal User user) throws Exception {
+		
+		String FileNames ="";
+		System.out.println("paramMap =>"+files[0]);
+		String filepath = "C:/img/";
+		
+		 for (MultipartFile mf : files) {
+			   
+	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+	            long fileSize = mf.getSize(); // 파일 사이즈
+
+	            System.out.println("originFileName : " + originFileName);
+	            System.out.println("fileSize : " + fileSize);
+
+	            String safeFile =System.currentTimeMillis() + originFileName;
+	            
+	            FileNames = FileNames+","+safeFile; 
+	            try {
+	            	File f1 = new File(filepath+safeFile);
+	                mf.transferTo(f1);
+	            } catch (IllegalStateException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            } catch (IOException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+	        }
+//		 Map<String, Object> paramMap = new HashMap<String, Object>();
+//			FileNames = FileNames.substring(1);
+//			System.out.println("FileNames =>"+ FileNames);
+//			paramMap.put("FileNames", FileNames);
+//			resultMap.put("JavaData", paramMap);
+//			return resultMap;
+		
 		sellItem.setMemberEmail(user.getUsername());
+		
 		System.out.println("minPrice>>>>>>>>>>>>>>>>>>>" + sellItem.getAuctionMinPrice());
 		boolean result = sellItemService.insertSellItem(sellItem);
 		if (result) {
@@ -52,6 +98,9 @@ public class SellItemController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
 		}
 	}
+	
+
+/////////////////////////////////////////////////////////////////////////////////////	
 	
 	
 

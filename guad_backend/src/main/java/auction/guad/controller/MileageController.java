@@ -39,6 +39,15 @@ public class MileageController {
 		mileageService.chargeMileage(mileage);
 		
 	}
+   
+	@ApiOperation(value = "마일리지 사용", notes = "금액만큼 마일리지 차감 + 누적 마일리지 증가")
+    @PostMapping("/mileage/pay")
+    public void useMileage(@RequestBody MemberDto member, @AuthenticationPrincipal User user)
+            throws Exception {
+        member.setEmail(user.getUsername());
+        mileageService.useMileage(member);        
+    }	
+	
 
 	@ApiOperation(value = "마일리지 충전내역 조회", notes = "해당 회원의 마일리지 충전 내역 조회")
 	@RequestMapping(value = "/mileage/{mileageNum}", method = RequestMethod.GET)
