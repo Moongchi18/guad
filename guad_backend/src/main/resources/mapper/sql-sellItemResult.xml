@@ -8,7 +8,7 @@
 			(SELL_TYPE, SELLER_EMAIL, SELLER_PHONE, BUYER_EMAIL, 
 			BUYER_PHONE, ADDRESS, ITEM_SUB, ITEM_PRICE, SOLD_DATE)
 		VALUES(#{sellType}, #{sellerEmail}, #{sellerPhone}, #{buyerEmail},
-			#{buyerPhone}, #{address}, #{itemSub}, #{itemPrice}, #{soldDate})
+			#{buyerPhone}, #{address}, #{itemSub}, #{itemPrice}, now())
 								
 	</insert>
 	
