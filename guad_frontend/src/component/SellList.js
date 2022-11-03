@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 import SellListItem from "./SellListItem";
@@ -86,6 +86,32 @@ function Sell_List() {
   // console.log(count)
   // console.log(sellItemDto.sellType==='')
   // console.log(sellItemDto.itemType==='')
+
+  const [cateOn, setCateOn] = useState(false);
+  const c_m = useRef();
+  const c_o = useRef();
+
+  const OnOption = () => {
+    c_o.current.style = "display:block;";
+  };
+
+  const OnCategory = () => {
+    if (cateOn == false) {
+      setCateOn(true);
+      c_m.current.style = "display:block;";
+    } else {
+      setCateOn(false);
+      c_m.current.style = "display:none;";
+      c_o.current.style = "display:none;";
+    }
+  };
+
+  const OffCategory = () => {
+    setCateOn(false);
+    c_m.current.style = "display:none;";
+    c_o.current.style = "display:none;";
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/category/distinct")
@@ -116,7 +142,7 @@ function Sell_List() {
           <h2>
             전체상품 <span></span>개
           </h2>
-          <select value={sellItemDto.itemType} onChange={handlerItemType}>
+          {/* <select value={sellItemDto.itemType} onChange={handlerItemType}>
             <option value="">전체</option>
             {itemTypeList &&
               itemTypeList.map((type, index) => (
@@ -124,7 +150,29 @@ function Sell_List() {
                   {type}
                 </option>
               ))}
-          </select>
+          </select> */}
+          <div className={style.cate_box}>
+            <p onClick={OnCategory}>카테고리 보기</p>
+            <div className={style.cate_main} ref={c_m}>
+              <span className={style.close} onClick={OffCategory}>
+                &times;
+              </span>
+              <p>전체 카테고리</p>
+              <ul>
+                <li onClick={OnOption}>여성의류</li>
+                <li>남성의류</li>
+                <li>아동의류</li>
+              </ul>
+            </div>
+            <div className={style.cate_option} ref={c_o}>
+              <p>여성의류</p>
+              <ul>
+                <li>패딩</li>
+                <li>코트</li>
+                <li>원피스</li>
+              </ul>
+            </div>
+          </div>
           <ul>
             <li>
               <button

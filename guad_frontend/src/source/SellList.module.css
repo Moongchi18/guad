@@ -16,7 +16,7 @@
   font-family: "SBAggroB";
   font-weight: 300;
 }
-.sell_top ul {
+.sell_top > ul {
   padding-top: 40px;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
   margin: 49px 0 55px;
@@ -48,6 +48,89 @@
   color: white;
   transition: 0.3s all ease-in;
 }
+
+/* 카테고리 작업 */
+
+.cate_box {
+  font-family: "SBAggroB";
+  font-weight: 300;
+}
+.cate_box > p {
+  padding-top: 10px;
+}
+.cate_main {
+  position: absolute;
+  display: none;
+  height: 100%;
+  left: 110px;
+  top: 250px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  z-index: 11;
+}
+.cate_main p {
+  font-size: 20px;
+  text-align: center;
+  padding: 30px 0 20px;
+}
+.cate_main ul {
+}
+.cate_main ul li {
+  width: 200px;
+  display: block;
+  padding: 11px 0 11px 30px;
+}
+.cate_main ul li:hover {
+  background-color: #888;
+  color: white;
+  transition: 0.3s all ease;
+}
+.cate_main .close {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  font-size: 20px;
+  border-radius: 50px;
+  background: #afafaf;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: white;
+  line-height: 1.2;
+}
+.cate_option {
+  position: absolute;
+  display: none;
+  height: 100%;
+  background-color: white;
+  left: 340px;
+  bottom: 0px;
+  top: 250px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-left: none;
+  z-index: 10;
+  color: black;
+}
+.cate_option p {
+  font-size: 20px;
+  text-align: center;
+  padding: 30px 0 20px;
+}
+.cate_option ul {
+}
+.cate_option ul li {
+  color: #6b6b6b;
+  width: 200px;
+  display: block;
+  padding: 11px 0 11px 30px;
+}
+.cate_option ul li:hover {
+  background-color: #888;
+  color: white;
+  transition: 0.3s all ease;
+}
+
+/* 위에 카테작업중 */
 
 .sell_bot {
   width: 100%;
