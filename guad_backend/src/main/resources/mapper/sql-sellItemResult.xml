@@ -3,7 +3,7 @@
 
 <mapper namespace="auction.guad.mapper.SellItemResultMapper">
 
-	<insert id="insertSellItemResult">
+	<insert id="insertSellItemResult" parameterType="auction.guad.vo.RequestTradeVo">
 		INSERT INTO SELL_ITEM_RESULT
 			(SELL_TYPE, SELLER_EMAIL, SELLER_PHONE, BUYER_EMAIL, 
 			BUYER_PHONE, ADDRESS, ITEM_SUB, ITEM_PRICE, SOLD_DATE)

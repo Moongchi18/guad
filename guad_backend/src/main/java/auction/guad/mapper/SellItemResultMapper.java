@@ -3,10 +3,11 @@ package auction.guad.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import auction.guad.dto.SellItemResultDto;
+import auction.guad.vo.RequestTradeVo;
 
 @Mapper
 public interface SellItemResultMapper {
 	
-	int insertSellItemResult(SellItemResultDto sellItemResultDto) throws Exception;
+	int insertSellItemResult(RequestTradeVo requestTrade) throws Exception;
 
 }

@@ -18,10 +18,10 @@
 	
 	
 	<!-- 마일리지 사용 -->
-	<update id="useMileage" parameterType="auction.guad.dto.MemberDto">
+	<update id="useMileage" parameterType="auction.guad.vo.RequestMileageVo">
 	UPDATE MEMBER SET MILEAGE = MILEAGE - (#{itemPrice}) WHERE EMAIL = #{email}
 	</update>
-	<update id="usedMileage" parameterType="auction.guad.dto.MemberDto">
+	<update id="usedMileage" parameterType="auction.guad.vo.RequestMileageVo">
 	UPDATE MEMBER SET MILEAGE_USED = MILEAGE_USED + (#{itemPrice}) WHERE EMAIL = #{email}
 	</update>
 	
