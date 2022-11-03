@@ -2,24 +2,32 @@ import style from "../../source/Manager.module.css";
 import logo from "../../source/img/mypage.png";
 import logo_d from "../../source/img/mypage_d.png";
 import sell_1 from "../../source/img/selling_item_ex1.png";
-import sell_2 from "../../source/img/selling_item_ex2.png";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Notify from "../Moodal/Notify";
 import axios from "axios";
 
 function Manager() {
-
   const [datas, setDatas] = useState([]);
- 
+  const [datas2, setDatas2] = useState([]);
+
   useEffect(() => {
-    axios.get("http://localhost:8080/admin/member")
-    .then((response) => {
+    axios.get("http://localhost:8080/admin/member").then((response) => {
       console.log(response.data);
-      setDatas(response.data);      
+      setDatas(response.data);
     });
+
+    axios
+      .get(`http://localhost:8080/notify/admin/list`)
+      .then((response) => {
+        setDatas2(response.data);
+      })
+      .catch((error) => {
+        if (error.response.status === 403) {
+          alert("접근 권한이 없습니다. 로그인 후 다시 접속해 주세요.");
+        }
+      });
   }, []);
-  
+
   return (
     <>
       <div className={style.All_Mbox}>
@@ -48,28 +56,29 @@ function Manager() {
           <h3>최근 가입 회원</h3>
         </div>
         <div className={style.join}>
-        { datas && datas.map(memberList => (
-          <div className={style.user_list}>
-            <img src={logo_d} alt="1"></img>            
-            <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
-            </div> 
-          ) )}
-          </div>        
+          {datas &&
+            datas.map((memberList) => (
+              <div className={style.user_list} key={memberList.memberNum}>
+                <img src={logo_d} alt="1"></img>
+                <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
+              </div>
+            ))}
+        </div>
 
         <div className={style.category}>
           <h3>신고내역</h3>
         </div>
 
         <div className={style.notify}>
-          <div className={`${style.notify_list} ${style.list_one}`}>
-            <img src={sell_1} alt="1" />
-            <h3>셀린느 폴코 트리오페...</h3>
-          </div>
-
-          <div className={style.notify_list}>
-            <img src={sell_2} alt="1" />
-            <h3>셀린느 폴코 트리오페...</h3>
-          </div>
+          <ul>
+            {datas2 &&
+              datas2.map((notify) => (
+                <li key={notify.notifyNum} className={style.notify_list}>
+                  <img src={sell_1} alt="1"></img>
+                  <h3>{notify.notifyTitle}</h3>
+                </li>
+              ))}
+          </ul>
         </div>
       </div>
     </>

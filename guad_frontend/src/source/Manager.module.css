@@ -154,6 +154,6 @@
   height: 150px;
   border-radius: 10px;
 }
-.list_one {
+.notify ul li:nth-child(1) {
   margin-left: 10px;
 }
