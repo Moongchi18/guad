@@ -36,6 +36,7 @@ public class SellItemController {
 	public PageDto openSellItemList(@RequestParam(defaultValue="1")int page) throws Exception {
 		return sellItemService.selectSellItemList(page);
 	}
+	
 
 	@ApiOperation(value = "상품 등록(SellItemDto)", notes = "게시물 제목과 내용을 저장, 파라미터 : SellItemDto")
 	@PostMapping("/sellitem")
@@ -50,8 +51,9 @@ public class SellItemController {
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
 		}
-//		return ResponseEntity.status(HttpStatus.OK).body(null);
 	}
+	
+	
 
 	@ApiOperation(value = "게시물 상세 조회", notes = "등록된 게시물 상세 정보를 조회")
 	@RequestMapping(value = "/sellitem/{itemNum}", method = RequestMethod.GET)

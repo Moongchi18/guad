@@ -60,12 +60,12 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price }) {
               <span>배송 정보</span>
               <div className={style.input_b1}>
                 <p>주소</p>
-                <input type="text" className={style.input1} />
+                <input type="text" className={style.input1} defaultValue={member.address} />
                 <button type="button">검색</button>
               </div>
               <div className={style.input_b2}>
                 <p>상세주소</p>
-                <input type="text" className={style.input2} />
+                <input type="text" className={style.input2}/>
               </div>
             </div>
           </div>
