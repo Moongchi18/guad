@@ -28,7 +28,7 @@
   flex-direction: row;
 }
 .chat_box {
-  background-color: #ebebeb;
+  background-color: #dfdfdf;
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -87,10 +87,15 @@
 }
 
 .avatar {
-  background-color: cornflowerblue;
+  background-color: #5a5a5a;
   padding: 3px 5px;
   border-radius: 5px;
   color: #fff;
+  width: 40px;
+  height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .avatar.self {
   color: #000;
@@ -102,13 +107,17 @@
   display: flex;
   flex-direction: row;
   margin: 5px 10px;
-  background-color: #838383;
+  background-color: white;
   border-radius: 5px;
-  color: rgb(255, 255, 255);
+  color: black;
 }
 .message_data {
   padding: 5px;
+  width: 205px;
+  word-break: break-all;
 }
 .message.self {
   justify-content: end;
+  background-color: #3e3e3e;
+  color: white;
 }
