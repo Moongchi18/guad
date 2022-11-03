@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="auction.guad.mapper.SellItemResultMapper">
+
+	<insert id="insertSellItemResult">
+		INSERT INTO SELL_ITEM_RESULT
+			(SELL_TYPE, SELLER_EMAIL, SELLER_PHONE, BUYER_EMAIL, 
+			BUYER_PHONE, ADDRESS, ITEM_SUB, ITEM_PRICE, SOLD_DATE)
+		VALUES(#{sellType}, #{sellerEmail}, #{sellerPhone}, #{buyerEmail},
+			#{buyerPhone}, #{address}, #{itemSub}, #{itemPrice}, #{soldDate})
+								
+	</insert>
+	
+</mapper>
