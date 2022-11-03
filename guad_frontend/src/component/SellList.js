@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 import SellListItem from "./SellListItem";
@@ -12,7 +12,7 @@ function Sell_List() {
     sellType: "",
     itemType: "",
   });
-  const [items, setItems] = useState([]) //리스트에 나타낼 아이템
+  const [items, setItems] = useState([]); //리스트에 나타낼 아이템
   const [count, setCount] = useState(0); //아이템 총 개수
   const [currentpage, setCurrentpage] = useState(1); //현재페이지
   const [postPerPage] = useState(12); //페이지당 아이템 개수
@@ -25,8 +25,8 @@ function Sell_List() {
     const gory = e.target.name;
     if (gory === "all") {
       setSellItemDto({ ...sellItemDto, sellType: "" });
-      setItems(data)
-      setCount(data.length)
+      setItems(data);
+      setCount(data.length);
     } else if (gory === "up") {
       setSellItemDto({ ...sellItemDto, sellType: "u" });
     } else if (gory === "down") {
@@ -37,36 +37,81 @@ function Sell_List() {
   };
 
   const handlerItemType = (e) => {
-    setSellItemDto({ ...sellItemDto, itemType: e.target.value })
+    setSellItemDto({ ...sellItemDto, itemType: e.target.value });
   };
 
   useEffect(() => {
     if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
-      setItems(data)
-      setCount(data.length)
-    } else if (sellItemDto.sellType !== '' && sellItemDto.itemType === '') {
-      setItems(data.filter(item => item.sellType === sellItemDto.sellType))
-      setCount(data.filter(item => item.sellType === sellItemDto.sellType))
-    } else if (sellItemDto.sellType === '' &&
-      sellItemDto.itemType !== '') {
-      setItems(data.filter(item => item.itemType === sellItemDto.itemType))
-      setCount(data.filter(item => item.itemType === sellItemDto.itemType))
-    } else if (sellItemDto.sellType !== '' && sellItemDto.itemType !== '') {
-      setItems(data.filter(item => item.itemType === sellItemDto.itemType && item.sellType === sellItemDto.sellType))
-      setCount(data.filter(item => item.itemType === sellItemDto.itemType && item.sellType === sellItemDto.sellType))
+      setItems(data);
+      setCount(data.length);
+    } else if (sellItemDto.sellType !== "" && sellItemDto.itemType === "") {
+      setItems(data.filter((item) => item.sellType === sellItemDto.sellType));
+      setCount(data.filter((item) => item.sellType === sellItemDto.sellType));
+    } else if (sellItemDto.sellType === "" && sellItemDto.itemType !== "") {
+      setItems(data.filter((item) => item.itemType === sellItemDto.itemType));
+      setCount(data.filter((item) => item.itemType === sellItemDto.itemType));
+    } else if (sellItemDto.sellType !== "" && sellItemDto.itemType !== "") {
+      setItems(
+        data.filter(
+          (item) =>
+            item.itemType === sellItemDto.itemType &&
+            item.sellType === sellItemDto.sellType
+        )
+      );
+      setCount(
+        data.filter(
+          (item) =>
+            item.itemType === sellItemDto.itemType &&
+            item.sellType === sellItemDto.sellType
+        )
+      );
     } else {
-      alert("error")
+      alert("error");
     }
     setIndexOfLastPost(currentpage * postPerPage);
-    setIndexOfFirstPost(indexOfLastPost - postPerPage)
+    setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
-  }, [sellItemDto.sellType, sellItemDto.itemType, data, currentpage, indexOfFirstPost, indexOfLastPost, postPerPage])
+  }, [
+    sellItemDto.sellType,
+    sellItemDto.itemType,
+    data,
+    currentpage,
+    indexOfFirstPost,
+    indexOfLastPost,
+    postPerPage,
+  ]);
 
   // console.log(items)
   // console.log(items.length)
   // console.log(count)
   // console.log(sellItemDto.sellType==='')
   // console.log(sellItemDto.itemType==='')
+
+  const [cateOn, setCateOn] = useState(false);
+  const c_m = useRef();
+  const c_o = useRef();
+
+  const OnOption = () => {
+    c_o.current.style = "display:block;";
+  };
+
+  const OnCategory = () => {
+    if (cateOn == false) {
+      setCateOn(true);
+      c_m.current.style = "display:block;";
+    } else {
+      setCateOn(false);
+      c_m.current.style = "display:none;";
+      c_o.current.style = "display:none;";
+    }
+  };
+
+  const OffCategory = () => {
+    setCateOn(false);
+    c_m.current.style = "display:none;";
+    c_o.current.style = "display:none;";
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/category/distinct")
@@ -80,7 +125,7 @@ function Sell_List() {
     axios
       .get("http://localhost:8080/sellitem")
       .then((response) => {
-        console.log(response.data.itemList)
+        console.log(response.data.itemList);
         setData(response.data.itemList);
       })
       .catch((error) => console.log(error));
@@ -97,7 +142,7 @@ function Sell_List() {
           <h2>
             전체상품 <span></span>개
           </h2>
-          <select value={sellItemDto.itemType} onChange={handlerItemType}>
+          {/* <select value={sellItemDto.itemType} onChange={handlerItemType}>
             <option value="">전체</option>
             {itemTypeList &&
               itemTypeList.map((type, index) => (
@@ -105,7 +150,29 @@ function Sell_List() {
                   {type}
                 </option>
               ))}
-          </select>
+          </select> */}
+          <div className={style.cate_box}>
+            <p onClick={OnCategory}>카테고리 보기</p>
+            <div className={style.cate_main} ref={c_m}>
+              <span className={style.close} onClick={OffCategory}>
+                &times;
+              </span>
+              <p>전체 카테고리</p>
+              <ul>
+                <li onClick={OnOption}>여성의류</li>
+                <li>남성의류</li>
+                <li>아동의류</li>
+              </ul>
+            </div>
+            <div className={style.cate_option} ref={c_o}>
+              <p>여성의류</p>
+              <ul>
+                <li>패딩</li>
+                <li>코트</li>
+                <li>원피스</li>
+              </ul>
+            </div>
+          </div>
           <ul>
             <li>
               <button
@@ -168,34 +235,18 @@ function Sell_List() {
         <div className={style.sell_bot}>
           <ul>
             {data === 0 && <span>게시물이 없습니다.</span>}
-            {items.length === 0 ?
+            {items.length != 0 &&
               currentPosts.map((item, index) => (
                 <SellListItem item={item} key={index} />
-              ))
-              :
-              currentPosts.map((item, index) => (
-                <SellListItem item={item} key={index} />
-              ))
-            }
+              ))}
           </ul>
           <span className={style.count_p}>
             <ul>
-              <SellListPaging page={currentpage} count={count} handlerSetPage={handlerSetPage} />
-              {/* <li>
-                <button>1</button>
-              </li>
-              <li>
-                <button>2</button>
-              </li>
-              <li>
-                <button>3</button>
-              </li>
-              <li>
-                <button>4</button>
-              </li>
-              <li>
-                <button>5</button>
-              </li> */}
+              <SellListPaging
+                page={currentpage}
+                count={count}
+                handlerSetPage={handlerSetPage}
+              />
             </ul>
           </span>
         </div>
