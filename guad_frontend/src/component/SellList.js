@@ -25,6 +25,8 @@ function Sell_List() {
     const gory = e.target.name;
     if (gory === "all") {
       setSellItemDto({ ...sellItemDto, sellType: "" });
+      setItems(data)
+      setCount(data.length)
     } else if (gory === "up") {
       setSellItemDto({ ...sellItemDto, sellType: "u" });
     } else if (gory === "down") {
@@ -32,6 +34,10 @@ function Sell_List() {
     } else if (gory === "normal") {
       setSellItemDto({ ...sellItemDto, sellType: "n" });
     }
+  };
+
+  const handlerItemType = (e) => {
+    setSellItemDto({ ...sellItemDto, itemType: e.target.value })
   };
 
   useEffect(() => {
@@ -56,9 +62,11 @@ function Sell_List() {
     setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
   }, [sellItemDto.sellType, sellItemDto.itemType, data, currentpage, indexOfFirstPost, indexOfLastPost, postPerPage])
 
-  console.log(items)
-  console.log(items.length)
-  console.log(count)
+  // console.log(items)
+  // console.log(items.length)
+  // console.log(count)
+  // console.log(sellItemDto.sellType==='')
+  // console.log(sellItemDto.itemType==='')
   useEffect(() => {
     axios
       .get("http://localhost:8080/category/distinct")
@@ -77,11 +85,6 @@ function Sell_List() {
       })
       .catch((error) => console.log(error));
   }, []);
-
-  // const handlerItemType = (e) => setItemType(e.target.value);
-  const handlerItemType = (e) => {
-    setSellItemDto({ ...sellItemDto, itemType: e.target.value })
-  };
 
   const handlerSetPage = (e) => {
     setCurrentpage(e);
@@ -166,7 +169,7 @@ function Sell_List() {
           <ul>
             {data === 0 && <span>게시물이 없습니다.</span>}
             {items.length === 0 ?
-              data.map((item, index) => (
+              currentPosts.map((item, index) => (
                 <SellListItem item={item} key={index} />
               ))
               :
@@ -178,7 +181,7 @@ function Sell_List() {
           <span className={style.count_p}>
             <ul>
               <SellListPaging page={currentpage} count={count} handlerSetPage={handlerSetPage} />
-              <li>
+              {/* <li>
                 <button>1</button>
               </li>
               <li>
@@ -192,7 +195,7 @@ function Sell_List() {
               </li>
               <li>
                 <button>5</button>
-              </li>
+              </li> */}
             </ul>
           </span>
         </div>

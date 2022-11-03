@@ -30,7 +30,7 @@ import { useState, useRef } from "react";
 import MypageCheck from "./component/Mypage/MypageCheck";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(sessionStorage.getItem('token') !== '' || sessionStorage.getItem('token') !== undefined ? true:false);
 
   function handlerIsLogin() {
     setIsLogin(true);
