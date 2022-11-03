@@ -1,9 +1,10 @@
-import { useRef } from "react";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../source/Sell_After.module.css";
 import BuyReview from "./Moodal/BuyReview";
 
-function Sell_After({ history }) {
+function Sell_After({ history, match}) {
   const modalOpen = useRef();
 
   const closeModal = () => {
@@ -12,6 +13,20 @@ function Sell_After({ history }) {
   const openModal = () => {
     modalOpen.current.style = "display:block;";
   };
+
+  const [item, setItem] = useState({});
+
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
+    .then(response => {
+      console.log(response.data)
+      setItem(response.data)
+    })
+    .catch(error => console.log(error))
+  }, [])
+  
+
   return (
     <>
       <BuyReview closeModal={closeModal} modalOpen={modalOpen} />
@@ -29,16 +44,14 @@ function Sell_After({ history }) {
         <img src={require("../source/img/big_item.png")} alt="제품사진" />
         <div class={style.right_side}>
           <span className={style.category}>
-            <p>의류</p>
-            <p> / </p>
-            <p>가방</p>
+            <p>{item.itemType}</p>
           </span>
-          <span className={style.title}>디올 가방 재고 처리합니다!</span>
+          <span className={style.title}>{item.itemSub}</span>
           <p className={style.add}>
             배송주소<strong>서울시 종로구 인사동길 12 대일빌딩 7층</strong>
           </p>
           <p className={style.seller}>
-            판매자 : <strong>시흥기린</strong>
+            판매자 : <strong>{item.nickname}</strong>
           </p>
           <p className={style.del}>
             배송비<strong>배송비 포함</strong>

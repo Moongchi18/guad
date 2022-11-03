@@ -30,7 +30,7 @@ import { useState, useRef } from "react";
 import MypageCheck from "./component/Mypage/MypageCheck";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(sessionStorage.getItem('token') !== '' || sessionStorage.getItem('token') !== undefined ? true:false);
 
   function handlerIsLogin() {
     setIsLogin(true);
@@ -79,7 +79,7 @@ function App() {
       <Route path="/sell_up" component={Sell_Up} exact={true} />
       <Route path="/sell_down" component={Sell_Down} exact={true} />
       <Route path="/sell_end" component={Sell_End} exact={true} />
-      <Route path="/sell_after" component={Sell_After} exact={true} />
+      <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />
       <Footer />
     </>
   );
