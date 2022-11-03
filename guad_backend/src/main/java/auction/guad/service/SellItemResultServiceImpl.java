@@ -45,4 +45,10 @@ public class SellItemResultServiceImpl implements SellItemResultService{
 		}
 		
 	}
+
+
+	@Override
+	public SellItemResultDto selectOneByBuyerEmail(String buyerEmail) throws Exception {
+		return sellItemResultMapper.selectOneByBuyerEmail(buyerEmail);
+	}
 }

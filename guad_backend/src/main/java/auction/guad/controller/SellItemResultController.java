@@ -5,11 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import auction.guad.dto.MemberDto;
-import auction.guad.dto.SellItemDto;
+import auction.guad.dto.SellItemResultDto;
 import auction.guad.service.MemberService;
 import auction.guad.service.SellItemResultService;
 import auction.guad.service.SellItemService;
@@ -45,6 +46,16 @@ public class SellItemResultController {
 		boolean result = sellItemResultService.normalTrade(requestTrade);
 		System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ : " + result);
 		return ResponseEntity.status(HttpStatus.OK).body(null);
+	}
+	
+	@ApiOperation(value = "거래결과 조회(buyerEmail)", notes = "buyerEmail을 기준으로 거래결과 조회, 파라미터 : buyerEmail")
+	@GetMapping("/sell")
+	public ResponseEntity<SellItemResultDto> selectTradeResult(@AuthenticationPrincipal User user) throws Exception{
+		if(user == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(sellItemResultService.selectOneByBuyerEmail(user.getUsername()));
+		}
 	}
 	
 }
