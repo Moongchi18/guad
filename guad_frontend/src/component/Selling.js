@@ -205,31 +205,36 @@ function Selling({ history }) {
       );
       setItemType(temp2);
       setData(response.data);
-    });
+    }).catch(error => console.log(error));
   }, []);
   //////////////////////파일 업로드//////////////////////
   const formData = new FormData();
   const [imgBase64, setImgBase64] = useState([]);
-  const [imgBase, setImgBase] = useState([1,2,3]);
+  const [imgBase, setImgBase] = useState([1, 2, 3]);
   const [imgFile, setImgFile] = useState(null);
- 
+
 
   console.log(">>>>>>>>" + imgBase.length);
   console.log(imgBase);
 
   const handleChangeFile = (event) => {
     //fd.append("file", event.target.files)
-    const newImgBase = [ 1, 2, 3]
+
+    const newImgBase = [1, 2, 3]
+    setImgBase(newImgBase)
     setImgBase64([]);
 
     if (event.target.files.length >= 4) {
       alert('이미지는 최대 3개 까지 업로드가 가능합니다.');
-      const newImgBase = [ 1, 2, 3]
+      const newImgBase = [1, 2, 3]
       setImgBase(newImgBase)
       setImgBase64([]);
-    }else {
+    } else {
       for (var i = 0; i < event.target.files.length; i++) {
-        if (event.target.files[i]) {
+
+        if (!event.target.files[i].type.match("image/.*")) {
+          alert('이미지 파일만 업로드가 가능합니다.');
+        } else if (event.target.files[i]) {
           let reader = new FileReader();
           reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
           // 파일 상태 업데이트
@@ -237,8 +242,9 @@ function Selling({ history }) {
             // 2. 읽기가 완료되면 아래코드가 실행됩니다.
             const base64 = reader.result;
             newImgBase.pop()
-            
+
             if (base64) {
+
               //  images.push(base64.toString())
               var base64Sub = base64.toString()
               setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
@@ -252,6 +258,8 @@ function Selling({ history }) {
       }
     }
   }
+
+
 
   // const imgBaseRemove= (id) => {
   //   setImgBase(imgBase.filter(imgBase => imgBase.id !==id));

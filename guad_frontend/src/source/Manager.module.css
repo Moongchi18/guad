@@ -127,8 +127,9 @@
   cursor: pointer;
 }
 .user_list h3 {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 300;
+  padding-top: 10px;
 }
 .notify {
   text-align: left;
@@ -154,6 +155,6 @@
   height: 150px;
   border-radius: 10px;
 }
-.list_one {
+.notify ul li:nth-child(1) {
   margin-left: 10px;
 }

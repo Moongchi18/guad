@@ -84,9 +84,9 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, moda
           <div className={style.modalfooter2}>
             <h2>거래결과</h2>
             <p>
-              거래 후 마일리지 <strong>{member && result}</strong>
+              거래 후 마일리지 <strong>{member && result.toLocaleString()}</strong>
             </p>
-            <Link to={`/sell_after/${item.itemNum}`}>
+            <Link to={`/sell_after/${dto.itemNum}`} >
               <button
                 type="button"
                 className={style.outbtn1}
