@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../../source/Moodal6.module.css";
 
-function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, history }) {
+function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, history, modalChange }) {
   const [dto, setDto] = useState([]);
   const [purchasePrice, setPurchasePrice] = useState();
   const [member, setMember] = useState({});
   const [result, setResult] = useState(0);
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     setDto(item);
@@ -21,6 +22,7 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
         console.log(response.data);
         setMember(response.data);
         const tempResult = response.data.mileage - price;
+        setEmail(member.email)
         console.log(tempResult);
         setResult(tempResult);
       })
@@ -28,7 +30,7 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
   }, [price]);
 
   const handlerTrade = () => {
-    if(item.soldYn !== 'n'){
+    if (item.soldYn !== 'n') {
       alert("이미 판매된 상품입니다.")
     } else if (result < 0) {
       alert("마일리지가 부족합니다. 충전 후 이용해주세요.")

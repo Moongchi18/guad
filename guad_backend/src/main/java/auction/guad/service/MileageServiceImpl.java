@@ -29,7 +29,7 @@ public class MileageServiceImpl implements MileageService{
 	
 	public void useMileage(MemberDto member) throws Exception {
 		mileageMapper.useMileage(member);
-		mileageMapper.useMileage2(member);
+		mileageMapper.usedMileage(member);
 	}
 	
 	public void returnMileage(MemberDto member) throws Exception {
