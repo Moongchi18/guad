@@ -13,6 +13,7 @@ public class SellItemResultDto {
 	private String sellerPhone;
 	private String buyerEmail;
 	private String buyerPhone;
+	private String address;
 	
 	private String itemSub;
 	private int itemPrice;
