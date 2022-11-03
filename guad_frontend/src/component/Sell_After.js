@@ -9,6 +9,7 @@ import BuyReview from "./Moodal/BuyReview";
 function Sell_After({ history, match }) {
 
   const [item, setItem] = useState("");
+  const [member, setMember] = useState('');
   
   useEffect(() => {
     axios.get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
@@ -16,8 +17,13 @@ function Sell_After({ history, match }) {
       console.log(response.data);
       setItem(response.data);      
     });
+    axios
+      .get("http://localhost:8080/member")
+      .then((response1) => {
+      setMember(response1.data);
+      })
   }, []);
-
+  
   const modalOpen = useRef();
 
   const closeModal = () => {
@@ -49,16 +55,16 @@ function Sell_After({ history, match }) {
           </span>
           <span className={style.title}>{item.itemContents}</span>
           <p className={style.add}>
-            배송주소<strong>서울시 종로구 인사동길 12 대일빌딩 7층</strong>
+            배송주소<strong>{member.address}</strong>
           </p>
           <p className={style.seller}>
-            판매자 : <strong>시흥기린</strong>
+            판매자 : <strong>{item.nickname}</strong>
           </p>
           <p className={style.del}>
             배송비<strong>배송비 포함</strong>
           </p>
           <p className={style.price}>
-            판매가<strong>450,000</strong>
+            판매가<strong>{item.price}</strong>
           </p>
         </div>
       </div>

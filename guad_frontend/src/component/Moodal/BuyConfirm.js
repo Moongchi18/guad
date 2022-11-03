@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../../source/Moodal6.module.css";
 
-function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price }) {
+function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, modalChange }) {
   const [dto, setDto] = useState([]);
   const [purchasePrice, setPurchasePrice] = useState();
   const [member, setMember] = useState({});
   const [result, setResult] = useState(0);
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     setDto(item);
@@ -21,11 +22,22 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price }) {
         console.log(response.data);
         setMember(response.data);
         const tempResult = response.data.mileage - price;
+        setEmail(member.email)
         console.log(tempResult);
         setResult(tempResult);
       })
       .catch((error) => console.log(error));
   }, [price]);
+
+
+  const handleSubmit = () => {
+    console.log(price,email)
+    axios.post("http://localhost:8080/mileage/pay", {itemPrice : price, email}) 
+     .then((response) => {
+       console.log(response);
+      })
+      modalChange.current.style = "display:none;"
+  }
 
   return (
     <>
@@ -78,7 +90,7 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price }) {
               <button
                 type="button"
                 className={style.outbtn1}
-                onClick={closeModal2}
+                onClick={handleSubmit} 
               >
                 결제완료
               </button>
