@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../../source/Moodal6.module.css";
 
-function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, modalChange }) {
+function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, history, modalChange }) {
   const [dto, setDto] = useState([]);
   const [purchasePrice, setPurchasePrice] = useState();
   const [member, setMember] = useState({});
@@ -29,14 +29,15 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, moda
       .catch((error) => console.log(error));
   }, [price]);
 
-
-  const handleSubmit = () => {
-    console.log(price,email)
-    axios.post("http://localhost:8080/mileage/pay", {itemPrice : price, email}) 
-     .then((response) => {
-       console.log(response);
-      })
-      modalChange.current.style = "display:none;"
+  const handlerTrade = () => {
+    if (item.soldYn !== 'n') {
+      alert("이미 판매된 상품입니다.")
+    } else if (result < 0) {
+      alert("마일리지가 부족합니다. 충전 후 이용해주세요.")
+      history.push("/mypage");
+    } else {
+      axios.post("http://localhost:8080/")
+    }
   }
 
   return (
@@ -77,7 +78,7 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, moda
               </div>
               <div className={style.input_b2}>
                 <p>상세주소</p>
-                <input type="text" className={style.input2}/>
+                <input type="text" className={style.input2} />
               </div>
             </div>
           </div>
@@ -86,15 +87,13 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, moda
             <p>
               거래 후 마일리지 <strong>{member && result.toLocaleString()}</strong>
             </p>
-            <Link to={`/sell_after/${dto.itemNum}`} >
-              <button
-                type="button"
-                className={style.outbtn1}
-                onClick={handleSubmit} 
-              >
-                결제완료
-              </button>
-            </Link>
+            <button
+              type="button"
+              className={style.outbtn1}
+              onClick={handlerTrade}
+            >
+              결제완료
+            </button>
             <button
               type="button"
               className={style.outbtn2}

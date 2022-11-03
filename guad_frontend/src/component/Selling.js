@@ -159,27 +159,34 @@ function Selling({ history }) {
         sellType === "d" && !auctionRandomMethod ? auctionDiscountPerHour : "";
       const sendAuctionMinPrice = sellType === "d" ? auctionMinPrice : "";
 
-      axios
-        .post(
-          "http://localhost:8080/sellitem",
-          // memberEmail: '', // 컨트롤러에서 토큰으로 정보확인 후 입력
-          // writeDate: '', // 쿼리문에 now()
-          {
-            sellType,
-            itemSub,
-            itemContents,
-            itemPrice: sellPrice,
-            itemType: selectedItemType,
-            itemDType: selectedItemDetailType,
+      let dataSet = {
+        sellType,
+        itemSub,
+        itemContents,
+        itemPrice: sellPrice,
+        itemType: selectedItemType,
+        itemDType: selectedItemDetailType,
+        auctionStartPrice: auctionStartPrice,
+        auctionPeriod: sendAuctionPeriod,
+        auctionMaxPrice: sendAuctionMaxPrice,
+        auctionRandomMethod: sendAuctionRandomMethod,
+        auctionDiscountPerHour: sendAuctionDiscountPerHout,
+        auctionMinPrice: sendAuctionMinPrice,
+      };
 
-            auctionStartPrice: auctionStartPrice,
-            auctionPeriod: sendAuctionPeriod,
-            auctionMaxPrice: sendAuctionMaxPrice,
-            auctionRandomMethod: sendAuctionRandomMethod,
-            auctionDiscountPerHour: sendAuctionDiscountPerHout,
-            auctionMinPrice: sendAuctionMinPrice,
-          }
-        )
+
+      formData.append("data", JSON.stringify(dataSet)); // JSON 형식으로 파싱 후 추가
+      Object.values(imgFile).forEach((file) => formData.append("file", file));
+
+
+      axios({
+        method: "post",
+        url: "http://localhost:8080/sellitem",
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
         .then((response) => {
           console.log(response);
           modalOpen.current.style = "display:block;";
@@ -192,6 +199,7 @@ function Selling({ history }) {
         });
     }
   };
+
   console.log(auctionRandomMethod);
 
   // 카테고리 불러오기
@@ -221,6 +229,7 @@ function Selling({ history }) {
     //fd.append("file", event.target.files)
 
     const newImgBase = [1, 2, 3]
+    setImgFile(event.target.files);
     setImgBase(newImgBase)
     setImgBase64([]);
 
@@ -244,14 +253,13 @@ function Selling({ history }) {
             newImgBase.pop()
 
             if (base64) {
-
               //  images.push(base64.toString())
               var base64Sub = base64.toString()
               setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
               setImgBase(newImgBase)
+              
               //  setImgBase64(newObj);
               // 파일 base64 상태 업데이트
-              //  console.log(images)
             }
           }
         }
@@ -259,58 +267,15 @@ function Selling({ history }) {
     }
   }
 
-
-
-  // const imgBaseRemove= (id) => {
-  //   setImgBase(imgBase.filter(imgBase => imgBase.id !==id));
-  // }
-
   const WriteBoard = async () => {
-    const fd = new FormData();
-    Object.values(imgFile).forEach((file) => fd.append("file", file));
-
+    
     // fd.append(
     //   "comment",
     //   comment
     // );
 
-    await axios.post('http://localhost:8110/test/WriteBoard.do', fd, {
-      headers: {
-        "Content-Type": `multipart/form-data; `,
-      }
-    })
-      .then((response) => {
-        if (response.data) {
-          console.log(response.data)
-          history.push("/test1");
-        }
-      })
-      .catch((error) => {
-        // 예외 처리
-      })
   }
 
-
-  const handlerClickSubmit = (e) => {
-    e.preventDefault();
-
-    axios({
-      method: "post",
-      url: `http://localhost:8080/upload/fileUploadMultiple`,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-      .then((response) => {
-        console.log(response)
-        alert("파일업로드가 완료되었습니다.");
-      })
-      .catch((error) => {
-        console.log(error)
-        alert("파일업로드에 실패했습니다.")
-      });
-  }
   /////////////////////////////////////////////////////
 
 
