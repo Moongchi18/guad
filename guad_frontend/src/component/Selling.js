@@ -205,7 +205,7 @@ function Selling({ history }) {
       );
       setItemType(temp2);
       setData(response.data);
-    });
+    }).catch(error => console.log(error));
   }, []);
   //////////////////////파일 업로드//////////////////////
   const formData = new FormData();
