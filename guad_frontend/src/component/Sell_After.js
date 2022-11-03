@@ -10,16 +10,12 @@ function Sell_After({ history, match }) {
   const [member, setMember] = useState('');
   
   useEffect(() => {
-    axios.get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
+    axios.get("http://localhost:8080/sell")
     .then((response) => {
       console.log(response.data);
       setItem(response.data);      
     });
-    axios
-      .get("http://localhost:8080/member")
-      .then((response1) => {
-      setMember(response1.data);
-      })
+    
   }, []);
   
   const modalOpen = useRef();
@@ -30,17 +26,6 @@ function Sell_After({ history, match }) {
   const openModal = () => {
     modalOpen.current.style = "display:block;";
   };
-
-  useEffect(() => {
-    axios.get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
-      .then(response => {
-        console.log(response.data)
-        setItem(response.data)
-      })
-      .catch(error => console.log(error))
-  }, [])
-
-
   return (
     <>
       <BuyReview closeModal={closeModal} modalOpen={modalOpen} />
@@ -63,7 +48,7 @@ function Sell_After({ history, match }) {
           <span className={style.title}>{item.itemSub}</span>
           <span className={style.title}>{item.itemContents}</span>
           <p className={style.add}>
-            배송주소<strong>{member.address}</strong>
+            배송주소<strong>{item.address}</strong>
           </p>
           <p className={style.seller}>
             판매자 : <strong>{item.nickname}</strong>
@@ -72,7 +57,7 @@ function Sell_After({ history, match }) {
             배송비<strong>배송비 포함</strong>
           </p>
           <p className={style.price}>
-            판매가<strong>{item.price}</strong>
+            판매가<strong>{item.itemPrice}</strong>
           </p>
         </div>
       </div>

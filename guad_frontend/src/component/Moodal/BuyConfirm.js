@@ -64,7 +64,7 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
       .then(response => {
         console.log(response)
         alert("결제에 성공했습니다.")
-        history.push("/mypage");
+        history.push('/sell_after');
       })
       .catch(error => console.log(error))
     }
