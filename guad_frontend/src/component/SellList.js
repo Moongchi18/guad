@@ -92,13 +92,13 @@ function Sell_List() {
   const c_o = useRef();
 
   const OnOption = () => {
-    c_o.current.style = "display:block;";
+    c_o.current.style = "display:inline-block;";
   };
 
   const OnCategory = () => {
     if (cateOn == false) {
       setCateOn(true);
-      c_m.current.style = "display:block;";
+      c_m.current.style = "display:inline-block;";
     } else {
       setCateOn(false);
       c_m.current.style = "display:none;";
@@ -142,26 +142,26 @@ function Sell_List() {
           <h2>
             전체상품 <span></span>개
           </h2>
+          {/* 과거의 유물 전*/}
           {/* <select value={sellItemDto.itemType} onChange={handlerItemType}>
-            <option value="">전체</option>
-            {itemTypeList &&
-              itemTypeList.map((type, index) => (
-                <option key={index} value={type}>
-                  {type}
-                </option>
-              ))}
           </select> */}
+          {/* 과거의 유물 후 */}
+          <p onClick={OnCategory} className={style.cate_btn}>
+            카테고리 보기
+          </p>
           <div className={style.cate_box}>
-            <p onClick={OnCategory}>카테고리 보기</p>
             <div className={style.cate_main} ref={c_m}>
               <span className={style.close} onClick={OffCategory}>
                 &times;
               </span>
               <p>전체 카테고리</p>
               <ul>
-                <li onClick={OnOption}>여성의류</li>
-                <li>남성의류</li>
-                <li>아동의류</li>
+                {itemTypeList &&
+                  itemTypeList.map((type, index) => (
+                    <li key={index} value={type} onClick={OnOption}>
+                      {type}
+                    </li>
+                  ))}
               </ul>
             </div>
             <div className={style.cate_option} ref={c_o}>
