@@ -13,6 +13,14 @@ const Up_Chat = ({ nickname }) => {
     message: "",
   });
 
+  const scrollToBottom = () => {
+    openChat3.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  };
+
   const openChat1 = useRef();
   const openChat2 = useRef();
   const openChat3 = useRef();
@@ -21,21 +29,23 @@ const Up_Chat = ({ nickname }) => {
   const openChat6 = useRef();
 
   const ClickChat = () => {
-    openChat1.current.style = "top:37px; height:600px;"; // .chat_box
-    openChat2.current.style = "height:93%;"; // .chat_message
+    openChat1.current.style = "top:37px; height:600px;";
+    openChat2.current.style = "height:93%;";
     inputCursor.current.style = "display:inline-block;";
     openChat4.current.style = "display:none;";
     openChat5.current.style = "display:inline-block;";
     openChat6.current.style = "height:none";
   };
+
   const OffChat = () => {
-    openChat1.current.style = "top:598px; height:none;"; // .chat_box
-    openChat2.current.style = "height:0%;"; // .chat_message
+    openChat1.current.style = "top:598px; height:none;";
+    openChat2.current.style = "height:0%;";
     inputCursor.current.style = "display:none;";
     openChat4.current.style = "display:block;";
     openChat5.current.style = "display:none;";
     openChat6.current.style = "height:40px;";
   };
+
   console.log(nickname);
   const connect = () => {
     let Sock = new SockJS("http://localhost:8080/ws");
@@ -82,7 +92,8 @@ const Up_Chat = ({ nickname }) => {
   };
   useEffect(() => {
     connect();
-  }, []);
+    scrollToBottom();
+  }, [publicChats]);
   return (
     <>
       <div className={style.container}>
@@ -103,6 +114,7 @@ const Up_Chat = ({ nickname }) => {
                     chat.senderName === userData.username && style.self
                   }`}
                   key={index}
+                  ref={openChat3}
                 >
                   {chat.senderName !== userData.username && (
                     <div className={style.avatar}>{chat.senderName}</div>
