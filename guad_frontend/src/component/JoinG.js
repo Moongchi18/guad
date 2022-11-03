@@ -6,19 +6,20 @@ import axios from "axios";
 
 function JoinG({history}) {
   const [g_check, setG_check] = useState("");
-
   const CheckGen = (e) => {
     const gen = e.target.name;
     if (gen === "man") {
       setG_check("m");
     } else {
-      setG_check("w");
-    }
+      setG_check("w");    }
   };
-
+  
+  var email = sessionStorage.getItem("email");
+  
+  console.log(email)
   const handlerGoogleJoin = () => {
     axios
-      .post("http://localhost:8080/member", { email : sessionStorage.getItem("token"), nickname: nickname, phone: phone, address: address, gender: g_check })
+      .post("http://localhost:8080/member", { email, pass : '', nickname: nickname, phone: phone, address: address, gender: g_check })
       .then((response) => console.log(response))
     history.push("/")
       .catch((error) => console.log(error)); 

@@ -40,5 +40,4 @@ public class GoogleLoginController {
             return ResponseEntity.status(300).body("로그인 실패");
         }  
     }
-
 }
