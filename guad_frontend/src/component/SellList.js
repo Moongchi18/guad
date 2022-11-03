@@ -36,10 +36,6 @@ function Sell_List() {
     }
   };
 
-  const handlerItemType = (e) => {
-    setSellItemDto({ ...sellItemDto, itemType: e.target.value });
-  };
-
   useEffect(() => {
     if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
       setItems(data);
@@ -95,9 +91,12 @@ function Sell_List() {
     c_o.current.style = "display:inline-block;";
   };
 
-  const OnCategory = () => {
+  const handlerItemType = (e) => {};
+
+  const OnCategory = (e) => {
     if (cateOn == false) {
       setCateOn(true);
+      setSellItemDto({ ...sellItemDto, itemType: e.target.value });
       c_m.current.style = "display:inline-block;";
     } else {
       setCateOn(false);
@@ -111,7 +110,6 @@ function Sell_List() {
     c_m.current.style = "display:none;";
     c_o.current.style = "display:none;";
   };
-
   useEffect(() => {
     axios
       .get("http://localhost:8080/category/distinct")
@@ -129,7 +127,9 @@ function Sell_List() {
         setData(response.data.itemList);
       })
       .catch((error) => console.log(error));
-  }, []);
+
+    console.log(sellItemDto);
+  }, [sellItemDto]);
 
   const handlerSetPage = (e) => {
     setCurrentpage(e);
@@ -143,8 +143,7 @@ function Sell_List() {
             전체상품 <span></span>개
           </h2>
           {/* 과거의 유물 전*/}
-          {/* <select value={sellItemDto.itemType} onChange={handlerItemType}>
-          </select> */}
+          <div value={sellItemDto.itemType} onChange={handlerItemType}></div>
           {/* 과거의 유물 후 */}
           <p onClick={OnCategory} className={style.cate_btn}>
             카테고리 보기
