@@ -39,7 +39,7 @@ public class MileageController {
     @PostMapping("/mileage/pay")
     public void useMileage(@RequestBody RequestMileageVo requestMileageVo, @AuthenticationPrincipal User user)
             throws Exception {
-		requestMileageVo.setMemberEmail(user.getUsername());
+		requestMileageVo.setEmail(user.getUsername());
         mileageService.useMileage(requestMileageVo);        
     }	
 	
