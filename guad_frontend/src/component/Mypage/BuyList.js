@@ -7,14 +7,17 @@ import 'moment/locale/ko';	//대한민국
 
 function BuyList() {
   const [buyList, setBuyList] = useState([]); 
-  // list.soldDate = moment().format('YYYY-MM-DD');
-  
+  var tempDate = moment().format('YYYY-MM-DD');
+  console.log(tempDate);
+  buyList.soldDate = tempDate
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/buylist`)
       .then(response => {        
         console.log(response)
-        setBuyList(response.data)        
+        setBuyList(response.data)
+        console.log(typeof response.data[0].soldDate)        
       })   
   }, [])
 
@@ -61,8 +64,8 @@ function BuyList() {
           </div>
           <div className={style.buycheck}>
             <button className={style.button}>거래완료</button>
-            <h3> 
-              <strong>구매 일자 : </strong><input type="hidden" value={list.soldDate} />
+            <h3>
+              <strong>구매 일자 : </strong>{list.soldDate.slice(0,10)}
             </h3>
           </div>          
         </div>     
