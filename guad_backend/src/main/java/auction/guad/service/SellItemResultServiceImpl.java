@@ -6,6 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import auction.guad.dto.SellItemDto;
 import auction.guad.dto.SellItemResultDto;
 import auction.guad.mapper.SellItemResultMapper;
 import auction.guad.vo.RequestMileageVo;
@@ -56,15 +57,14 @@ public class SellItemResultServiceImpl implements SellItemResultService{
 	
 	@Override
 	public List<SellItemResultDto> selectMyBuyList(String memberEmail) throws Exception {
-	          return  sellItemResultMapper.selectMyBuyList(memberEmail);
+	          return sellItemResultMapper.selectMyBuyList(memberEmail);
 	}
 	            
-	    
-	
-	@Override
-	public void selectMySellList(RequestTradeVo requestTrade) throws Exception {
-	        sellItemResultMapper.selectMySellList(requestTrade);
-	}
+    
+    @Override
+    public List<SellItemDto> selectMySellList(String memberEmail) throws Exception {
+              return sellItemResultMapper.selectMySellList(memberEmail);
+    }
 	
 
 }
