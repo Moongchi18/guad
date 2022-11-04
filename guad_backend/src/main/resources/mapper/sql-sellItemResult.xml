@@ -21,5 +21,11 @@
 		SELL_ITEM I ON R.ITEM_NUM = I.ITEM_NUM
 		LEFT JOIN MEMBER M ON R.SELLER_EMAIL = M.EMAIL WHERE BUYER_EMAIL = #{buyerEmail}
 		AND I.ITEM_NUM = #{itemNum};
+		</select>
+		
+	<!-- 마이페이지 구매내역 리스트 -->
+	<select id="selectMyBuyList" resultType="auction.guad.dto.SellItemResultDto">
+	   SELECT * FROM SELL_ITEM_RESULT WHERE BUYER_EMAIL = #{memberEmail}
 	</select>
+	
 </mapper>
