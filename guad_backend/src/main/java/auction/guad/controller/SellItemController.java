@@ -57,7 +57,7 @@ public class SellItemController {
 			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }")
 		
 //			@RequestParam(value="file", required=false) MultipartFile[] file,
-			@RequestPart(value = "files", required=true) List<MultipartFile> files,
+			@RequestPart(value = "files", required=false) MultipartFile[] files,
 			@RequestPart(value = "data", required=false) SellItemDto sellItem,
 			
 			@AuthenticationPrincipal User user) throws Exception {
@@ -66,6 +66,11 @@ public class SellItemController {
 		String FileNames ="";
 		String filepath = "C:/img/";
 		
+		System.out.println(">>>>>>>>>" + sellItem.getItemPrice());
+		System.out.println(">>>>>>>>>" + sellItem.getItemPrice());
+		System.out.println(">>>>>>>>>" + sellItem.getItemPrice());
+		System.out.println(">>>>>>>>>" + sellItem.getItemPrice());
+
 		 for (MultipartFile mf : files) {
 			   
 	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명

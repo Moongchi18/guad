@@ -173,11 +173,21 @@ function Selling({ history }) {
         auctionDiscountPerHour: sendAuctionDiscountPerHout,
         auctionMinPrice: sendAuctionMinPrice,
       };
-
-
-
-      formData.append("data", dataSet)
+      
+      console.log(sellPrice)
+      // formData.append('data', dataSet);
+      formData.append(
+        "data",
+        new Blob([JSON.stringify(dataSet)], { type: "application/json" })
+      );
+      
+      
       Object.values(imgFile).forEach((file) => formData.append("files", file));
+     
+     
+      
+     
+
 
       axios({
         method: "post",
