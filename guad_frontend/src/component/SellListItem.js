@@ -5,7 +5,7 @@ function SellListItem({ item }) {
   return (
     <>
       <li className={style.item_info}>
-        <Link to={`/sell_item/${item.itemNum}`}>
+        <Link to={`/sell_item/${item.sellType}/${item.itemNum}`}>
           <div className={style.item_bb}>
             <img src={require("../source/img/item01.png")} alt="제품1" />
             <img
