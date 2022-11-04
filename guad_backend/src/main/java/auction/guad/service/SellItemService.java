@@ -23,7 +23,8 @@ public interface SellItemService {
 	int selectSellTypeCount(String sellType) throws Exception;
 	int selectSellTypeItemTypeCount(String sellType, String itemType) throws Exception;
 	
-	PageDto selectSellItemList(int currentPage) throws Exception;
+	public List<SellItemDto> selectSellItemList() throws Exception;
 	public int updateSoldYn(int itemNum) throws Exception;
+	public List<SellItemDto> selectSearchList(String search) throws Exception;
 	
 }

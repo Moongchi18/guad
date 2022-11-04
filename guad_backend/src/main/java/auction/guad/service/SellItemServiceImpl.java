@@ -85,39 +85,20 @@ public class SellItemServiceImpl implements SellItemService {
 	}
 
 	@Override
-	public PageDto selectSellItemList(int currentPage) throws Exception {
-		int totalCount;
-//		if (sellType == null && itemType == null) {
-//			totalCount = sellItemMapper.selectAllItemCount();
-//		} else if (sellType != null && itemType == null) {
-//			totalCount = sellItemMapper.selectSellTypeCount(sellType);
-//		} else if (sellType == null && itemType != null) {
-//			totalCount = sellItemMapper.selectItemTypeCount(itemType);
-//		} else if (sellType != null && itemType != null) {
-//			totalCount = sellItemMapper.selectSellTypeItemTypeCount(sellType, itemType);
-//		} else {
-//			throw new Exception();
-//		}
-		
-		totalCount = sellItemMapper.selectAllItemCount();
-		int totalPage = totalCount / COUNT_PER_PAGE;
-		int startPage = (currentPage - 1) / 10 * 10 + 1;
-		int endPage = startPage + 9;
-
-		if (totalPage < endPage) {
-			endPage = totalPage;
-		}
-
-		int startRow = (currentPage - 1) * COUNT_PER_PAGE;
-		
-		List<SellItemDto> itemList = sellItemMapper.selectSellItemList(startRow, COUNT_PER_PAGE);
-		return new PageDto(itemList, currentPage, startPage, endPage, totalPage);
+	public List<SellItemDto> selectSellItemList() throws Exception {
+		return sellItemMapper.selectSellItemList();
 	}
 
 	@Override
 	public int updateSoldYn(int itemNum) throws Exception {
 		int result = sellItemMapper.updateSoldYn(itemNum);
 		return result;
+	}
+
+	@Override
+	public List<SellItemDto> selectSearchList(String search) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

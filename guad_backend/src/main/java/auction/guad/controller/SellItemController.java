@@ -45,14 +45,14 @@ public class SellItemController {
 		this.imgService = imgService;
 	}
 	
+/////////////////////////////////////////////////////////////////////////////////////	
 
 	@ApiOperation(value = "상품 전체 조회()", notes = "상품 전체 목록을 조회, 파라미터 : ''")
 	@GetMapping("/sellitem")
-	public PageDto openSellItemList(@RequestParam(defaultValue="1")int page) throws Exception {
-		return sellItemService.selectSellItemList(page);
+	public List<SellItemDto> openSellItemList() throws Exception {
+		return sellItemService.selectSellItemList();
 	}
 	
-/////////////////////////////////////////////////////////////////////////////////////	
 	
 	@ApiOperation(value = "상품 등록(SellItemDto)", notes = "게시물 제목과 내용을 저장, 파라미터 : SellItemDto")
 	@PostMapping("/sellitem")

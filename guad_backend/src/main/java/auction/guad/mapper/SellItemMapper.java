@@ -20,7 +20,8 @@ public interface SellItemMapper {
 	int selectItemTypeCount(String itemType) throws Exception;
 	int selectSellTypeCount(String sellType) throws Exception;
 	int selectSellTypeItemTypeCount(String sellType, String itemType) throws Exception;
-	List<SellItemDto> selectSellItemList(int startRow, int count) throws Exception;
+	List<SellItemDto> selectSellItemList() throws Exception;
 	int updateSoldYn(int itemNum) throws Exception;
 	void updateHitCnt(int itemNum) throws Exception;
+	List<SellItemDto> selectSearchList(String search) throws Exception;
 }
