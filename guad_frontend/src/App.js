@@ -46,6 +46,7 @@ function App() {
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;
   });
+  console.log("isLogin? " + isLogin)
 
   return (
     <>

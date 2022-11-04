@@ -13,9 +13,9 @@ public class RequestMileageVo {
 	private String chargeMethod;
 	
 	// 
-	private int itemPrice;
+	private long itemPrice;
 
-	public RequestMileageVo(String email, int itemPrice) {
+	public RequestMileageVo(String email, long itemPrice) {
 		this.email = email;
 		this.itemPrice = itemPrice;
 	}
