@@ -36,49 +36,6 @@ function Sell_List() {
       setSellItemDto({ ...sellItemDto, sellType: "n" });
     }
   };
-
-  useEffect(() => {
-    if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
-      setItems(data);
-      setCount(data.length);
-    } else if (sellItemDto.sellType !== "" && sellItemDto.itemType === "") {
-      setItems(data.filter((item) => item.sellType === sellItemDto.sellType));
-      setCount(data.filter((item) => item.sellType === sellItemDto.sellType));
-    } else if (sellItemDto.sellType === "" && sellItemDto.itemType !== "") {
-      setItems(data.filter((item) => item.itemType === sellItemDto.itemType));
-      setCount(data.filter((item) => item.itemType === sellItemDto.itemType));
-    } else if (sellItemDto.sellType !== "" && sellItemDto.itemType !== "") {
-      setItems(
-        data.filter(
-          (item) =>
-            item.itemType === sellItemDto.itemType &&
-            item.sellType === sellItemDto.sellType
-        )
-      );
-      setCount(
-        data.filter(
-          (item) =>
-            item.itemType === sellItemDto.itemType &&
-            item.sellType === sellItemDto.sellType
-        )
-      );
-    } else {
-      alert("error");
-    }
-    setIndexOfLastPost(currentpage * postPerPage);
-    setIndexOfFirstPost(indexOfLastPost - postPerPage);
-    setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
-    console.log(sellItemDto);
-  }, [
-    sellItemDto.sellType,
-    sellItemDto.itemType,
-    data,
-    currentpage,
-    indexOfFirstPost,
-    indexOfLastPost,
-    postPerPage,
-  ]);
-
   const [cateOn, setCateOn] = useState(false);
   const c_m = useRef();
   const c_o = useRef();
@@ -115,6 +72,37 @@ function Sell_List() {
     c_o.current.style = "display:none;";
   };
   useEffect(() => {
+    if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
+      setItems(data);
+      setCount(data.length);
+    } else if (sellItemDto.sellType !== "" && sellItemDto.itemType === "") {
+      setItems(data.filter((item) => item.sellType === sellItemDto.sellType));
+      setCount(data.filter((item) => item.sellType === sellItemDto.sellType));
+    } else if (sellItemDto.sellType === "" && sellItemDto.itemType !== "") {
+      setItems(data.filter((item) => item.itemType === sellItemDto.itemType));
+      setCount(data.filter((item) => item.itemType === sellItemDto.itemType));
+    } else if (sellItemDto.sellType !== "" && sellItemDto.itemType !== "") {
+      setItems(
+        data.filter(
+          (item) =>
+            item.itemType === sellItemDto.itemType &&
+            item.sellType === sellItemDto.sellType
+        )
+      );
+      setCount(
+        data.filter(
+          (item) =>
+            item.itemType === sellItemDto.itemType &&
+            item.sellType === sellItemDto.sellType
+        )
+      );
+    } else {
+      alert("error");
+    }
+    setIndexOfLastPost(currentpage * postPerPage);
+    setIndexOfFirstPost(indexOfLastPost - postPerPage);
+    setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+
     axios
       .get("http://localhost:8080/category/distinct")
       .then((response) => {
@@ -146,7 +134,16 @@ function Sell_List() {
       .catch((error) => console.log(error));
     console.log("이 밑은 상품 리스트");
     console.log(sellItemDto);
-  }, [sellItemDto]);
+  }, [
+    sellItemDto,
+    sellItemDto.sellType,
+    sellItemDto.itemType,
+    // data,
+    currentpage,
+    indexOfFirstPost,
+    indexOfLastPost,
+    postPerPage,
+  ]);
 
   const handlerSetPage = (e) => {
     setCurrentpage(e);
