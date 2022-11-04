@@ -5,12 +5,13 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 
 var stompClient = null;
-const Up_Chat = ({ nickname, itemNum }) => {
+const Up_Chat = ({ item }) => {
   const inputCursor = useRef();
   const [publicChats, setPublicChats] = useState([]);
   const [userData, setUserData] = useState({
-    username: nickname,
+    username: sessionStorage.getItem("nickname"),
     message: "",
+    itemNum: item?.itemNum
   });
 
   const scrollToBottom = () => {
@@ -46,7 +47,7 @@ const Up_Chat = ({ nickname, itemNum }) => {
     openChat6.current.style = "height:40px;";
   };
 
-  console.log(nickname);
+  console.log(item.nickname);
   const connect = () => {
     let Sock = new SockJS("http://localhost:8080/ws");
     stompClient = over(Sock);
@@ -54,7 +55,7 @@ const Up_Chat = ({ nickname, itemNum }) => {
   };
 
   const onConnected = () => {
-    stompClient.subscribe(`/sub/chat/${itemNum}`, onMessageReceived);
+    stompClient.subscribe(`/sub/chat/${item?.itemNum}`, onMessageReceived);
   };
 
   const onError = (err) => {
@@ -79,13 +80,12 @@ const Up_Chat = ({ nickname, itemNum }) => {
         message: userData.message,
       };
       console.log(chatMessage);
-      stompClient.send(`/pub/message/${itemNum}`, {}, JSON.stringify(chatMessage));
+      stompClient.send(`/pub/message/${item?.itemNum}`, {}, JSON.stringify(chatMessage));
       setUserData({ ...userData, message: "" });
       inputCursor.current.focus();
     }
   };
 
-  console.log(itemNum)
 
   const handlerEnterKeyPress = (e) => {
     if (e.key === "Enter") {

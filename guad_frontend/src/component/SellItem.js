@@ -7,7 +7,7 @@ import axios from "axios";
 function SellItem({ history, match }) {
   const [item, setItem] = useState({});
   const [review, setReview] = useState([]);
-  const [auctionPeriodText, setAcutionPeriodText] = useState();
+  const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [presentPrice, setPresentPrice] = useState(0);
   const [price, setPrice] = useState(0);
 
@@ -32,7 +32,7 @@ function SellItem({ history, match }) {
             response.data.auctionPeriod.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
-        setAcutionPeriodText(
+        setAuctionPeriodText(
           `${date.getFullYear()}년 ${
             date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
