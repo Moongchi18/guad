@@ -39,6 +39,7 @@ public class MemberController {
 	public ResponseEntity<String> insertMember(@RequestBody MemberDto member) throws Exception {
 		System.out.println("<<<<<<<<<<<<<<<<<<<<<<" + member);
 		int memberNum = memberService.insertMember(member);
+		System.out.println("memberNum>>>>>>>>>"+memberNum);
 		if (memberNum > 0) {
 			return ResponseEntity.status(HttpStatus.OK).body("등록성공");
 		} else {

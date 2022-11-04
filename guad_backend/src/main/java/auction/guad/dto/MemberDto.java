@@ -15,6 +15,7 @@ public class MemberDto {
 	private String email;
 	private String phone;
 	private String address;
+	private String addressDetail;
 	private Date joinDateTime;
 	private String gender;
 	private int mileage;
