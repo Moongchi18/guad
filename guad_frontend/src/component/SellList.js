@@ -139,10 +139,10 @@ function Sell_List() {
     sellItemDto.sellType,
     sellItemDto.itemType,
     // data,
-    currentpage,
-    indexOfFirstPost,
-    indexOfLastPost,
-    postPerPage,
+    // currentpage,
+    // indexOfFirstPost,
+    // indexOfLastPost,
+    // postPerPage,
   ]);
 
   const handlerSetPage = (e) => {
