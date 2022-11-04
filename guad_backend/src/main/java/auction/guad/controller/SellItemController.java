@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.service.SellItemService;
+import auction.guad.vo.RequestTradeVo;
 import auction.guad.vo.SellItemJoinMemberVo;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -138,4 +139,6 @@ public class SellItemController {
 	public void deleteSellItem(@PathVariable("itemNum") int itemNum) throws Exception {
 		sellItemService.deleteSellItem(itemNum);
 	}
+	
+	
 }

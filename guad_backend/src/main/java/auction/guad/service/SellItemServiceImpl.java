@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.mapper.SellItemMapper;
+import auction.guad.vo.RequestTradeVo;
 import auction.guad.vo.SellItemJoinMemberVo;
 
 @Service
@@ -105,6 +106,7 @@ public class SellItemServiceImpl implements SellItemService {
 		int result = sellItemMapper.updateSoldYn(itemNum);
 		return result;
 	}
+	
 
 
 }
