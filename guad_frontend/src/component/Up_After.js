@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import style from "../source/SellItem.module.css";
 import Up_Chat from "./Up_Chat";
 
-function Up_After({ openModal, nickname }) {
+function Up_After({ openModal, nickname, itemNum }) {
     console.log(nickname)
+    console.log(itemNum)
   return (
     <>
       <div className={style.info_top}>
@@ -26,7 +27,7 @@ function Up_After({ openModal, nickname }) {
           <button className={`${style.aa_buy} ${style.aa_btn}`}>
             입찰 : <p>500,000</p>
           </button>
-          <Up_Chat nickname={nickname}/>
+          <Up_Chat nickname={nickname} itemNum={itemNum}/>
         </div>
       </div>
     </>
