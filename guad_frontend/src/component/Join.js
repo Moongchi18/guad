@@ -2,14 +2,16 @@ import style from "../source/Join.module.css";
 import Terms from "./Moodal/Terms";
 import { useState } from "react";
 import axios from "axios";
+import DaumPostcode from "react-daum-postcode";
+import AddressApi from "./Moodal/AddressApi";
 
-function Join({ history}) {
+function Join({ history }, props) {
   const [g_check, setG_check] = useState("");
 
   const CheckGen = (e) => {
     const gen = e.target.name;
     if (gen === "man") {
-      setG_check("m"); 
+      setG_check("m");
     } else {
       setG_check("w");
     }
@@ -21,7 +23,7 @@ function Join({ history}) {
   const [passConfirm, setPassConfirm] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
- 
+  const [addressDetail, setAddressDetail] = useState("");
 
   const [isEmail, setIsEmail] = useState(false);
   const [isNickname, setIsNickname] = useState(false);
@@ -41,12 +43,14 @@ function Join({ history}) {
 
 
 
-  const handlerJoin = () => { 
+  const handlerJoin = () => {
     axios
-      .post("http://localhost:8080/member", { email, nickname, pass, phone, address, gender: g_check })
-      .then((response) => console.log(response))
-      alert("회원가입이 완료되었습니다.")
-    history.push("/login")
+      .post("http://localhost:8080/member", { email, nickname, pass, phone, address, addressDetail, gender: g_check })
+      .then((response) => {
+        console.log(response)
+        alert("회원가입이 완료되었습니다.")
+        history.push("/login")
+      })
       .catch((error) => console.log(error));
   };
 
@@ -121,19 +125,21 @@ function Join({ history}) {
     }
   }
 
+  const handlerAddressDetail = (e) => setAddressDetail(e.target.value)
+
   const idCheck = (e) => {
     console.log(email)
     e.preventDefault();
     axios
-    .post("http://localhost:8080/member/idcheck", JSON.stringify({ email: email }), { headers: { "Content-Type": 'application/json' } })
-    .then((response) => {
-        setUsableIdMessage("사용 가능한 아이디입니다.") 
+      .post("http://localhost:8080/member/idcheck", JSON.stringify({ email: email }), { headers: { "Content-Type": 'application/json' } })
+      .then((response) => {
+        setUsableIdMessage("사용 가능한 아이디입니다.")
         setIsUsableId(true)
-      console.log("idcheck")
-    })
-    .catch(error => {
-          setIsUsableId(false)
-          setUsableIdMessage("이미 사용중인 아이디 입니다.");      
+        console.log("idcheck")
+      })
+      .catch(error => {
+        setIsUsableId(false)
+        setUsableIdMessage("이미 사용중인 아이디 입니다.");
       })
   }
 
@@ -143,18 +149,33 @@ function Join({ history}) {
       .post("http://localhost:8080/member/nicknamecheck", JSON.stringify({ nickname: nickname }), { headers: { "Content-Type": 'application/json' } })
       .then((response) => {
         if (response.status === 200) {
-          setUsableNicknameMessage("사용 가능한 아이디입니다.") 
+          setUsableNicknameMessage("사용 가능한 아이디입니다.")
           setIsUsableNickname(true)
-        } 
+        }
       })
       .catch(error => {
-          setIsUsableNickname(false)
-          setUsableNicknameMessage("이미 사용중인 아이디 입니다.");      
+        setIsUsableNickname(false)
+        setUsableNicknameMessage("이미 사용중인 아이디 입니다.");
       })
   }
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev); // false > true
+  };
+
+  // const handleComplete = (data) => {
+  //   console.log(data);
+  //   onToggleModal();
+  // };
+
+  console.log(address)
+  console.log(addressDetail)
+  // console.log(isOpen)
+
   return (
-  
+
     <>
       <Terms />
       <div className={style.join_all}>
@@ -219,16 +240,24 @@ function Join({ history}) {
             </li>
             <li className={style.add_in}>
               <label>주소</label>
-              <input type="text" value={address} onChange={changeAddress} />
-              <button>검색</button>
+              <input type="text" value={address} onChange={changeAddress} readOnly/>
+              <button onClick={onToggleModal}>검색</button>
+              {isOpen && (
+                <AddressApi
+                  visible={isOpen}
+                  onOk={onToggleModal}
+                  onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+                  setAddress={setAddress}
+                />
+              )}
             </li>
             <li>
               <label>상세주소</label>
-              <input type="text" />
+              <input type="text" value={addressDetail} onChange={handlerAddressDetail} />
             </li>
           </ul>
         </div>
-        <button className={style.last_btn} onClick={handlerJoin} disabled={!(isNickname && isEmail && isPass && isPassConfirm && isPhone && isAddress)}>회원가입</button>
+        <button className={style.last_btn} onClick={handlerJoin} disabled={!(isNickname && isEmail && isPass && isPassConfirm && isPhone && address && addressDetail)}>회원가입</button>
       </div>
       <div></div>
     </>

@@ -11,6 +11,14 @@
 		WHERE I.DELETE_YN
 		= 'n' AND M.DELETE_YN != 'y'
 	</select>
+
+	<!-- 마지막 상품 번호 -->
+	<select id="selectLastItemNum" resultType="int">
+		SELECT ITEM_NUM
+		FROM
+		SELL_ITEM ORDER BY ITEM_NUM DESC LIMIT 1;
+	</select>
+
 	<!-- 분류별 상품 개수 -->
 	<select id="selectItemTypeCount" resultType="int">
 		SELECT count(*)

@@ -16,6 +16,7 @@ public interface SellItemMapper {
 	void updateSellItem(SellItemDto sellItemDto) throws Exception;
 	void deleteSellItem(int itemNum) throws Exception;
 	int selectAllItemCount() throws Exception;
+	Integer selectLastItemNum() throws Exception;
 	int selectItemTypeCount(String itemType) throws Exception;
 	int selectSellTypeCount(String sellType) throws Exception;
 	int selectSellTypeItemTypeCount(String sellType, String itemType) throws Exception;

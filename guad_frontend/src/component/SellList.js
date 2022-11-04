@@ -6,7 +6,9 @@ import SellListPaging from "./SellListPaging";
 
 function Sell_List() {
   const [data, setData] = useState([]);
-  const [itemTypeList, setItemTypeList] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [itemTypeList, setItemTypeList] = useState([]); // 대분류
+  const [itemDType, setItemDType] = useState([]); // 소분류
   const [sellItemDto, setSellItemDto] = useState({
     sellType: "",
     itemType: "",
@@ -34,7 +36,41 @@ function Sell_List() {
       setSellItemDto({ ...sellItemDto, sellType: "n" });
     }
   };
+  const [cateOn, setCateOn] = useState(false);
+  const c_m = useRef();
+  const c_o = useRef();
+  const [itemType, setItemType] = useState("");
 
+  const OnOption = (type) => {
+    c_o.current.style = "display:inline-block;";
+    setItemType(type);
+
+    const newItemDT = [];
+    data2.forEach((element, index) => {
+      if (element.itemType === type && element.itemDType !== "") {
+        newItemDT.push(element.itemDType);
+      }
+    });
+    setItemDType(newItemDT);
+  };
+
+  const OnCategory = (e) => {
+    if (cateOn === false) {
+      setCateOn(true);
+      setSellItemDto({ ...sellItemDto, itemType: e.target.value });
+      c_m.current.style = "display:inline-block;";
+    } else {
+      setCateOn(false);
+      c_m.current.style = "display:none;";
+      c_o.current.style = "display:none;";
+    }
+  };
+
+  const OffCategory = () => {
+    setCateOn(false);
+    c_m.current.style = "display:none;";
+    c_o.current.style = "display:none;";
+  };
   useEffect(() => {
     if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
       setItems(data);
@@ -66,50 +102,7 @@ function Sell_List() {
     setIndexOfLastPost(currentpage * postPerPage);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
-  }, [
-    sellItemDto.sellType,
-    sellItemDto.itemType,
-    data,
-    currentpage,
-    indexOfFirstPost,
-    indexOfLastPost,
-    postPerPage,
-  ]);
 
-  // console.log(items)
-  // console.log(items.length)
-  // console.log(count)
-  // console.log(sellItemDto.sellType==='')
-  // console.log(sellItemDto.itemType==='')
-
-  const [cateOn, setCateOn] = useState(false);
-  const c_m = useRef();
-  const c_o = useRef();
-
-  const OnOption = () => {
-    c_o.current.style = "display:inline-block;";
-  };
-
-  const handlerItemType = (e) => {};
-
-  const OnCategory = (e) => {
-    if (cateOn === false) {
-      setCateOn(true);
-      setSellItemDto({ ...sellItemDto, itemType: e.target.value });
-      c_m.current.style = "display:inline-block;";
-    } else {
-      setCateOn(false);
-      c_m.current.style = "display:none;";
-      c_o.current.style = "display:none;";
-    }
-  };
-
-  const OffCategory = () => {
-    setCateOn(false);
-    c_m.current.style = "display:none;";
-    c_o.current.style = "display:none;";
-  };
-  useEffect(() => {
     axios
       .get("http://localhost:8080/category/distinct")
       .then((response) => {
@@ -120,15 +113,37 @@ function Sell_List() {
       .catch((error) => console.log(error));
 
     axios
+      .get("http://localhost:8080/category")
+      .then((response) => {
+        const temp1 = [];
+        response.data.forEach((element) => temp1.push(element.itemType));
+        const temp2 = temp1.filter(
+          (element, index) => temp1.indexOf(element) === index
+        );
+        setData2(response.data);
+      })
+      .catch((error) => console.log(error));
+
+    axios
       .get("http://localhost:8080/sellitem")
       .then((response) => {
+        console.log("이 밑은 상품 데이터");
         console.log(response.data.itemList);
         setData(response.data.itemList);
       })
       .catch((error) => console.log(error));
-
+    console.log("이 밑은 상품 리스트");
     console.log(sellItemDto);
-  }, [sellItemDto]);
+  }, [
+    // sellItemDto,
+    sellItemDto.sellType,
+    sellItemDto.itemType,
+    // data,
+    // currentpage,
+    // indexOfFirstPost,
+    // indexOfLastPost,
+    // postPerPage,
+  ]);
 
   const handlerSetPage = (e) => {
     setCurrentpage(e);
@@ -141,9 +156,6 @@ function Sell_List() {
           <h2>
             전체상품 <span></span>개
           </h2>
-          {/* 과거의 유물 전*/}
-          <div value={sellItemDto.itemType} onChange={handlerItemType}></div>
-          {/* 과거의 유물 후 */}
           <p onClick={OnCategory} className={style.cate_btn}>
             카테고리 보기
           </p>
@@ -156,18 +168,21 @@ function Sell_List() {
               <ul>
                 {itemTypeList &&
                   itemTypeList.map((type, index) => (
-                    <li key={index} value={type} onClick={OnOption}>
-                      {type}
+                    <li key={index} value={type} onClick={() => OnOption(type)}>
+                      <a>{type}</a>
                     </li>
                   ))}
               </ul>
             </div>
             <div className={style.cate_option} ref={c_o}>
-              <p>여성의류</p>
+              <p>{itemType}</p>
               <ul>
-                <li>패딩</li>
-                <li>코트</li>
-                <li>원피스</li>
+                {itemDType &&
+                  itemDType.map((DType, index) => (
+                    <li value={DType} key={index}>
+                      <a>{DType}</a>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
@@ -239,13 +254,13 @@ function Sell_List() {
               ))}
           </ul>
           <span className={style.count_p}>
-            <ul>
+            {/* <ul>
               <SellListPaging
                 page={currentpage}
                 count={count}
                 handlerSetPage={handlerSetPage}
               />
-            </ul>
+            </ul> */}
           </span>
         </div>
       </div>

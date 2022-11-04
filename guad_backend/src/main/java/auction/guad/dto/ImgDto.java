@@ -6,12 +6,10 @@ import lombok.Data;
 public class ImgDto {
 	private int imgNum;
 	private int itemNum;
-	private int reviewNum;
 	
-	private int itemImgNum;
-	
-	private int itemImgName;
-	private int itemImgUpfile;
-	private int itemImgType;
+	private String itemImgName;
+	private String itemImgUpfile;
+	private String itemImgType;
+	private long imgSize;
 	
 }

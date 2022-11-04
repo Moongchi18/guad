@@ -13,7 +13,7 @@ public class SellItemDto {
 	
 	private String itemSub;
 	private String itemContents;
-	private int itemPrice;
+	private long itemPrice;
 	private String itemType;
 	private String itemDType;
 	private Date writeDate;

@@ -7,7 +7,7 @@ import auction.guad.dto.ImgDto;
 public interface ImgService {
 
 	public int insertSellImg(ImgDto imgDto) throws Exception;
-	public int insertReviewImg(ImgDto imgDto) throws Exception;
+
 	public ImgDto selectImgByItemImgNum(int itemImgNum) throws Exception;
 	public List<ImgDto> allImgByItemNum(int itemNum) throws Exception;
 	public int deleteImg(int itemImgNum) throws Exception;

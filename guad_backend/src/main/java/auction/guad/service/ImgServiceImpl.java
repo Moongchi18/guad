@@ -18,11 +18,8 @@ public class ImgServiceImpl implements ImgService {
 	public int insertSellImg(ImgDto imgDto) throws Exception {
 		return imgMapper.insertSellImg(imgDto);
 	}
-		
-	@Override
-	public int insertReviewImg(ImgDto imgDto) throws Exception {
-		return imgMapper.insertReviewImg(imgDto);
-	}
+	
+	
 
 	@Override
 	public ImgDto selectImgByItemImgNum(int itemImgNum) throws Exception {
