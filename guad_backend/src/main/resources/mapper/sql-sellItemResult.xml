@@ -28,4 +28,9 @@
 	   SELECT * FROM SELL_ITEM_RESULT WHERE BUYER_EMAIL = #{memberEmail}
 	</select>
 	
+	<!-- 마이페이지 판매내역 리스트 -->
+	<select id="selectMySellList" resultType="auction.guad.dto.SellItemResultDto">
+	 SELECT R.* FROM SELL_ITEM_RESULT R LEFT JOIN SELL_ITEM I ON R.ITEM_NUM = I.ITEM_NUM WHERE SELLER_EMAIL = #{memberEmail}
+	</select>
+	
 </mapper>

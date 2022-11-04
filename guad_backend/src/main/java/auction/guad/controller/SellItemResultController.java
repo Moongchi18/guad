@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.dto.MemberDto;
+import auction.guad.dto.SellItemDto;
 import auction.guad.dto.SellItemResultDto;
 import auction.guad.service.MemberService;
 import auction.guad.service.SellItemResultService;
@@ -74,5 +75,16 @@ public class SellItemResultController {
         System.out.println("list>>>>>>>>>>>>>>>>>>>:" + list);
         return list;
     }
+    
+    @ApiOperation(value = "판매 조회", notes = "마이페이지에서 내 판매내역 조회")
+    @RequestMapping(value = "/selllist", method = RequestMethod.GET)
+    public List<SellItemDto> selectMySellList(@AuthenticationPrincipal User user)
+            throws Exception {
+        List<SellItemDto> list2 = sellItemResultService.selectMySellList(user.getUsername());
+        System.out.println("list>>>>>>>>>>>>>>>>>>>:" + list2);
+        return list2;
+    }
+    
+    
 
 }
