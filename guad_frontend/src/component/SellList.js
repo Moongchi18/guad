@@ -96,12 +96,11 @@ function Sell_List() {
     const newItemDT = [];
     data2.forEach((element, index) => {
       if (element.itemType === type && element.itemDType !== "") {
-        console.log(element.itemDType);
         newItemDT.push(element.itemDType);
       }
     });
     setItemDType(newItemDT);
-    console.log(itemDType);
+    console.log("입력된 소분류" + itemDType);
   };
 
   const handlerItemType = (e) => {};
@@ -192,9 +191,12 @@ function Sell_List() {
             <div className={style.cate_option} ref={c_o}>
               <p>{itemType}</p>
               <ul>
-                <li>패딩</li>
-                <li>코트</li>
-                <li>원피스</li>
+                {itemDType &&
+                  itemDType.map((DType, index) => (
+                    <li value={DType} key={index}>
+                      <a>{DType}</a>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
