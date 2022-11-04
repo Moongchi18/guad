@@ -22,7 +22,7 @@ public class ImgServiceImpl implements ImgService {
 	
 
 	@Override
-	public ImgDto selectImgByItemImgNum(int itemImgNum) throws Exception {
+	public ImgDto selectImgByItemImgNumFirst(int itemImgNum) throws Exception {
 		return imgMapper.selectImgByItemImgNum(itemImgNum);
 	}
 	

@@ -72,6 +72,7 @@ function ManagerNotify() {
         <div className={style.category}>
           <h3>신고내역</h3>
         </div>
+        
         <div className={style.notify}>
           {datas &&
             datas.map((notify) => (
@@ -80,10 +81,13 @@ function ManagerNotify() {
                 className={style.notify_list}
                 onClick={() => handlerNotify(notify.notifyNum)}
               >
+                
                 <img src={sell_1} alt="1"></img>
+
                 <h3>{notify.notifyTitle}</h3>
               </div>
             ))}
+
         </div>
       </div>
     </>
