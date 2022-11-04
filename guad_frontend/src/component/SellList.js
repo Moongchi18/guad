@@ -68,6 +68,7 @@ function Sell_List() {
     setIndexOfLastPost(currentpage * postPerPage);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+    console.log(sellItemDto);
   }, [
     sellItemDto.sellType,
     sellItemDto.itemType,
