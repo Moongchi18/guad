@@ -78,12 +78,6 @@ function Sell_List() {
     postPerPage,
   ]);
 
-  // console.log(items)
-  // console.log(items.length)
-  // console.log(count)
-  // console.log(sellItemDto.sellType==='')
-  // console.log(sellItemDto.itemType==='')
-
   const [cateOn, setCateOn] = useState(false);
   const c_m = useRef();
   const c_o = useRef();
@@ -100,7 +94,6 @@ function Sell_List() {
       }
     });
     setItemDType(newItemDT);
-    console.log("입력된 소분류" + itemDType);
   };
 
   const handlerItemType = (e) => {};
@@ -141,19 +134,18 @@ function Sell_List() {
           (element, index) => temp1.indexOf(element) === index
         );
         setData2(response.data);
-        console.log(data2);
       })
       .catch((error) => console.log(error));
 
     axios
       .get("http://localhost:8080/sellitem")
       .then((response) => {
-        console.log(response.data.itemList);
+        console.log("불러온 상품리스트" + response.data.itemList);
         setData(response.data.itemList);
       })
       .catch((error) => console.log(error));
 
-    console.log(sellItemDto);
+    console.log("이건 상품리스트" + sellItemDto);
   }, [sellItemDto]);
 
   const handlerSetPage = (e) => {
@@ -269,11 +261,11 @@ function Sell_List() {
           </ul>
           <span className={style.count_p}>
             <ul>
-              <SellListPaging
+              {/* <SellListPaging
                 page={currentpage}
                 count={count}
                 handlerSetPage={handlerSetPage}
-              />
+              /> */}
             </ul>
           </span>
         </div>
