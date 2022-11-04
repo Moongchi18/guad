@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 import SellListItem from "./SellListItem";
 import SellListPaging from "./SellListPaging";
@@ -94,7 +93,7 @@ function Sell_List() {
   const handlerItemType = (e) => {};
 
   const OnCategory = (e) => {
-    if (cateOn == false) {
+    if (cateOn === false) {
       setCateOn(true);
       setSellItemDto({ ...sellItemDto, itemType: e.target.value });
       c_m.current.style = "display:inline-block;";
@@ -234,7 +233,7 @@ function Sell_List() {
         <div className={style.sell_bot}>
           <ul>
             {data === 0 && <span>게시물이 없습니다.</span>}
-            {items.length != 0 &&
+            {items.length !== 0 &&
               currentPosts.map((item, index) => (
                 <SellListItem item={item} key={index} />
               ))}
