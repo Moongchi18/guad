@@ -50,8 +50,8 @@ function Up_Before({ openModal, clickStart, item }) {
           <span className={style.deli_tag}>배송비 포함</span>
         </div>
         <div className={style.sell_bb}>
-          <span className={style.sell_price}>판매가</span>
-          <span className={style.sell_number}>{item.auctionStartPrice}</span>
+          <span className={style.sell_price}>경매 시작가</span>
+          <span className={style.sell_number}>{item.auctionStartPrice?.toLocaleString()}</span>
         </div>
         <div className={style.button_bb}>
           <button className={style.bb_buy} onClick={clickStart}>

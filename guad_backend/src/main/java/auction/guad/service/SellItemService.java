@@ -12,7 +12,8 @@ public interface SellItemService {
 
 	public List<SellItemDto> sellItemList() throws Exception;
 	public boolean insertSellItem(SellItemDto sellItemDto) throws Exception;
-	public SellItemJoinMemberVo selectSellItemDetail(int itemNum) throws Exception;
+	public SellItemJoinMemberVo selectSellItemDetailContainHitCnt(int itemNum) throws Exception;
+	public SellItemJoinMemberVo selectSellItemDetailNoHitCnt(int itemNum) throws Exception;
 	public void updateSellItem(SellItemDto sellItemDto) throws Exception;
 	public void deleteSellItem(int itemNum) throws Exception;
 

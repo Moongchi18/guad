@@ -13,7 +13,7 @@ function BuyList() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/buylist`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/buylist`)
       .then(response => {        
         console.log(response)
         setBuyList(response.data)

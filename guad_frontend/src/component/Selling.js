@@ -186,7 +186,7 @@ function Selling({ history }) {
 
       axios({
         method: "post",
-        url: "http://localhost:8080/sellitem",
+        url: `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`,
         data: formData,
         headers: {
           "Content-Type": `multipart/form-data; `,
@@ -209,7 +209,7 @@ function Selling({ history }) {
 
   // 카테고리 불러오기
   useEffect(() => {
-    axios.get("http://localhost:8080/category").then((response) => {
+    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`).then((response) => {
       // console.log(response.data);
       const temp1 = [];
       response.data.forEach((element) => temp1.push(element.itemType));

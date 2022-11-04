@@ -13,7 +13,7 @@ function Mileage({ closeModal, modalChange, history, handlerChange, isChange }) 
   const [userEmail, setUserEmail] = useState('');
   
   useEffect(() => {
-    axios.get("http://localhost:8080/member").then((response) => {
+    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`).then((response) => {
       setData({
         email : response.data.email,
         mileage: response.data.mileage
@@ -29,7 +29,7 @@ function Mileage({ closeModal, modalChange, history, handlerChange, isChange }) 
 
   const handleCharge = () => {
     console.log(userEmail, chargeMileage)
-    axios.post("http://localhost:8080/mileage", {chargeAmount : chargeMileage, memberEmail : userEmail})
+    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/mileage`, {chargeAmount : chargeMileage, memberEmail : userEmail})
     .then((response) => {
       console.log(response)
       alert("충전이 완료되었습니다.")

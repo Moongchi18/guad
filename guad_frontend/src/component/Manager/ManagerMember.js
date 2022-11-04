@@ -27,7 +27,7 @@ function ManagerMember() {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8080/admin/member").then((response) => {
+    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`).then((response) => {
       console.log(response.data);
       setDatas(response.data);
     });

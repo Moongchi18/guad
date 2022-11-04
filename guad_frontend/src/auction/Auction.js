@@ -23,7 +23,7 @@ const Auction = () => {
     }, [])
 
     const connect = () => {
-        let Sock = new SockJS('http://192.168.0.35:8080/ws');
+        let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }

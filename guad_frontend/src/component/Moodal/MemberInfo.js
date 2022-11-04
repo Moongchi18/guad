@@ -8,7 +8,7 @@ function MemeberInfo({ modalChange, closeModal, infoEmail }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/admin/member/${infoEmail}`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member/${infoEmail}`)
       .then((response) => {
         setDatas(response.data);
       })

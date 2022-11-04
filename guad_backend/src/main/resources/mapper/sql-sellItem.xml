@@ -97,6 +97,11 @@
 		parameterType="auction.guad.dto.SellItemDto">
 
 	</update>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="updateHitCnt" parameterType="int">
+		UPDATE SELL_ITEM SET HIT_CNT = HIT_CNT + 1 WHERE ITEM_NUM = #{itemNum}
+	</update>
 
 	<update id="updateSoldYn" parameterType="int">
 		UPDATE SELL_ITEM SET

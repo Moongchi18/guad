@@ -128,7 +128,7 @@ public class SellItemController {
 	public ResponseEntity<SellItemJoinMemberVo> openSellItemDetail(
 			@Parameter(description = "게시물 번호", required = true, example = "1") @PathVariable("itemNum") int itemNum)
 			throws Exception {
-		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetail(itemNum);
+		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
 		System.out.println(sellItem);
 		if (sellItem == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

@@ -11,13 +11,13 @@ function Manager() {
   const [datas2, setDatas2] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/admin/member").then((response) => {
+    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`).then((response) => {
       console.log(response.data);
       setDatas(response.data);
     });
 
     axios
-      .get(`http://localhost:8080/notify/admin/list`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`)
       .then((response) => {
         setDatas2(response.data);
       })

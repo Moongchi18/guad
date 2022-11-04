@@ -68,7 +68,7 @@ function MypageInfo({ history }) {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8080/member").then((response) => {
+    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`).then((response) => {
       console.log(response.data);
       setData({
         email: response.data.email,
@@ -86,7 +86,7 @@ function MypageInfo({ history }) {
       alert("두 비밀번호가 일치하지 않습니다.");
     } else {
       axios
-        .post("http://localhost:8080/member/update", {
+        .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`, {
           phone,
           address,
           pass,

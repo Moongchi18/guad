@@ -37,7 +37,7 @@ public class SellItemResultController {
     @PostMapping("/sell")
     public ResponseEntity<Boolean> insertResult(@RequestBody RequestTradeVo requestTrade,
             @AuthenticationPrincipal User user) throws Exception {
-        SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetail(requestTrade.getItemNum());
+        SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailNoHitCnt(requestTrade.getItemNum());
 
         requestTrade.setBuyerEmail(user.getUsername());
         requestTrade.setSellerEmail(sellItem.getMemberEmail());

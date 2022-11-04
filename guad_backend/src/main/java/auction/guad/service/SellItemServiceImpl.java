@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
@@ -34,10 +35,17 @@ public class SellItemServiceImpl implements SellItemService {
 
 	}
 
+	
+	@Transactional
 	@Override
-	public SellItemJoinMemberVo selectSellItemDetail(int itemNum) throws Exception {
+	public SellItemJoinMemberVo selectSellItemDetailContainHitCnt(int itemNum) throws Exception {
+		sellItemMapper.updateHitCnt(itemNum);
 		return sellItemMapper.selectSellItemDetail(itemNum);
-
+	}
+	
+	@Override
+	public SellItemJoinMemberVo selectSellItemDetailNoHitCnt(int itemNum) throws Exception {
+		return sellItemMapper.selectSellItemDetail(itemNum);
 	}
 
 	@Override
@@ -111,6 +119,7 @@ public class SellItemServiceImpl implements SellItemService {
 		int result = sellItemMapper.updateSoldYn(itemNum);
 		return result;
 	}
+
 	
 
 

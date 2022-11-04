@@ -14,7 +14,7 @@ function SellItem({ history, match }) {
   console.log(presentPrice);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`)
       .then((response) => {
         console.log(response.data);
 
@@ -40,7 +40,7 @@ function SellItem({ history, match }) {
       })
       .catch((error) => console.log(error));
     axios
-      .get(`http://localhost:8080/review/${match.params.itemNum}`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`)
       .then((response) => {
         setReview(response.data);
         console.log(response.data);

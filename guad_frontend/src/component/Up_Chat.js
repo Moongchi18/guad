@@ -4,10 +4,10 @@ import { over } from "stompjs";
 import SockJS from "sockjs-client";
 import axios from "axios";
 
-var stompClient = null;
-const Up_Chat = ({ item }) => {
+// var stompClient = null;
+const Up_Chat = ({ item, connect, sendValue, publicChats }) => {
   const inputCursor = useRef();
-  const [publicChats, setPublicChats] = useState([]);
+  // const [publicChats, setPublicChats] = useState([]);
   const [userData, setUserData] = useState({
     username: sessionStorage.getItem("nickname"),
     message: "",
@@ -48,48 +48,50 @@ const Up_Chat = ({ item }) => {
   };
 
   console.log(item.nickname);
-  const connect = () => {
-    let Sock = new SockJS("http://localhost:8080/ws");
-    stompClient = over(Sock);
-    stompClient.connect({}, onConnected, onError);
-  };
+  // const connect = () => {
+  //   let Sock = new SockJS("http://localhost:8080/ws");
+  //   stompClient = over(Sock);
+  //   stompClient.connect({}, onConnected, onError);
+  // };
 
-  const onConnected = () => {
-    stompClient.subscribe(`/sub/chat/${item?.itemNum}`, onMessageReceived);
-  };
+  // const onConnected = () => {
+  //   stompClient.subscribe(`/sub/up/${item?.itemNum}`, onMessageReceived);
+  // };
 
-  const onError = (err) => {
-    console.log(err);
-  };
+  // const onError = (err) => {
+  //   console.log(err);
+  // };
 
-  const onMessageReceived = (payload) => {
-    var payloadData = JSON.parse(payload.body);
-    console.log(payloadData);
-    publicChats.push(payloadData);
-    setPublicChats([...publicChats]);
-  };
+  // const onMessageReceived = (payload) => {
+  //   var payloadData = JSON.parse(payload.body);
+  //   console.log(payloadData);
+  //   publicChats.push(payloadData);
+  //   setPublicChats([...publicChats]);
+  // };
+
+  // const sendValue = () => {
+  //   if (stompClient && userData.message !== "") {
+  //     var chatMessage = {
+  //       senderName: userData.username,
+  //       message: userData.message,
+  //     };
+  //     console.log(chatMessage);
+  //     stompClient.send(`/pub/message/${item?.itemNum}`, {}, JSON.stringify(chatMessage));
+  //     setUserData({ ...userData, message: "" });
+  //     inputCursor.current.focus();
+  //   }
+  // };
 
   const handleMessage = (event) => {
     const { value } = event.target;
     setUserData({ ...userData, message: value });
   };
-  const sendValue = () => {
-    if (stompClient && userData.message !== "") {
-      var chatMessage = {
-        senderName: userData.username,
-        message: userData.message,
-      };
-      console.log(chatMessage);
-      stompClient.send(`/pub/message/${item?.itemNum}`, {}, JSON.stringify(chatMessage));
-      setUserData({ ...userData, message: "" });
-      inputCursor.current.focus();
-    }
-  };
-
 
   const handlerEnterKeyPress = (e) => {
     if (e.key === "Enter") {
-      sendValue();
+      sendValue(userData);
+      inputCursor.current.focus();
+      setUserData({ ...userData, message: "" });
     }
   };
   useEffect(() => {
@@ -112,9 +114,8 @@ const Up_Chat = ({ item }) => {
               </button>
               {publicChats.map((chat, index) => (
                 <li
-                  className={`${style.message} ${
-                    chat.senderName === userData.username && style.self
-                  }`}
+                  className={`${style.message} ${chat.senderName === userData.username && style.self
+                    }`}
                   key={index}
                   ref={openChat3}
                 >

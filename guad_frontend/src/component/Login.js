@@ -18,10 +18,10 @@ function Login(props) {
   const handlerSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/login", { email: email, pass: password })
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, { email: email, pass: password })
       .then((response) => {
         sessionStorage.setItem("token", response.data);
-        axios.get("http://localhost:8080/member", { header: { Authorization: response.data } })
+        axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { header: { Authorization: response.data } })
           .then(response => {
             console.log(response.data.nickname)
             sessionStorage.setItem("nickname", response.data.nickname);

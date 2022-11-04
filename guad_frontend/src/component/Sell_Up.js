@@ -6,13 +6,8 @@ import Up_After from "./Up_After";
 import Up_Before from "./Up_Before";
 
 function Sell_Up({match}) {
-  const [nickname, setNickname] = useState("");
   const [start, setStart] = useState(false);
   const [item, setItem] = useState({});
-  const [review, setReview] = useState([]);
-  const [auctionPeriodText, setAcutionPeriodText] = useState();
-  const [presentPrice, setPresentPrice] = useState(0);
-  const [price, setPrice] = useState(0);
 
   const clickStart = () => {
     if (sessionStorage.length != 0) {
@@ -25,39 +20,12 @@ function Sell_Up({match}) {
   console.log(item.itemNum)
 
 
-  console.log(presentPrice);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`)
       .then((response) => {
         console.log(response.data);
-
         setItem(response.data);
-        const tempPrice =
-        response.data.sellType === "n"
-        ? response.data.itemPrice
-        : response.data.auctionStartPrice;
-        setPresentPrice(tempPrice.toLocaleString());
-        setPrice(tempPrice);
-        
-        const date = new Date(
-          response.data.auctionPeriod.slice(0, 10) +
-            " " +
-            response.data.auctionPeriod.slice(12, 19)
-        );
-        date.setHours(date.getHours() + 9);
-        setAcutionPeriodText(
-          `${date.getFullYear()}년 ${
-            date.getMonth() + 1
-          }월 ${date.getDate()}일 ${date.getHours()}시까지`
-        );
-      })
-      .catch((error) => console.log(error));
-    axios
-      .get(`http://localhost:8080/review/${match.params.itemNum}`)
-      .then((response) => {
-        setReview(response.data);
-        console.log(response.data);
       })
       .catch((error) => console.log(error));
   }, []);

@@ -15,7 +15,7 @@ function GoogleLoginForm({history}) {
     document.getElementById("signInDiv").hidden = true;
     //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
     axios
-      .post("http://localhost:8080/api/google/auth", {
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/api/google/auth`, {
         // email: user.email,
         email: userObject.email,
       })

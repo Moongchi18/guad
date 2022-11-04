@@ -17,7 +17,7 @@ function MypageCheck({history}) {
   
   useEffect(() => {
     axios
-      .get("http://localhost:8080/member")
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then(response => {        
         setData({          
           mileage: response.data.mileage        
@@ -33,7 +33,7 @@ function MypageCheck({history}) {
 
   const handleCheck = () => {
     axios
-      .post("http://localhost:8080/mypage/passcheck", { pass })
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/mypage/passcheck`, { pass })
       .then((response) => history.push("/mypage/info"))
       .catch((error) => alert("비밀번호를 확인해주세요"));
   };

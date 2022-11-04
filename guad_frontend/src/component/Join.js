@@ -45,7 +45,7 @@ function Join({ history }, props) {
 
   const handlerJoin = () => {
     axios
-      .post("http://localhost:8080/member", { email, nickname, pass, phone, address, addressDetail, gender: g_check })
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { email, nickname, pass, phone, address, addressDetail, gender: g_check })
       .then((response) => {
         console.log(response)
         alert("회원가입이 완료되었습니다.")
@@ -131,7 +131,7 @@ function Join({ history }, props) {
     console.log(email)
     e.preventDefault();
     axios
-      .post("http://localhost:8080/member/idcheck", JSON.stringify({ email: email }), { headers: { "Content-Type": 'application/json' } })
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`, JSON.stringify({ email: email }), { headers: { "Content-Type": 'application/json' } })
       .then((response) => {
         setUsableIdMessage("사용 가능한 아이디입니다.")
         setIsUsableId(true)
@@ -146,7 +146,7 @@ function Join({ history }, props) {
   const nicknameCheck = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/member/nicknamecheck", JSON.stringify({ nickname: nickname }), { headers: { "Content-Type": 'application/json' } })
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`, JSON.stringify({ nickname: nickname }), { headers: { "Content-Type": 'application/json' } })
       .then((response) => {
         if (response.status === 200) {
           setUsableNicknameMessage("사용 가능한 아이디입니다.")

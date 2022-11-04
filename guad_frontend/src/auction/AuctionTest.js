@@ -20,7 +20,7 @@ function AuctionTest({match}) {
     }, [bidList])
 
     useEffect(() => {
-        axios.get("http://localhost:8080/bidlist?itemNum="+Dto.itemNum)
+        axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}bidlist?itemNum=${Dto.itemNum}`)
         .then(response => {
             console.log(response.data)
             // const newBidList = [...response.data]
@@ -32,7 +32,7 @@ function AuctionTest({match}) {
 
     const connect = () => {
 
-        let Sock = new SockJS('http://localhost:8080/ws');
+        let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }

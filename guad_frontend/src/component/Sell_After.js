@@ -10,7 +10,7 @@ function Sell_After({ history, match }) {
   const [member, setMember] = useState('');
   
   useEffect(() => {
-    axios.get(`http://localhost:8080/sell/${match.params.itemNum}`)
+    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/${match.params.itemNum}`)
     .then((response) => {
       console.log(response.data);
       setItem(response.data);      

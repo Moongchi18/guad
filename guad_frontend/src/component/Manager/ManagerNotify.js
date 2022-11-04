@@ -13,7 +13,7 @@ function ManagerNotify() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/notify/admin/list`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`)
       .then((response) => {
         setDatas(response.data);
       })

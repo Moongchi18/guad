@@ -104,7 +104,7 @@ function Sell_List() {
     setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
 
     axios
-      .get("http://localhost:8080/category/distinct")
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category/distinct`)
       .then((response) => {
         const list = [];
         response.data.map((d) => list.push(d.itemType));
@@ -113,7 +113,7 @@ function Sell_List() {
       .catch((error) => console.log(error));
 
     axios
-      .get("http://localhost:8080/category")
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
       .then((response) => {
         const temp1 = [];
         response.data.forEach((element) => temp1.push(element.itemType));
@@ -125,7 +125,7 @@ function Sell_List() {
       .catch((error) => console.log(error));
 
     axios
-      .get("http://localhost:8080/sellitem")
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
       .then((response) => {
         console.log("이 밑은 상품 데이터");
         console.log(response.data.itemList);

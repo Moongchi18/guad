@@ -16,7 +16,7 @@ function FileUploadForm({history}) {
 
     axios({
       method: "post",
-      url: `http://localhost:8080/upload/fileUploadMultiple`,
+      url: `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/upload/fileUploadMultiple`,
       data: formData,
       headers: {
         'Content-Type': 'multipart/form-data'

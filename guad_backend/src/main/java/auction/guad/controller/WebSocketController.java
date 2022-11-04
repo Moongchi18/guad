@@ -37,8 +37,8 @@ public class WebSocketController {
 	int bid = 10000;
 	int result;
 
-    @MessageMapping("/message/{itemNum}")
-    @SendTo("/sub/chat/{itemNum}")
+    @MessageMapping("/up/{itemNum}")
+    @SendTo("/sub/up/{itemNum}")
     public Message receiveMessage(@Payload Message message, @DestinationVariable("itemNum")int itemNum){
     	System.out.println("테스트<<<<<<<<<<<<<<<<<<<<<<<<<");
         return message;
