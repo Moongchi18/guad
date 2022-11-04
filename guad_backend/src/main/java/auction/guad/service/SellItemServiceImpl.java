@@ -54,6 +54,11 @@ public class SellItemServiceImpl implements SellItemService {
 	public int selectAllItemCount() throws Exception {
 		return sellItemMapper.selectAllItemCount();
 	}
+	
+	@Override
+	public Integer selectLastItemNum() throws Exception {
+		return sellItemMapper.selectLastItemNum();
+	}
 
 	@Override
 	public int selectItemTypeCount(String itemType) throws Exception {

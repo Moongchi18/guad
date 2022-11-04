@@ -5,7 +5,7 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 import Up_After from "./Up_After";
 import Up_Before from "./Up_Before";
 
-function Sell_Up() {
+function Sell_Up({match}) {
   const [nickname, setNickname] = useState("");
   const [start, setStart] = useState(false);
   const ClickStart = () => {
@@ -16,12 +16,13 @@ function Sell_Up() {
       setStart(false);
     }
   };
-  const [itemNum, setItemNum] = useState(10);
+  const [itemNum, setItemNum] = useState(match.params.itemNum);
+  console.log(itemNum)
 
-  useEffect(() => {
-    setItemNum(document.getElementById(`${style.item_num}`).innerText);
-    console.log(">>>>" + itemNum);
-  }, [sessionStorage.length]);
+  // useEffect(() => {
+  //   setItemNum(document.getElementById(`${style.item_num}`).innerText);
+  //   console.log(">>>>" + itemNum);
+  // }, [sessionStorage.length]);
 
   console.log(">>>>" + itemNum);
 
@@ -77,7 +78,7 @@ function Sell_Up() {
           <Up_Before openModal={openModal} ClickStart={ClickStart} />
         )}
         {start == true && (
-          <Up_After openModal={openModal} nickname={nickname} />
+          <Up_After openModal={openModal} nickname={nickname} itemNum={itemNum}/>
         )}
       </div>
       <div className={style.item_bot}>

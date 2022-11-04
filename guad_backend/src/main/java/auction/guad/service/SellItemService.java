@@ -15,6 +15,7 @@ public interface SellItemService {
 	public void deleteSellItem(int itemNum) throws Exception;
 
 	public int selectAllItemCount() throws Exception;
+	public Integer selectLastItemNum() throws Exception;
 	public int selectItemTypeCount(String itemType) throws Exception;
 	int selectSellTypeCount(String sellType) throws Exception;
 	int selectSellTypeItemTypeCount(String sellType, String itemType) throws Exception;

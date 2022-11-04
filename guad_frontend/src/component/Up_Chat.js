@@ -5,7 +5,7 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 
 var stompClient = null;
-const Up_Chat = ({ nickname }) => {
+const Up_Chat = ({ nickname, itemNum }) => {
   const inputCursor = useRef();
   const [publicChats, setPublicChats] = useState([]);
   const [userData, setUserData] = useState({
@@ -54,7 +54,7 @@ const Up_Chat = ({ nickname }) => {
   };
 
   const onConnected = () => {
-    stompClient.subscribe("/sub/public", onMessageReceived);
+    stompClient.subscribe(`/sub/chat/${itemNum}`, onMessageReceived);
   };
 
   const onError = (err) => {
@@ -79,11 +79,13 @@ const Up_Chat = ({ nickname }) => {
         message: userData.message,
       };
       console.log(chatMessage);
-      stompClient.send("/pub/message", {}, JSON.stringify(chatMessage));
+      stompClient.send(`/pub/message/${itemNum}`, {}, JSON.stringify(chatMessage));
       setUserData({ ...userData, message: "" });
       inputCursor.current.focus();
     }
   };
+
+  console.log(itemNum)
 
   const handlerEnterKeyPress = (e) => {
     if (e.key === "Enter") {

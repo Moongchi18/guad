@@ -70,10 +70,6 @@ public class SellItemController {
 		String FileNames ="";
 		String filepath = "C:/img/";
 		
-		System.out.println(">>>>>>>>>" + sellItem.getItemPrice());
-		System.out.println(">>>>>>>>>" + sellItem.getItemPrice());
-		System.out.println(">>>>>>>>>" + sellItem.getItemPrice());
-		System.out.println(">>>>>>>>>" + sellItem.getItemPrice());
 
 		 for (MultipartFile mf : files) {
 			   
@@ -86,7 +82,12 @@ public class SellItemController {
 	            
 //	            FileNames = FileNames+","+safeFile; 
 	            
-	            imgDto.setItemNum(sellItem.getItemNum());
+	            if(sellItemService.selectLastItemNum() == null) {
+	            	imgDto.setItemNum(1);
+	            }else {	
+	            	imgDto.setItemNum(sellItemService.selectLastItemNum()+1);
+	            }
+	            
 	            imgDto.setItemImgName(safeFile);
 	            imgDto.setItemImgUpfile(filepath);
 	            imgDto.setItemImgType(mf.getContentType());
