@@ -10,3 +10,5 @@ npm i styled-components
 npm i jwt-decode
 
 npm i react-js-pagination
+
+npm i react-daum-postcode
