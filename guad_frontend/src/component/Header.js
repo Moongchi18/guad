@@ -23,7 +23,6 @@ function Header(props) {
     alert("로그아웃 되었습니다.");
   };
 
-  console.log(props);
   return (
     <>
       <div className={style.header_b}>

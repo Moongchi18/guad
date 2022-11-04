@@ -96,8 +96,6 @@ function Sell_List() {
     setItemDType(newItemDT);
   };
 
-  const handlerItemType = (e) => {};
-
   const OnCategory = (e) => {
     if (cateOn === false) {
       setCateOn(true);
@@ -140,12 +138,13 @@ function Sell_List() {
     axios
       .get("http://localhost:8080/sellitem")
       .then((response) => {
-        console.log("불러온 상품리스트" + response.data.itemList);
+        console.log("이 밑은 상품 데이터");
+        console.log(response.data.itemList);
         setData(response.data.itemList);
       })
       .catch((error) => console.log(error));
-
-    console.log("이건 상품리스트" + sellItemDto);
+    console.log("이 밑은 상품 리스트");
+    console.log(sellItemDto);
   }, [sellItemDto]);
 
   const handlerSetPage = (e) => {
@@ -159,9 +158,6 @@ function Sell_List() {
           <h2>
             전체상품 <span></span>개
           </h2>
-          {/* 과거의 유물 전*/}
-          <div value={sellItemDto.itemType} onChange={handlerItemType}></div>
-          {/* 과거의 유물 후 */}
           <p onClick={OnCategory} className={style.cate_btn}>
             카테고리 보기
           </p>
@@ -260,13 +256,13 @@ function Sell_List() {
               ))}
           </ul>
           <span className={style.count_p}>
-            <ul>
-              {/* <SellListPaging
+            {/* <ul>
+              <SellListPaging
                 page={currentpage}
                 count={count}
                 handlerSetPage={handlerSetPage}
-              /> */}
-            </ul>
+              />
+            </ul> */}
           </span>
         </div>
       </div>
