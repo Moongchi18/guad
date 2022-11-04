@@ -6,7 +6,9 @@ import SellListPaging from "./SellListPaging";
 
 function Sell_List() {
   const [data, setData] = useState([]);
-  const [itemTypeList, setItemTypeList] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [itemTypeList, setItemTypeList] = useState([]); // 대분류
+  const [itemDType, setItemDType] = useState([]); // 소분류
   const [sellItemDto, setSellItemDto] = useState({
     sellType: "",
     itemType: "",
@@ -85,9 +87,11 @@ function Sell_List() {
   const [cateOn, setCateOn] = useState(false);
   const c_m = useRef();
   const c_o = useRef();
+  const [itemType, setItemType] = useState("");
 
-  const OnOption = () => {
+  const OnOption = (type) => {
     c_o.current.style = "display:inline-block;";
+    setItemType(type);
   };
 
   const handlerItemType = (e) => {};
@@ -116,6 +120,14 @@ function Sell_List() {
         const list = [];
         response.data.map((d) => list.push(d.itemType));
         setItemTypeList(list);
+      })
+      .catch((error) => console.log(error));
+
+    axios
+      .get("http://localhost:8080/category")
+      .then((response) => {
+        setData2(response.data);
+        console.log(data2);
       })
       .catch((error) => console.log(error));
 
@@ -156,14 +168,14 @@ function Sell_List() {
               <ul>
                 {itemTypeList &&
                   itemTypeList.map((type, index) => (
-                    <li key={index} value={type} onClick={OnOption}>
-                      {type}
+                    <li key={index} value={type} onClick={() => OnOption(type)}>
+                      <a>{type}</a>
                     </li>
                   ))}
               </ul>
             </div>
             <div className={style.cate_option} ref={c_o}>
-              <p>여성의류</p>
+              <p>{itemType}</p>
               <ul>
                 <li>패딩</li>
                 <li>코트</li>
