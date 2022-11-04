@@ -3,7 +3,7 @@ import style from "../source/SellItem.module.css";
 import NotifyWrite from "./Moodal/NotifyWrite";
 
 
-function Sell_Down() {
+function Sell_Down(match) {
   const [itemNum, setItemNum] =useState(10);
 
   useEffect(() => {
