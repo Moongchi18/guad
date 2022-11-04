@@ -36,7 +36,41 @@ function Sell_List() {
       setSellItemDto({ ...sellItemDto, sellType: "n" });
     }
   };
+  const [cateOn, setCateOn] = useState(false);
+  const c_m = useRef();
+  const c_o = useRef();
+  const [itemType, setItemType] = useState("");
 
+  const OnOption = (type) => {
+    c_o.current.style = "display:inline-block;";
+    setItemType(type);
+
+    const newItemDT = [];
+    data2.forEach((element, index) => {
+      if (element.itemType === type && element.itemDType !== "") {
+        newItemDT.push(element.itemDType);
+      }
+    });
+    setItemDType(newItemDT);
+  };
+
+  const OnCategory = (e) => {
+    if (cateOn === false) {
+      setCateOn(true);
+      setSellItemDto({ ...sellItemDto, itemType: e.target.value });
+      c_m.current.style = "display:inline-block;";
+    } else {
+      setCateOn(false);
+      c_m.current.style = "display:none;";
+      c_o.current.style = "display:none;";
+    }
+  };
+
+  const OffCategory = () => {
+    setCateOn(false);
+    c_m.current.style = "display:none;";
+    c_o.current.style = "display:none;";
+  };
   useEffect(() => {
     if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
       setItems(data);
@@ -68,54 +102,7 @@ function Sell_List() {
     setIndexOfLastPost(currentpage * postPerPage);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
-  }, [
-    sellItemDto.sellType,
-    sellItemDto.itemType,
-    data,
-    currentpage,
-    indexOfFirstPost,
-    indexOfLastPost,
-    postPerPage,
-  ]);
 
-  const [cateOn, setCateOn] = useState(false);
-  const c_m = useRef();
-  const c_o = useRef();
-  const [itemType, setItemType] = useState("");
-
-  const OnOption = (type) => {
-    c_o.current.style = "display:inline-block;";
-    setItemType(type);
-
-    const newItemDT = [];
-    data2.forEach((element, index) => {
-      if (element.itemType === type && element.itemDType !== "") {
-        newItemDT.push(element.itemDType);
-      }
-    });
-    setItemDType(newItemDT);
-  };
-
-  const handlerItemType = (e) => {};
-
-  const OnCategory = (e) => {
-    if (cateOn === false) {
-      setCateOn(true);
-      setSellItemDto({ ...sellItemDto, itemType: e.target.value });
-      c_m.current.style = "display:inline-block;";
-    } else {
-      setCateOn(false);
-      c_m.current.style = "display:none;";
-      c_o.current.style = "display:none;";
-    }
-  };
-
-  const OffCategory = () => {
-    setCateOn(false);
-    c_m.current.style = "display:none;";
-    c_o.current.style = "display:none;";
-  };
-  useEffect(() => {
     axios
       .get("http://localhost:8080/category/distinct")
       .then((response) => {
@@ -140,13 +127,23 @@ function Sell_List() {
     axios
       .get("http://localhost:8080/sellitem")
       .then((response) => {
-        console.log("불러온 상품리스트" + response.data.itemList);
+        console.log("이 밑은 상품 데이터");
+        console.log(response.data.itemList);
         setData(response.data.itemList);
       })
       .catch((error) => console.log(error));
-
-    console.log("이건 상품리스트" + sellItemDto);
-  }, [sellItemDto]);
+    console.log("이 밑은 상품 리스트");
+    console.log(sellItemDto);
+  }, [
+    // sellItemDto,
+    sellItemDto.sellType,
+    sellItemDto.itemType,
+    // data,
+    // currentpage,
+    // indexOfFirstPost,
+    // indexOfLastPost,
+    // postPerPage,
+  ]);
 
   const handlerSetPage = (e) => {
     setCurrentpage(e);
@@ -159,9 +156,6 @@ function Sell_List() {
           <h2>
             전체상품 <span></span>개
           </h2>
-          {/* 과거의 유물 전*/}
-          <div value={sellItemDto.itemType} onChange={handlerItemType}></div>
-          {/* 과거의 유물 후 */}
           <p onClick={OnCategory} className={style.cate_btn}>
             카테고리 보기
           </p>
@@ -260,13 +254,13 @@ function Sell_List() {
               ))}
           </ul>
           <span className={style.count_p}>
-            <ul>
-              {/* <SellListPaging
+            {/* <ul>
+              <SellListPaging
                 page={currentpage}
                 count={count}
                 handlerSetPage={handlerSetPage}
-              /> */}
-            </ul>
+              />
+            </ul> */}
           </span>
         </div>
       </div>

@@ -1,5 +1,7 @@
 package auction.guad.service;
 
+import java.util.List;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,4 +53,18 @@ public class SellItemResultServiceImpl implements SellItemResultService{
 	public RequestTradeVo selectOneByBuyerEmailAndItemNum(String buyerEmail, int itemNum) throws Exception {
 		return sellItemResultMapper.selectOneByBuyerEmailAndItemNum(buyerEmail, itemNum);
 	}
+	
+	@Override
+	public List<SellItemResultDto> selectMyBuyList(String memberEmail) throws Exception {
+	          return  sellItemResultMapper.selectMyBuyList(memberEmail);
+	}
+	            
+	    
+	
+	@Override
+	public void selectMySellList(RequestTradeVo requestTrade) throws Exception {
+	        sellItemResultMapper.selectMySellList(requestTrade);
+	}
+	
+
 }

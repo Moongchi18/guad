@@ -109,6 +109,11 @@
 
 	</delete>
 
+	<!-- 내 판매내역 조회 -->
+ 	<select id="selectMySellList" parameterType="auction.guad.vo.RequestTradeVo">
+		SELECT * FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</select>
 
 
 </mapper>

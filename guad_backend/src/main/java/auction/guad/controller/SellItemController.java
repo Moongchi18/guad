@@ -28,6 +28,7 @@ import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.service.ImgService;
 import auction.guad.service.SellItemService;
+import auction.guad.vo.RequestTradeVo;
 import auction.guad.vo.SellItemJoinMemberVo;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -53,15 +54,12 @@ public class SellItemController {
 	
 /////////////////////////////////////////////////////////////////////////////////////	
 	
-	
-	
 	@ApiOperation(value = "상품 등록(SellItemDto)", notes = "게시물 제목과 내용을 저장, 파라미터 : SellItemDto")
 	@PostMapping("/sellitem")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Boolean> insertSellItem(
 			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }")
 		
-//			@RequestParam(value="file", required=false) MultipartFile[] file,
 			@RequestPart(value = "files", required=false) MultipartFile[] files,
 			@RequestPart(value = "data", required=false) SellItemDto sellItem,
 			@AuthenticationPrincipal User user) throws Exception {
@@ -110,15 +108,9 @@ public class SellItemController {
 
 		
 		sellItem.setMemberEmail(user.getUsername());
-		
-		
 		System.out.println("minPrice>>>>>>>>>>>>>>>>>>>" + sellItem.getAuctionMinPrice());
-		
-		
-		
 		boolean sellItemresult = sellItemService.insertSellItem(sellItem);
 
-		
 		if (sellItemresult) {
 			return ResponseEntity.status(HttpStatus.OK).body(sellItemresult);
 		} else {
@@ -158,4 +150,6 @@ public class SellItemController {
 	public void deleteSellItem(@PathVariable("itemNum") int itemNum) throws Exception {
 		sellItemService.deleteSellItem(itemNum);
 	}
+	
+	
 }

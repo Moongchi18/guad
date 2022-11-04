@@ -4,7 +4,9 @@ import java.util.List;
 
 import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
+import auction.guad.dto.SellItemResultDto;
 import auction.guad.vo.SellItemJoinMemberVo;
+import auction.guad.vo.RequestTradeVo;
 
 public interface SellItemService {
 
@@ -22,4 +24,5 @@ public interface SellItemService {
 	
 	PageDto selectSellItemList(int currentPage) throws Exception;
 	public int updateSoldYn(int itemNum) throws Exception;
+	
 }

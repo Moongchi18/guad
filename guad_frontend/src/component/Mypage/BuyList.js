@@ -1,8 +1,25 @@
 import style from "../../source/Mypage.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import moment from 'moment';
+//선언하지 않아도, 디바이스 혹은 locale의 시간을 불러온다. 
+import 'moment/locale/ko';	//대한민국
 
 function BuyList() {
-  const [buyList, setBuyList] = useState({});
+  const [buyList, setBuyList] = useState([]); 
+  var tempDate = moment().format('YYYY-MM-DD');
+  console.log(tempDate);
+  buyList.soldDate = tempDate
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/buylist`)
+      .then(response => {        
+        console.log(response)
+        setBuyList(response.data)
+        console.log(typeof response.data[0].soldDate)        
+      })   
+  }, [])
 
   return (
     <>
@@ -17,77 +34,42 @@ function BuyList() {
 
         {/* {buyList && ( */}
 
+        {buyList && buyList.map((list, index) => (
         <div className={style.buy_list}>
-          <div className={style.item_bb}>
+            <div className={style.item_bb} key={list.itemNum}> 
             <img
               src={require("../../source/img/selling_item_ex1.png")}
               alt="1"
-            ></img>
+              ></img>
             <img
               src={require("../../source/img/del2.png")}
               alt="1"
               className={style.del_icon}
-            ></img>
+              ></img>
           </div>
           <div className={style.buy_list_info}>
             <h3>
-              <strong>상품명 : </strong>꾸찌아니하지 않지만 그래도 그러하지
-              않기에 그러한 꾸지가방
+              <strong>상품명 : </strong>{list.itemSub}
             </h3>
             <h3>
-              <strong>가격 : </strong>1,000,000
+              <strong>가격 : </strong>{list.itemPrice}
             </h3>
             <h3>
-              <strong>주소 : </strong>경기도 구리시 인창동 극동아파트 104동
+              <strong>주소 : </strong>{list.address}
               804호
             </h3>
             <h3>
-              <strong>판매자 연락처 : </strong>01044443333
+              <strong>판매자 연락처 : </strong>{list.sellerPhone}
             </h3>
           </div>
           <div className={style.buycheck}>
             <button className={style.button}>거래완료</button>
             <h3>
-              <strong>구매 일자 : </strong>2022년 10월 24일
+              <strong>구매 일자 : </strong>{list.soldDate.slice(0,10)}
             </h3>
-          </div>
-        </div>
-
-        <div className={style.buy_list}>
-          <div className={style.item_bb}>
-            <img
-              src={require("../../source/img/selling_item_ex2.png")}
-              alt="1"
-            ></img>
-            <img
-              src={require("../../source/img/del1.png")}
-              alt="1"
-              className={style.del_icon}
-            ></img>
-          </div>
-          <div className={style.buy_list_info}>
-            <h3>
-              <strong>상품명 : </strong>꾸찌아니하지 않지만 그래도 그러하지
-              않기에 그러한 꾸지가방
-            </h3>
-            <h3>
-              <strong>가격 : </strong>1,000,000
-            </h3>
-            <h3>
-              <strong>주소 : </strong>경기도 구리시 인창동 극동아파트 104동
-              804호
-            </h3>
-            <h3>
-              <strong>판매자 연락처 : </strong>01044443333
-            </h3>
-          </div>
-          <div className={style.buycheck}>
-            <button className={style.button}>거래중</button>
-            <h3>
-              <strong>구매 일자 : </strong>2022년 10월 24일
-            </h3>
-          </div>
-        </div>
+          </div>          
+        </div>     
+        ))}
       </div>
     </>
   );
