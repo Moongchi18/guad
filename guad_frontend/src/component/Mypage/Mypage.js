@@ -28,15 +28,19 @@ function Mypage() {
   // };
 
   const [data, setData] = useState({
-    mileage: 0,
+    nickname : '',
+    mileage: 0
   });
+
+  const [item, setItem] = useState("");
   const [isChange,setIsChange] = useState(false);
 
   useEffect(() => {
     axios
       .get("http://localhost:8080/member")
       .then(response => {        
-        setData({          
+        setData({ 
+          nickname : response.data.nickname ,        
           mileage: response.data.mileage        
         })       
       })   
@@ -67,7 +71,7 @@ function Mypage() {
             </div>
             <div className={style.mileage_box}>
               <h3>
-                <strong>시흥 기린</strong>님 환영합니다!
+                <strong>{data.nickname}</strong>님 환영합니다!
               </h3>
               <h3>
                 현재마일리지 <strong>{data.mileage}</strong>원
