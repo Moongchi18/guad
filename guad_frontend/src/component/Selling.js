@@ -181,13 +181,8 @@ function Selling({ history }) {
         new Blob([JSON.stringify(dataSet)], { type: "application/json" })
       );
       
-      
       Object.values(imgFile).forEach((file) => formData.append("files", file));
      
-     
-      
-     
-
 
       axios({
         method: "post",

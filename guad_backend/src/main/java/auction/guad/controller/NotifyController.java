@@ -56,7 +56,7 @@ public class NotifyController {
 	@GetMapping("/admin/list")
 	public List<NotifyDto> notifyList(@AuthenticationPrincipal User user) throws Exception {
 		
-		ArrayList<NotifyDto> NotifyList = notifyService.notifyList();
+		List<NotifyDto> NotifyList = notifyService.notifyList();
 	
 		
 		
