@@ -1,5 +1,6 @@
 package auction.guad.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.dto.MemberDto;
 import auction.guad.dto.NotifyDto;
+import auction.guad.service.ImgService;
 import auction.guad.service.NotifyService;
 import auction.guad.vo.NotifyVo;
 import io.swagger.annotations.ApiOperation;
@@ -26,12 +28,14 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/notify")
 public class NotifyController {
 	
-	NotifyService notifyService;
+	private NotifyService notifyService;
+	private ImgService imgService;
 	BCryptPasswordEncoder encoder;
 	
 	@Autowired
-	public NotifyController(NotifyService notifyService) {
+	public NotifyController(NotifyService notifyService, ImgService imgService) {
 		this.notifyService = notifyService;
+		this.imgService = imgService;
 	}
 	
 	
@@ -51,9 +55,29 @@ public class NotifyController {
 	@ApiOperation(value = "신고리스트 조회(NotifyDto)", notes = "신고 목록 조회, 파라미터 : NotifyDto")
 	@GetMapping("/admin/list")
 	public List<NotifyDto> notifyList(@AuthenticationPrincipal User user) throws Exception {
-//		System.out.println(">>>>>>>>>>>>>>>>>>>>" + notifyService.notifyList());
+		
+		ArrayList<NotifyDto> NotifyList = notifyService.notifyList();
+	
+		
+		
+		
+		for(int i=0; i<NotifyList.size(); i++) {
+			imgService.selectImgByItemImgNumFirst(NotifyList.get(i).getItemNum());
+		}
+		
 		return notifyService.notifyList();
 	}
+	
+	
+//	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
+//	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
+//		InputStream imageStream = new FileInputStream("C://images/feed/" + imagename);
+//		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+//		imageStream.close();
+//		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
+//	}
+	
+	
 	
 	@ApiOperation(value = "신고리스트 상세 조회(NotifyDto)", notes = "신고 상세 조회, 파라미터 : NotifyDto")
 	@GetMapping("/admin/{notifyNum}")
@@ -65,5 +89,7 @@ public class NotifyController {
 		return notifyService.notifyDetail(notifyNum);
 		
 	}
+	
+
 	
 }
