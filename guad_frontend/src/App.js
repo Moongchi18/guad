@@ -75,10 +75,10 @@ function App() {
       <Route path="/join" component={Join} exact={true} />
       <Route path="/join_g" component={JoinG} exact={true} />
       <Route path="/sell_list" component={SellList} exact={true} />
-      <Route path="/sell_item/:itemNum" component={SellItem} exact={true} />
+      <Route path="/sell_item/n/:itemNum" component={SellItem} exact={true} />
       <Route path="/selling" component={Selling} exact={true} />
-      <Route path="/sell_up" component={Sell_Up} exact={true} />
-      <Route path="/sell_down" component={Sell_Down} exact={true} />
+      <Route path="/sell_item/u/:itemNum" component={Sell_Up} exact={true} />
+      <Route path="/sell_item/d/:itemNum" component={Sell_Down} exact={true} />
       <Route path="/sell_end" component={Sell_End} exact={true} />
       <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />
       <Footer />
