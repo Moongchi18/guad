@@ -3,6 +3,7 @@ package auction.guad.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,14 +52,18 @@ public class SellItemController {
 	
 	@ApiOperation(value = "상품 등록(SellItemDto)", notes = "게시물 제목과 내용을 저장, 파라미터 : SellItemDto")
 	@PostMapping("/sellitem")
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Boolean> insertSellItem(
 			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }")
-			@RequestBody SellItemDto sellItem,
-			@RequestParam(value="file", required=false) MultipartFile[] files,
+		
+//			@RequestParam(value="file", required=false) MultipartFile[] file,
+			@RequestPart(value = "files", required=true) List<MultipartFile> files,
+			@RequestPart(value = "data", required=false) SellItemDto sellItem,
+			
 			@AuthenticationPrincipal User user) throws Exception {
 		
+		
 		String FileNames ="";
-		System.out.println("paramMap =>"+files[0]);
 		String filepath = "C:/img/";
 		
 		 for (MultipartFile mf : files) {
