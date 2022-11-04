@@ -1,7 +1,7 @@
 import { useState } from "react";
 import style from "../../source/BuyReview.module.css";
 
-function BuyReview({ modalOpen, closeModal }) {
+function BuyReview({ modalOpen, closeModal, item }) {
   const [rating, setRating] = useState("");
   const ratingClick = (e) => {
     const star = e.target.name;
@@ -91,7 +91,7 @@ function BuyReview({ modalOpen, closeModal }) {
             </div>
             <p className={style.ask}>얼마나 만족스러우셨나요?</p>
             <p className={style.seller}>
-              판매자 : <strong>시흥기린</strong>
+              판매자 : <strong>{item.nickname}</strong>
             </p>
             <textarea placeholder="거래 후기를 작성해주세요."></textarea>
           </div>

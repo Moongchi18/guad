@@ -8,6 +8,7 @@ import lombok.Data;
 public class SellItemResultDto {
 
 	private int itemNumResult;
+	private int itemNum;
 	private char sellType;
 	private String sellerEmail;
 	private String sellerPhone;

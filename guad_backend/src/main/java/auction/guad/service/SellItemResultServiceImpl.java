@@ -48,7 +48,7 @@ public class SellItemResultServiceImpl implements SellItemResultService{
 
 
 	@Override
-	public SellItemResultDto selectOneByBuyerEmail(String buyerEmail) throws Exception {
-		return sellItemResultMapper.selectOneByBuyerEmail(buyerEmail);
+	public RequestTradeVo selectOneByBuyerEmailAndItemNum(String buyerEmail, int itemNum) throws Exception {
+		return sellItemResultMapper.selectOneByBuyerEmailAndItemNum(buyerEmail, itemNum);
 	}
 }

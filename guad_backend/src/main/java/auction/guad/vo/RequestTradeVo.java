@@ -6,7 +6,9 @@ import lombok.Data;
 
 @Data
 public class RequestTradeVo {
-
+	
+	private int itemNumResult;
+	private int itemNum;
 	private char sellType;
 	private String sellerEmail;
 	private String sellerPhone;
@@ -15,12 +17,14 @@ public class RequestTradeVo {
 	private String address;
 	
 	private String itemSub;
-	private int itemPrice;
+	private long itemPrice;
 	
 	private Date soldDate;
 	
-	private int itemNum;
 	private char soldYn;
 	private int mileage;
+	
+	private String nickname;
+	private String itemContents;
 	
 }
