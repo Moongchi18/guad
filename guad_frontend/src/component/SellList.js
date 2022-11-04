@@ -6,7 +6,9 @@ import SellListPaging from "./SellListPaging";
 
 function Sell_List() {
   const [data, setData] = useState([]);
-  const [itemTypeList, setItemTypeList] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [itemTypeList, setItemTypeList] = useState([]); // 대분류
+  const [itemDType, setItemDType] = useState([]); // 소분류
   const [sellItemDto, setSellItemDto] = useState({
     sellType: "",
     itemType: "",
@@ -76,18 +78,22 @@ function Sell_List() {
     postPerPage,
   ]);
 
-  // console.log(items)
-  // console.log(items.length)
-  // console.log(count)
-  // console.log(sellItemDto.sellType==='')
-  // console.log(sellItemDto.itemType==='')
-
   const [cateOn, setCateOn] = useState(false);
   const c_m = useRef();
   const c_o = useRef();
+  const [itemType, setItemType] = useState("");
 
-  const OnOption = () => {
+  const OnOption = (type) => {
     c_o.current.style = "display:inline-block;";
+    setItemType(type);
+
+    const newItemDT = [];
+    data2.forEach((element, index) => {
+      if (element.itemType === type && element.itemDType !== "") {
+        newItemDT.push(element.itemDType);
+      }
+    });
+    setItemDType(newItemDT);
   };
 
   const handlerItemType = (e) => {};
@@ -120,14 +126,26 @@ function Sell_List() {
       .catch((error) => console.log(error));
 
     axios
+      .get("http://localhost:8080/category")
+      .then((response) => {
+        const temp1 = [];
+        response.data.forEach((element) => temp1.push(element.itemType));
+        const temp2 = temp1.filter(
+          (element, index) => temp1.indexOf(element) === index
+        );
+        setData2(response.data);
+      })
+      .catch((error) => console.log(error));
+
+    axios
       .get("http://localhost:8080/sellitem")
       .then((response) => {
-        console.log(response.data.itemList);
+        console.log("불러온 상품리스트" + response.data.itemList);
         setData(response.data.itemList);
       })
       .catch((error) => console.log(error));
 
-    console.log(sellItemDto);
+    console.log("이건 상품리스트" + sellItemDto);
   }, [sellItemDto]);
 
   const handlerSetPage = (e) => {
@@ -156,18 +174,21 @@ function Sell_List() {
               <ul>
                 {itemTypeList &&
                   itemTypeList.map((type, index) => (
-                    <li key={index} value={type} onClick={OnOption}>
-                      {type}
+                    <li key={index} value={type} onClick={() => OnOption(type)}>
+                      <a>{type}</a>
                     </li>
                   ))}
               </ul>
             </div>
             <div className={style.cate_option} ref={c_o}>
-              <p>여성의류</p>
+              <p>{itemType}</p>
               <ul>
-                <li>패딩</li>
-                <li>코트</li>
-                <li>원피스</li>
+                {itemDType &&
+                  itemDType.map((DType, index) => (
+                    <li value={DType} key={index}>
+                      <a>{DType}</a>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
@@ -240,11 +261,11 @@ function Sell_List() {
           </ul>
           <span className={style.count_p}>
             <ul>
-              <SellListPaging
+              {/* <SellListPaging
                 page={currentpage}
                 count={count}
                 handlerSetPage={handlerSetPage}
-              />
+              /> */}
             </ul>
           </span>
         </div>
