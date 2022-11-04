@@ -173,10 +173,20 @@ function Selling({ history }) {
         auctionDiscountPerHour: sendAuctionDiscountPerHout,
         auctionMinPrice: sendAuctionMinPrice,
       };
-
-
-      formData.append("data", JSON.stringify(dataSet)); // JSON 형식으로 파싱 후 추가
-      Object.values(imgFile).forEach((file) => formData.append("file", file));
+      
+      console.log(sellPrice)
+      // formData.append('data', dataSet);
+      formData.append(
+        "data",
+        new Blob([JSON.stringify(dataSet)], { type: "application/json" })
+      );
+      
+      
+      Object.values(imgFile).forEach((file) => formData.append("files", file));
+     
+     
+      
+     
 
 
       axios({
@@ -184,7 +194,7 @@ function Selling({ history }) {
         url: "http://localhost:8080/sellitem",
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data'
+          "Content-Type": `multipart/form-data; `,
         }
       })
         .then((response) => {
@@ -257,7 +267,7 @@ function Selling({ history }) {
               var base64Sub = base64.toString()
               setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
               setImgBase(newImgBase)
-              
+
               //  setImgBase64(newObj);
               // 파일 base64 상태 업데이트
             }
@@ -268,7 +278,7 @@ function Selling({ history }) {
   }
 
   const WriteBoard = async () => {
-    
+
     // fd.append(
     //   "comment",
     //   comment

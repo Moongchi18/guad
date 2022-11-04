@@ -29,9 +29,6 @@ function UserSellList() {
           </div>
           <div className={style.sell_list_info}>
             <h3>
-              <strong>날짜 : </strong>2022년 10월 24일{" "}
-            </h3>
-            <h3>
               <strong>상품명 : </strong>꾸찌아니하지 않지만 그래도 그러하지
               않기에 그러한 꾸지가방
             </h3>
@@ -41,6 +38,9 @@ function UserSellList() {
             <h3>
               <strong>주소 : </strong>경기도 구리시 인창동 극동아파트 104동
               804호
+            </h3>
+            <h3>
+              <strong>구매자 연락처 : </strong>01044443333
             </h3>
           </div>
           <div className={style.sellcheck}>
@@ -62,10 +62,6 @@ function UserSellList() {
           </div>
           <div className={style.sell_list_info}>
             <h3>
-              <strong>날짜 : </strong>2022년 10월 24일
-            </h3>
-
-            <h3>
               <strong>상품명 : </strong>꾸찌아니하지 않지만 그래도 그러하지
               않기에 그러한 꾸지가방
             </h3>
@@ -75,6 +71,9 @@ function UserSellList() {
             <h3>
               <strong>주소 : </strong>경기도 구리시 인창동 극동아파트 104동
               804호
+            </h3>
+            <h3>
+              <strong>구매자 연락처 : </strong>01044443333
             </h3>
           </div>
           <div className={style.sellcheck}>
@@ -96,10 +95,6 @@ function UserSellList() {
           </div>
           <div className={style.sell_list_info}>
             <h3>
-              <strong>날짜 : </strong>2022년 10월 24일
-            </h3>
-
-            <h3>
               <strong>상품명 : </strong>꾸찌아니하지 않지만 그래도 그러하지
               않기에 그러한 꾸지가방
             </h3>
@@ -109,6 +104,9 @@ function UserSellList() {
             <h3>
               <strong>주소 : </strong>경기도 구리시 인창동 극동아파트 104동
               804호
+            </h3>
+            <h3>
+              <strong>구매자 연락처 : </strong>01044443333
             </h3>
           </div>
           <div className={style.sellcheck}>
@@ -130,10 +128,6 @@ function UserSellList() {
           </div>
           <div className={style.sell_list_info}>
             <h3>
-              <strong>날짜 : </strong>2022년 10월 24일
-            </h3>
-
-            <h3>
               <strong>상품명 : </strong>꾸찌아니하지 않지만 그래도 그러하지
               않기에 그러한 꾸지가방
             </h3>
@@ -143,6 +137,9 @@ function UserSellList() {
             <h3>
               <strong>주소 : </strong>경기도 구리시 인창동 극동아파트 104동
               804호
+            </h3>
+            <h3>
+              <strong>구매자 연락처 : </strong>01044443333
             </h3>
           </div>
           <div className={style.sellcheck}>
