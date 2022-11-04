@@ -135,7 +135,7 @@ function Sell_List() {
     console.log("이 밑은 상품 리스트");
     console.log(sellItemDto);
   }, [
-    sellItemDto,
+    // sellItemDto,
     sellItemDto.sellType,
     sellItemDto.itemType,
     // data,
