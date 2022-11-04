@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import auction.guad.dto.ImgDto;
 import auction.guad.dto.MemberDto;
 import auction.guad.dto.NotifyDto;
 import auction.guad.service.ImgService;
@@ -52,21 +53,30 @@ public class NotifyController {
 		}
 	}
 	
-	@ApiOperation(value = "신고리스트 조회(NotifyDto)", notes = "신고 목록 조회, 파라미터 : NotifyDto")
-	@GetMapping("/admin/list")
-	public List<NotifyDto> notifyList(@AuthenticationPrincipal User user) throws Exception {
-		
-		List<NotifyDto> NotifyList = notifyService.notifyList();
-	
-		
-		
-		
-		for(int i=0; i<NotifyList.size(); i++) {
-			imgService.selectImgByItemImgNumFirst(NotifyList.get(i).getItemNum());
-		}
-		
-		return notifyService.notifyList();
-	}
+//	@ApiOperation(value = "신고리스트 조회(NotifyDto)", notes = "신고 목록 조회, 파라미터 : NotifyDto")
+//	@GetMapping("/admin/list")
+//	public ResponseEntity<byte[]> notifyList(@AuthenticationPrincipal User user) throws Exception {
+//		
+//		List<NotifyDto> NotifyList = notifyService.notifyList();
+//		List<ImgDto> ImgList = new ArrayList<>();
+//		
+//		//item 넘버에 해당하는 이미지(첫번째)에 대한 정보를 ImgList에 넣는다.
+//		for(int i=0; i<NotifyList.size(); i++) {
+//			ImgList.add(i, imgService.selectImgByItemImgNumFirst(NotifyList.get(i).getItemNum()));
+//		}
+//		
+//		for(int i=0; i<ImgList.size(); i++) {
+//			
+////			InputStream imageStream = new FileInputStream("C://images/feed/" + imagename);
+////			byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+////			imageStream.close();
+//		}
+//			
+//				
+//		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
+//			
+////		return notifyService.notifyList();
+//	}
 	
 	
 //	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
@@ -78,6 +88,13 @@ public class NotifyController {
 //	}
 	
 	
+	
+	@ApiOperation(value = "신고리스트 조회(NotifyDto)", notes = "신고 목록 조회, 파라미터 : NotifyDto")
+	@GetMapping("/admin/list")
+	public List<NotifyDto> notifyList(@AuthenticationPrincipal User user) throws Exception {
+		
+		return notifyService.notifyList();
+	}
 	
 	@ApiOperation(value = "신고리스트 상세 조회(NotifyDto)", notes = "신고 상세 조회, 파라미터 : NotifyDto")
 	@GetMapping("/admin/{notifyNum}")
