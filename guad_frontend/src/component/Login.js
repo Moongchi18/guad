@@ -21,8 +21,13 @@ function Login(props) {
       .post("http://localhost:8080/login", { email: email, pass: password })
       .then((response) => {
         sessionStorage.setItem("token", response.data);
-        alert("로그인 되었습니다.");
+        axios.get("http://localhost:8080/member", { header: { Authorization: response.data } })
+          .then(response => {
+            console.log(response.data.nickname)
+            sessionStorage.setItem("nickname", response.data.nickname);
+          })
         props.handlerIsLogin();
+        alert("로그인 되었습니다.");
         props.history.push("/");
         console.log(response.data);
       })

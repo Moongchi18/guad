@@ -8,7 +8,13 @@ import Up_Before from "./Up_Before";
 function Sell_Up({match}) {
   const [nickname, setNickname] = useState("");
   const [start, setStart] = useState(false);
-  const ClickStart = () => {
+  const [item, setItem] = useState({});
+  const [review, setReview] = useState([]);
+  const [auctionPeriodText, setAcutionPeriodText] = useState();
+  const [presentPrice, setPresentPrice] = useState(0);
+  const [price, setPrice] = useState(0);
+
+  const clickStart = () => {
     if (sessionStorage.length != 0) {
       setStart(true);
     } else {
@@ -16,15 +22,47 @@ function Sell_Up({match}) {
       setStart(false);
     }
   };
-  const [itemNum, setItemNum] = useState(match.params.itemNum);
-  console.log(itemNum)
+  console.log(item.itemNum)
 
-  // useEffect(() => {
-  //   setItemNum(document.getElementById(`${style.item_num}`).innerText);
-  //   console.log(">>>>" + itemNum);
-  // }, [sessionStorage.length]);
 
-  console.log(">>>>" + itemNum);
+  console.log(presentPrice);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/sellitem/${match.params.itemNum}`)
+      .then((response) => {
+        console.log(response.data);
+
+        setItem(response.data);
+        const tempPrice =
+        response.data.sellType === "n"
+        ? response.data.itemPrice
+        : response.data.auctionStartPrice;
+        setPresentPrice(tempPrice.toLocaleString());
+        setPrice(tempPrice);
+        
+        const date = new Date(
+          response.data.auctionPeriod.slice(0, 10) +
+            " " +
+            response.data.auctionPeriod.slice(12, 19)
+        );
+        date.setHours(date.getHours() + 9);
+        setAcutionPeriodText(
+          `${date.getFullYear()}년 ${
+            date.getMonth() + 1
+          }월 ${date.getDate()}일 ${date.getHours()}시까지`
+        );
+      })
+      .catch((error) => console.log(error));
+    axios
+      .get(`http://localhost:8080/review/${match.params.itemNum}`)
+      .then((response) => {
+        setReview(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  console.log(">>>>" + item.itemNum);
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -34,24 +72,16 @@ function Sell_Up({match}) {
   const openModal = () => {
     modalChange.current.style = "display:block;";
   };
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/member")
-      .then((response) => {
-        console.log(response.data.nickname);
-        setNickname(response.data.nickname);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+
   return (
     <>
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
-        itemNum={itemNum}
+        itemNum={item.itemNum}
       />
       <div id={style.item_num} className={style.item_num}>
-        2
+        {item.itemNum}
       </div>
       <div className={style.item_top}>
         <h2>
@@ -74,21 +104,17 @@ function Sell_Up({match}) {
             <li></li>
           </ul>
         </div>
-        {start == false && (
-          <Up_Before openModal={openModal} ClickStart={ClickStart} />
+        {start == false && item &&(
+          <Up_Before openModal={openModal} clickStart={clickStart} item={item}/>
         )}
-        {start == true && (
-          <Up_After openModal={openModal} nickname={nickname} itemNum={itemNum}/>
+        {start == true && item &&(
+          <Up_After openModal={openModal} item={item}/>
         )}
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
         <p>
-          따끈따끈한 신상 가방 재고 처리합니다.
-          <br />
-          상태는 A급 엄청 깔끔하게 관리했습니다.
-          <br />
-          많은 관심 부탁드립니다.
+          {item.itemContents}
         </p>
       </div>
     </>
