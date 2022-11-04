@@ -92,6 +92,16 @@ function Sell_List() {
   const OnOption = (type) => {
     c_o.current.style = "display:inline-block;";
     setItemType(type);
+
+    const newItemDT = [];
+    data2.forEach((element, index) => {
+      if (element.itemType === type && element.itemDType !== "") {
+        console.log(element.itemDType);
+        newItemDT.push(element.itemDType);
+      }
+    });
+    setItemDType(newItemDT);
+    console.log(itemDType);
   };
 
   const handlerItemType = (e) => {};
@@ -126,6 +136,11 @@ function Sell_List() {
     axios
       .get("http://localhost:8080/category")
       .then((response) => {
+        const temp1 = [];
+        response.data.forEach((element) => temp1.push(element.itemType));
+        const temp2 = temp1.filter(
+          (element, index) => temp1.indexOf(element) === index
+        );
         setData2(response.data);
         console.log(data2);
       })
