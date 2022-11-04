@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import auction.guad.dto.ImgDto;
 import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
+import auction.guad.service.ImgService;
 import auction.guad.service.SellItemService;
 import auction.guad.vo.SellItemJoinMemberVo;
 import io.swagger.annotations.ApiOperation;
@@ -34,11 +36,14 @@ import io.swagger.v3.oas.annotations.Parameter;
 public class SellItemController {
 
 	private SellItemService sellItemService;
+	private ImgService imgService;
 	
 	@Autowired
-	public SellItemController(SellItemService sellItemService) {
+	public SellItemController(SellItemService sellItemService, ImgService imgService) {
 		this.sellItemService = sellItemService;
+		this.imgService = imgService;
 	}
+	
 
 	@ApiOperation(value = "상품 전체 조회()", notes = "상품 전체 목록을 조회, 파라미터 : ''")
 	@GetMapping("/sellitem")
@@ -59,10 +64,9 @@ public class SellItemController {
 //			@RequestParam(value="file", required=false) MultipartFile[] file,
 			@RequestPart(value = "files", required=false) MultipartFile[] files,
 			@RequestPart(value = "data", required=false) SellItemDto sellItem,
-			
 			@AuthenticationPrincipal User user) throws Exception {
 		
-		
+		ImgDto imgDto = new ImgDto();
 		String FileNames ="";
 		String filepath = "C:/img/";
 		
@@ -75,13 +79,22 @@ public class SellItemController {
 			   
 	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 	            long fileSize = mf.getSize(); // 파일 사이즈
-
+	            
 	            System.out.println("originFileName : " + originFileName);
 	            System.out.println("fileSize : " + fileSize);
-
 	            String safeFile =System.currentTimeMillis() + originFileName;
 	            
-	            FileNames = FileNames+","+safeFile; 
+//	            FileNames = FileNames+","+safeFile; 
+	            
+	            imgDto.setItemNum(sellItem.getItemNum());
+	            imgDto.setItemImgName(safeFile);
+	            imgDto.setItemImgUpfile(filepath);
+	            imgDto.setItemImgType(mf.getContentType());
+	            imgDto.setImgSize(fileSize);
+	            
+	            imgService.insertSellImg(imgDto);
+	            
+	            
 	            try {
 	            	File f1 = new File(filepath+safeFile);
 	                mf.transferTo(f1);
@@ -93,21 +106,22 @@ public class SellItemController {
 	                e.printStackTrace();
 	            }
 	        }
-//		 Map<String, Object> paramMap = new HashMap<String, Object>();
-//			FileNames = FileNames.substring(1);
-//			System.out.println("FileNames =>"+ FileNames);
-//			paramMap.put("FileNames", FileNames);
-//			resultMap.put("JavaData", paramMap);
-//			return resultMap;
+
 		
 		sellItem.setMemberEmail(user.getUsername());
 		
+		
 		System.out.println("minPrice>>>>>>>>>>>>>>>>>>>" + sellItem.getAuctionMinPrice());
-		boolean result = sellItemService.insertSellItem(sellItem);
-		if (result) {
-			return ResponseEntity.status(HttpStatus.OK).body(result);
+		
+		
+		
+		boolean sellItemresult = sellItemService.insertSellItem(sellItem);
+
+		
+		if (sellItemresult) {
+			return ResponseEntity.status(HttpStatus.OK).body(sellItemresult);
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sellItemresult);
 		}
 	}
 	

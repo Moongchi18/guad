@@ -31,14 +31,10 @@ public class ImgController {
 		imgService.insertSellImg(imgDto);
 	}
 	
-	@RequestMapping(value="/img/insert/R", method=RequestMethod.POST)
-	public void insertReviewImg(@RequestBody ImgDto imgDto) throws Exception {
-		imgService.insertReviewImg(imgDto);
-	}
 			
 	@RequestMapping(value="/img/{itemImgNum}", method=RequestMethod.PATCH)
 	public void deleteImg(@PathVariable("itemImgNum") int itemImgNum, @RequestBody ImgDto imgDto) throws Exception {
-		imgDto.setItemImgNum(itemImgNum);
+		imgDto.setItemNum(itemImgNum);
 		imgService.deleteImg(itemImgNum);
 	}
 
