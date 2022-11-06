@@ -104,7 +104,9 @@ function Sell_List() {
     setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
 
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category/distinct`)
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category/distinct`
+      )
       .then((response) => {
         const list = [];
         response.data.map((d) => list.push(d.itemType));
