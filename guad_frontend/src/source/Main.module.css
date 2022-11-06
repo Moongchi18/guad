@@ -1,91 +1,50 @@
-/* cont2 */
-
-.cont2 {
-  width: 100%;
+.qq_box {
+  bottom: 0px;
+  right: 0px;
+  position: fixed;
   font-family: "SBAggroB";
-  text-align: center;
-  padding-top: 130px;
-}
-.cont2 li {
-  cursor: pointer;
-}
-.cont2 h2 {
-  display: inline-block;
-  width: 48px;
-  height: 277px;
-  vertical-align: top;
-  margin-top: 10px;
-  cursor: pointer;
-}
-.cont2_L {
-  display: inline-block;
-  width: 350px;
-  height: 500px;
-  background-color: #098060;
-  margin: 10px 10px 0 0;
-  cursor: pointer;
-}
-.cont2_L img {
-  width: 100%;
-  height: 100%;
-}
-.cont2_R {
-  display: inline-block;
-  vertical-align: top;
-}
-.cont2_R ul {
-  width: 620px;
-}
-.cont2_R ul li {
-  display: inline-block;
-  width: 200px;
-  height: 245px;
+  font-weight: 300;
+  display: block;
   text-align: right;
-  vertical-align: top;
-  background-color: #098060;
-  margin: 10px 10px 0 0;
 }
-.cont2_R ul li img {
-  width: 100%;
-  height: 100%;
-  font-weight: 300;
+.tip {
+  text-align: right;
+  display: block;
 }
-
-.cont2_R ul li:nth-child(4) {
-  background-color: white;
-  box-sizing: border-box;
-  padding: 10px;
-  font-size: 25px;
-  font-weight: 300;
-  background: url(../source/img/arrow.png) no-repeat 95% 70px;
+.close_p {
+  display: none;
 }
-.cont2_R ul li:nth-child(3) {
-  margin-right: 0px;
-}
-.cont2_R ul li:nth-child(6) {
-  margin-right: 0px;
-}
-
-/* cont3 */
-
-.cont3 {
-  width: 1130px;
-  margin: 140px auto 140px;
-  border-top: 1px solid #d4d4d4;
-}
-.cont3 h2 {
-  font-family: "SBAggroB";
-  font-weight: 300;
-  font-size: 25px;
-  padding: 70px 0 10px 10px;
-}
-.cont3 ul li {
-  width: 200px;
-  height: 200px;
+.open_p {
+  text-align: left;
   display: inline-block;
-  margin: 0 10px;
-  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0 50px 10px 0;
+  background-color: white;
+  line-height: 1.4;
 }
-.cont3 ul li img {
-  width: 100%;
+.tip p strong:nth-child(1) {
+  font-size: 20px;
+  font-weight: normal;
+}
+.tip p strong:nth-child(3) {
+  color: #098060;
+  font-weight: normal;
+}
+.tip p strong:nth-child(5) {
+  color: #e63947;
+  font-weight: normal;
+}
+.tip p strong:nth-child(7) {
+  font-weight: normal;
+  color: blue;
+}
+.q_mark {
+  background-color: transparent;
+  display: inline-block;
+  margin: 0 50px 30px 0;
+}
+.q_mark img {
 }
