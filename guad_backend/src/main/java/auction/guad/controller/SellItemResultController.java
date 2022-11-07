@@ -81,7 +81,7 @@ public class SellItemResultController {
     public List<SellItemDto> selectMySellList(@AuthenticationPrincipal User user)
             throws Exception {
         List<SellItemDto> list2 = sellItemResultService.selectMySellList(user.getUsername());
-        System.out.println("list>>>>>>>>>>>>>>>>>>>:" + list2);
+        System.out.println("list2>>>>>>>>>>>>>>>>>>>:" + list2);
         return list2;
     }
     

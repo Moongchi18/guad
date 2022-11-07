@@ -11,6 +11,7 @@ function MypageCheck({history}) {
   
 
   const [data, setData] = useState({
+    nickname : '',
     mileage : 0
   });
   
@@ -19,7 +20,8 @@ function MypageCheck({history}) {
     axios
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then(response => {        
-        setData({          
+        setData({
+          nickname : response.data.nickname,
           mileage: response.data.mileage        
         })        
       })   
@@ -59,7 +61,7 @@ function MypageCheck({history}) {
             </div>
             <div className={style.mileage_boxi}>
               <h3>
-                <strong>시흥 기린</strong>님 환영합니다!
+                <strong>{data.nickname}</strong>님 환영합니다!
               </h3>
               <h3>
                 현재마일리지 <strong>{data.mileage}</strong>원

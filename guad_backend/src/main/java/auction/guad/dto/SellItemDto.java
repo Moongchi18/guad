@@ -25,6 +25,7 @@ public class SellItemDto {
 	private boolean auctionRandomMethod;
 	private int auctionDiscountPerHour;
 	
+	private String sellState;
 	private String soldYn;
 	private Date soldDate;
 	private String deleteYn;

@@ -51,7 +51,7 @@ function App() {
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;
   });
-  console.log("isLogin? " + isLogin);
+  console.log("현재 로그인 상태 : " + isLogin);
 
   return (
     <>
