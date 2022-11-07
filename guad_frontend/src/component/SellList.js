@@ -183,7 +183,9 @@ function Sell_List() {
       <div className={style.sell_all}>
         <div className={style.sell_top}>
           <h2>
-            전체상품 <span></span>개
+            전체상품
+            {items.length == 0 && <strong>0</strong>}
+            {items.length != 0 && <strong>{items.length}</strong>}개
           </h2>
           <p onClick={OnCategory} className={style.cate_btn}>
             {itemType == "" && <>카테고리 보기</>}

@@ -7,8 +7,9 @@
   font-size: 23px;
   margin-top: 60px;
 }
-.sell_top h2 span {
+.sell_top h2 p {
   color: #a6a6a6;
+  display: inline-block;
 }
 .cate_btn {
   display: inline-block;
