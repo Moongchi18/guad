@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
-function SellListItem({ item, isChange }) {
-  useEffect(() => {}, [isChange]);
+function SellListItem({ item }) {
+  useEffect(() => {}, []);
   return (
     <>
       <li className={style.item_info}>
