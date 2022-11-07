@@ -9,7 +9,9 @@ function Up_After({ openModal, item }) {
   const [publicChats, setPublicChats] = useState([]);
 
   const connect = () => {
-    let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
+    let Sock = new SockJS(
+      `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
+    );
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
   };
@@ -34,14 +36,18 @@ function Up_After({ openModal, item }) {
         message: userData.message,
       };
       console.log(chatMessage);
-      stompClient.send(`/pub/up/${item?.itemNum}`, {}, JSON.stringify(chatMessage));
+      stompClient.send(
+        `/pub/up/${item?.itemNum}`,
+        {},
+        JSON.stringify(chatMessage)
+      );
     }
   };
-  console.log(item)
+  console.log(item);
 
   useEffect(() => {
-    connect()
-  }, [])
+    connect();
+  }, []);
 
   return (
     <>
@@ -56,21 +62,36 @@ function Up_After({ openModal, item }) {
         <span className={style.top_title}>{item.itemSub}</span>
         <div className={style.sell_aa}>
           <span className={style.sell_price}>현재 입찰가</span>
-          <span className={style.sell_number}>{item.auctionStartPrice?.toLocaleString()}</span>
+          <span className={style.sell_number}>
+            {item.auctionStartPrice?.toLocaleString()}
+          </span>
         </div>
         <div className={style.sell_aa}>
           <span className={style.sell_price}>즉시구매 가격</span>
-          <span className={style.sell_number}>{item.auctionMaxPrice?.toLocaleString()}</span>
+          <span className={style.sell_number2}>
+            {item.auctionMaxPrice?.toLocaleString()}
+          </span>
         </div>
         <span className={style.seller1}>
+          남은 경매 시간 : <strong>2023년 5월 12일까지</strong>
+          <br />
           판매자 : <strong>{item.nickname}</strong>
         </span>
         <div className={style.button_bb}>
+          <button type="button" className={style.aa_buy_now}>
+            즉시 구매
+          </button>
           <button className={`${style.aa_buy} ${style.aa_btn}`}>
             입찰 : <p>500,000</p>
           </button>
-          {item.itemNum && <Up_Chat item={item} sendValue={sendValue}
-            publicChats={publicChats} connect={connect} />}
+          {item.itemNum && (
+            <Up_Chat
+              item={item}
+              sendValue={sendValue}
+              publicChats={publicChats}
+              connect={connect}
+            />
+          )}
         </div>
       </div>
     </>

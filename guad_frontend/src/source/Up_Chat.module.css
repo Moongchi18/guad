@@ -29,14 +29,14 @@
 }
 .chat_box {
   background-color: #dfdfdf;
-  padding: 10px;
+  padding: 9px;
   display: flex;
   flex-direction: row;
   border-radius: 5px;
   font-family: "nanumsquare";
   font-weight: normal;
   position: absolute;
-  top: 598px;
+  top: 601px;
   transition: 0.3s all ease;
 }
 .member_list {
@@ -70,6 +70,7 @@
 
 .onChat {
   display: block;
+  font-size: 20px;
   width: 295px;
   padding: 10px 5px 10px 5px;
   border-radius: 5px;
