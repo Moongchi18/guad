@@ -17,13 +17,12 @@ function Sell_Down({ match }) {
         setItem(response.data);
         const date = new Date(
           response.data.auctionPeriod.slice(0, 10) +
-            " " +
-            response.data.auctionPeriod.slice(12, 19)
+          " " +
+          response.data.auctionPeriod.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${
-            date.getMonth() + 1
+          `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
       })
@@ -54,8 +53,8 @@ function Sell_Down({ match }) {
         </h2>
         <div className={style.img_item}>
           <img
-            src={require("../source/img/big_item.png")}
-            alt="제품사진"
+            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+            alt={"img" + item.notifyNum}
             className={style.item}
           />
           <img
