@@ -44,7 +44,7 @@ function Sell_List() {
   const OnOption = (type) => {
     c_o.current.style = "display:inline-block;";
     setItemType(type);
-
+    setSellItemDto({ ...sellItemDto, itemType: type });
     const newItemDT = [];
     data2.forEach((element, index) => {
       if (element.itemType === type && element.itemDType !== "") {
@@ -57,7 +57,6 @@ function Sell_List() {
   const OnCategory = (e) => {
     if (cateOn === false) {
       setCateOn(true);
-      setSellItemDto({ ...sellItemDto, itemType: e.target.value });
       c_m.current.style = "display:inline-block;";
     } else {
       setCateOn(false);
@@ -71,31 +70,33 @@ function Sell_List() {
     c_m.current.style = "display:none;";
     c_o.current.style = "display:none;";
   };
+
+  const ResetType = () => {
+    setSellItemDto({ ...sellItemDto, itemType: "" });
+  };
   useEffect(() => {
-    console.log("여기부턴 useEffect");
-    console.log(itemType);
-    console.log(itemDType);
-    console.log(sellItemDto);
+    console.log("itemType :" + itemType);
+    console.log("itemDType :" + itemDType);
+    console.log(
+      "sellItemDto : " + sellItemDto.sellType + " / " + sellItemDto.itemType
+    );
     if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
       setItems(data);
-      console.log("useEffect 전체");
-      console.log(sellItemDto.sellType);
-      console.log(sellItemDto.itemType);
+      console.log("sellType :" + sellItemDto.sellType);
+      console.log("itemType :" + sellItemDto.itemType);
       console.log(items);
       setCount(data.length);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType === "") {
       setItems(data.filter((item) => item.sellType === sellItemDto.sellType));
       setCount(data.filter((item) => item.sellType === sellItemDto.sellType));
-      console.log("useEffect 아이템 타입");
-      console.log(sellItemDto.sellType);
-      console.log(sellItemDto.itemType);
+      console.log("sellType :" + sellItemDto.sellType);
+      console.log("itemType :" + sellItemDto.itemType);
       console.log(items);
-    } else if (sellItemDto.sellType === "" && sellItemDto.itemType !== "") {
+    } else if (sellItemDto.itemType !== "" && sellItemDto.sellType === "") {
       setItems(data.filter((item) => item.itemType === sellItemDto.itemType));
       setCount(data.filter((item) => item.itemType === sellItemDto.itemType));
-      console.log("useEffect 판매 타입");
-      console.log(sellItemDto.sellType);
-      console.log(sellItemDto.itemType);
+      console.log("sellType :" + sellItemDto.sellType);
+      console.log("itemType :" + sellItemDto.itemType);
       console.log(items);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType !== "") {
       setItems(
@@ -112,10 +113,9 @@ function Sell_List() {
             item.sellType === sellItemDto.sellType
         )
       );
-      console.log("useEffect 그외");
-      console.log(sellItemDto.sellType);
-      console.log(sellItemDto.itemType);
-      console.log(data);
+      console.log("sellType :" + sellItemDto.sellType);
+      console.log("itemType" + sellItemDto.itemType);
+      console.log(items);
     } else {
       alert("error");
     }
@@ -184,7 +184,9 @@ function Sell_List() {
               <span className={style.close} onClick={OffCategory}>
                 &times;
               </span>
-              <p>전체 카테고리</p>
+              <p onClick={ResetType} className={style.reset}>
+                전체 카테고리
+              </p>
               <ul>
                 {itemTypeList &&
                   itemTypeList.map((type, index) => (

@@ -207,3 +207,6 @@ li.item_info:nth-child(4n) {
   background-color: white;
   cursor: pointer;
 }
+.reset {
+  cursor: pointer;
+}
