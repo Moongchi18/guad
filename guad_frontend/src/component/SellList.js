@@ -16,9 +16,10 @@ function Sell_List() {
   });
   const [items, setItems] = useState([]); //리스트에 나타낼 아이템
   const [count, setCount] = useState(0); //아이템 총 개수
+  const [isChange, setIsChange] = useState(false);
+
   const [currentpage, setCurrentpage] = useState(1); //현재페이지
   const [postPerPage] = useState(12); //페이지당 아이템 개수
-
   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   const [currentPosts, setCurrentPosts] = useState([]);
@@ -27,14 +28,18 @@ function Sell_List() {
     const gory = e.target.name;
     if (gory === "all") {
       setSellItemDto({ ...sellItemDto, sellType: "" });
+      setIsChange(!isChange);
       setItems(data);
       setCount(data.length);
     } else if (gory === "up") {
       setSellItemDto({ ...sellItemDto, sellType: "u" });
+      setIsChange(!isChange);
     } else if (gory === "down") {
       setSellItemDto({ ...sellItemDto, sellType: "d" });
+      setIsChange(!isChange);
     } else if (gory === "normal") {
       setSellItemDto({ ...sellItemDto, sellType: "n" });
+      setIsChange(!isChange);
     }
   };
   const [cateOn, setCateOn] = useState(false);
@@ -52,6 +57,7 @@ function Sell_List() {
       }
     });
     setItemDType(newItemDT);
+    setIsChange(!isChange);
   };
 
   const OnCategory = (e) => {
@@ -73,6 +79,7 @@ function Sell_List() {
 
   const ResetType = () => {
     setSellItemDto({ ...sellItemDto, itemType: "" });
+    setIsChange(!isChange);
   };
   useEffect(() => {
     console.log("itemType :" + itemType);
@@ -153,7 +160,8 @@ function Sell_List() {
       })
       .catch((error) => console.log(error));
   }, [
-    sellItemDto,
+    // sellItemDto,
+    isChange,
     // sellItemDto.sellType,
     // sellItemDto.itemType,
     // itemTypeList,
