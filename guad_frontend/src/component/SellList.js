@@ -130,8 +130,8 @@ function Sell_List() {
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
       .then((response) => {
         console.log("이 밑은 상품 데이터");
-        console.log(response.data.itemList);
-        setData(response.data.itemList);
+        console.log(response.data);
+        setData(response.data);
       })
       .catch((error) => console.log(error));
     console.log("이 밑은 상품 리스트");

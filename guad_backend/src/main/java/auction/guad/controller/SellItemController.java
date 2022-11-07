@@ -38,13 +38,13 @@ public class SellItemController {
 
 	private SellItemService sellItemService;
 	private ImgService imgService;
-	
+
 	@Autowired
 	public SellItemController(SellItemService sellItemService, ImgService imgService) {
 		this.sellItemService = sellItemService;
 		this.imgService = imgService;
 	}
-	
+
 /////////////////////////////////////////////////////////////////////////////////////	
 
 	@ApiOperation(value = "상품 전체 조회()", notes = "상품 전체 목록을 조회, 파라미터 : ''")
@@ -52,61 +52,55 @@ public class SellItemController {
 	public List<SellItemDto> openSellItemList() throws Exception {
 		return sellItemService.selectSellItemList();
 	}
-	
-	
+
 	@ApiOperation(value = "상품 등록(SellItemDto)", notes = "게시물 제목과 내용을 저장, 파라미터 : SellItemDto")
 	@PostMapping("/sellitem")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Boolean> insertSellItem(
 			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }")
-		
-			@RequestPart(value = "files", required=false) MultipartFile[] files,
-			@RequestPart(value = "data", required=false) SellItemDto sellItem,
-			@AuthenticationPrincipal User user) throws Exception {
-		
+
+			@RequestPart(value = "files", required = false) MultipartFile[] files,
+			@RequestPart(value = "data", required = false) SellItemDto sellItem, @AuthenticationPrincipal User user)
+			throws Exception {
+
 		ImgDto imgDto = new ImgDto();
-		String FileNames ="";
+		String FileNames = "";
 		String filepath = "C:/img/";
-		
 
-		 for (MultipartFile mf : files) {
-			   
-	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-	            long fileSize = mf.getSize(); // 파일 사이즈
-	            
-	            System.out.println("originFileName : " + originFileName);
-	            System.out.println("fileSize : " + fileSize);
-	            String safeFile =System.currentTimeMillis() + originFileName;
-	            
+		for (MultipartFile mf : files) {
+
+			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+			long fileSize = mf.getSize(); // 파일 사이즈
+
+			System.out.println("originFileName : " + originFileName);
+			System.out.println("fileSize : " + fileSize);
+			String safeFile = System.currentTimeMillis() + originFileName;
+
 //	            FileNames = FileNames+","+safeFile; 
-	            
-	            if(sellItemService.selectLastItemNum() == null) {
-	            	imgDto.setItemNum(1);
-	            }else {	
-	            	imgDto.setItemNum(sellItemService.selectLastItemNum()+1);
-	            }
-	            
-	            imgDto.setItemImgName(safeFile);
-	            imgDto.setItemImgUpfile(filepath);
-	            imgDto.setItemImgType(mf.getContentType());
-	            imgDto.setImgSize(fileSize);
-	            
-	            imgService.insertSellImg(imgDto);
-	            
-	            
-	            try {
-	            	File f1 = new File(filepath+safeFile);
-	                mf.transferTo(f1);
-	            } catch (IllegalStateException e) {
-	                // TODO Auto-generated catch block
-	                e.printStackTrace();
-	            } catch (IOException e) {
-	                // TODO Auto-generated catch block
-	                e.printStackTrace();
-	            }
-	        }
 
-		
+			if (sellItemService.selectLastItemNum() == null) {
+				imgDto.setItemNum(1);
+			} else {
+				imgDto.setItemNum(sellItemService.selectLastItemNum() + 1);
+			}
+
+			imgDto.setItemImgName(safeFile);
+			imgDto.setItemImgUpfile(filepath);
+			imgDto.setItemImgType(mf.getContentType());
+			imgDto.setImgSize(fileSize);
+
+			imgService.insertSellImg(imgDto);
+
+			try {
+				File f1 = new File(filepath + safeFile);
+				mf.transferTo(f1);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		sellItem.setMemberEmail(user.getUsername());
 		System.out.println("minPrice>>>>>>>>>>>>>>>>>>>" + sellItem.getAuctionMinPrice());
 		boolean sellItemresult = sellItemService.insertSellItem(sellItem);
@@ -117,11 +111,8 @@ public class SellItemController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sellItemresult);
 		}
 	}
-	
 
 /////////////////////////////////////////////////////////////////////////////////////	
-	
-	
 
 	@ApiOperation(value = "게시물 상세 조회", notes = "등록된 게시물 상세 정보를 조회")
 	@RequestMapping(value = "/sellitem/{itemNum}", method = RequestMethod.GET)
@@ -150,6 +141,5 @@ public class SellItemController {
 	public void deleteSellItem(@PathVariable("itemNum") int itemNum) throws Exception {
 		sellItemService.deleteSellItem(itemNum);
 	}
-	
-	
+
 }
