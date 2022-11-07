@@ -11,4 +11,5 @@ public interface NotifyService  {
 	public int insertNotify(NotifyDto notifyDto) throws Exception;
 	public ArrayList<NotifyDto> notifyList() throws Exception;
 	public NotifyVo notifyDetail(String notifyNum) throws Exception;
+	
 }

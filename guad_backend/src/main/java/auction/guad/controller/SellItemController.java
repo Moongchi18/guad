@@ -24,11 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import auction.guad.dto.ImgDto;
-import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.service.ImgService;
 import auction.guad.service.SellItemService;
-import auction.guad.vo.RequestTradeVo;
 import auction.guad.vo.SellItemJoinMemberVo;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
