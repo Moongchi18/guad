@@ -20,12 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.dto.ImgDto;
-import auction.guad.dto.MemberDto;
 import auction.guad.dto.NotifyDto;
 import auction.guad.service.ImgService;
 import auction.guad.service.NotifyService;
 import auction.guad.vo.NotifyVo;
-
 import io.swagger.annotations.ApiOperation;
 
 @RestController
@@ -58,21 +56,25 @@ public class NotifyController {
 
 	@ApiOperation(value = "신고이미지 조회", notes = "신고이미지 조회")
 	@GetMapping(value = "/admin/img/list")
-	public ResponseEntity<byte[]> notifyImgList(@AuthenticationPrincipal User user) throws Exception {
+	public ResponseEntity<List> notifyImgList(@AuthenticationPrincipal User user) throws Exception {
 
 		InputStream in = null;
-		ResponseEntity<byte[]> entity = null;
+		ResponseEntity<List> entity = null;
 		List<NotifyDto> NotifyList = notifyService.notifyList();
 		List<ImgDto> ImgList = new ArrayList<>();
-
+		List<byte[]> result = new ArrayList<>();
+		
 		// item 넘버에 해당하는 이미지(첫번째)에 대한 정보를 ImgList에 넣는다.
 		for (int i = 0; i < NotifyList.size(); i++) {
 			ImgList.add(i, imgService.selectImgByItemNumFirst(NotifyList.get(i).getItemNum()));
 		}
 
-		in = new FileInputStream("C://img/" + ImgList.get(1).getItemImgName());
-		entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), HttpStatus.CREATED);
-
+		for ( int i =0; i< ImgList.size(); i++) {
+			in = new FileInputStream("C://img/" + ImgList.get(i).getItemImgName());
+			result.add(IOUtils.toByteArray(in));
+		}
+	
+		entity = new ResponseEntity<List>(result, HttpStatus.CREATED);
 		return entity;
 	}
 
@@ -87,7 +89,12 @@ public class NotifyController {
 	@ApiOperation(value = "신고리스트 조회(NotifyDto)", notes = "신고 목록 조회, 파라미터 : NotifyDto")
 	@GetMapping("/admin/list")
 	public List<NotifyDto> notifyList(@AuthenticationPrincipal User user) throws Exception {
+		List<NotifyDto> NotifyList = notifyService.notifyList();
+		List<ImgDto> ImgList = new ArrayList<>();
+		
 
+		
+		
 		return notifyService.notifyList();
 	}
 

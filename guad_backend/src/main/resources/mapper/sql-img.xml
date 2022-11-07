@@ -10,7 +10,7 @@
 	 
 	 
 	<select id="selectImgByItemNumFirst" resultType="auction.guad.dto.ImgDto">
-		SELECT * FROM IMG WHERE #{itemNum}
+		SELECT * FROM IMG WHERE #{itemNum} ORDER BY img_num DESC LIMIT 1
 	</select>
 	
 		

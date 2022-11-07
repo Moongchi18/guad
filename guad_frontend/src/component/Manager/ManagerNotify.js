@@ -1,7 +1,5 @@
 import style from "../../source/ManagerNotify.module.css";
 import logo from "../../source/img/mypage.png";
-import sell_1 from "../../source/img/selling_item_ex1.png";
-import sell_2 from "../../source/img/selling_item_ex2.png";
 import Notify from "../Moodal/Notify";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
@@ -19,6 +17,7 @@ function ManagerNotify() {
       .then((response) => {
         console.log('======= 이미지 목록 조회 성공 =======')
         console.log(response.data);
+
         setImg(response.data);
       })
       .catch((error) => {
@@ -98,23 +97,34 @@ function ManagerNotify() {
                 className={style.notify_list}
                 onClick={() => handlerNotify(notify.notifyNum)}
               >
-
-                <img src={sell_1} alt="1"></img>
-
-                <h3>{notify.notifyTitle}</h3>
               </div>
             ))}
 
-          {imgs && imgs.map((item) => {
+          {imgs && imgs.map((img, index) => {
             return (
-              <div>
+              <div key={index}>
                 <img
-                  src={process.env.REACT_APP_API_URL + "/images/" + item.filename}
-                  alt={"img" + item.itemnum}
+                  src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/16677918874491.jpg`}
+                  alt={"img" + img.itemnum}
                 />
               </div>
             )
           })}
+
+          <img
+            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/16677918874491.jpg`}
+            alt={"img"}
+          />
+
+          {datas &&
+            datas.map((notify) => (
+              <div
+                key={notify.notifyNum}
+                className={style.notify_list}
+              >
+                <h3>{notify.notifyTitle}</h3>
+              </div>
+            ))}
 
         </div>
       </div>
