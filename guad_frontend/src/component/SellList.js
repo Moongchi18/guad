@@ -72,6 +72,7 @@ function Sell_List() {
   const ResetType = () => {
     setSellItemDto({ ...sellItemDto, itemType: "" });
     setItemType("");
+    c_o.current.style = "display:none;";
   };
   useEffect(() => {
     console.log("itemType :" + itemType);
@@ -264,7 +265,7 @@ function Sell_List() {
             {data === 0 && <span>게시물이 없습니다.</span>}
             {items.length !== 0 &&
               currentPosts.map((item, index) => (
-                <SellListItem item={item} key={index}/>
+                <SellListItem item={item} key={index} />
               ))}
           </ul>
           <span className={style.count_p}>
