@@ -3,20 +3,23 @@ import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
 function SellListItem({ item }) {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   return (
     <>
       <li className={style.item_info}>
         <Link to={`/sell_item/${item.sellType}/${item.itemNum}`}>
           <div className={style.item_bb}>
-            <img src={require("../source/img/item01.png")} alt="제품1" />
+            <img className={style.item_img}
+              src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+              alt={"img" + item.notifyNum}
+            />
             <img
               src={
                 item.sellType === "d"
                   ? require("../source/img/del1_b.png")
                   : item.sellType === "u"
-                  ? require("../source/img/del2_b.png")
-                  : require("../source/img/del4_b.png")
+                    ? require("../source/img/del2_b.png")
+                    : require("../source/img/del4_b.png")
               }
               alt="망치"
               className={style.del_icon}

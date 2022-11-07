@@ -211,3 +211,10 @@ li.item_info:nth-child(4n) {
 .reset {
   cursor: pointer;
 }
+
+/* 아이템 이미지 */
+
+.item_img {
+  width: 230px;
+  height: 230px;
+}
