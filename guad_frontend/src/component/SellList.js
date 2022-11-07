@@ -79,6 +79,7 @@ function Sell_List() {
 
   const ResetType = () => {
     setSellItemDto({ ...sellItemDto, itemType: "" });
+    setItemType("");
     setIsChange(!isChange);
   };
   useEffect(() => {
@@ -185,7 +186,8 @@ function Sell_List() {
             전체상품 <span></span>개
           </h2>
           <p onClick={OnCategory} className={style.cate_btn}>
-            카테고리 보기
+            {itemType == "" && <>카테고리 보기</>}
+            {itemType != "" && <>{itemType}</>}
           </p>
           <div className={style.cate_box}>
             <div className={style.cate_main} ref={c_m}>
