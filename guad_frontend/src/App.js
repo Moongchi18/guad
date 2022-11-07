@@ -24,13 +24,19 @@ import Selling from "./component/Selling";
 import ChatTest from "./auction/ChatTest";
 import Sell_Up from "./component/Sell_Up";
 import Sell_Down from "./component/Sell_Down";
-import Sell_End from "./component/Sell_End";
 import Sell_After from "./component/Sell_After";
 import { useState, useRef } from "react";
 import MypageCheck from "./component/Mypage/MypageCheck";
+import Sell_End_u from "./component/Sell_End_u";
+import Sell_End_d from "./component/Sell_End_d";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(sessionStorage.getItem('token') !== '' || sessionStorage.getItem('token') !== undefined ? true:false);
+  const [isLogin, setIsLogin] = useState(
+    sessionStorage.getItem("token") !== "" ||
+      sessionStorage.getItem("token") !== undefined
+      ? true
+      : false
+  );
 
   function handlerIsLogin() {
     setIsLogin(true);
@@ -40,19 +46,21 @@ function App() {
     setIsLogin(false);
   }
 
-
   axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("token");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;
   });
-  console.log("isLogin? " + isLogin)
+  console.log("현재 로그인 상태 : " + isLogin);
 
   return (
     <>
-      <Header handlerIsLogout={handlerIsLogout}/>
-      <Route path="/g_login" component={GoogleLoginForm} exact={true}/>
-      <Route path="/login" render={(props) => (<Login handlerIsLogin={handlerIsLogin} {...props}/>)}/>
+      <Header handlerIsLogout={handlerIsLogout} />
+      <Route path="/g_login" component={GoogleLoginForm} exact={true} />
+      <Route
+        path="/login"
+        render={(props) => <Login handlerIsLogin={handlerIsLogin} {...props} />}
+      />
       <Route path="/upload" component={FileUploadForm} exact={true} />
 
       <Route
@@ -79,7 +87,8 @@ function App() {
       <Route path="/selling" component={Selling} exact={true} />
       <Route path="/sell_item/u/:itemNum" component={Sell_Up} exact={true} />
       <Route path="/sell_item/d/:itemNum" component={Sell_Down} exact={true} />
-      <Route path="/sell_end" component={Sell_End} exact={true} />
+      <Route path="/sell_end_u" component={Sell_End_u} exact={true} />
+      <Route path="/sell_end_d" component={Sell_End_d} exact={true} />
       <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />
       <Footer />
     </>

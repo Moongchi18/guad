@@ -15,4 +15,5 @@ public class NotifyDto {
 	private String notifyContents;
 	private Date notifyTime;
 	
+	private String img;
 }

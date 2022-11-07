@@ -1,7 +1,5 @@
 import style from "../../source/ManagerNotify.module.css";
 import logo from "../../source/img/mypage.png";
-import sell_1 from "../../source/img/selling_item_ex1.png";
-import sell_2 from "../../source/img/selling_item_ex2.png";
 import Notify from "../Moodal/Notify";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
@@ -10,8 +8,24 @@ import { Link } from "react-router-dom";
 function ManagerNotify() {
   const [datas, setDatas] = useState([]);
   const [notifyNum, setNotifyNum] = useState("");
+  const [imgs, setImg] = useState([]);
 
   useEffect(() => {
+
+    axios
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/img/list`)
+      .then((response) => {
+        console.log('======= 이미지 목록 조회 성공 =======')
+        console.log(response.data);
+
+        setImg(response.data);
+      })
+      .catch((error) => {
+        console.log('======= 이미지 목록 조회 실패 =======')
+        console.log(error)
+        alert("이미지 불러오기 실패");
+      });
+
     axios
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`)
       .then((response) => {
@@ -22,6 +36,8 @@ function ManagerNotify() {
           alert("접근 권한이 없습니다. 로그인 후 다시 접속해 주세요.");
         }
       });
+
+
   }, []);
 
   const modalChange = useRef();
@@ -72,7 +88,7 @@ function ManagerNotify() {
         <div className={style.category}>
           <h3>신고내역</h3>
         </div>
-        
+
         <div className={style.notify}>
           {datas &&
             datas.map((notify) => (
@@ -81,9 +97,31 @@ function ManagerNotify() {
                 className={style.notify_list}
                 onClick={() => handlerNotify(notify.notifyNum)}
               >
-                
-                <img src={sell_1} alt="1"></img>
+              </div>
+            ))}
 
+          {imgs && imgs.map((img, index) => {
+            return (
+              <div key={index}>
+                <img
+                  src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/16677918874491.jpg`}
+                  alt={"img" + img.itemnum}
+                />
+              </div>
+            )
+          })}
+
+          <img
+            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/16677918874491.jpg`}
+            alt={"img"}
+          />
+
+          {datas &&
+            datas.map((notify) => (
+              <div
+                key={notify.notifyNum}
+                className={style.notify_list}
+              >
                 <h3>{notify.notifyTitle}</h3>
               </div>
             ))}

@@ -9,8 +9,9 @@ public interface ImgService {
 	public int insertSellImg(ImgDto imgDto) throws Exception;
 
 	
-	public ImgDto selectImgByItemImgNumFirst(int itemNum) throws Exception;
+	public ImgDto selectImgByItemNumFirst(int itemNum) throws Exception;
 	public List<ImgDto> allImgByItemNum(int itemNum) throws Exception;
+	
 	public int deleteImg(int itemImgNum) throws Exception;
 	
 	

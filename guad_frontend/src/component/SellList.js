@@ -5,9 +5,10 @@ import SellListItem from "./SellListItem";
 import SellListPaging from "./SellListPaging";
 
 function Sell_List() {
-  const [data, setData] = useState([]);
-  const [data2, setData2] = useState([]);
+  const [data, setData] = useState([]); // 상품 전체 정보
+  const [data2, setData2] = useState([]); // 카테고리 전체정보
   const [itemTypeList, setItemTypeList] = useState([]); // 대분류
+  const [itemType, setItemType] = useState("");
   const [itemDType, setItemDType] = useState([]); // 소분류
   const [sellItemDto, setSellItemDto] = useState({
     sellType: "",
@@ -15,9 +16,10 @@ function Sell_List() {
   });
   const [items, setItems] = useState([]); //리스트에 나타낼 아이템
   const [count, setCount] = useState(0); //아이템 총 개수
+  const [isChange, setIsChange] = useState(false);
+
   const [currentpage, setCurrentpage] = useState(1); //현재페이지
   const [postPerPage] = useState(12); //페이지당 아이템 개수
-
   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   const [currentPosts, setCurrentPosts] = useState([]);
@@ -26,25 +28,28 @@ function Sell_List() {
     const gory = e.target.name;
     if (gory === "all") {
       setSellItemDto({ ...sellItemDto, sellType: "" });
+      setIsChange(!isChange);
       setItems(data);
       setCount(data.length);
     } else if (gory === "up") {
       setSellItemDto({ ...sellItemDto, sellType: "u" });
+      setIsChange(!isChange);
     } else if (gory === "down") {
       setSellItemDto({ ...sellItemDto, sellType: "d" });
+      setIsChange(!isChange);
     } else if (gory === "normal") {
       setSellItemDto({ ...sellItemDto, sellType: "n" });
+      setIsChange(!isChange);
     }
   };
   const [cateOn, setCateOn] = useState(false);
   const c_m = useRef();
   const c_o = useRef();
-  const [itemType, setItemType] = useState("");
 
   const OnOption = (type) => {
     c_o.current.style = "display:inline-block;";
     setItemType(type);
-
+    setSellItemDto({ ...sellItemDto, itemType: type });
     const newItemDT = [];
     data2.forEach((element, index) => {
       if (element.itemType === type && element.itemDType !== "") {
@@ -52,12 +57,12 @@ function Sell_List() {
       }
     });
     setItemDType(newItemDT);
+    setIsChange(!isChange);
   };
 
   const OnCategory = (e) => {
     if (cateOn === false) {
       setCateOn(true);
-      setSellItemDto({ ...sellItemDto, itemType: e.target.value });
       c_m.current.style = "display:inline-block;";
     } else {
       setCateOn(false);
@@ -71,16 +76,35 @@ function Sell_List() {
     c_m.current.style = "display:none;";
     c_o.current.style = "display:none;";
   };
+
+  const ResetType = () => {
+    setSellItemDto({ ...sellItemDto, itemType: "" });
+    setIsChange(!isChange);
+  };
   useEffect(() => {
+    console.log("itemType :" + itemType);
+    console.log("itemDType :" + itemDType);
+    console.log(
+      "sellItemDto : " + sellItemDto.sellType + " / " + sellItemDto.itemType
+    );
     if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
       setItems(data);
+      console.log("sellType :" + sellItemDto.sellType);
+      console.log("itemType :" + sellItemDto.itemType);
+      console.log(items);
       setCount(data.length);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType === "") {
       setItems(data.filter((item) => item.sellType === sellItemDto.sellType));
       setCount(data.filter((item) => item.sellType === sellItemDto.sellType));
-    } else if (sellItemDto.sellType === "" && sellItemDto.itemType !== "") {
+      console.log("sellType :" + sellItemDto.sellType);
+      console.log("itemType :" + sellItemDto.itemType);
+      console.log(items);
+    } else if (sellItemDto.itemType !== "" && sellItemDto.sellType === "") {
       setItems(data.filter((item) => item.itemType === sellItemDto.itemType));
       setCount(data.filter((item) => item.itemType === sellItemDto.itemType));
+      console.log("sellType :" + sellItemDto.sellType);
+      console.log("itemType :" + sellItemDto.itemType);
+      console.log(items);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType !== "") {
       setItems(
         data.filter(
@@ -96,6 +120,9 @@ function Sell_List() {
             item.sellType === sellItemDto.sellType
         )
       );
+      console.log("sellType :" + sellItemDto.sellType);
+      console.log("itemType" + sellItemDto.itemType);
+      console.log(items);
     } else {
       alert("error");
     }
@@ -129,17 +156,16 @@ function Sell_List() {
     axios
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
       .then((response) => {
-        console.log("이 밑은 상품 데이터");
-        console.log(response.data.itemList);
-        setData(response.data.itemList);
+        setData(response.data);
       })
       .catch((error) => console.log(error));
-    console.log("이 밑은 상품 리스트");
-    console.log(sellItemDto);
   }, [
     // sellItemDto,
-    sellItemDto.sellType,
-    sellItemDto.itemType,
+    isChange,
+    // sellItemDto.sellType,
+    // sellItemDto.itemType,
+    // itemTypeList,
+    // itemDType,
     // data,
     // currentpage,
     // indexOfFirstPost,
@@ -166,7 +192,9 @@ function Sell_List() {
               <span className={style.close} onClick={OffCategory}>
                 &times;
               </span>
-              <p>전체 카테고리</p>
+              <p onClick={ResetType} className={style.reset}>
+                전체 카테고리
+              </p>
               <ul>
                 {itemTypeList &&
                   itemTypeList.map((type, index) => (
