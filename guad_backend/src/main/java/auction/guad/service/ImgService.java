@@ -11,6 +11,7 @@ public interface ImgService {
 	
 	public ImgDto selectImgByItemNumFirst(int itemNum) throws Exception;
 	public List<ImgDto> allImgByItemNum(int itemNum) throws Exception;
+	
 	public int deleteImg(int itemImgNum) throws Exception;
 	
 	
