@@ -79,9 +79,18 @@ function Sell_End_d() {
         </p>
       </div>
       <div className={style.review}>
-        <h2>경매 후기</h2>
+        <h2>후기 작성</h2>
         <textarea placeholder="경매 후기를 작성해주세요."></textarea>
         <button type="button">작성</button>
+      </div>
+      <div className={style.review_dd}>
+        <h2>경매 후기</h2>
+        <ul>
+          <li>
+            <p>부산 갈매기</p>
+            <input type="text" disabled value="결국 이겼다" />
+          </li>
+        </ul>
       </div>
     </>
   );

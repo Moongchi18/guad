@@ -121,9 +121,25 @@
 .seller {
   font-size: 20px;
   font-family: "SBAggroB";
+  font-weight: 300;
   display: block;
   text-align: right;
-  margin: 170px 0 20px;
+  margin: 180px 0 10px;
+}
+.seller_dd {
+  font-size: 20px;
+  font-family: "SBAggroB";
+  display: block;
+  font-weight: 300;
+  margin-top: 10px;
+}
+.buyer_dd {
+  font-size: 20px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  display: block;
+  text-align: right;
+  margin: 150px 0 10px;
 }
 .seller1 {
   font-size: 20px;
@@ -231,6 +247,7 @@
 }
 .last_bb > h2 {
   font-size: 20px;
+  font-weight: 300;
   margin: 235px 0 10px;
 }
 .last_bb span {
