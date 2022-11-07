@@ -90,6 +90,10 @@ function Sell_End_d() {
             <p>부산 갈매기</p>
             <input type="text" disabled value="결국 이겼다" />
           </li>
+          <li>
+            <p>인천 두더지</p>
+            <input type="text" disabled value="내가 졌다" />
+          </li>
         </ul>
       </div>
     </>
