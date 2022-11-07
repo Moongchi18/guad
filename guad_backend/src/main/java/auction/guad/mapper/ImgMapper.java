@@ -10,10 +10,8 @@ import auction.guad.dto.ImgDto;
 public interface ImgMapper {
 	
 	int insertSellImg(ImgDto imgDto) throws Exception;
+	ImgDto selectImgByItemNumFirst(int itemNum) throws Exception;
 	
-	ImgDto selectImgByItemImgNum(int itemImgNum) throws Exception;
 	List<ImgDto> allImgByItemNum(int itemNum) throws Exception;
 	int deleteImg(int itemImgNum) throws Exception;
-	
-	
 }

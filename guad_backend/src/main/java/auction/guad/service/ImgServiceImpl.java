@@ -22,8 +22,8 @@ public class ImgServiceImpl implements ImgService {
 	
 
 	@Override
-	public ImgDto selectImgByItemImgNumFirst(int itemImgNum) throws Exception {
-		return imgMapper.selectImgByItemImgNum(itemImgNum);
+	public ImgDto selectImgByItemNumFirst(int itemNum) throws Exception {
+		return imgMapper.selectImgByItemNumFirst(itemNum);
 	}
 	
 	@Override

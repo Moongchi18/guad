@@ -9,8 +9,8 @@
 	</insert>
 	 
 	 
-	<select id="selectImgByItemNum" resultType="auction.guad.dto.ImgDto">
-	
+	<select id="selectImgByItemNumFirst" resultType="auction.guad.dto.ImgDto">
+		SELECT * FROM IMG WHERE #{itemNum}
 	</select>
 	
 		
