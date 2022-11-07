@@ -5,8 +5,8 @@ import SellListItem from "./SellListItem";
 import SellListPaging from "./SellListPaging";
 
 function Sell_List() {
-  const [data, setData] = useState([]);
-  const [data2, setData2] = useState([]);
+  const [data, setData] = useState([]); // 상품 전체 정보
+  const [data2, setData2] = useState([]); // 카테고리 전체정보
   const [itemTypeList, setItemTypeList] = useState([]); // 대분류
   const [itemDType, setItemDType] = useState([]); // 소분류
   const [sellItemDto, setSellItemDto] = useState({
@@ -74,13 +74,19 @@ function Sell_List() {
   useEffect(() => {
     if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
       setItems(data);
+      console.log("useEffect 전체");
+      console.log(items);
       setCount(data.length);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType === "") {
       setItems(data.filter((item) => item.sellType === sellItemDto.sellType));
       setCount(data.filter((item) => item.sellType === sellItemDto.sellType));
+      console.log("useEffect 아이템 타입");
+      console.log(items);
     } else if (sellItemDto.sellType === "" && sellItemDto.itemType !== "") {
       setItems(data.filter((item) => item.itemType === sellItemDto.itemType));
       setCount(data.filter((item) => item.itemType === sellItemDto.itemType));
+      console.log("useEffect 판매 타입");
+      console.log(items);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType !== "") {
       setItems(
         data.filter(
@@ -96,6 +102,8 @@ function Sell_List() {
             item.sellType === sellItemDto.sellType
         )
       );
+      console.log("useEffect 그외");
+      console.log(items);
     } else {
       alert("error");
     }
@@ -129,17 +137,15 @@ function Sell_List() {
     axios
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
       .then((response) => {
-        console.log("이 밑은 상품 데이터");
-        console.log(response.data);
         setData(response.data);
       })
       .catch((error) => console.log(error));
-    console.log("이 밑은 상품 리스트");
-    console.log(sellItemDto);
   }, [
-    // sellItemDto,
-    sellItemDto.sellType,
-    sellItemDto.itemType,
+    sellItemDto,
+    // sellItemDto.sellType,
+    // sellItemDto.itemType,
+    // itemTypeList,
+    // itemDType,
     // data,
     // currentpage,
     // indexOfFirstPost,
