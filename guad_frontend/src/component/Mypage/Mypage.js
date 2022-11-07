@@ -93,7 +93,7 @@ function Mypage() {
             </div>
           </div>
         </div>
-        <RegistList />
+        {/* <RegistList /> */}
         <BuyList />
         <UserSellList />
       </div>

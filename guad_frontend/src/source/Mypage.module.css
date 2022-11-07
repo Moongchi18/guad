@@ -275,8 +275,7 @@
 .sellcheck button {
   width: 150px;
   height: 40px;
-  border-radius: 5px;
-  background-color: #217a4f;
+  border-radius: 5px;  
   color: #ffffff;
   font-weight: 300;
 }
