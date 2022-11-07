@@ -74,7 +74,7 @@ function Manager() {
             {datas2 &&
               datas2.map((notify) => (
                 <li key={notify.notifyNum} className={style.notify_list}>
-                  <img src={sell_1} alt="1"></img>
+                  <img src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${notify.itemImgName}`} alt={"img" + notify.notifyNum}></img>
                   <h3>{notify.notifyTitle}</h3>
                 </li>
               ))}

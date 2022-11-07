@@ -43,7 +43,7 @@ function Sell_Down({ match }) {
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
-        itme={item}
+        itemNum={item.itemNum}
       />
       <div id={style.item_num} className={style.item_num}>
         2

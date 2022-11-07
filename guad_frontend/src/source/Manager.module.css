@@ -144,11 +144,14 @@
 }
 
 .notify_list h3 {
+  width: 140px;
   padding-top: 10px;
   color: #545454;
   font-size: 15px;
   font-weight: 300;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .notify_list img {
   width: 150px;
