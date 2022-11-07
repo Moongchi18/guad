@@ -2,8 +2,7 @@ import style from "../source/SellItem.module.css";
 import NotifyWrite from "./Moodal/NotifyWrite";
 import { useRef } from "react";
 
-function Sell_End() {
- 
+function Sell_End_u() {
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -12,11 +11,9 @@ function Sell_End() {
     modalChange.current.style = "display:block;";
   };
 
-
-
   return (
     <>
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange}/>
+      <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
       <div className={style.item_top}>
         <h2>
           <strong>오름</strong>판매
@@ -84,4 +81,4 @@ function Sell_End() {
     </>
   );
 }
-export default Sell_End;
+export default Sell_End_u;

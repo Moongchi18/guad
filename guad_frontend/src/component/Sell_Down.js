@@ -3,26 +3,27 @@ import { useRef, useEffect, useState } from "react";
 import style from "../source/SellItem.module.css";
 import NotifyWrite from "./Moodal/NotifyWrite";
 
-
 function Sell_Down({ match }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [item, setItem] = useState({});
 
-
   useEffect(() => {
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`)
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`
+      )
       .then((response) => {
         console.log(response.data);
         setItem(response.data);
         const date = new Date(
           response.data.auctionPeriod.slice(0, 10) +
-          " " +
-          response.data.auctionPeriod.slice(12, 19)
+            " " +
+            response.data.auctionPeriod.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${date.getMonth() + 1
+          `${date.getFullYear()}년 ${
+            date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
       })
@@ -37,12 +38,16 @@ function Sell_Down({ match }) {
     modalChange.current.style = "display:block;";
   };
 
-
-
   return (
     <>
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} itme={item} />
-      <div id={style.item_num} className={style.item_num}>2</div>
+      <NotifyWrite
+        closeModal={closeModal}
+        modalChange={modalChange}
+        itme={item}
+      />
+      <div id={style.item_num} className={style.item_num}>
+        2
+      </div>
       <div className={style.item_top}>
         <h2 className={style.down}>
           <strong>내림</strong>판매
@@ -85,12 +90,14 @@ function Sell_Down({ match }) {
             판매자 : <strong>{item.nickname}</strong>
           </span>
           <div className={style.deli_bb}>
-            <span className={style.deli_name}>배송비</span>
-            <span className={style.deli_tag}>배송비 포함</span>
+            <span className={style.deli_name}>최저 경매가</span>
+            <span className={style.deli_tag}>200,000</span>
           </div>
           <div className={style.sell_bb}>
-            <span className={style.sell_price}>판매가</span>
-            <span className={style.sell_number}>{item.auctionStartPrice?.toLocaleString()}</span>
+            <span className={style.sell_price}>현재 경매가</span>
+            <span className={style.sell_number}>
+              {item.auctionStartPrice?.toLocaleString()}
+            </span>
           </div>
           <div className={style.button_bb}>
             <button className={style.bb_down}>입찰 참여</button>
@@ -100,9 +107,7 @@ function Sell_Down({ match }) {
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
-        <p>
-          {item.itemContents}
-        </p>
+        <p>{item.itemContents}</p>
       </div>
       <div className={style.review}>
         <h2>경매 후기</h2>
