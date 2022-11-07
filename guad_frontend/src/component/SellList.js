@@ -282,7 +282,7 @@ function Sell_List() {
             {data === 0 && <span>게시물이 없습니다.</span>}
             {items.length !== 0 &&
               currentPosts.map((item, index) => (
-                <SellListItem item={item} key={index} />
+                <SellListItem item={item} key={index} isChange={isChange} />
               ))}
           </ul>
           <span className={style.count_p}>
