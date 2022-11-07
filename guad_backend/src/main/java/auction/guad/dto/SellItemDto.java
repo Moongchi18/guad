@@ -30,5 +30,7 @@ public class SellItemDto {
 	private Date soldDate;
 	private String deleteYn;
 	private Date deleteDate;
+	
+	private String itemImgName;
 
 }
