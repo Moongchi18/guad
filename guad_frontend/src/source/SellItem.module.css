@@ -123,7 +123,7 @@
   font-family: "SBAggroB";
   display: block;
   text-align: right;
-  margin-top: 180px;
+  margin: 170px 0 20px;
 }
 .seller1 {
   font-size: 20px;
@@ -146,9 +146,8 @@
   font-weight: 300;
 }
 .deli_tag {
-  font-size: 20px;
+  font-size: 25px;
   font-family: "SBAggroB";
-  font-weight: 300;
   color: #696969;
   float: right;
 }
@@ -163,7 +162,7 @@
 .sell_bb .sell_number {
   font-size: 30px;
   font-family: "SBAggroB";
-  color: #696969;
+  color: #7e0000;
   float: right;
 }
 .sell_aa .sell_price {
@@ -222,6 +221,10 @@
 .last_number {
   font-size: 40px;
   color: #098060;
+}
+.last_number22 {
+  font-size: 40px;
+  color: #e63947;
 }
 .last_bb {
   font-family: "SBAggroB";
@@ -320,6 +323,10 @@
 }
 .bb_last {
   background-color: #00460e !important;
+  color: white;
+}
+.bb_last22 {
+  background-color: #630000 !important;
   color: white;
 }
 

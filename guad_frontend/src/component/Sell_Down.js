@@ -90,11 +90,11 @@ function Sell_Down({ match }) {
             판매자 : <strong>{item.nickname}</strong>
           </span>
           <div className={style.deli_bb}>
-            <span className={style.deli_name}>배송비</span>
-            <span className={style.deli_tag}>배송비 포함</span>
+            <span className={style.deli_name}>최저 경매가</span>
+            <span className={style.deli_tag}>200,000</span>
           </div>
           <div className={style.sell_bb}>
-            <span className={style.sell_price}>판매가</span>
+            <span className={style.sell_price}>현재 경매가</span>
             <span className={style.sell_number}>
               {item.auctionStartPrice?.toLocaleString()}
             </span>
