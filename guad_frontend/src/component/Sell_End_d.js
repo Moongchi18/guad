@@ -15,8 +15,8 @@ function Sell_End_d() {
     <>
       <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
       <div className={style.item_top}>
-        <h2>
-          <strong>오름</strong>판매
+        <h2 className={style.down}>
+          <strong>내림</strong>판매
         </h2>
         <div className={style.img_item}>
           <img
