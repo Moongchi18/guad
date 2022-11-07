@@ -8,6 +8,7 @@ function Sell_List() {
   const [data, setData] = useState([]); // 상품 전체 정보
   const [data2, setData2] = useState([]); // 카테고리 전체정보
   const [itemTypeList, setItemTypeList] = useState([]); // 대분류
+  const [itemType, setItemType] = useState("");
   const [itemDType, setItemDType] = useState([]); // 소분류
   const [sellItemDto, setSellItemDto] = useState({
     sellType: "",
@@ -39,7 +40,6 @@ function Sell_List() {
   const [cateOn, setCateOn] = useState(false);
   const c_m = useRef();
   const c_o = useRef();
-  const [itemType, setItemType] = useState("");
 
   const OnOption = (type) => {
     c_o.current.style = "display:inline-block;";
@@ -72,20 +72,30 @@ function Sell_List() {
     c_o.current.style = "display:none;";
   };
   useEffect(() => {
+    console.log("여기부턴 useEffect");
+    console.log(itemType);
+    console.log(itemDType);
+    console.log(sellItemDto);
     if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
       setItems(data);
       console.log("useEffect 전체");
+      console.log(sellItemDto.sellType);
+      console.log(sellItemDto.itemType);
       console.log(items);
       setCount(data.length);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType === "") {
       setItems(data.filter((item) => item.sellType === sellItemDto.sellType));
       setCount(data.filter((item) => item.sellType === sellItemDto.sellType));
       console.log("useEffect 아이템 타입");
+      console.log(sellItemDto.sellType);
+      console.log(sellItemDto.itemType);
       console.log(items);
     } else if (sellItemDto.sellType === "" && sellItemDto.itemType !== "") {
       setItems(data.filter((item) => item.itemType === sellItemDto.itemType));
       setCount(data.filter((item) => item.itemType === sellItemDto.itemType));
       console.log("useEffect 판매 타입");
+      console.log(sellItemDto.sellType);
+      console.log(sellItemDto.itemType);
       console.log(items);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType !== "") {
       setItems(
@@ -103,7 +113,9 @@ function Sell_List() {
         )
       );
       console.log("useEffect 그외");
-      console.log(items);
+      console.log(sellItemDto.sellType);
+      console.log(sellItemDto.itemType);
+      console.log(data);
     } else {
       alert("error");
     }
