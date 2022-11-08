@@ -73,8 +73,6 @@ function Up_After({ openModal, item }) {
           </span>
         </div>
         <span className={style.seller1}>
-          남은 경매 시간 : <strong>2023년 5월 12일까지</strong>
-          <br />
           판매자 : <strong>{item.nickname}</strong>
         </span>
         <div className={style.button_bb}>
@@ -92,6 +90,9 @@ function Up_After({ openModal, item }) {
               connect={connect}
             />
           )}
+          <p>
+            남은 경매 시간 : <strong>2023년 5월 12일까지</strong>
+          </p>
         </div>
       </div>
     </>

@@ -145,7 +145,7 @@
   font-size: 20px;
   font-family: "SBAggroB";
   display: block;
-  margin: 110px 0 10px;
+  margin: 140px 0 10px;
   line-height: 1.3;
 }
 .seller1 strong {
@@ -201,7 +201,7 @@
   display: block;
 }
 .button_bb {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .button_bb span {
   display: block;
@@ -224,6 +224,14 @@
   background-color: #e63947;
   color: #fff;
   transition: 0.3s all ease-in;
+}
+.button_bb > p {
+  margin: 10px 10px 0 0;
+  text-align: right;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  color: #8f8f8f;
+  font-size: 20px;
 }
 .end_bb span {
   display: block;
