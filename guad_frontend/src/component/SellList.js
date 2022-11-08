@@ -8,9 +8,8 @@ function Sell_List() {
   const [data, setData] = useState([]); // 상품 전체 정보
   const [category, setCategory] = useState([]); // 카테고리 전체정보
   const [itemTypeList, setItemTypeList] = useState([]); // 대분류
-  // const [itemType, setItemType] = useState(""); // 선택된 대분류
   const [itemDTypeList, setItemDTypeList] = useState([]); // 소분류
-  const [selectedOptions, setSelectedOptions] = useState({
+  const [selectedOptions, setSelectedOptions] = useState({ // 선택된 분류
     sellType: "",
     itemType: "",
     itemDType: '',
@@ -20,117 +19,165 @@ function Sell_List() {
 
   const [currentpage, setCurrentpage] = useState(1); //현재페이지
   const [postPerPage] = useState(12); //페이지당 아이템 개수
-  const [indexOfLastPost, setIndexOfLastPost] = useState(0);
+  const [indexOfLastPost, setIndexOfLastPost] = useState(12);
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   const [currentPosts, setCurrentPosts] = useState([]);
-  
+
   const [cateOn, setCateOn] = useState(false);
   const c_m = useRef();
   const c_o = useRef();
 
-  const checkSellType = (e) => {
-    const gory = e.target.name;
-    if (gory === "all") {
-      setSelectedOptions({ ...selectedOptions, sellType: "" });
-      setItems(data);
-    } else if (gory === "up") {
-      setSelectedOptions({ ...selectedOptions, sellType: "u" });
-    } else if (gory === "down") {
-      setSelectedOptions({ ...selectedOptions, sellType: "d" });
-    } else if (gory === "normal") {
-      setSelectedOptions({ ...selectedOptions, sellType: "n" });
-    }
-  };
-  
-  const OnItemType = (type) => {
-    c_o.current.style = "display:inline-block;";
-    // setItemType(type);
-    setSelectedOptions({ ...selectedOptions, itemType: type });
-    const newItemDT = [];
-    category.forEach((element, index) => {
-      if (element.itemType === type && element.itemDType !== "") {
-        newItemDT.push(element.itemDType);
-      }
-    });
-    setItemDTypeList(newItemDT);
-  };
+  console.log("-------------------------------")
+  console.log(selectedOptions)
+  console.log(items)
+  console.log(currentPosts)
 
-  useEffect(() => {
-    // console.log("itemType :" + itemType);
-    console.log("itemDType :" + itemDTypeList);
-    console.log(
-      "selectedOptions : " + selectedOptions.sellType + " / " + selectedOptions.itemType
-    );
-    if (selectedOptions.sellType === "" && selectedOptions.itemType === "") {
-      setItems(data);
-      console.log("sellType :" + selectedOptions.sellType);
-      console.log("itemType :" + selectedOptions.itemType);
-      console.log(items);
-    } else if (selectedOptions.sellType !== "" && selectedOptions.itemType === "") {
-      setItems(data.filter((item) => item.sellType === selectedOptions.sellType));
-      console.log("sellType :" + selectedOptions.sellType);
-      console.log("itemType :" + selectedOptions.itemType);
-      console.log(items);
-    } else if (selectedOptions.itemType !== "" && selectedOptions.sellType === "") {
-      setItems(data.filter((item) => item.itemType === selectedOptions.itemType));
-      console.log("sellType :" + selectedOptions.sellType);
-      console.log("itemType :" + selectedOptions.itemType);
-      console.log(items);
-    } else if (selectedOptions.sellType !== "" && selectedOptions.itemType !== "") {
-      setItems(
-        data.filter(
-          (item) =>
-            item.itemType === selectedOptions.itemType &&
-            item.sellType === selectedOptions.sellType
-        )
-      );
-      console.log("sellType :" + selectedOptions.sellType);
-      console.log("itemType" + selectedOptions.itemType);
-      console.log(items);
+  const OnItemType = (value, name) => {
+    console.log("함수ㅡㅡㅡㅡㅡㅡㅡㅡ")
+    console.log(value, ", " + name)
+    console.log(selectedOptions)
+    console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
+    if (name === "sellType") {
+      if (value === "") {
+
+        setSelectedOptions({ ...selectedOptions, sellType: "" });
+
+        if (selectedOptions.itemType === "") {
+          console.log(1)
+          setItems(data);
+        } else if (selectedOptions.itemType !== "" && selectedOptions.itemDType === "") {
+          console.log(2)
+          setItems(data.filter((item) => item.itemType === selectedOptions.itemType));
+          console.log(3)
+        } else if (selectedOptions.itemType !== "" && selectedOptions.itemDType !== "") {
+          console.log(4)
+          setItems(data.filter((item) => item.itemDType === selectedOptions.itemDType));
+        }
+      } else if (value !== "") {
+
+        setSelectedOptions({ ...selectedOptions, sellType: value });
+
+        if (selectedOptions.itemType === "") {
+          console.log(5)
+          setItems(data.filter((item) => item.sellType === value));
+        } else if (selectedOptions.itemType !== "" && selectedOptions.itemDType === "") {
+          console.log(6)
+          setItems(
+            data.filter(
+              (item) =>
+                item.itemType === selectedOptions.itemType &&
+                item.sellType === value
+            )
+          );
+        } else if (selectedOptions.itemType !== "" && selectedOptions.itemDType !== "") {
+          console.log(7)
+          setItems(
+            data.filter(
+              (item) =>
+                item.itemDType === selectedOptions.itemDType &&
+                item.sellType === value
+            )
+          );
+        }
+      }
+    } else if (name === "itemType") {
+      if (value === "") {
+        setSelectedOptions({ ...selectedOptions, itemType: "", itemDType: "" });
+        setSelectedOptions({ ...selectedOptions, sellType: "" });
+        c_o.current.style = "display:none;";
+        if (selectedOptions.sellType === "") {
+          console.log(8)
+          setItems(data);
+        } else if (selectedOptions.sellType !== "") {
+          console.log(9)
+          setItems(data.filter((item) => item.sellType === selectedOptions.sellType));
+        }
+      } else {
+        const newItemDT = [];
+        category.forEach((element, index) => {
+          if (element.itemType === value && element.itemDType !== "") {
+            newItemDT.push(element.itemDType);
+          }
+        });
+        setSelectedOptions({ ...selectedOptions, sellType: "" });
+        setItemDTypeList(newItemDT);
+        setSelectedOptions({ ...selectedOptions, itemType: value, itemDType: '' });
+        c_o.current.style = "display:inline-block;";
+
+        if (selectedOptions.sellType === "") {
+          console.log(10)
+          setItems(data.filter((item) => item.itemType === value));
+        } else if (selectedOptions.sellType !== "") {
+          console.log(11)
+          setItems(
+            data.filter(
+              (item) =>
+                item.itemType === value &&
+                item.sellType === selectedOptions.sellType
+            )
+          );
+        }
+      }
+    } else if (name === "itemDetailType") {
+      setSelectedOptions({ ...selectedOptions, itemDType: value, sellType: "" })
+      c_m.current.style = "display:none;";
+      c_o.current.style = "display:none;";
+      setCateOn(false);
+
+      if (selectedOptions.sellType === "") {
+        console.log(12)
+        setItems(data.filter((item) => item.itemDType === value))
+      } else if (selectedOptions.sellType !== "") {
+        console.log(13)
+        setItems(
+          data.filter(
+            (item) =>
+              item.itemDType === value &&
+              item.sellType === selectedOptions.sellType
+          )
+        );
+      }
     } else {
-      alert("error");
+      alert("에러")
     }
+
+
+    // setIndexOfLastPost(currentpage * postPerPage);
+    // setIndexOfFirstPost(indexOfLastPost - postPerPage);
+    // setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+  }
+  useEffect(() => {
     setIndexOfLastPost(currentpage * postPerPage);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+  }, [selectedOptions])
 
-
-  }, [
-    selectedOptions,
-    // selectedOptions.sellType,
-    // selectedOptions.itemType,
-    // itemTypeList,
-    // itemDType,
-    // data,
-    // currentpage,
-    // indexOfFirstPost,
-    // indexOfLastPost,
-    // postPerPage,
-  ]);
 
   useEffect(() => {
     axios
-    .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
-    .then((response) => {
-      const temp1 = [];
-      console.log(response.data)
-      response.data.forEach((element) => temp1.push(element.itemType));
-      const temp2 = temp1.filter(
-        (element, index) => temp1.indexOf(element) === index
-      );
-      console.log(temp2)
-      setItemTypeList(temp2)
-      setCategory(response.data);
-    })
-    .catch((error) => console.log(error));
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
+      .then((response) => {
+        const temp1 = [];
+        console.log(response.data)
+        response.data.forEach((element) => temp1.push(element.itemType));
+        const temp2 = temp1.filter(
+          (element, index) => temp1.indexOf(element) === index
+        );
+        console.log(temp2)
+        setItemTypeList(temp2)
+        setCategory(response.data);
+      })
+      .catch((error) => console.log(error));
 
-  axios
-    .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
-    .then((response) => {
-      console.log(response.data)
-      setData(response.data);
-    })
-    .catch((error) => console.log(error));
+    axios
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
+      .then((response) => {
+        console.log(response.data)
+        setData(response.data);
+        setItems(response.data);
+        setCurrentPosts(response.data?.slice(indexOfFirstPost, indexOfLastPost));
+      })
+      .catch((error) => console.log(error));
 
   }, [])
 
@@ -156,7 +203,7 @@ function Sell_List() {
   };
 
   const ResetType = () => {
-    setSelectedOptions({ ...selectedOptions, itemType: "" });
+    setSelectedOptions({ ...selectedOptions, itemType: "", itemDType: "" });
     // setItemType("");
     c_o.current.style = "display:none;";
   };
@@ -171,8 +218,7 @@ function Sell_List() {
             {items.length != 0 && <strong>{items.length}</strong>}개
           </h2>
           <p onClick={OnCategory} className={style.cate_btn}>
-            {selectedOptions.itemType == "" && <>카테고리 보기</>}
-            {selectedOptions.itemType != "" && <>{selectedOptions.itemType}</>}
+            {selectedOptions.itemType == "" ? <>카테고리 보기</> : <>{selectedOptions.itemType}</>}
           </p>
           <div className={style.cate_box}>
             <div className={style.cate_main} ref={c_m}>
@@ -184,11 +230,12 @@ function Sell_List() {
               </p>
               <ul>
                 {itemTypeList &&
-                  itemTypeList.map((type, index) => (
-                    <li key={index} value={type} onClick={() => OnItemType(type)}>
-                      <a>{type}</a>
-                    </li>
-                  ))}
+                  itemTypeList.map((type, index) => {
+                    return (
+                      <li key={index} onClick={() => OnItemType(type, "itemType")}>
+                        <a>{type}</a>
+                      </li>)
+                  })}
               </ul>
             </div>
             <div className={style.cate_option} ref={c_o}>
@@ -196,7 +243,7 @@ function Sell_List() {
               <ul>
                 {itemDTypeList &&
                   itemDTypeList.map((DType, index) => (
-                    <li value={DType} key={index}>
+                    <li value={DType} key={index} onClick={() => OnItemType(DType, "itemDetailType")}>
                       <a>{DType}</a>
                     </li>
                   ))}
@@ -208,7 +255,8 @@ function Sell_List() {
               <button
                 type="button"
                 name="all"
-                onClick={checkSellType}
+                // onClick={checkSellType}
+                onClick={() => OnItemType("", "sellType")}
                 className={
                   selectedOptions.sellType === ""
                     ? `${style.cate_true}`
@@ -222,7 +270,8 @@ function Sell_List() {
               <button
                 type="button"
                 name="up"
-                onClick={checkSellType}
+                // onClick={checkSellType}
+                onClick={() => OnItemType("u", "sellType")}
                 className={
                   selectedOptions.sellType === "u"
                     ? `${style.cate_true}`
@@ -236,7 +285,8 @@ function Sell_List() {
               <button
                 type="button"
                 name="down"
-                onClick={checkSellType}
+                // onClick={checkSellType}
+                onClick={() => OnItemType("d", "sellType")}
                 className={
                   selectedOptions.sellType === "d"
                     ? `${style.cate_true}`
@@ -250,7 +300,8 @@ function Sell_List() {
               <button
                 type="button"
                 name="normal"
-                onClick={checkSellType}
+                // onClick={checkSellType}
+                onClick={() => OnItemType("n", "sellType")}
                 className={
                   selectedOptions.sellType === "n"
                     ? `${style.cate_true}`
@@ -265,7 +316,7 @@ function Sell_List() {
         <div className={style.sell_bot}>
           <ul>
             {data === 0 && <span>게시물이 없습니다.</span>}
-            {items.length !== 0 &&
+            {data.length !== 0 && currentPosts.length !== 0 &&
               currentPosts.map((item, index) => (
                 <SellListItem item={item} key={index} />
               ))}
