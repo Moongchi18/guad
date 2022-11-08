@@ -15,8 +15,6 @@ function Sell_List() {
     itemType: "",
   });
   const [items, setItems] = useState([]); //리스트에 나타낼 아이템
-  const [count, setCount] = useState(0); //아이템 총 개수
-  const [isChange, setIsChange] = useState(false);
 
   const [currentpage, setCurrentpage] = useState(1); //현재페이지
   const [postPerPage] = useState(12); //페이지당 아이템 개수
@@ -28,18 +26,13 @@ function Sell_List() {
     const gory = e.target.name;
     if (gory === "all") {
       setSellItemDto({ ...sellItemDto, sellType: "" });
-      setIsChange(!isChange);
       setItems(data);
-      setCount(data.length);
     } else if (gory === "up") {
       setSellItemDto({ ...sellItemDto, sellType: "u" });
-      setIsChange(!isChange);
     } else if (gory === "down") {
       setSellItemDto({ ...sellItemDto, sellType: "d" });
-      setIsChange(!isChange);
     } else if (gory === "normal") {
       setSellItemDto({ ...sellItemDto, sellType: "n" });
-      setIsChange(!isChange);
     }
   };
   const [cateOn, setCateOn] = useState(false);
@@ -57,7 +50,6 @@ function Sell_List() {
       }
     });
     setItemDType(newItemDT);
-    setIsChange(!isChange);
   };
 
   const OnCategory = (e) => {
@@ -79,7 +71,8 @@ function Sell_List() {
 
   const ResetType = () => {
     setSellItemDto({ ...sellItemDto, itemType: "" });
-    setIsChange(!isChange);
+    setItemType("");
+    c_o.current.style = "display:none;";
   };
   useEffect(() => {
     console.log("itemType :" + itemType);
@@ -92,28 +85,18 @@ function Sell_List() {
       console.log("sellType :" + sellItemDto.sellType);
       console.log("itemType :" + sellItemDto.itemType);
       console.log(items);
-      setCount(data.length);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType === "") {
       setItems(data.filter((item) => item.sellType === sellItemDto.sellType));
-      setCount(data.filter((item) => item.sellType === sellItemDto.sellType));
       console.log("sellType :" + sellItemDto.sellType);
       console.log("itemType :" + sellItemDto.itemType);
       console.log(items);
     } else if (sellItemDto.itemType !== "" && sellItemDto.sellType === "") {
       setItems(data.filter((item) => item.itemType === sellItemDto.itemType));
-      setCount(data.filter((item) => item.itemType === sellItemDto.itemType));
       console.log("sellType :" + sellItemDto.sellType);
       console.log("itemType :" + sellItemDto.itemType);
       console.log(items);
     } else if (sellItemDto.sellType !== "" && sellItemDto.itemType !== "") {
       setItems(
-        data.filter(
-          (item) =>
-            item.itemType === sellItemDto.itemType &&
-            item.sellType === sellItemDto.sellType
-        )
-      );
-      setCount(
         data.filter(
           (item) =>
             item.itemType === sellItemDto.itemType &&
@@ -160,8 +143,7 @@ function Sell_List() {
       })
       .catch((error) => console.log(error));
   }, [
-    // sellItemDto,
-    isChange,
+    sellItemDto,
     // sellItemDto.sellType,
     // sellItemDto.itemType,
     // itemTypeList,
@@ -182,10 +164,13 @@ function Sell_List() {
       <div className={style.sell_all}>
         <div className={style.sell_top}>
           <h2>
-            전체상품 <span></span>개
+            전체상품
+            {items.length == 0 && <strong>0</strong>}
+            {items.length != 0 && <strong>{items.length}</strong>}개
           </h2>
           <p onClick={OnCategory} className={style.cate_btn}>
-            카테고리 보기
+            {itemType == "" && <>카테고리 보기</>}
+            {itemType != "" && <>{itemType}</>}
           </p>
           <div className={style.cate_box}>
             <div className={style.cate_main} ref={c_m}>

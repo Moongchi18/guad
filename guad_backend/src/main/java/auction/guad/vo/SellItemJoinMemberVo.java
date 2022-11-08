@@ -33,5 +33,6 @@ public class SellItemJoinMemberVo {
 	
 //////////////////////////////////////////////////////////////////
 	private String nickname;
+	private String itemImgName;
 	
 }

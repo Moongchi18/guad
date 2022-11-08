@@ -54,46 +54,36 @@ public class NotifyController {
 		}
 	}
 
-	@ApiOperation(value = "신고이미지 조회", notes = "신고이미지 조회")
-	@GetMapping(value = "/admin/img/list")
-	public ResponseEntity<List> notifyImgList(@AuthenticationPrincipal User user) throws Exception {
-
-		InputStream in = null;
-		ResponseEntity<List> entity = null;
-		List<NotifyDto> NotifyList = notifyService.notifyList();
-		List<ImgDto> ImgList = new ArrayList<>();
-		List<byte[]> result = new ArrayList<>();
-		
-		// item 넘버에 해당하는 이미지(첫번째)에 대한 정보를 ImgList에 넣는다.
-		for (int i = 0; i < NotifyList.size(); i++) {
-			ImgList.add(i, imgService.selectImgByItemNumFirst(NotifyList.get(i).getItemNum()));
-		}
-
-		for ( int i =0; i< ImgList.size(); i++) {
-			in = new FileInputStream("C://img/" + ImgList.get(i).getItemImgName());
-			result.add(IOUtils.toByteArray(in));
-		}
-	
-		entity = new ResponseEntity<List>(result, HttpStatus.CREATED);
-		return entity;
-	}
-
-//	@GetMapping(value = "image/{imagename}", produces = MediaType.IMAGE_JPEG_VALUE)
-//	public ResponseEntity<byte[]> userSearch(@PathVariable("imagename") String imagename) throws IOException {
-//		InputStream imageStream = new FileInputStream("C://images/feed/" + imagename);
-//		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
-//		imageStream.close();
-//		return new ResponseEntity<byte[]>(imageByteArray, HttpStatus.OK);
+//	@ApiOperation(value = "신고이미지 조회", notes = "신고이미지 조회")
+//	@GetMapping(value = "/admin/img/list")
+//	public ResponseEntity<List> notifyImgList(@AuthenticationPrincipal User user) throws Exception {
+//
+//		InputStream in = null;
+//		ResponseEntity<List> entity = null;
+//		List<NotifyDto> NotifyList = notifyService.notifyList();
+//		List<ImgDto> ImgList = new ArrayList<>();
+//		List<byte[]> result = new ArrayList<>();
+//		
+//		// item 넘버에 해당하는 이미지(첫번째)에 대한 정보를 ImgList에 넣는다.
+//		for (int i = 0; i < NotifyList.size(); i++) {
+//			ImgList.add(i, imgService.selectImgByItemNumFirst(NotifyList.get(i).getItemNum()));
+//		}
+//
+//		for ( int i =0; i< ImgList.size(); i++) {
+//			in = new FileInputStream("C://img/" + ImgList.get(i).getItemImgName());
+//			result.add(IOUtils.toByteArray(in));
+//		}
+//	
+//		entity = new ResponseEntity<List>(result, HttpStatus.CREATED);
+//		return entity;
 //	}
+
 
 	@ApiOperation(value = "신고리스트 조회(NotifyDto)", notes = "신고 목록 조회, 파라미터 : NotifyDto")
 	@GetMapping("/admin/list")
 	public List<NotifyDto> notifyList(@AuthenticationPrincipal User user) throws Exception {
 		List<NotifyDto> NotifyList = notifyService.notifyList();
 		List<ImgDto> ImgList = new ArrayList<>();
-		
-
-		
 		
 		return notifyService.notifyList();
 	}

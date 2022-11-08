@@ -7,8 +7,9 @@
   font-size: 23px;
   margin-top: 60px;
 }
-.sell_top h2 span {
-  color: #a6a6a6;
+.sell_top h2 strong {
+  color: #e63947;
+  display: inline-block;
 }
 .cate_btn {
   display: inline-block;
@@ -209,4 +210,11 @@ li.item_info:nth-child(4n) {
 }
 .reset {
   cursor: pointer;
+}
+
+/* 아이템 이미지 */
+
+.item_img {
+  width: 230px;
+  height: 230px;
 }

@@ -121,9 +121,25 @@
 .seller {
   font-size: 20px;
   font-family: "SBAggroB";
+  font-weight: 300;
   display: block;
   text-align: right;
-  margin: 170px 0 20px;
+  margin: 180px 0 10px;
+}
+.seller_dd {
+  font-size: 20px;
+  font-family: "SBAggroB";
+  display: block;
+  font-weight: 300;
+  margin-top: 10px;
+}
+.buyer_dd {
+  font-size: 20px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  display: block;
+  text-align: right;
+  margin: 150px 0 10px;
 }
 .seller1 {
   font-size: 20px;
@@ -231,6 +247,7 @@
 }
 .last_bb > h2 {
   font-size: 20px;
+  font-weight: 300;
   margin: 235px 0 10px;
 }
 .last_bb span {
@@ -469,4 +486,33 @@
   background-color: rgb(161, 161, 161);
   color: white;
   transition: 0.3s all ease;
+}
+.review_dd {
+  width: 1130px;
+  margin: 0 auto 140px;
+  font-family: "SBAggroB";
+  padding-top: 50px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  font-weight: 300;
+}
+.review_dd h2 {
+  font-size: 30px;
+  margin-bottom: 50px;
+  font-weight: normal;
+}
+.review_dd li {
+  text-align: right;
+  margin-bottom: 20px;
+}
+.review_dd li p {
+  float: left;
+  line-height: 2.7;
+}
+.review_dd li input {
+  width: 1003px;
+  height: 40px;
+  background-color: #eee;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 0 0 0 20px;
 }

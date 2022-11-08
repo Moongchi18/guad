@@ -17,13 +17,12 @@ function Sell_Down({ match }) {
         setItem(response.data);
         const date = new Date(
           response.data.auctionPeriod.slice(0, 10) +
-            " " +
-            response.data.auctionPeriod.slice(12, 19)
+          " " +
+          response.data.auctionPeriod.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${
-            date.getMonth() + 1
+          `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
       })
@@ -43,7 +42,7 @@ function Sell_Down({ match }) {
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
-        itme={item}
+        itemNum={item.itemNum}
       />
       <div id={style.item_num} className={style.item_num}>
         2
@@ -54,8 +53,8 @@ function Sell_Down({ match }) {
         </h2>
         <div className={style.img_item}>
           <img
-            src={require("../source/img/big_item.png")}
-            alt="제품사진"
+            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+            alt={"img" + item.notifyNum}
             className={style.item}
           />
           <img
@@ -86,8 +85,11 @@ function Sell_Down({ match }) {
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>{item.hitCnt}</span>
           </div>
-          <span className={style.seller}>
+          <span className={style.seller_dd}>
             판매자 : <strong>{item.nickname}</strong>
+          </span>
+          <span className={style.buyer_dd}>
+            현재 입찰자 : <strong>부산 갈매기</strong>
           </span>
           <div className={style.deli_bb}>
             <span className={style.deli_name}>최저 경매가</span>
@@ -110,7 +112,7 @@ function Sell_Down({ match }) {
         <p>{item.itemContents}</p>
       </div>
       <div className={style.review}>
-        <h2>경매 후기</h2>
+        <h2>후기 작성</h2>
         <textarea placeholder="경매 후기를 작성해주세요."></textarea>
         <button type="button">작성</button>
       </div>

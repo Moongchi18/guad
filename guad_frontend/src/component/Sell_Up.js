@@ -5,7 +5,7 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 import Up_After from "./Up_After";
 import Up_Before from "./Up_Before";
 
-function Sell_Up({match}) {
+function Sell_Up({ match }) {
   const [start, setStart] = useState(false);
   const [item, setItem] = useState({});
 
@@ -57,8 +57,8 @@ function Sell_Up({match}) {
         </h2>
         <div className={style.img_item}>
           <img
-            src={require("../source/img/big_item.png")}
-            alt="제품사진"
+            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+            alt={"img" + item.notifyNum}
             className={style.item}
           />
           <img
@@ -72,11 +72,11 @@ function Sell_Up({match}) {
             <li></li>
           </ul>
         </div>
-        {start == false && item &&(
-          <Up_Before openModal={openModal} clickStart={clickStart} item={item}/>
+        {start == false && item && (
+          <Up_Before openModal={openModal} clickStart={clickStart} item={item} />
         )}
-        {start == true && item &&(
-          <Up_After openModal={openModal} item={item}/>
+        {start == true && item && (
+          <Up_After openModal={openModal} item={item} />
         )}
       </div>
       <div className={style.item_bot}>

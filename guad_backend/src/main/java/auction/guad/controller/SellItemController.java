@@ -48,6 +48,7 @@ public class SellItemController {
 	@ApiOperation(value = "상품 전체 조회()", notes = "상품 전체 목록을 조회, 파라미터 : ''")
 	@GetMapping("/sellitem")
 	public List<SellItemDto> openSellItemList() throws Exception {
+//		sellItemService.selectAllItemCount();
 		return sellItemService.selectSellItemList();
 	}
 
