@@ -42,11 +42,9 @@ function Sell_List() {
         c_o.current.style = "display:none;";
       } else {
         const newItemDT = [];
-        category.forEach((element, index) => {
-          if (element.itemType === value) {
-            newItemDT.push(element.itemDType);
-          }
-        });
+        category
+          ?.filter(cate => cate.itemType === value)
+          .forEach(cate => newItemDT.push(cate.itemDType))
         setItemDTypeList(newItemDT);
         setSelectedOptions({ ...selectedOptions, itemType: value, itemDType: '', sellType: "" });
         c_o.current.style = "display:inline-block;";
@@ -64,7 +62,7 @@ function Sell_List() {
   useEffect(() => {
     if (selectedOptions.sellType === "" && selectedOptions.itemType === "") {
       setCount(data.length);
-      setCurrentPosts(data);
+      setCurrentPosts(data.slice(indexOfFirstPost, indexOfLastPost));
     } else if (selectedOptions.sellType === "" && selectedOptions.itemType !== "") {
       setCount(data.filter((item) => item.itemType === selectedOptions.itemType).length);
       setCurrentPosts(
@@ -81,27 +79,27 @@ function Sell_List() {
     } else if (selectedOptions.sellType !== "" && selectedOptions.itemType !== "") {
       setCount(
         data.filter((item) =>
-            item.itemType === selectedOptions.itemType &&
-            item.sellType === selectedOptions.sellType
+          item.itemType === selectedOptions.itemType &&
+          item.sellType === selectedOptions.sellType
         ).length
       );
       setCurrentPosts(
         data.filter((item) =>
-            item.itemType === selectedOptions.itemType &&
-            item.sellType === selectedOptions.sellType
+          item.itemType === selectedOptions.itemType &&
+          item.sellType === selectedOptions.sellType
         ).slice(indexOfFirstPost, indexOfLastPost)
       );
     } else if (selectedOptions.sellType !== "" && selectedOptions.itemType !== "" && selectedOptions.itemDType !== "") {
       setCount(
         data.filter((item) =>
-            item.itemDType === selectedOptions.itemDType &&
-            item.sellType === selectedOptions.sellType
+          item.itemDType === selectedOptions.itemDType &&
+          item.sellType === selectedOptions.sellType
         ).length
       );
       setCurrentPosts(
         data.filter((item) =>
-            item.itemDType === selectedOptions.itemDType &&
-            item.sellType === selectedOptions.sellType
+          item.itemDType === selectedOptions.itemDType &&
+          item.sellType === selectedOptions.sellType
         ).slice(indexOfFirstPost, indexOfLastPost)
       );
     }
@@ -188,21 +186,21 @@ function Sell_List() {
               </p>
               <ul>
                 {itemTypeList?.map((type, index) => {
-                    return (
-                      <li key={index} onClick={() => OnItemType(type, "itemType")}>
-                        <a>{type}</a>
-                      </li>)
-                  })}
+                  return (
+                    <li key={index} onClick={() => OnItemType(type, "itemType")}>
+                      <a>{type}</a>
+                    </li>)
+                })}
               </ul>
             </div>
             <div className={style.cate_option} ref={c_o}>
               <p>{selectedOptions.itemType}</p>
               <ul>
                 {itemDTypeList?.map((DType, index) => (
-                    <li value={DType} key={index} onClick={() => OnItemType(DType, "itemDetailType")}>
-                      <a>{DType}</a>
-                    </li>
-                  ))}
+                  <li value={DType} key={index} onClick={() => OnItemType(DType, "itemDetailType")}>
+                    <a>{DType}</a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
