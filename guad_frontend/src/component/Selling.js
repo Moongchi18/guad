@@ -115,6 +115,7 @@ function Selling({ history }) {
 
   console.log("auctionMinPrice 테스트 " + auctionMinPrice);
   const handlerItemRegist = (e) => {
+    
     e.preventDefault();
     if (sellType === "") {
       alert("거래종류를 선택하세요");
@@ -146,6 +147,8 @@ function Selling({ history }) {
     } else if (sellType === 'd' && !auctionRandomMethod && auctionDiscountPerHour === '') {
       alert("시간당 내릴 가격을 입력해주세요");
       refAuctionDiscountPerHour.current.focus();
+    } else if(false){
+      alert("경매시작 가격은 최저가격보다 낮을 수 없습니다.");
     } else {
       const sellPrice = sellType === "n" ? itemPrice : "";
       const sendAuctionPeriod =
@@ -158,7 +161,6 @@ function Selling({ history }) {
       const sendAuctionDiscountPerHout =
         sellType === "d" && !auctionRandomMethod ? auctionDiscountPerHour : "";
       const sendAuctionMinPrice = sellType === "d" ? auctionMinPrice : "";
-
       let dataSet = {
         sellType,
         itemSub,
@@ -272,14 +274,6 @@ function Selling({ history }) {
     }
   }
 
-  const WriteBoard = async () => {
-
-    // fd.append(
-    //   "comment",
-    //   comment
-    // );
-
-  }
 
   /////////////////////////////////////////////////////
 

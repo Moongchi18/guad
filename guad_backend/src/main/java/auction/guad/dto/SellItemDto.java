@@ -26,7 +26,7 @@ public class SellItemDto {
 	private int auctionDiscountPerHour;
 	
 	private String sellState;
-	private String soldYn;
+	private char soldYn; 
 	private Date soldDate;
 	private String deleteYn;
 	private Date deleteDate;

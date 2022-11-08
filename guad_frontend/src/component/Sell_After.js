@@ -41,7 +41,7 @@ function Sell_After({ history, match }) {
       </div>
       <div className={style.cont2}>
         <img src={require("../source/img/big_item.png")} alt="제품사진" />
-        <div class={style.right_side}>
+        <div className={style.right_side}>
           <span className={style.category}>
             <p>{item.itemType}</p>
           </span>
