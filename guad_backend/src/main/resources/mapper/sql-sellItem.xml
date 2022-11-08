@@ -127,7 +127,7 @@
 	</update>
 	<update id="updateSellState" parameterType="int">
 		UPDATE SELL_ITEM SET
-		SELL_STATE = '판매완료
+		SELL_STATE = '판매완료'
 		WHERE ITEM_NUM = #{itemNum}
 
 	</update>

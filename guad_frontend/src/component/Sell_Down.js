@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRef, useEffect, useState } from "react";
 import style from "../source/SellItem.module.css";
+import DownConfirm from "./Moodal/DownConfirm";
 import NotifyWrite from "./Moodal/NotifyWrite";
 
 function Sell_Down({ match }) {
@@ -17,12 +18,13 @@ function Sell_Down({ match }) {
         setItem(response.data);
         const date = new Date(
           response.data.auctionPeriod.slice(0, 10) +
-          " " +
-          response.data.auctionPeriod.slice(12, 19)
+            " " +
+            response.data.auctionPeriod.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${date.getMonth() + 1
+          `${date.getFullYear()}년 ${
+            date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
       })
@@ -32,9 +34,16 @@ function Sell_Down({ match }) {
   const closeModal = () => {
     modalChange.current.style = "display:none;";
   };
-
   const openModal = () => {
     modalChange.current.style = "display:block;";
+  };
+
+  const modalChange2 = useRef();
+  const closeModal2 = () => {
+    modalChange2.current.style = "display:none;";
+  };
+  const openModal2 = () => {
+    modalChange2.current.style = "display:block;";
   };
 
   return (
@@ -44,6 +53,7 @@ function Sell_Down({ match }) {
         modalChange={modalChange}
         itemNum={item.itemNum}
       />
+      <DownConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
       <div id={style.item_num} className={style.item_num}>
         2
       </div>
@@ -88,22 +98,33 @@ function Sell_Down({ match }) {
           <span className={style.seller_dd}>
             판매자 : <strong>{item.nickname}</strong>
           </span>
-          <span className={style.buyer_dd}>
-            현재 입찰자 : <strong>부산 갈매기</strong>
-          </span>
+          <div className={style.start_bb}>
+            <span className={style.deli_name}>시작 경매가</span>
+            <span className={style.deli_tag}>1,000,000</span>
+          </div>
           <div className={style.deli_bb}>
             <span className={style.deli_name}>최저 경매가</span>
-            <span className={style.deli_tag}>200,000</span>
+            <span className={style.deli_tag}>
+              200,000<strong> / -50%</strong>
+            </span>
           </div>
           <div className={style.sell_bb}>
             <span className={style.sell_price}>현재 경매가</span>
             <span className={style.sell_number}>
               {item.auctionStartPrice?.toLocaleString()}
+              <strong> / -30%</strong>
             </span>
           </div>
           <div className={style.button_bb}>
-            <button className={style.bb_down}>입찰 참여</button>
-            <span className={style.bb_date}>{auctionPeriodText}</span>
+            <button className={style.bb_down} onClick={openModal2}>
+              입찰 참여
+            </button>
+            <span className={style.bb_date}>
+              현재 입찰자 : <strong>부산갈매기</strong>
+            </span>
+            <p>
+              남은 경매 시간 : <strong>{auctionPeriodText}</strong>
+            </p>
           </div>
         </div>
       </div>

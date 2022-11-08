@@ -165,7 +165,7 @@
 .down_b p {
   display: block;
   width: 620px;
-  height: 40px;
+  height: 85px;
   padding: 5px 0;
   margin-top: 30px;
   text-align: left;
@@ -175,9 +175,16 @@
 .down_b p strong {
   color: #ff0000;
   font-size: 17px;
-  display: block;
+  display:inline-block;
+  width: 100%;
   margin-bottom: 5px;
   font-weight: bold;
+  
+}
+
+.percent{ 
+  font-size: 14px !important;
+  display:contents !important;
 }
 
 .fileupload {

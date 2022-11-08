@@ -5,22 +5,24 @@ import sell_2 from "../../source/img/selling_item_ex2.png";
 import axios from "axios";
 import BuyReview from "../Moodal/BuyReview";
 
-import '../../source/test.css';
+import "../../source/test.css";
 
 function UserSellList() {
   const [sellList, setSellList] = useState([]);
+ 
 
   // const [ btnColor, setBtnColor ] = useState('');
 
   useEffect(() => {
     axios.get(`http://localhost:8080/selllist`).then((response) => {
       setSellList(response.data);
-      console.log(sellList);
-      console.log(sellList[1].sellState)
-      // color();
+      console.log(typeof response.data[0].soldDate);
     });
   }, []);
 
+  console.log(sellList);
+
+  // color();
   // const colorChange = useRef();
   // const color = () => {
   //   if (sellList.sellState === "waiting") {
@@ -33,8 +35,6 @@ function UserSellList() {
   //     colorChange.current.style = "background-color : #BA101E";
   //   }
   // };
-
-  
 
   return (
     <>
@@ -50,17 +50,20 @@ function UserSellList() {
         {/* {sellList && ( */}
         {/* 거래완료 */}
         {sellList &&
-          sellList.map((list, index) => (
+          sellList.map((list) => (
             <div className={style.sell_list}>
-              <div className={style.item_bb}>
-                <img src={sell_1} alt="1"></img>
+              <div className={style.item_bb} key={list.itemNum}>
+              <img
+            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
+            alt={"img" + list.itemNum}
+           />
                 <img
                   src={require("../../source/img/del2.png")}
                   alt="1"
                   className={style.del_icon}
-                ></img>
+                  ></img>
               </div>
-              <div className={style.sell_list_info} key={list.itemSub}>
+              <div className={style.sell_list_info}>
                 <h3>
                   <strong>상품명 : </strong>
                   {list.itemSub}
@@ -79,11 +82,10 @@ function UserSellList() {
                 </h3>
               </div>
               <div className={style.sellcheck}>
-                <button className={list.sellState}>
-                  {list.sellState}
-                </button>
+                <button className={list.sellState}>{list.sellState}</button>
                 <h3>
-                  <strong>구매 일자 : </strong>{list.soldDate}
+                  <strong>구매 일자 : </strong>
+                    {list.soldDate && list.soldDate.substring(0, 10)}
                 </h3>
               </div>
             </div>

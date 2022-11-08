@@ -15,6 +15,7 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
     buyerEmail: '서버에서 입력',
     buyerPhone: '서버에서 입력',
     address: '',
+    addressDetail: '',
     itemSub: '',
     itemPrice: '',
     soldDate: '쿼리문에 입력',

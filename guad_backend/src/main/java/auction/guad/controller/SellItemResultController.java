@@ -1,5 +1,6 @@
 package auction.guad.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import auction.guad.dto.ImgDto;
 import auction.guad.dto.MemberDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.dto.SellItemResultDto;
+import auction.guad.service.ImgService;
 import auction.guad.service.MemberService;
 import auction.guad.service.SellItemResultService;
 import auction.guad.service.SellItemService;
@@ -32,6 +35,7 @@ public class SellItemResultController {
     final private SellItemResultService sellItemResultService;
     final private SellItemService sellItemService;
     final private MemberService memberService;
+    private ImgService imgService;
     /////////////////////////////////////////////////////////////////////////////
 
     @ApiOperation(value = "거래 결과(SellItemResultDto)", notes = "모든 상품 거래 결과 입력, 파라미터 : SellItemResultDto")
@@ -72,7 +76,7 @@ public class SellItemResultController {
     public List<SellItemResultDto> selectMyBuyList(@AuthenticationPrincipal User user)
             throws Exception {
         List<SellItemResultDto> list = sellItemResultService.selectMyBuyList(user.getUsername());
-        System.out.println("list>>>>>>>>>>>>>>>>>>>:" + list);
+        List<ImgDto> ImgList = new ArrayList<>();
         return list;
     }
     
@@ -81,6 +85,7 @@ public class SellItemResultController {
     public List<SellItemDto> selectMySellList(@AuthenticationPrincipal User user)
             throws Exception {
         List<SellItemDto> list2 = sellItemResultService.selectMySellList(user.getUsername());
+        List<ImgDto> ImgList = new ArrayList<>();
         System.out.println("list2>>>>>>>>>>>>>>>>>>>:" + list2);
         return list2;
     }

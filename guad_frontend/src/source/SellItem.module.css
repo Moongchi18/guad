@@ -109,6 +109,10 @@
 .rating_option {
   display: inline-block;
 }
+.rating_option11 {
+  display: inline-block;
+  margin-bottom: 200px;
+}
 .rating_option span {
   font-size: 25px;
   font-family: "SBAggroB";
@@ -131,21 +135,13 @@
   font-family: "SBAggroB";
   display: block;
   font-weight: 300;
-  margin-top: 10px;
-}
-.buyer_dd {
-  font-size: 20px;
-  font-family: "SBAggroB";
-  font-weight: 300;
-  display: block;
-  text-align: right;
-  margin: 150px 0 10px;
+  margin: 10px 0 150px;
 }
 .seller1 {
   font-size: 20px;
   font-family: "SBAggroB";
   display: block;
-  margin: 110px 0 10px;
+  margin: 140px 0 10px;
   line-height: 1.3;
 }
 .seller1 strong {
@@ -167,6 +163,9 @@
   color: #696969;
   float: right;
 }
+.deli_tag strong {
+  font-size: 20px;
+}
 .sell_bb {
   margin-bottom: 20px;
 }
@@ -180,6 +179,9 @@
   font-family: "SBAggroB";
   color: #7e0000;
   float: right;
+}
+.sell_bb .sell_number strong {
+  font-size: 25px;
 }
 .sell_aa .sell_price {
   font-size: 20px;
@@ -201,7 +203,7 @@
   display: block;
 }
 .button_bb {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .button_bb span {
   display: block;
@@ -210,10 +212,10 @@
   background-color: #eee;
   border-radius: 5px;
   text-align: center;
-  font-size: 25px;
+  font-size: 20px;
   font-family: "SBAggroB";
   font-weight: 300;
-  line-height: 2.5;
+  line-height: 3.3;
 }
 .button_bb .bb_buy:hover {
   background-color: #098060;
@@ -224,6 +226,14 @@
   background-color: #e63947;
   color: #fff;
   transition: 0.3s all ease-in;
+}
+.button_bb > p {
+  margin: 10px 10px 0 0;
+  text-align: right;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  color: #8f8f8f;
+  font-size: 20px;
 }
 .end_bb span {
   display: block;

@@ -3,10 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import style from "../source/Selling.module.css";
 import ItemSuccess from "./Moodal/ItemSuccess";
 
+
+
 function Selling({ history }) {
   const selectListAPeriod = [1, 2, 3, 5, 7];
   const selectListHour = [
-    9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+    12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
   ];
   const now = new Date();
   const tempDate = new Date();
@@ -29,7 +31,7 @@ function Selling({ history }) {
   const [itemContents, setItemContents] = useState(""); // 상품 판매글 내용
   const [itemPrice, setItemPrice] = useState(""); // 일반판매 상품 가격
   const [selectedDay, setSelectedDay] = useState(1); // 선택된 경매기간
-  const [selectedHour, setSelectedHour] = useState(9); // 선택된 경매종료 시간
+  const [selectedHour, setSelectedHour] = useState(12); // 선택된 경매종료 시간
 
   const [auctionMaxPrice, setAuctionMaxPrice] = useState(""); // 오름경매 - 즉시구매가격
   const [auctionMinPrice, setAuctionMinPrice] = useState(""); // 내림경매 - 최저가격, 시작가격 ~ 최저가격
@@ -47,13 +49,11 @@ function Selling({ history }) {
   const refItemSub = useRef();
   const refItemContents = useRef();
   const refItemPrice = useRef();
-
   const refAuctionMaxPrice = useRef();
   const refAuctionMinPrice = useRef();
   const refAuctionPeriod = useRef();
   const refAuctionRandomMethod = useRef();
   const refAuctionDiscountPerHour = useRef();
-  const refImage = useRef();
 
   const handlerSellType = (e) => {
     // type u : up / d : down / n : normal
@@ -62,7 +62,6 @@ function Selling({ history }) {
 
   const handlerSelectedItemType = (e) => {
     setSelectedItemType(e.target.value);
-
     const newItemDetailType = [];
     data.forEach((element, index) => {
       if (element.itemType === e.target.value && element.itemDType !== "") {
@@ -73,12 +72,19 @@ function Selling({ history }) {
     setItemDetailType(newItemDetailType);
     setSelectedItemDetailType("소분류");
   };
+
   const handlerSelectedItemDetailType = (e) =>
     setSelectedItemDetailType(e.target.value);
   const handlerItemSub = (e) => setItemSub(e.target.value);
   const handlerItemContents = (e) => setItemContents(e.target.value);
-  const handlerItemPrice = (e) => setItemPrice(e.target.value);
-  const handlerAuctionMaxPrice = (e) => setAuctionMaxPrice(e.target.value);
+  const handlerItemPrice = (e) => setItemPrice((e.target.value).replace(/,/g, ""));
+
+  const handlerAuctionMaxPrice = (e) => setAuctionMaxPrice((e.target.value).replace(/,/g, ""));
+  const handlerAuctionMinPrice = (e) => {
+    setAuctionMinPrice((e.target.value).replace(/,/g, ""));
+  }
+
+  /////////////////날짜 핸들러////////////////
   const handlerSelectedDay = (e) => {
     setSelectedDay(e.target.value);
     tempDate.setDate(now.getDate() + e.target.value * 1 + 1);
@@ -101,17 +107,33 @@ function Selling({ history }) {
     );
   };
   const nowText = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate() + 1}일 12시`;
-  const handlerAuctionMinPrice = (e) => setAuctionMinPrice(e.target.value);
+  ////////////////////////////////////
+
   const handlerAuctionRandomMethod = (e) => {
     if (e.target.value === "고정내림") {
       setAuctionRandomMethod(false);
+      setAuctionMinPrice((itemPrice - ((selectedDay * 10 + (selectedHour - 12)) * auctionDiscountPerHour)));
     } else {
       setAuctionRandomMethod(true);
+      setAuctionMinPrice(0);
     }
   };
+
   const handlerAuctionDiscountPerHour = (e) => {
-    setAuctionDiscountPerHour(e.target.value);
+    setAuctionDiscountPerHour((e.target.value).replace(/,/g, ""));
+    if (auctionRandomMethod == false) {
+      if ((itemPrice - ((selectedDay * 10 + (selectedHour - 12)) * Number((e.target.value).replace(/,/g, "")))) < 0) {
+        alert("가격이 너무 낮습니다.");
+        setAuctionDiscountPerHour(0);
+        setAuctionMinPrice(0);
+      } else {
+        setAuctionMinPrice((itemPrice - ((selectedDay * 10 + (selectedHour - 12)) * (e.target.value).replace(/,/g, ""))));
+      }
+    } else {
+    }
   };
+
+
 
   console.log("auctionMinPrice 테스트 " + auctionMinPrice);
   const handlerItemRegist = (e) => {
@@ -146,8 +168,10 @@ function Selling({ history }) {
     } else if (sellType === 'd' && !auctionRandomMethod && auctionDiscountPerHour === '') {
       alert("시간당 내릴 가격을 입력해주세요");
       refAuctionDiscountPerHour.current.focus();
-    } else if(sellType === 'd' && itemPrice < auctionMinPrice){
-      alert("경매시작 가격은 최저가격보다 낮을 수 없습니다.");
+    } else if (sellType === 'd' && itemPrice <= auctionMinPrice) {
+      console.log(itemPrice)
+      console.log(auctionMinPrice)
+      alert("경매시작 가격은 최저가격보다 같거나 낮을 수 없습니다.");
     } else {
       const sellPrice = sellType === "n" ? itemPrice : "";
       const sendAuctionPeriod =
@@ -160,7 +184,7 @@ function Selling({ history }) {
       const sendAuctionDiscountPerHout =
         sellType === "d" && !auctionRandomMethod ? auctionDiscountPerHour : "";
       const sendAuctionMinPrice = sellType === "d" ? auctionMinPrice : "";
-      
+
       let dataSet = {
         sellType,
         itemSub,
@@ -175,16 +199,15 @@ function Selling({ history }) {
         auctionDiscountPerHour: sendAuctionDiscountPerHout,
         auctionMinPrice: sendAuctionMinPrice,
       };
-      
+
       console.log(sellPrice)
       // formData.append('data', dataSet);
       formData.append(
         "data",
         new Blob([JSON.stringify(dataSet)], { type: "application/json" })
       );
-      
+
       Object.values(imgFile).forEach((file) => formData.append("files", file));
-     
 
       axios({
         method: "post",
@@ -222,6 +245,7 @@ function Selling({ history }) {
       setData(response.data);
     }).catch(error => console.log(error));
   }, []);
+
   //////////////////////파일 업로드//////////////////////
   const formData = new FormData();
   const [imgBase64, setImgBase64] = useState([]);
@@ -380,9 +404,10 @@ function Selling({ history }) {
               <input
                 type="text"
                 placeholder="가격을 작성해주세요."
-                value={itemPrice}
+                value={Number(itemPrice).toLocaleString()}
                 onChange={handlerItemPrice}
                 ref={refItemPrice}
+
               />
               {sellType === "u" && (
                 <>
@@ -390,7 +415,7 @@ function Selling({ history }) {
                   <input
                     type="text"
                     placeholder="즉시구매가격을 입력하세요"
-                    value={auctionMaxPrice}
+                    value={Number(auctionMaxPrice).toLocaleString()}
                     onChange={handlerAuctionMaxPrice}
                     ref={refAuctionMaxPrice}
                   />
@@ -433,14 +458,6 @@ function Selling({ history }) {
             )}
             {sellType === "d" ? (
               <li className={style.down_b}>
-                <label>최저 가격</label>
-                <input
-                  type="text"
-                  placeholder="내림경매의 최저가격을 설정해주세요"
-                  value={auctionMinPrice}
-                  onChange={handlerAuctionMinPrice}
-                  ref={refAuctionMinPrice}
-                />
                 <label className={style.chose_p}>시간당 내릴 가격</label>
                 <form ref={refAuctionRandomMethod}>
                   <input
@@ -462,7 +479,7 @@ function Selling({ history }) {
                 {!auctionRandomMethod ? (
                   <input
                     type="text"
-                    value={auctionDiscountPerHour}
+                    value={Number(auctionDiscountPerHour).toLocaleString()}
                     onChange={handlerAuctionDiscountPerHour}
                     placeholder="일정하게 내릴 가격을 입력하세요"
                     ref={refAuctionDiscountPerHour}
@@ -470,10 +487,19 @@ function Selling({ history }) {
                 ) : (
                   <p>
                     <strong>랜덤내림이란?</strong>
-                    경매시작 가격에서부터 최저가격까지 시간당 랜덤으로 하락해서
-                    경매에 재미를 더하는 방법
+                    경매시작 가격에서부터 최저가격까지 시간당 랜덤(<strong className={style.percent}>시작가격의 1~5%</strong>)으로 하락해서 경매에 재미를 더하는 방법
                   </p>
                 )}
+                <label>최저 가격</label>
+                <input
+                  type="text"
+                  placeholder="내림경매의 최저가격을 설정해주세요"
+                  value={Number(auctionMinPrice).toLocaleString()}
+                  onChange={handlerAuctionMinPrice}
+                  ref={refAuctionMinPrice}
+                  readOnly={!auctionRandomMethod}
+                />
+
               </li>
             ) : (
               ""
