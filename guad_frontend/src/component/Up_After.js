@@ -7,6 +7,7 @@ import Up_Chat from "./Up_Chat";
 var stompClient = null;
 function Up_After({ openModal, item }) {
   const [publicChats, setPublicChats] = useState([]);
+  const [auctionPeriodText, setAuctionPeriodText] = useState();
 
   const connect = () => {
     let Sock = new SockJS(
@@ -46,8 +47,20 @@ function Up_After({ openModal, item }) {
   console.log(item);
 
   useEffect(() => {
+    console.log(item);
+    if (item.auctionPeriod) {
+      const date = new Date(
+        item.auctionPeriod.slice(0, 10) + " " + item.auctionPeriod.slice(12, 19)
+      );
+      date.setHours(date.getHours() + 9);
+      setAuctionPeriodText(
+        `${date.getFullYear()}년 ${
+          date.getMonth() + 1
+        }월 ${date.getDate()}일 ${date.getHours()}시까지`
+      );
+    }
     connect();
-  }, []);
+  }, [item]);
 
   return (
     <>
@@ -91,7 +104,7 @@ function Up_After({ openModal, item }) {
             />
           )}
           <p>
-            남은 경매 시간 : <strong>2023년 5월 12일까지</strong>
+            남은 경매 시간 : <strong>{auctionPeriodText}</strong>
           </p>
         </div>
       </div>
