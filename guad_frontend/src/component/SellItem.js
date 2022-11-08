@@ -14,7 +14,9 @@ function SellItem({ history, match }) {
   console.log(presentPrice);
   useEffect(() => {
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`)
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`
+      )
       .then((response) => {
         console.log(response.data);
 
@@ -28,18 +30,21 @@ function SellItem({ history, match }) {
 
         const date = new Date(
           response.data.auctionPeriod.slice(0, 10) +
-          " " +
-          response.data.auctionPeriod.slice(12, 19)
+            " " +
+            response.data.auctionPeriod.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${date.getMonth() + 1
+          `${date.getFullYear()}년 ${
+            date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
       })
       .catch((error) => console.log(error));
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`)
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
+      )
       .then((response) => {
         setReview(response.data);
         console.log(response.data);
@@ -47,7 +52,7 @@ function SellItem({ history, match }) {
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(auctionPeriodText)
+  console.log(auctionPeriodText);
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -91,8 +96,8 @@ function SellItem({ history, match }) {
           {item.sellType === "n"
             ? "일반판매"
             : item.sellType === "u"
-              ? "오름경매"
-              : "내림경매"}
+            ? "오름경매"
+            : "내림경매"}
         </h2>
         <div className={style.img_item}>
           <img
@@ -119,13 +124,10 @@ function SellItem({ history, match }) {
             <img src={require("../source/img/star.png")} alt="별점" />
             <span>4</span>
           </div>
-          <div className={style.rating_option}>
+          <div className={style.rating_option11}>
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>{item.hitCnt}</span>
           </div>
-          <span className={style.seller}>
-            판매자 : <strong>{item.nickname}</strong>
-          </span>
           <div className={style.deli_bb}>
             <span className={style.deli_name}>배송비</span>
             <span className={style.deli_tag}>배송비 포함</span>
@@ -139,7 +141,7 @@ function SellItem({ history, match }) {
               구매
             </button>
             <span className={style.bb_date}>
-              {!auctionPeriodText ? "" : auctionPeriodText}
+              판매자 : <strong>{item.nickname}</strong>
             </span>
           </div>
         </div>
@@ -157,16 +159,16 @@ function SellItem({ history, match }) {
             {!review
               ? "등록된 리뷰가 없습니다."
               : review.map((rev, index) => (
-                <li key={index}>
-                  <span>{rev.writerNickname}</span>
-                  <img
-                    src={require("../source/img/gray_star.png")}
-                    alt="회색별"
-                  />
-                  <span>{rev.starPoint}</span>
-                  <span className={style.review_write}>{rev.contents}</span>
-                </li>
-              ))}
+                  <li key={index}>
+                    <span>{rev.writerNickname}</span>
+                    <img
+                      src={require("../source/img/gray_star.png")}
+                      alt="회색별"
+                    />
+                    <span>{rev.starPoint}</span>
+                    <span className={style.review_write}>{rev.contents}</span>
+                  </li>
+                ))}
             <li>
               <span>시흥기린</span>
               <img src={require("../source/img/gray_star.png")} alt="회색별" />

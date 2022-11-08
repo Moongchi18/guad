@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRef, useEffect, useState } from "react";
 import style from "../source/SellItem.module.css";
+import DownConfirm from "./Moodal/DownConfirm";
 import NotifyWrite from "./Moodal/NotifyWrite";
 
 function Sell_Down({ match }) {
@@ -33,9 +34,16 @@ function Sell_Down({ match }) {
   const closeModal = () => {
     modalChange.current.style = "display:none;";
   };
-
   const openModal = () => {
     modalChange.current.style = "display:block;";
+  };
+
+  const modalChange2 = useRef();
+  const closeModal2 = () => {
+    modalChange2.current.style = "display:none;";
+  };
+  const openModal2 = () => {
+    modalChange2.current.style = "display:block;";
   };
 
   return (
@@ -45,6 +53,7 @@ function Sell_Down({ match }) {
         modalChange={modalChange}
         itemNum={item.itemNum}
       />
+      <DownConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
       <div id={style.item_num} className={style.item_num}>
         2
       </div>
@@ -107,7 +116,9 @@ function Sell_Down({ match }) {
             </span>
           </div>
           <div className={style.button_bb}>
-            <button className={style.bb_down}>입찰 참여</button>
+            <button className={style.bb_down} onClick={openModal2}>
+              입찰 참여
+            </button>
             <span className={style.bb_date}>
               현재 입찰자 : <strong>부산갈매기</strong>
             </span>
