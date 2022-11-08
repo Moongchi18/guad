@@ -17,11 +17,11 @@ public class RequestTradeVo {
 	private String address;
 	
 	private String itemSub;
-	private long itemPrice;
+	private long itemPrice;	
 	
-	private Date soldDate;
-	
+	private Date soldDate; 	
 	private char soldYn;
+	private String sellState;
 	private int mileage;
 	
 	private String nickname;

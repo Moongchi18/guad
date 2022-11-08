@@ -41,6 +41,7 @@ public class SellItemResultServiceImpl implements SellItemResultService{
 		int result = sellItemResultMapper.insertSellItemResult(requestTrade);
 		if(result == 1) {
 			sellItemService.updateSoldYn(requestTrade.getItemNum());
+			sellItemService.updateSellState(requestTrade.getItemNum());
 			mileageService.useMileage(new RequestMileageVo(requestTrade.getBuyerEmail(), requestTrade.getItemPrice()));			
 			return true;
 		} else {

@@ -106,7 +106,13 @@
 
 	<update id="updateSoldYn" parameterType="int">
 		UPDATE SELL_ITEM SET
-		SOLD_YN = 'y'
+		SOLD_YN = 'Y'
+		WHERE ITEM_NUM = #{itemNum}
+
+	</update>
+	<update id="updateSellState" parameterType="int">
+		UPDATE SELL_ITEM SET
+		SELL_STATE = '판매완료
 		WHERE ITEM_NUM = #{itemNum}
 
 	</update>
@@ -116,13 +122,13 @@
 	</delete>
 
 	<!-- 내 판매내역 조회 -->
-	<select id="selectMySellList"
+<!-- 	<select id="selectMySellList"
 		parameterType="auction.guad.vo.RequestTradeVo">
 		SELECT * FROM SELL_ITEM I JOIN MEMBER M ON
 		I.MEMBER_EMAIL = M.EMAIL
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
-
+ -->
 	<!-- 검색어(제목, 내용)를 포함하는 상품 목록 조회 -->
 	<select id="selectSearchList"
 		resultType="auction.guad.dto.SellItemDto">
