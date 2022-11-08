@@ -1,5 +1,6 @@
 package auction.guad.vo;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import lombok.Data;
@@ -24,7 +25,9 @@ public class RequestTradeVo {
 	private String sellState;
 	private int mileage;
 	
+	
 	private String nickname;
 	private String itemContents;
+	private String itemImgName;
 	
 }

@@ -1,5 +1,5 @@
 .all_back {
-  background-color: #A4A4A4;
+  background-color: #a4a4a4;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -20,14 +20,16 @@
   right: 50%;
   top: 49%;
   transform: translate(120%, -50%);
-  line-height: 1.3;
+  line-height: 1.6;
   font-family: "SBAggroB";
   font-weight: 300;
+  font-size: 15px;
   color: white;
-  animation: sText 1.5s 0.5s;
+  animation: Text 1.5s 3s backwards;
 }
 .side_text:hover {
-  color: black;
+  font-size: 17px;
+  font-weight: 300;
   transition: 0.3s all ease;
 }
 .tip {

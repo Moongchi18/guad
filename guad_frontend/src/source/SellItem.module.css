@@ -109,6 +109,10 @@
 .rating_option {
   display: inline-block;
 }
+.rating_option11 {
+  display: inline-block;
+  margin-bottom: 200px;
+}
 .rating_option span {
   font-size: 25px;
   font-family: "SBAggroB";
