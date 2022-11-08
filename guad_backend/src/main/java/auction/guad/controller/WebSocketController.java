@@ -66,4 +66,26 @@ public class WebSocketController {
         return auction;
         } return null;
 }
+	
+	
+	@MessageMapping("/naelim/{itemNum}")
+	@SendTo("/sub/naelim/{itemNum}")
+	public Auction aucNaelim(@Payload Auction auction, @DestinationVariable int itemNum, @Header String Authorization) throws Exception {
+		System.out.println("<<<<<<<<<<"+auction);
+		String token = Authorization.substring(7);
+		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
+		MemberDto member = memberService.loginContainPass(claims.getSubject());
+		auction.setNickname(member.getNickname());
+		auction.setMemberEmail(member.getEmail());
+		int bidNum = aucService.tryAuction(auction);
+        if (bidNum > 0) {
+         simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()), "/sub/"+itemNum+"/bidlist", auction);
+         bid = auction.getAuctionPrice();
+        return auction;
+        } return null;
+}	
+	
+	
+	
+	
 }
