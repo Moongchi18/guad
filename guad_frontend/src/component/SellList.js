@@ -6,13 +6,15 @@ import SellListPaging from "./SellListPaging";
 
 function Sell_List() {
   const [data, setData] = useState([]); // 상품 전체 정보
-  const [data2, setData2] = useState([]); // 카테고리 전체정보
+  const [category, setCategory] = useState([]); // 카테고리 전체정보
   const [itemTypeList, setItemTypeList] = useState([]); // 대분류
-  const [itemType, setItemType] = useState("");
-  const [itemDType, setItemDType] = useState([]); // 소분류
-  const [sellItemDto, setSellItemDto] = useState({
+  // const [itemType, setItemType] = useState(""); // 선택된 대분류
+  const [itemDTypeList, setItemDTypeList] = useState([]); // 소분류
+  const [selectedOptions, setSelectedOptions] = useState({
     sellType: "",
     itemType: "",
+    itemDType: '',
+    search: '',
   });
   const [items, setItems] = useState([]); //리스트에 나타낼 아이템
 
@@ -21,36 +23,120 @@ function Sell_List() {
   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   const [currentPosts, setCurrentPosts] = useState([]);
-
-  const checkSellType = (e) => {
-    const gory = e.target.name;
-    if (gory === "all") {
-      setSellItemDto({ ...sellItemDto, sellType: "" });
-      setItems(data);
-    } else if (gory === "up") {
-      setSellItemDto({ ...sellItemDto, sellType: "u" });
-    } else if (gory === "down") {
-      setSellItemDto({ ...sellItemDto, sellType: "d" });
-    } else if (gory === "normal") {
-      setSellItemDto({ ...sellItemDto, sellType: "n" });
-    }
-  };
+  
   const [cateOn, setCateOn] = useState(false);
   const c_m = useRef();
   const c_o = useRef();
 
-  const OnOption = (type) => {
+  const checkSellType = (e) => {
+    const gory = e.target.name;
+    if (gory === "all") {
+      setSelectedOptions({ ...selectedOptions, sellType: "" });
+      setItems(data);
+    } else if (gory === "up") {
+      setSelectedOptions({ ...selectedOptions, sellType: "u" });
+    } else if (gory === "down") {
+      setSelectedOptions({ ...selectedOptions, sellType: "d" });
+    } else if (gory === "normal") {
+      setSelectedOptions({ ...selectedOptions, sellType: "n" });
+    }
+  };
+  
+  const OnItemType = (type) => {
     c_o.current.style = "display:inline-block;";
-    setItemType(type);
-    setSellItemDto({ ...sellItemDto, itemType: type });
+    // setItemType(type);
+    setSelectedOptions({ ...selectedOptions, itemType: type });
     const newItemDT = [];
-    data2.forEach((element, index) => {
+    category.forEach((element, index) => {
       if (element.itemType === type && element.itemDType !== "") {
         newItemDT.push(element.itemDType);
       }
     });
-    setItemDType(newItemDT);
+    setItemDTypeList(newItemDT);
   };
+
+  useEffect(() => {
+    // console.log("itemType :" + itemType);
+    console.log("itemDType :" + itemDTypeList);
+    console.log(
+      "selectedOptions : " + selectedOptions.sellType + " / " + selectedOptions.itemType
+    );
+    if (selectedOptions.sellType === "" && selectedOptions.itemType === "") {
+      setItems(data);
+      console.log("sellType :" + selectedOptions.sellType);
+      console.log("itemType :" + selectedOptions.itemType);
+      console.log(items);
+    } else if (selectedOptions.sellType !== "" && selectedOptions.itemType === "") {
+      setItems(data.filter((item) => item.sellType === selectedOptions.sellType));
+      console.log("sellType :" + selectedOptions.sellType);
+      console.log("itemType :" + selectedOptions.itemType);
+      console.log(items);
+    } else if (selectedOptions.itemType !== "" && selectedOptions.sellType === "") {
+      setItems(data.filter((item) => item.itemType === selectedOptions.itemType));
+      console.log("sellType :" + selectedOptions.sellType);
+      console.log("itemType :" + selectedOptions.itemType);
+      console.log(items);
+    } else if (selectedOptions.sellType !== "" && selectedOptions.itemType !== "") {
+      setItems(
+        data.filter(
+          (item) =>
+            item.itemType === selectedOptions.itemType &&
+            item.sellType === selectedOptions.sellType
+        )
+      );
+      console.log("sellType :" + selectedOptions.sellType);
+      console.log("itemType" + selectedOptions.itemType);
+      console.log(items);
+    } else {
+      alert("error");
+    }
+    setIndexOfLastPost(currentpage * postPerPage);
+    setIndexOfFirstPost(indexOfLastPost - postPerPage);
+    setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+
+
+  }, [
+    selectedOptions,
+    // selectedOptions.sellType,
+    // selectedOptions.itemType,
+    // itemTypeList,
+    // itemDType,
+    // data,
+    // currentpage,
+    // indexOfFirstPost,
+    // indexOfLastPost,
+    // postPerPage,
+  ]);
+
+  useEffect(() => {
+    axios
+    .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
+    .then((response) => {
+      const temp1 = [];
+      console.log(response.data)
+      response.data.forEach((element) => temp1.push(element.itemType));
+      const temp2 = temp1.filter(
+        (element, index) => temp1.indexOf(element) === index
+      );
+      console.log(temp2)
+      setItemTypeList(temp2)
+      setCategory(response.data);
+    })
+    .catch((error) => console.log(error));
+
+  axios
+    .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
+    .then((response) => {
+      console.log(response.data)
+      setData(response.data);
+    })
+    .catch((error) => console.log(error));
+
+  }, [])
+
+  // const handlerSetPage = (e) => {
+  //   setCurrentpage(e);
+  // };
 
   const OnCategory = (e) => {
     if (cateOn === false) {
@@ -70,93 +156,9 @@ function Sell_List() {
   };
 
   const ResetType = () => {
-    setSellItemDto({ ...sellItemDto, itemType: "" });
-    setItemType("");
+    setSelectedOptions({ ...selectedOptions, itemType: "" });
+    // setItemType("");
     c_o.current.style = "display:none;";
-  };
-  useEffect(() => {
-    console.log("itemType :" + itemType);
-    console.log("itemDType :" + itemDType);
-    console.log(
-      "sellItemDto : " + sellItemDto.sellType + " / " + sellItemDto.itemType
-    );
-    if (sellItemDto.sellType === "" && sellItemDto.itemType === "") {
-      setItems(data);
-      console.log("sellType :" + sellItemDto.sellType);
-      console.log("itemType :" + sellItemDto.itemType);
-      console.log(items);
-    } else if (sellItemDto.sellType !== "" && sellItemDto.itemType === "") {
-      setItems(data.filter((item) => item.sellType === sellItemDto.sellType));
-      console.log("sellType :" + sellItemDto.sellType);
-      console.log("itemType :" + sellItemDto.itemType);
-      console.log(items);
-    } else if (sellItemDto.itemType !== "" && sellItemDto.sellType === "") {
-      setItems(data.filter((item) => item.itemType === sellItemDto.itemType));
-      console.log("sellType :" + sellItemDto.sellType);
-      console.log("itemType :" + sellItemDto.itemType);
-      console.log(items);
-    } else if (sellItemDto.sellType !== "" && sellItemDto.itemType !== "") {
-      setItems(
-        data.filter(
-          (item) =>
-            item.itemType === sellItemDto.itemType &&
-            item.sellType === sellItemDto.sellType
-        )
-      );
-      console.log("sellType :" + sellItemDto.sellType);
-      console.log("itemType" + sellItemDto.itemType);
-      console.log(items);
-    } else {
-      alert("error");
-    }
-    setIndexOfLastPost(currentpage * postPerPage);
-    setIndexOfFirstPost(indexOfLastPost - postPerPage);
-    setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
-
-    axios
-      .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category/distinct`
-      )
-      .then((response) => {
-        const list = [];
-        response.data.map((d) => list.push(d.itemType));
-        setItemTypeList(list);
-      })
-      .catch((error) => console.log(error));
-
-    axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
-      .then((response) => {
-        const temp1 = [];
-        response.data.forEach((element) => temp1.push(element.itemType));
-        const temp2 = temp1.filter(
-          (element, index) => temp1.indexOf(element) === index
-        );
-        setData2(response.data);
-      })
-      .catch((error) => console.log(error));
-
-    axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, [
-    sellItemDto,
-    // sellItemDto.sellType,
-    // sellItemDto.itemType,
-    // itemTypeList,
-    // itemDType,
-    // data,
-    // currentpage,
-    // indexOfFirstPost,
-    // indexOfLastPost,
-    // postPerPage,
-  ]);
-
-  const handlerSetPage = (e) => {
-    setCurrentpage(e);
   };
 
   return (
@@ -169,8 +171,8 @@ function Sell_List() {
             {items.length != 0 && <strong>{items.length}</strong>}개
           </h2>
           <p onClick={OnCategory} className={style.cate_btn}>
-            {itemType == "" && <>카테고리 보기</>}
-            {itemType != "" && <>{itemType}</>}
+            {selectedOptions.itemType == "" && <>카테고리 보기</>}
+            {selectedOptions.itemType != "" && <>{selectedOptions.itemType}</>}
           </p>
           <div className={style.cate_box}>
             <div className={style.cate_main} ref={c_m}>
@@ -183,17 +185,17 @@ function Sell_List() {
               <ul>
                 {itemTypeList &&
                   itemTypeList.map((type, index) => (
-                    <li key={index} value={type} onClick={() => OnOption(type)}>
+                    <li key={index} value={type} onClick={() => OnItemType(type)}>
                       <a>{type}</a>
                     </li>
                   ))}
               </ul>
             </div>
             <div className={style.cate_option} ref={c_o}>
-              <p>{itemType}</p>
+              <p>{selectedOptions.itemType}</p>
               <ul>
-                {itemDType &&
-                  itemDType.map((DType, index) => (
+                {itemDTypeList &&
+                  itemDTypeList.map((DType, index) => (
                     <li value={DType} key={index}>
                       <a>{DType}</a>
                     </li>
@@ -208,7 +210,7 @@ function Sell_List() {
                 name="all"
                 onClick={checkSellType}
                 className={
-                  sellItemDto.sellType === ""
+                  selectedOptions.sellType === ""
                     ? `${style.cate_true}`
                     : `${style.cate_false}`
                 }
@@ -222,7 +224,7 @@ function Sell_List() {
                 name="up"
                 onClick={checkSellType}
                 className={
-                  sellItemDto.sellType === "u"
+                  selectedOptions.sellType === "u"
                     ? `${style.cate_true}`
                     : `${style.cate_false}`
                 }
@@ -236,7 +238,7 @@ function Sell_List() {
                 name="down"
                 onClick={checkSellType}
                 className={
-                  sellItemDto.sellType === "d"
+                  selectedOptions.sellType === "d"
                     ? `${style.cate_true}`
                     : `${style.cate_false}`
                 }
@@ -250,7 +252,7 @@ function Sell_List() {
                 name="normal"
                 onClick={checkSellType}
                 className={
-                  sellItemDto.sellType === "n"
+                  selectedOptions.sellType === "n"
                     ? `${style.cate_true}`
                     : `${style.cate_false}`
                 }
