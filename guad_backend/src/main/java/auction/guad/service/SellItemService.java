@@ -25,6 +25,7 @@ public interface SellItemService {
 	
 	public List<SellItemDto> selectSellItemList() throws Exception;
 	public int updateSoldYn(int itemNum) throws Exception;
+	public int updateSellState(int itemNum) throws Exception;
 	public List<SellItemDto> selectSearchList(String search) throws Exception;
 	
 }

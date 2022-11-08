@@ -30,7 +30,7 @@
 	
 	<!-- 마이페이지 판매내역 리스트 -->
 	<select id="selectMySellList" resultType="auction.guad.dto.SellItemDto">
-	SELECT * FROM SELL_ITEM I LEFT JOIN SELL_ITEM_RESULT R ON I.ITEM_NUM = R.ITEM_NUM WHERE member_email = #{memberEmail}
+	SELECT * FROM SELL_ITEM I LEFT JOIN SELL_ITEM_RESULT R ON I.ITEM_NUM = R.ITEM_NUM WHERE member_email = #{memberEmail} order by I.write_date desc;
 	</select>
 	
 </mapper>

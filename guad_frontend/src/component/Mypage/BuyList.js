@@ -55,8 +55,7 @@ function BuyList() {
               <strong>가격 : </strong>{list.itemPrice}
             </h3>
             <h3>
-              <strong>주소 : </strong>{list.address}
-              804호
+              <strong>주소 : </strong>{list.address}             
             </h3>
             <h3>
               <strong>판매자 연락처 : </strong>{list.sellerPhone}

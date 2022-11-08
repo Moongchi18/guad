@@ -20,7 +20,7 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
     soldDate: '쿼리문에 입력',
     itemNum: '',
     soldYn: '',
-    mileage: ''
+    mileage: ''    
   })
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
 
     setRequestTrade({...requestTrade, 
       sellType: item.sellType,
-      address: '주소',
+      address: member.address,
       itemSub: item.itemSub,
       itemPrice: price,
       soldDate: '',
@@ -60,7 +60,7 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
       alert("마일리지가 부족합니다. 충전 후 이용해주세요.")
       history.push("/mypage");
     } else {
-      axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}8080/sell`, requestTrade)
+      axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell`, requestTrade)
       .then(response => {
         console.log(response)
         alert("결제에 성공했습니다.")
