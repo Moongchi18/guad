@@ -8,8 +8,7 @@ import 'moment/locale/ko';	//대한민국
 function BuyList() {
   const [buyList, setBuyList] = useState([]); 
   var tempDate = moment().format('YYYY-MM-DD');
-  console.log(tempDate);
-  buyList.soldDate = tempDate
+   buyList.soldDate = tempDate
 
   useEffect(() => {
     axios
