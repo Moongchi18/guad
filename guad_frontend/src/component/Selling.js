@@ -115,7 +115,6 @@ function Selling({ history }) {
 
   console.log("auctionMinPrice 테스트 " + auctionMinPrice);
   const handlerItemRegist = (e) => {
-    
     e.preventDefault();
     if (sellType === "") {
       alert("거래종류를 선택하세요");
@@ -161,6 +160,7 @@ function Selling({ history }) {
       const sendAuctionDiscountPerHout =
         sellType === "d" && !auctionRandomMethod ? auctionDiscountPerHour : "";
       const sendAuctionMinPrice = sellType === "d" ? auctionMinPrice : "";
+      
       let dataSet = {
         sellType,
         itemSub,
