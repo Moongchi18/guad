@@ -21,4 +21,6 @@ public class SellItemResultDto {
 	private int itemPrice;
 	
 	private Date soldDate;
+	private String itemImgName;
+	
 }

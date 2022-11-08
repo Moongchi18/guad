@@ -28,5 +28,6 @@ public class RequestTradeVo {
 	
 	private String nickname;
 	private String itemContents;
+	private String itemImgName;
 	
 }

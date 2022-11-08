@@ -53,12 +53,15 @@ function UserSellList() {
           sellList.map((list) => (
             <div className={style.sell_list}>
               <div className={style.item_bb} key={list.itemNum}>
-                <img src={sell_1} alt="1"></img>
+              <img
+            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
+            alt={"img" + list.itemNum}
+           />
                 <img
                   src={require("../../source/img/del2.png")}
                   alt="1"
                   className={style.del_icon}
-                ></img>
+                  ></img>
               </div>
               <div className={style.sell_list_info}>
                 <h3>

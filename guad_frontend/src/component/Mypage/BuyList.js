@@ -5,7 +5,7 @@ import moment from 'moment';
 //선언하지 않아도, 디바이스 혹은 locale의 시간을 불러온다. 
 import 'moment/locale/ko';	//대한민국
 
-function BuyList() {
+function BuyList({}) {
   const [buyList, setBuyList] = useState([]); 
   var tempDate = moment().format('YYYY-MM-DD');
    buyList.soldDate = tempDate
@@ -37,14 +37,9 @@ function BuyList() {
         <div className={style.buy_list}>
             <div className={style.item_bb} key={list.itemNum}> 
             <img
-              src={require("../../source/img/selling_item_ex1.png")}
-              alt="1"
-              ></img>
-            <img
-              src={require("../../source/img/del2.png")}
-              alt="1"
-              className={style.del_icon}
-              ></img>
+            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
+            alt={"img" + list.itemNum}
+           />
           </div>
           <div className={style.buy_list_info}>
             <h3>
