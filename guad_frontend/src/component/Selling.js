@@ -147,7 +147,7 @@ function Selling({ history }) {
     } else if (sellType === 'd' && !auctionRandomMethod && auctionDiscountPerHour === '') {
       alert("시간당 내릴 가격을 입력해주세요");
       refAuctionDiscountPerHour.current.focus();
-    } else if(false){
+    } else if(sellType === 'd' && itemPrice < auctionMinPrice){
       alert("경매시작 가격은 최저가격보다 낮을 수 없습니다.");
     } else {
       const sellPrice = sellType === "n" ? itemPrice : "";
