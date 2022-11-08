@@ -27,33 +27,33 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSocketController {
 
-    @Autowired
-    AuctionService aucService;
-    
+	@Autowired
+	AuctionService aucService;
+
 	private final SimpMessagingTemplate simpMessagingTemplate;
 	private final MemberService memberService;
 	private final JwtTokenUtil jwtTokenUtil;
-	
+
 	int bid = 10000;
 	int result;
 
-    @MessageMapping("/up/{itemNum}")
-    @SendTo("/sub/up/{itemNum}")
-    public Message receiveMessage(@Payload Message message, @DestinationVariable("itemNum")int itemNum){
-    	System.out.println("테스트<<<<<<<<<<<<<<<<<<<<<<<<<");
-        return message;
-    }
+	@MessageMapping("/up/{itemNum}")
+	@SendTo("/sub/up/{itemNum}")
+	public Message receiveMessage(@Payload Message message, @DestinationVariable("itemNum") int itemNum) {
+		System.out.println("테스트<<<<<<<<<<<<<<<<<<<<<<<<<");
+		return message;
+	}
 
-    
 	@GetMapping("/bidlist")
-	public Integer testListget(int itemNum) {
+	public Integer testListget() {
 		return bid;
 	}
-	
+
 	@MessageMapping("/bidlist/{itemNum}")
 	@SendTo("/sub/{itemNum}/bidlist")
-	public Auction testList(@Payload Auction auction, @DestinationVariable int itemNum, @Header String Authorization) throws Exception {
-		System.out.println("<<<<<<<<<<"+auction);
+	public Auction testList(@Payload Auction auction, @DestinationVariable int itemNum, @Header String Authorization)
+			throws Exception {
+		System.out.println("<<<<<<<<<<" + auction);
 		String token = Authorization.substring(7);
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
@@ -66,4 +66,24 @@ public class WebSocketController {
         return auction;
         } return null;
 }
+	
+	
+	@MessageMapping("/naelim/{itemNum}")
+	@SendTo("/sub/naelim/{itemNum}")
+	public Auction aucNaelim(@Payload Auction auction, @DestinationVariable int itemNum, @Header String Authorization) throws Exception {
+		System.out.println("<<<<<<<<<<"+auction);
+		String token = Authorization.substring(7);
+		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
+		MemberDto member = memberService.loginContainPass(claims.getSubject());
+		auction.setNickname(member.getNickname());
+		auction.setMemberEmail(member.getEmail());
+		int bidNum = aucService.tryAuction(auction);
+        if (bidNum > 0) {
+         simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()), "/sub/"+itemNum+"/bidlist", auction);
+         bid = auction.getAuctionPrice();
+        return auction;
+        } return null;
+}	
+	
+
 }

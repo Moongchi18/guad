@@ -17,22 +17,22 @@ function UserSellList() {
       setSellList(response.data);
       console.log(sellList);
       console.log(sellList[1].sellState)
-      color();
+      // color();
     });
   }, []);
 
-  const colorChange = useRef();
-  const color = () => {
-    if (sellList.sellState === "waiting") {
-      colorChange.current.style = "background-color : #253C76";
-    } else if (sellList.sellState === "ing") {
-      colorChange.current.style = "background-color : #D9D9D9";
-    } else if (sellList.sellState === "sold") {
-      colorChange.current.style = "background-color : #217A4F";
-    } else {
-      colorChange.current.style = "background-color : #BA101E";
-    }
-  };
+  // const colorChange = useRef();
+  // const color = () => {
+  //   if (sellList.sellState === "waiting") {
+  //     colorChange.current.style = "background-color : #253C76";
+  //   } else if (sellList.sellState === "ing") {
+  //     colorChange.current.style = "background-color : #D9D9D9";
+  //   } else if (sellList.sellState === "sold") {
+  //     colorChange.current.style = "background-color : #217A4F";
+  //   } else {
+  //     colorChange.current.style = "background-color : #BA101E";
+  //   }
+  // };
 
   
 
@@ -83,7 +83,7 @@ function UserSellList() {
                   {list.sellState}
                 </button>
                 <h3>
-                  <strong>구매 일자 : </strong>2022년 10월 24일
+                  <strong>구매 일자 : </strong>{list.soldDate}
                 </h3>
               </div>
             </div>
