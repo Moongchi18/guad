@@ -65,6 +65,7 @@ header ul li:first-child {
   right: 0px;
   top: 30px;
   color: #878787;
+  cursor:default;
 }
 .nick strong {
   color: black;

@@ -8,10 +8,11 @@ import axios from "axios";
 function Header(props) {
   const [mypage, SetMypage] = useState();
   const [searchWord, setSearchWord] = useState("");
-  const nick = sessionStorage.getItem("nickname");
+  const [nickName, setNickName] = useState("");
 
   useEffect(() => {
-    console.log(nick);
+    setNickName(sessionStorage.getItem("nickname"));
+    console.log(nickName);
     if (sessionStorage.length != 0) {
       SetMypage(true);
     } else if (sessionStorage.length == 0) {
@@ -36,9 +37,6 @@ function Header(props) {
             <img src={logo} alt="로고" className={style.h_logo_b} />
           </Link>
           <ul>
-            <li className={style.nick}>
-              <strong>{nick}</strong>님 환영합니다!
-            </li>
             <li>
               <Link to="/sell_List">판매목록</Link>
             </li>
@@ -57,7 +55,11 @@ function Header(props) {
                 <Link to="/">로그아웃</Link>
               </li>
             )}
-
+            {sessionStorage.length != 0 && (
+              <li className={style.nick}>
+                <strong>{nickName}</strong>님 환영합니다!
+              </li>
+            )}
             {mypage == true && (
               <li>
                 <Link to="/mypage">마이페이지</Link>
