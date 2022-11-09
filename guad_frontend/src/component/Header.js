@@ -7,6 +7,7 @@ import axios from "axios";
 
 function Header(props) {
   const [mypage, SetMypage] = useState();
+  const [searchWord, setSearchWord] = useState('');
 
   useEffect(() => {
     if (sessionStorage.length != 0) {
@@ -23,6 +24,8 @@ function Header(props) {
     alert("로그아웃 되었습니다.");
   };
 
+  const handlerSearchWord = (e) => setSearchWord(e.target.value)
+  console.log(searchWord)
   return (
     <>
       <div className={style.header_b}>
@@ -56,7 +59,7 @@ function Header(props) {
               </li>
             )}
           </ul>
-          <input type="text" className={style.search_b} />
+          <input type="text" className={style.search_b} value={searchWord} onChange={handlerSearchWord} />
           <img src={search} alt="검색창" className={style.search_icon} />
         </header>
       </div>

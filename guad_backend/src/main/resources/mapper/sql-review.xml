@@ -2,26 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="auction.guad.mapper.ReviewMapper">
-	
+
 	<!-- 리뷰 조회 -->
-	<select id="selectReviewListByItemNum" resultType="auction.guad.dto.ReviewDto">
-		SELECT * FROM REVIEW WHERE ITEM_NUM = #{itemNum}
+	<select id="selectReviewListByEmail"
+		resultType="auction.guad.dto.ReviewDto">
+		SELECT ITEM_NUM, WRITER_NICKNAME, CONTENTS, STAR_POINT
+		FROM REVIEW
+		WHERE SELLER_EMAIL = #{email}
 	</select>
-	
+
 	<!-- 리뷰 작성 -->
-	<insert id="insertReview" parameterType="auction.guad.dto.ReviewDto">
-		INSERT INTO REVIEW(ITEM_NUM, MEMBER_EMAIL, NICKNAME, CONTENTS, STAR_POINT, WRITE_DATE) 
-			VALUES (#{itemNum}, #{memberEmail}, #{nickname}, #{contents}, #{starPoint}, now())
-		
+	<insert id="insertReview"
+		parameterType="auction.guad.dto.ReviewDto">
+		INSERT INTO REVIEW(ITEM_NUM, MEMBER_EMAIL, NICKNAME,
+		CONTENTS, STAR_POINT, WRITE_DATE)
+		VALUES (#{itemNum}, #{memberEmail},
+		#{nickname}, #{contents}, #{starPoint},
+		now())
+
 	</insert>
-	
-	
+
+
 	<!-- 리뷰 삭제 업데이트 -->
-	<update id="updateReview" parameterType="auction.guad.dto.ReviewDto">
+	<update id="updateReview"
+		parameterType="auction.guad.dto.ReviewDto">
 		UPDATE REVIEW SET DELETE_YN = "y"
-		WHERE MEMBER_EMAIL = #{memberEmail} 
+		WHERE MEMBER_EMAIL =
+		#{memberEmail}
 	</update>
-	
-	
+
+
 
 </mapper>

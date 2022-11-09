@@ -11,20 +11,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.dto.ReviewDto;
 import auction.guad.service.ReviewService;
+import auction.guad.service.SellItemService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 public class ReviewController {
 
-	@Autowired
 	private ReviewService reviewService;
-	
+	private SellItemService sellItemService;
+		
+	@Autowired
+	public ReviewController(ReviewService reviewService, SellItemService sellItemService) {
+		this.reviewService = reviewService;
+		this.sellItemService = sellItemService;
+	}
+
 	@ApiOperation(value = "리뷰 목록 조회(email)", notes = "email로 등록된 리뷰 목록을 조회, 파라미터 : email")
 	@GetMapping("/review/{itemNum}")
 	public List<ReviewDto> selectReviewListByEmail(@PathVariable("itemNum")int itemNum) throws Exception {
 		System.out.println("리뷰호출");
-		return reviewService.selectReviewListByItemNum(itemNum);
+		System.out.println(reviewService.selectReviewListByEmail(sellItemService.selectSellItemDetailNoHitCnt(itemNum).getMemberEmail()));
+		return reviewService.selectReviewListByEmail(sellItemService.selectSellItemDetailNoHitCnt(itemNum).getMemberEmail());
 	}
 
 	@ApiOperation(value = "리뷰 등록", notes = "리뷰 제목과 내용을 저장")
