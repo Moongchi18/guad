@@ -3,9 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import style from "../source/Selling.module.css";
 import ItemSuccess from "./Moodal/ItemSuccess";
 
-
-
 function Selling({ history }) {
+  const sellTypeList = ["u", "d", "n"];
   const selectListAPeriod = [1, 2, 3, 5, 7];
   const selectListHour = [
     12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
@@ -52,7 +51,6 @@ function Selling({ history }) {
   const refAuctionMaxPrice = useRef();
   const refAuctionMinPrice = useRef();
   const refAuctionPeriod = useRef();
-  const refAuctionRandomMethod = useRef();
   const refAuctionDiscountPerHour = useRef();
 
   const handlerSellType = (e) => {
@@ -132,8 +130,6 @@ function Selling({ history }) {
     } else {
     }
   };
-
-
 
   console.log("auctionMinPrice 테스트 " + auctionMinPrice);
   const handlerItemRegist = (e) => {
@@ -300,9 +296,6 @@ function Selling({ history }) {
 
 
   /////////////////////////////////////////////////////
-
-
-
   return (
     <>
       <div className={style.all_box}>
@@ -311,44 +304,23 @@ function Selling({ history }) {
           <ul>
             <li>
               <label>거래종류</label>
-              <button
-                type="button"
-                id={
-                  sellType === "u"
-                    ? `${style.button_active}`
-                    : `${style.button_no}`
-                }
-                name="u"
-                onClick={handlerSellType}
-                ref={refSellType}
-              >
-                오름 경매
-              </button>
-              <button
-                type="button"
-                id={
-                  sellType === "d"
-                    ? `${style.button_active}`
-                    : `${style.button_no}`
-                }
-                className={style.mid}
-                name="d"
-                onClick={handlerSellType}
-              >
-                내림 경매
-              </button>
-              <button
-                type="button"
-                id={
-                  sellType === "n"
-                    ? `${style.button_active}`
-                    : `${style.button_no}`
-                }
-                name="n"
-                onClick={handlerSellType}
-              >
-                일반 판매
-              </button>
+              {sellTypeList.map(type => (
+                <button
+                  key={type}
+                  type="button"
+                  id={
+                    sellType === type
+                      ? `${style.button_active}`
+                      : `${style.button_no}`
+                  }
+                  className={type === 'd' ? style.mid : ""}
+                  name={type}
+                  onClick={handlerSellType}
+                  ref={refSellType}
+                >
+                  {type === "u" ? "오름경매" : (type === "d" ? "내림경매" : "일반판매")}
+                </button>
+              ))}
             </li>
             <li>
               <label>카테고리</label>
@@ -459,7 +431,7 @@ function Selling({ history }) {
             {sellType === "d" ? (
               <li className={style.down_b}>
                 <label className={style.chose_p}>시간당 내릴 가격</label>
-                <form ref={refAuctionRandomMethod}>
+                <form>
                   <input
                     type="radio"
                     name="down"
