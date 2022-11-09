@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import auction.guad.dto.ImgDto;
 import auction.guad.dto.PageDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.mapper.SellItemMapper;
@@ -15,11 +16,14 @@ import auction.guad.vo.SellItemJoinMemberVo;
 @Service
 public class SellItemServiceImpl implements SellItemService {
 
-	@Autowired
 	private SellItemMapper sellItemMapper;
-
-	private static final int COUNT_PER_PAGE = 12;
-
+	private ImgService imgService;
+	@Autowired
+	public SellItemServiceImpl(SellItemMapper sellItemMapper, ImgService imgService) {
+		this.sellItemMapper = sellItemMapper;
+		this.imgService = imgService;
+	}	
+	
 	public List<SellItemDto> sellItemList() throws Exception {
 		return sellItemMapper.sellItemList();
 	}
@@ -35,17 +39,36 @@ public class SellItemServiceImpl implements SellItemService {
 
 	}
 
-	
 	@Transactional
 	@Override
 	public SellItemJoinMemberVo selectSellItemDetailContainHitCnt(int itemNum) throws Exception {
 		sellItemMapper.updateHitCnt(itemNum);
-		return sellItemMapper.selectSellItemDetail(itemNum);
+		
+		// 해당 itemNum에 입력된 imgName을 vo값에 세팅
+		List<ImgDto> imgList = imgService.allImgByItemNum(itemNum);
+		SellItemJoinMemberVo vo = sellItemMapper.selectSellItemDetail(itemNum);
+		vo.setItemImgName(imgList.get(0).getItemImgName());
+		if(imgList.size() >= 2) {
+			vo.setItemImgNameSub2(imgList.get(1).getItemImgName());
+		} else if(imgList.size() == 3) {
+			vo.setItemImgNameSub3(imgList.get(2).getItemImgName());
+		}
+		return vo;
 	}
-	
+
 	@Override
 	public SellItemJoinMemberVo selectSellItemDetailNoHitCnt(int itemNum) throws Exception {
-		return sellItemMapper.selectSellItemDetail(itemNum);
+		List<ImgDto> imgList = imgService.allImgByItemNum(itemNum);
+		
+		// 해당 itemNum에 입력된 imgName을 vo값에 세팅
+		SellItemJoinMemberVo vo = sellItemMapper.selectSellItemDetail(itemNum);
+		vo.setItemImgName(imgList.get(0).getItemImgName());
+		if(imgList.size() >= 2) {
+			vo.setItemImgNameSub2(imgList.get(1).getItemImgName());
+		} else if(imgList.size() == 3) {
+			vo.setItemImgNameSub3(imgList.get(2).getItemImgName());
+		}
+		return vo;
 	}
 
 	@Override
@@ -63,7 +86,7 @@ public class SellItemServiceImpl implements SellItemService {
 	public int selectAllItemCount() throws Exception {
 		return sellItemMapper.selectAllItemCount();
 	}
-	
+
 	@Override
 	public Integer selectLastItemNum() throws Exception {
 		return sellItemMapper.selectLastItemNum();
@@ -94,22 +117,17 @@ public class SellItemServiceImpl implements SellItemService {
 		int result = sellItemMapper.updateSoldYn(itemNum);
 		return result;
 	}
-   
+
 	@Override
-    public int updateSellState(int itemNum) throws Exception {
-        int result = sellItemMapper.updateSellState(itemNum);
-        return result;
-    }
-	
-	
+	public int updateSellState(int itemNum) throws Exception {
+		int result = sellItemMapper.updateSellState(itemNum);
+		return result;
+	}
 
 	@Override
 	public List<SellItemDto> selectSearchList(String search) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
-
 
 }
