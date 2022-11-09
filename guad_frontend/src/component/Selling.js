@@ -53,7 +53,6 @@ function Selling({ history }) {
   const refAuctionMaxPrice = useRef();
   const refAuctionMinPrice = useRef();
   const refAuctionPeriod = useRef();
-  const refAuctionRandomMethod = useRef();
   const refAuctionDiscountPerHour = useRef();
 
   const handlerSellType = (e) => {
@@ -436,7 +435,7 @@ function Selling({ history }) {
             {sellType === "d" ? (
               <li className={style.down_b}>
                 <label className={style.chose_p}>시간당 내릴 가격</label>
-                <form ref={refAuctionRandomMethod}>
+                <form>
                   <input
                     type="radio"
                     name="down"
