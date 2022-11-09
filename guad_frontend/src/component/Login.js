@@ -4,11 +4,16 @@ import axios from "axios";
 import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function Login(props) {
+  // Cookies 이름
+  const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"]);
+  // 아이디 저장 체크박스 체크 유무
+  const [idCheck, setIdCheck] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [idCheck, setIdCheck] = useState(false);
   const ChangeCheck = () => {
     if (idCheck === false) {
       setIdCheck(true);
@@ -22,7 +27,9 @@ function Login(props) {
     }
   };
 
-  const changeEmail = (e) => setEmail(e.target.value);
+  const changeEmail = (e) => {
+    setEmail(e.target.value);
+  };
   const changePassword = (e) => setPassword(e.target.value);
 
   // handlerIsLogin(true);
@@ -83,6 +90,7 @@ function Login(props) {
           <input
             className={style.in_box}
             placeholder="아이디"
+            defaultValue={email}
             value={email}
             onChange={changeEmail}
           />
