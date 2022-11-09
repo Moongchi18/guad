@@ -3,8 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import style from "../source/Selling.module.css";
 import ItemSuccess from "./Moodal/ItemSuccess";
 
-
-
 function Selling({ history }) {
   const sellTypeList = ["u", "d", "n"];
   const selectListAPeriod = [1, 2, 3, 5, 7];
@@ -132,8 +130,6 @@ function Selling({ history }) {
     } else {
     }
   };
-
-
 
   console.log("auctionMinPrice 테스트 " + auctionMinPrice);
   const handlerItemRegist = (e) => {
@@ -310,20 +306,20 @@ function Selling({ history }) {
               <label>거래종류</label>
               {sellTypeList.map(type => (
                 <button
-                key={type}
-                type="button"
-                id={
-                  sellType === type
-                    ? `${style.button_active}`
-                    : `${style.button_no}`
-                }
-                className={type === 'd' ? style.mid:""}
-                name={type}
-                onClick={handlerSellType}
-                ref={refSellType}
-              >
-                {type === "u" ? "오름경매" : (type === "d" ? "내림경매" : "일반판매")}
-              </button>
+                  key={type}
+                  type="button"
+                  id={
+                    sellType === type
+                      ? `${style.button_active}`
+                      : `${style.button_no}`
+                  }
+                  className={type === 'd' ? style.mid : ""}
+                  name={type}
+                  onClick={handlerSellType}
+                  ref={refSellType}
+                >
+                  {type === "u" ? "오름경매" : (type === "d" ? "내림경매" : "일반판매")}
+                </button>
               ))}
             </li>
             <li>
