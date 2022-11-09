@@ -2,6 +2,7 @@ package auction.guad.dto;
 
 import java.util.Date;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,5 +24,16 @@ public class MemberDto {
 	private String managerYn;
 	private String deleteYn;
 	private Date updatedDateTime;
+	
+	@Builder
+	public MemberDto(String nickname, String email, String phone, String address, String addressDetail) {
+		this.nickname = nickname;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.addressDetail = addressDetail;
+	}
+	
+	
 
 }

@@ -87,6 +87,8 @@ function Selling({ history }) {
     setSelectedDay(e.target.value);
     tempDate.setDate(now.getDate() + e.target.value * 1 + 1);
     tempDate.setHours(selectedHour);
+    tempDate.setMinutes(0);
+    tempDate.setSeconds(0);
     setAuctionPeriod(tempDate);
     setAuctionPeriodText(
       `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1
@@ -97,6 +99,8 @@ function Selling({ history }) {
     setSelectedHour(e.target.value);
     tempDate.setDate(now.getDate() + selectedDay * 1 + 1);
     tempDate.setHours(e.target.value * 1);
+    tempDate.setMinutes(0);
+    tempDate.setSeconds(0);
     setAuctionPeriod(tempDate);
     setAuctionPeriodText(
       `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1

@@ -2,6 +2,7 @@ package auction.guad.security;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,18 +15,20 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import auction.guad.service.MemberService;
+import auction.guad.service.MemberServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	// 의존 객체를 생성자를 통해서 주입
-	private MemberService memberService;
+	private MemberServiceImpl memberService;
 	private BCryptPasswordEncoder passwordEncoder;
 	private JwtTokenUtil jwtTokenUtil;
 	private JwtRequestFilter jwtRequestFilter;
 
-	public WebSecurity(MemberService memberService, BCryptPasswordEncoder passwordEncoder, JwtTokenUtil jwtTokenUtil,
+	@Autowired
+	public WebSecurity(MemberServiceImpl memberService, BCryptPasswordEncoder passwordEncoder, JwtTokenUtil jwtTokenUtil,
 			JwtRequestFilter jwtRequestFilter) {
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
@@ -38,14 +41,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// csrf차단기능 : get제외한 http메서드 차단
 		// csrf차단 기능 해제 : jwt토큰을 사용하므로 csrf차단기능이 않음
-		http.csrf().disable();
+		http.csrf().disable().cors();
 		http.authorizeRequests().antMatchers("/**/admin/**").hasRole("y").anyRequest().permitAll().and()
 				.addFilter(getAuthenticationFilter()).addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
-//			.oauth2Login()
-//			.loginPage("/loginForm")
-//			.and()
-				.cors();
-
+				.oauth2Login()
+//				.loginPage("/loginForm")
+				.userInfoEndpoint()
+				.userService(memberService);
+//				.cors();
+		// oauth2
+		// 1. 코드받기(인증), 2. 액세스토큰(권한), 3. 사용자 프로필정보보 가져오기
+		// 4-1 그 정보를 토대로 회원가입을 자동진행
+		// 4-2 (이메일, 이름, 아이디)쇼핑몰 -> (집주소)백화점 -> (vip등급, 일반등급)
+		// 구글로그인이 완료되면 액세스토큰 + 사용자프로필 정보를 받음
 	}
 
 	private AuthenticationFilter getAuthenticationFilter() throws Exception {
@@ -60,8 +68,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(memberService).passwordEncoder(passwordEncoder);
 	}
-	
-	//추후 S3 에서 가져올 모든 자료요청에 대해 시큐리티 작동 무시
+
+	// 추후 S3 에서 가져올 모든 자료요청에 대해 시큐리티 작동 무시
 	@Override
 	public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web)
 			throws Exception {

@@ -2,18 +2,30 @@ package auction.guad.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import auction.guad.dto.MemberDto;
+import lombok.Data;
 
-public class PrincipalDetails implements UserDetails{
+@Data
+public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	private MemberDto member;
-	
-	public PrincipalDetails(MemberDto member){
+	private Map<String, Object> attributes;
+
+	// login
+	public PrincipalDetails(MemberDto member) {
 		this.member = member;
+	}
+	
+	// oauth2
+	public PrincipalDetails(MemberDto member, Map<String, Object> attributes) {
+		this.member = member;
+		this.attributes = attributes;
 	}
 
 // 권한부여
@@ -57,6 +69,16 @@ public class PrincipalDetails implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attributes;
+	}
+
+	@Override
+	public String getName() {
+		return (String)attributes.get("sub");
 	}
 
 }

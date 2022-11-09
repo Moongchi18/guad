@@ -39,6 +39,7 @@ function App() {
       : false
   );
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
+  const [searchWord, setSearchWord] = useState('');
 
   // function handlerIsLogin() {
   //   setIsLogin(true);
@@ -57,7 +58,7 @@ function App() {
 
   return (
     <>
-      <Header isLogin={isLogin} setIsLogin={setIsLogin} nickName={nickName} />
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} nickName={nickName} setSearchWord={setSearchWord}/>
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route
         path="/login"
@@ -85,7 +86,9 @@ function App() {
       <Route path="/manager/notify" component={ManagerNotify} exact={true} />
       <Route path="/join" component={Join} exact={true} />
       <Route path="/join_g" component={JoinG} exact={true} />
-      <Route path="/sell_list" component={SellList} exact={true} />
+      <Route path="/sell_list" render={(props) => <SellList searchWord={searchWord} setSearchWord={setSearchWord} {...props} />}
+      // component={SellList} exact={true} 
+      />
       <Route path="/sell_item/n/:itemNum" component={SellItem} exact={true} />
       <Route path="/selling" component={Selling} exact={true} />
       <Route path="/sell_item/u/:itemNum" component={Sell_Up} exact={true} />

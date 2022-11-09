@@ -4,13 +4,11 @@ import style from "../source/SellList.module.css";
 import SellListItem from "./SellListItem";
 import SellListPaging from "./SellListPaging";
 
-function Sell_List({location}) {
+function Sell_List(props) {
   const sellType = ["", "u", "d", "n"];
   const postPerPage = 12; //페이지당 아이템 개수
 
-  const queryString = new URLSearchParams(location.search);
-  let params = queryString.get("search");
-  console.log(params)
+  console.log(props.searchWord)
 
   const [data, setData] = useState([]); // 상품 전체 정보
   const [category, setCategory] = useState([]); // 카테고리 전체정보
@@ -121,23 +119,28 @@ function Sell_List({location}) {
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
       .then((response) => {
         console.log(response.data)
-        if(params === null){
-          setData(response.data);
-          setCount(response.data.length);
-          setCurrentPosts(response.data?.slice(indexOfFirstPost, indexOfLastPost));
-        } else {
-          const temp = response.data.filter(d => {
-            return d.itemType.includes(params) || d.itemDType.includes(params)
-                || d.itemSub.includes(params) || d.itemContents.includes(params)
-          })
-          setData(temp);
-          setCount(temp.length);
-          setCurrentPosts(temp.slice(indexOfFirstPost, indexOfLastPost));
-        }
-      })
+        setData(response.data);
+        setCount(response.data.length);
+        setCurrentPosts(response.data?.slice(indexOfFirstPost, indexOfLastPost));
+      }
+      )
       .catch((error) => console.log(error));
 
   }, [])
+
+  useEffect(() => {
+    if (props.searchWord === null) {
+      setCount(data.length);
+      setCurrentPosts(data?.slice(indexOfFirstPost, indexOfLastPost));
+    } else {
+      const temp = data.filter(d => {
+        return d.itemType.includes(props.searchWord) || d.itemDType.includes(props.searchWord)
+          || d.itemSub.includes(props.searchWord) || d.itemContents.includes(props.searchWord)
+      })
+      setCount(temp.length);
+      setCurrentPosts(temp.slice(indexOfFirstPost, indexOfLastPost));
+    }
+  }, [props.searchWord])
 
   const handlerSetPage = (e) => {
     setCurrentpage(e);
@@ -171,6 +174,12 @@ function Sell_List({location}) {
     <>
       <div className={style.sell_all}>
         <div className={style.sell_top}>
+          {/* {props.searchWord &&
+            <div>
+              <h2>현재 검색어 : {props.searchWord}</h2>
+              <button onClick={() => props.setSearchWord("")}>검색어 초기화</button>
+            </div>
+          } */}
           <h2>
             전체상품
             <strong>{count}</strong>개
@@ -235,10 +244,10 @@ function Sell_List({location}) {
             <ul>
               {count &&
                 <SellListPaging
-                page={currentpage}
-                count={count}
-                handlerSetPage={handlerSetPage}
-              />}
+                  page={currentpage}
+                  count={count}
+                  handlerSetPage={handlerSetPage}
+                />}
             </ul>
           </span>
         </div>

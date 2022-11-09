@@ -11,7 +11,9 @@ function Header(props) {
   const SearchGo = (e) => {
     if (e.key == "Enter") {
       console.log("여기");
-      props.history.push("/sell_List?search=" + searchWord);
+      props.setSearchWord(searchWord)
+      setSearchWord('')
+      props.history.push("/sell_List");
     }
   };
 

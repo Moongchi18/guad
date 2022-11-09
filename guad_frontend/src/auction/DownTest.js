@@ -12,6 +12,7 @@ function AuctionTest({match}) {
         itemNum: match.params.itemNum,
         sold: ''
     });
+    
     useEffect(() => {
         connect();
     }, [auctionCurrentPrice])
