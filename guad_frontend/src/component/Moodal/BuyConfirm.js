@@ -67,7 +67,9 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
         alert("결제에 성공했습니다.")
         history.push(`/sell_after/${item.itemNum}`);
       })
-      .catch(error => console.log(error))
+      .catch(error => 
+        console.log(error))
+        alert("농담이시죠? 본인이 등록한 물건이에요!")       
     }
   }
   console.log(dto)
