@@ -105,14 +105,13 @@ function Sell_Down({ match }) {
           <div className={style.deli_bb}>
             <span className={style.deli_name}>최저 경매가</span>
             <span className={style.deli_tag}>
-              200,000<strong> / -50%</strong>
+              200,000<strong> (50%)</strong>
             </span>
           </div>
           <div className={style.sell_bb}>
             <span className={style.sell_price}>현재 경매가</span>
             <span className={style.sell_number}>
               {item.auctionStartPrice?.toLocaleString()}
-              <strong> / -30%</strong>
             </span>
           </div>
           <div className={style.button_bb}>
@@ -120,7 +119,7 @@ function Sell_Down({ match }) {
               입찰 참여
             </button>
             <span className={style.bb_date}>
-              현재 입찰자 : <strong>부산갈매기</strong>
+              현재 할인율 : <strong>30%</strong>
             </span>
             <p>
               남은 경매 시간 : <strong>{auctionPeriodText}</strong>
