@@ -8,6 +8,7 @@ import Up_Before from "./Up_Before";
 function Sell_Up({ match }) {
   const [start, setStart] = useState(false);
   const [item, setItem] = useState({});
+  const [imgList, setImgList] = useState([])
 
   const clickStart = () => {
     if (sessionStorage.length != 0) {
@@ -18,6 +19,7 @@ function Sell_Up({ match }) {
     }
   };
   console.log(item.itemNum);
+  console.log(imgList)
 
   useEffect(() => {
     axios
@@ -27,14 +29,10 @@ function Sell_Up({ match }) {
       .then((response) => {
         console.log(response.data);
         setItem(response.data);
-      })
-      .catch((error) => console.log(error));
-    axios
-      .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
-      )
-      .then((response) => {
-        console.log(response.data);
+        imgList.push(response.data.itemImgName)
+        imgList.push(response.data.itemImgNameSub2)
+        imgList.push(response.data.itemImgNameSub3)
+        setImgList(imgList)
       })
       .catch((error) => console.log(error));
   }, []);
@@ -79,38 +77,18 @@ function Sell_Up({ match }) {
             className={style.up2}
           />
           <ul>
-            <li>
-              <img
-                src={
-                  item.itemImgName &&
-                  `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
-                }
-                alt={"img" + item.notifyNum}
-                className={style.item_o}
-              />
-            </li>
-            <li>
-              <img
-                src={
-                  item.itemImgNameSub2 ?
-                    `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgNameSub2}`
+            {imgList?.map((img, index) => (
+              <li key={index}>
+                <img
+                  src={ img ?
+                    `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                     : require("../source/img/no_photo.png")
-                }
-                alt={"img" + item.notifyNum}
-                className={style.item_o}
-              />
-            </li>
-            <li>
-              <img
-                src={
-                  item.itemImgNameSub3 ?
-                    `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgNameSub3}`
-                    : require("../source/img/no_photo.png")
-                }
-                alt={"img" + item.notifyNum}
-                className={style.item_o}
-              />
-            </li>
+                  }
+                  alt={"img" + item.notifyNum}
+                  className={style.item_o}
+                />
+              </li>
+            ))}
           </ul>
         </div>
         {start == false && item && (
