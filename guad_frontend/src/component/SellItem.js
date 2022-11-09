@@ -173,16 +173,17 @@ function SellItem({ history, match }) {
             {!review
               ? "등록된 리뷰가 없습니다."
               : review.map((rev, index) => (
-                <li key={index}>
-                  <span>{rev.writerNickname}</span>
-                  <img
-                    src={require("../source/img/gray_star.png")}
-                    alt="회색별"
-                  />
-                  <span>{rev.starPoint}</span>
-                  <span className={style.review_write}>{rev.contents}</span>
-                </li>
-              ))}
+                  <li key={index}>
+                    <span>{rev.writerNickname}</span>
+                    <img
+                      src={require("../source/img/gray_star.png")}
+                      alt="회색별"
+                    />
+                    <span>{rev.starPoint}</span>
+                    <span className={style.review_write}>{rev.contents}</span>
+                  </li>
+                ))}
+          
           </ul>
         </div>
       </div>

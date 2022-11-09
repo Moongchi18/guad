@@ -32,11 +32,9 @@ import Sell_End_d from "./component/Sell_End_d";
 import Mypage_SellList from "./component/Mypage/Mypage_SellList";
 
 function App() {
-  console.log(sessionStorage.getItem("token"))
+  console.log(sessionStorage.getItem("token"));
   const [isLogin, setIsLogin] = useState(
-    sessionStorage.getItem("token")
-      ? true
-      : false
+    sessionStorage.getItem("token") ? true : false
   );
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
   const [searchWord, setSearchWord] = useState('');
@@ -62,7 +60,9 @@ function App() {
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route
         path="/login"
-        render={(props) => <Login setIsLogin={setIsLogin} setNickName={setNickName} {...props} />}
+        render={(props) => (
+          <Login setIsLogin={setIsLogin} setNickName={setNickName} {...props} />
+        )}
       />
       <Route path="/upload" component={FileUploadForm} exact={true} />
 

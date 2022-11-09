@@ -4,11 +4,16 @@ import axios from "axios";
 import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function Login(props) {
+  // 쿠키용
+  const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"]);
+  // 아이디 저장 체크박스 체크 유무
+  const [idCheck, setIdCheck] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [idCheck, setIdCheck] = useState(false);
   const ChangeCheck = () => {
     if (idCheck === false) {
       setIdCheck(true);
@@ -22,7 +27,15 @@ function Login(props) {
     }
   };
 
-  const changeEmail = (e) => setEmail(e.target.value);
+  const changeEmail = (e) => {
+    setEmail(e.target.value);
+    // 쿠키용
+    if (idCheck === true) {
+      setCookie("rememberEmail", email, { maxAge: 2000 });
+    } else {
+      removeCookie("rememberEmail");
+    }
+  };
   const changePassword = (e) => setPassword(e.target.value);
 
   // handlerIsLogin(true);
@@ -72,6 +85,13 @@ function Login(props) {
     console.log(props.isLogin);
     console.log(props);
     console.log("호출");
+    console.log(cookies);
+
+    // 쿠키용
+    if (cookies.rememberUserId !== undefined) {
+      setEmail(cookies.rememberUserId);
+      setIdCheck(true);
+    }
   }, []);
 
   return (
