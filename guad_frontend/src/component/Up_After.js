@@ -95,6 +95,9 @@ function Up_After({ openModal, item }) {
           <button className={`${style.aa_buy} ${style.aa_btn}`}>
             입찰 : <p>500,000</p>
           </button>
+          <button type="button" className={style.aa_buy}>
+            현재 입찰자 : <strong></strong>
+          </button>
           {item.itemNum && (
             <Up_Chat
               item={item}
