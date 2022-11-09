@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 function Login(props) {
-  // Cookies 이름
+  // 쿠키용
   const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"]);
   // 아이디 저장 체크박스 체크 유무
   const [idCheck, setIdCheck] = useState(false);
@@ -29,6 +29,12 @@ function Login(props) {
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
+    // 쿠키용
+    if (idCheck === true) {
+      setCookie("rememberEmail", email, { maxAge: 2000 });
+    } else {
+      removeCookie("rememberEmail");
+    }
   };
   const changePassword = (e) => setPassword(e.target.value);
 
@@ -79,6 +85,13 @@ function Login(props) {
     console.log(props.isLogin);
     console.log(props);
     console.log("호출");
+    console.log(cookies);
+
+    // 쿠키용
+    if (cookies.rememberUserId !== undefined) {
+      setEmail(cookies.rememberUserId);
+      setIdCheck(true);
+    }
   }, []);
 
   return (
@@ -90,7 +103,6 @@ function Login(props) {
           <input
             className={style.in_box}
             placeholder="아이디"
-            defaultValue={email}
             value={email}
             onChange={changeEmail}
           />
