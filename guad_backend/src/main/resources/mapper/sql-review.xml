@@ -14,10 +14,10 @@
 	<!-- 리뷰 작성 -->
 	<insert id="insertReview"
 		parameterType="auction.guad.dto.ReviewDto">
-		INSERT INTO REVIEW(ITEM_NUM, MEMBER_EMAIL, NICKNAME,
+		INSERT INTO REVIEW(ITEM_NUM, SELLER_EMAIL, WRITER_EMAIL, WRITER_NICKNAME,
 		CONTENTS, STAR_POINT, WRITE_DATE)
-		VALUES (#{itemNum}, #{memberEmail},
-		#{nickname}, #{contents}, #{starPoint},
+		VALUES (#{itemNum}, #{sellerEmail}, #{writerEmail},
+		#{writerNickname}, #{contents}, #{starPoint},
 		now())
 
 	</insert>

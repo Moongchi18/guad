@@ -2,6 +2,8 @@ package auction.guad.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,10 +40,11 @@ public class ReviewController {
 	@ApiOperation(value = "리뷰 등록", notes = "리뷰 제목과 내용을 저장")
 	@RequestMapping(value = "/review", method = RequestMethod.POST)
 	public void insertReview(
-			@Parameter(description = "리뷰 정보", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody ReviewDto review)
+			@Parameter(description = "리뷰 정보", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody ReviewDto review, @AuthenticationPrincipal User user)
 			throws Exception {
+	    review.setWriterEmail(user.getUsername()); 
 		reviewService.insertReview(review);
-	}
+	} 
 
 	@RequestMapping(value = "/review/{reviewNum}", method = RequestMethod.PUT)
 	public void updateReview(@PathVariable("reviewNum") int reviewNum, @RequestBody ReviewDto reviewDto) throws Exception {
