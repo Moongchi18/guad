@@ -7,12 +7,12 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 function Sell_Down({ match }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [item, setItem] = useState({});
-  const [discountRate, setDiscountRate] = useState(0);
+  const [imgList, setImgList] = useState([]);
 
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/d/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -28,10 +28,11 @@ function Sell_Down({ match }) {
             date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
+        imgList.push(response.data.itemImgName)
+        imgList.push(response.data.itemImgNameSub2)
+        imgList.push(response.data.itemImgNameSub3)
+        setImgList(imgList)
       })
-
-      // setDiscountRate(item.auctionStartPrice)
-
       .catch((error) => console.log(error));
   }, []);
 
@@ -79,9 +80,18 @@ function Sell_Down({ match }) {
             className={style.up2}
           />
           <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            {imgList?.map((img, index) => (
+              <li key={index}>
+                <img
+                  src={ img ?
+                    `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                    : require("../source/img/no_photo.png")
+                  }
+                  alt={"img" + item.notifyNum}
+                  className={style.item_o}
+                />
+              </li>
+            ))}
           </ul>
         </div>
         <div className={style.info_top}>
@@ -111,13 +121,13 @@ function Sell_Down({ match }) {
           <div className={style.deli_bb}>
             <span className={style.deli_name}>최저 경매가</span>
             <span className={style.deli_tag}>
-              {item.auctionMinPrice?.toLocaleString()}<strong> ({discountRate}%)</strong>
+              {item.auctionMinPrice?.toLocaleString()}<strong>({(100-item.auctionMinPrice/item.auctionStartPrice*100)}%)</strong>
             </span>
           </div>
           <div className={style.sell_bb}>
             <span className={style.sell_price}>현재 경매가</span>
             <span className={style.sell_number}>
-              {item.auctionStartPrice?.toLocaleString()}
+              {item.currentPrice?.toLocaleString()}
             </span>
           </div>
           <div className={style.button_bb}>
@@ -125,7 +135,7 @@ function Sell_Down({ match }) {
               입찰 참여
             </button>
             <span className={style.bb_date}>
-              현재 할인율 : <strong>30%</strong>
+              현재 할인율 : <strong>{(100-item.currentPrice/item.auctionStartPrice*100)}%</strong>
             </span>
             <p>
               남은 경매 시간 : <strong>{auctionPeriodText}</strong>

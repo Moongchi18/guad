@@ -8,7 +8,7 @@ import Up_Before from "./Up_Before";
 function Sell_Up({ match }) {
   const [start, setStart] = useState(false);
   const [item, setItem] = useState({});
-  const [imgList, setImgList] = useState([])
+  const [imgList, setImgList] = useState([]);
 
   const clickStart = () => {
     if (sessionStorage.length != 0) {
