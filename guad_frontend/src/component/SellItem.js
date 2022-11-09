@@ -20,6 +20,10 @@ function SellItem({ history, match }) {
       )
       .then((response) => {
         console.log(response.data);
+        imgList.push(response.data.itemImgName)
+        imgList.push(response.data.itemImgNameSub2)
+        imgList.push(response.data.itemImgNameSub3)
+        setImgList(imgList)
 
         setItem(response.data);
         const tempPrice =
@@ -31,19 +35,15 @@ function SellItem({ history, match }) {
 
         const date = new Date(
           response.data.auctionPeriod.slice(0, 10) +
-            " " +
-            response.data.auctionPeriod.slice(12, 19)
+          " " +
+          response.data.auctionPeriod.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${
-            date.getMonth() + 1
+          `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
-        imgList.push(response.data.itemImgName)
-        imgList.push(response.data.itemImgNameSub2)
-        imgList.push(response.data.itemImgNameSub3)
-        setImgList(imgList)
+
       })
       .catch((error) => console.log(error));
     axios
@@ -101,8 +101,8 @@ function SellItem({ history, match }) {
           {item.sellType === "n"
             ? "일반판매"
             : item.sellType === "u"
-            ? "오름경매"
-            : "내림경매"}
+              ? "오름경매"
+              : "내림경매"}
         </h2>
         <div className={style.img_item}>
           <img
@@ -111,10 +111,10 @@ function SellItem({ history, match }) {
             className={style.item}
           />
           <ul>
-          {imgList?.map((img, index) => (
+            {imgList?.map((img, index) => (
               <li key={index}>
                 <img
-                  src={ img ?
+                  src={img ?
                     `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                     : require("../source/img/no_photo.png")
                   }
@@ -173,28 +173,16 @@ function SellItem({ history, match }) {
             {!review
               ? "등록된 리뷰가 없습니다."
               : review.map((rev, index) => (
-                  <li key={index}>
-                    <span>{rev.writerNickname}</span>
-                    <img
-                      src={require("../source/img/gray_star.png")}
-                      alt="회색별"
-                    />
-                    <span>{rev.starPoint}</span>
-                    <span className={style.review_write}>{rev.contents}</span>
-                  </li>
-                ))}
-            <li>
-              <span>시흥기린</span>
-              <img src={require("../source/img/gray_star.png")} alt="회색별" />
-              <span>3</span>
-              <span className={style.review_write}>이것은 리뷰입니다.</span>
-            </li>
-            <li>
-              <span>수원원숭이</span>
-              <img src={require("../source/img/gray_star.png")} alt="회색별" />
-              <span>4</span>
-              <span className={style.review_write}>이것은 리뷰입니다.</span>
-            </li>
+                <li key={index}>
+                  <span>{rev.writerNickname}</span>
+                  <img
+                    src={require("../source/img/gray_star.png")}
+                    alt="회색별"
+                  />
+                  <span>{rev.starPoint}</span>
+                  <span className={style.review_write}>{rev.contents}</span>
+                </li>
+              ))}
           </ul>
         </div>
       </div>
