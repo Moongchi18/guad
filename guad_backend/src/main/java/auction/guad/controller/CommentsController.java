@@ -17,7 +17,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
-@RequestMapping("/api/comments")
 public class CommentsController {
 
 	@Autowired
