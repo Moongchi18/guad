@@ -10,6 +10,7 @@ function SellItem({ history, match }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [presentPrice, setPresentPrice] = useState(0);
   const [price, setPrice] = useState(0);
+  const [imgList, setImgList] = useState([])
 
   console.log(presentPrice);
   useEffect(() => {
@@ -39,6 +40,10 @@ function SellItem({ history, match }) {
             date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
+        imgList.push(response.data.itemImgName)
+        imgList.push(response.data.itemImgNameSub2)
+        imgList.push(response.data.itemImgNameSub3)
+        setImgList(imgList)
       })
       .catch((error) => console.log(error));
     axios
@@ -106,9 +111,18 @@ function SellItem({ history, match }) {
             className={style.item}
           />
           <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+          {imgList?.map((img, index) => (
+              <li key={index}>
+                <img
+                  src={ img ?
+                    `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                    : require("../source/img/no_photo.png")
+                  }
+                  alt={"img" + item.notifyNum}
+                  className={style.item_o}
+                />
+              </li>
+            ))}
           </ul>
         </div>
         <div className={style.info_top}>

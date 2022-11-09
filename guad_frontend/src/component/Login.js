@@ -24,9 +24,10 @@ function Login(props) {
         axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { header: { Authorization: response.data } })
           .then(response => {
             console.log(response.data.nickname)
+            props.setNickName(response.data.nickname)
+            props.setIsLogin(true)
             sessionStorage.setItem("nickname", response.data.nickname);
           })
-        props.handlerIsLogin();
         alert("로그인 되었습니다.");
         props.history.push("/");
         console.log(response.data);

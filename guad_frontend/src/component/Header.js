@@ -8,11 +8,8 @@ import axios from "axios";
 function Header(props) {
   const [mypage, SetMypage] = useState();
   const [searchWord, setSearchWord] = useState("");
-  const [nickName, setNickName] = useState("");
 
   useEffect(() => {
-    setNickName(sessionStorage.getItem("nickname"));
-    console.log(nickName);
     if (sessionStorage.length != 0) {
       SetMypage(true);
     } else if (sessionStorage.length == 0) {
@@ -22,7 +19,7 @@ function Header(props) {
 
   const handleSignOut = (e) => {
     e.preventDefault();
-    props.handlerIsLogout();
+    props.setIsLogin(false);
     sessionStorage.clear();
     alert("로그아웃 되었습니다.");
   };
@@ -44,20 +41,20 @@ function Header(props) {
               <Link to="/selling">상품등록</Link>
             </li>
 
-            {sessionStorage.length == 0 && (
+            {!props.isLogin && (
               <li>
                 <Link to="/login">로그인</Link>
               </li>
             )}
 
-            {sessionStorage.length != 0 && (
+            {props.isLogin && (
               <li type="button" onClick={handleSignOut}>
                 <Link to="/">로그아웃</Link>
               </li>
             )}
-            {sessionStorage.length != 0 && (
+            {props.isLogin && (
               <li className={style.nick}>
-                <strong>{nickName}</strong>님 환영합니다!
+                <strong>{props.nickName}</strong>님 환영합니다!
               </li>
             )}
             {mypage == true && (
