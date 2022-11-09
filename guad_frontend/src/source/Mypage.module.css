@@ -116,7 +116,8 @@
   text-align: left;
 }
 .item_bb > img {
-  width: 100%;
+  width: 150px;
+  height: 150px;
   border-radius: 10px;
 }
 
@@ -275,7 +276,7 @@
 .sellcheck button {
   width: 150px;
   height: 40px;
-  border-radius: 5px;  
+  border-radius: 5px;
   color: #ffffff;
   font-weight: 300;
 }
