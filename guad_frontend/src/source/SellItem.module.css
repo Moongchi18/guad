@@ -27,6 +27,11 @@
   width: 420px;
   height: 420px;
 }
+.item_o {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;
+}
 .item_num {
   display: none;
 }
@@ -59,7 +64,7 @@
   text-align: center;
   margin-top: 20px;
 }
-.img_item ul li {
+.img_item > ul > li {
   display: inline-block;
   width: 130px;
   height: 130px;
@@ -165,7 +170,7 @@
 }
 .deli_tag strong {
   font-size: 20px;
-  color:#ff0000;
+  color: #ff0000;
 }
 .sell_bb {
   margin-bottom: 20px;
@@ -217,7 +222,7 @@
   font-family: "SBAggroB";
   font-weight: 300;
   line-height: 3.3;
-  color:#630000;
+  color: #630000;
 }
 .button_bb .bb_buy:hover {
   background-color: #098060;
