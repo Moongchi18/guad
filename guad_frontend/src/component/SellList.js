@@ -4,8 +4,13 @@ import style from "../source/SellList.module.css";
 import SellListItem from "./SellListItem";
 import SellListPaging from "./SellListPaging";
 
-function Sell_List() {
+function Sell_List({location}) {
   const sellType = ["", "u", "d", "n"];
+  const postPerPage = 12; //페이지당 아이템 개수
+
+  const queryString = new URLSearchParams(location.search);
+  let params = queryString.get("searchWord");
+  console.log(params)
 
   const [data, setData] = useState([]); // 상품 전체 정보
   const [category, setCategory] = useState([]); // 카테고리 전체정보
@@ -20,7 +25,6 @@ function Sell_List() {
   });
 
   const [currentpage, setCurrentpage] = useState(1); //현재페이지
-  const [postPerPage] = useState(12); //페이지당 아이템 개수
   const [indexOfLastPost, setIndexOfLastPost] = useState(12); // 페이지 마지막 인덱스
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0); // 페이지 첫번째 인덱스
   const [currentPosts, setCurrentPosts] = useState([]); // 페이지별 나타낼 아이템
@@ -33,9 +37,11 @@ function Sell_List() {
   const OnItemType = (value, name) => {
     if (name === "sellType") {
       setSelectedOptions({ ...selectedOptions, [name]: value });
+      setCurrentpage(1)
     } else if (name === "itemType") {
       if (value === "") {
         setSelectedOptions({ ...selectedOptions, itemType: "", itemDType: "", sellType: "" });
+        setCurrentpage(1)
         c_o.current.style = "display:none;";
       } else {
         const newItemDT = [];
@@ -44,10 +50,12 @@ function Sell_List() {
           .forEach(cate => newItemDT.push(cate.itemDType))
         setItemDTypeList(newItemDT);
         setSelectedOptions({ ...selectedOptions, itemType: value, itemDType: '', sellType: "" });
+        setCurrentpage(1)
         c_o.current.style = "display:inline-block;";
       }
     } else if (name === "itemDetailType") {
       setSelectedOptions({ ...selectedOptions, itemDType: value, sellType: "" })
+      setCurrentpage(1)
       c_m.current.style = "display:none;";
       c_o.current.style = "display:none;";
       setCateOn(false);
@@ -113,9 +121,19 @@ function Sell_List() {
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
       .then((response) => {
         console.log(response.data)
-        setData(response.data);
-        setCount(response.data.length);
-        setCurrentPosts(response.data?.slice(indexOfFirstPost, indexOfLastPost));
+        if(params === null){
+          setData(response.data);
+          setCount(response.data.length);
+          setCurrentPosts(response.data?.slice(indexOfFirstPost, indexOfLastPost));
+        } else {
+          const temp = response.data.filter(d => {
+            return d.itemType.includes(params) || d.itemDType.includes(params)
+                || d.itemSub.includes(params) || d.itemContents.includes(params)
+          })
+          setData(temp);
+          setCount(temp.length);
+          setCurrentPosts(temp.slice(indexOfFirstPost, indexOfLastPost));
+        }
       })
       .catch((error) => console.log(error));
 
@@ -215,11 +233,12 @@ function Sell_List() {
           </ul>
           <span className={style.count_p}>
             <ul>
-              <SellListPaging
+              {count &&
+                <SellListPaging
                 page={currentpage}
                 count={count}
                 handlerSetPage={handlerSetPage}
-              />
+              />}
             </ul>
           </span>
         </div>

@@ -114,9 +114,8 @@ public class SellItemController {
 /////////////////////////////////////////////////////////////////////////////////////	
 
 	@ApiOperation(value = "게시물 상세 조회", notes = "등록된 게시물 상세 정보를 조회")
-	@RequestMapping(value = "/sellitem/{itemNum}", method = RequestMethod.GET)
-	public ResponseEntity<SellItemJoinMemberVo> openSellItemDetail(
-			@Parameter(description = "게시물 번호", required = true, example = "1") @PathVariable("itemNum") int itemNum)
+	@GetMapping("/sellitem/{itemNum}")
+	public ResponseEntity<SellItemJoinMemberVo> openSellItemDetail(@PathVariable("itemNum") int itemNum)
 			throws Exception {
 		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
 		System.out.println(sellItem);
@@ -124,7 +123,6 @@ public class SellItemController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
 			sellItem.setMemberEmail(" ");
-			// return ResponseEntity.status(HttpStatus.OK).body(sellItemDto);
 			return ResponseEntity.status(HttpStatus.OK).body(sellItem);
 		}
 	}

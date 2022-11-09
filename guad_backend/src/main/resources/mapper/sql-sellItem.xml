@@ -88,7 +88,7 @@
 
 	<select id="selectSellItemDetail" parameterType="int"
 		resultType="auction.guad.vo.SellItemJoinMemberVo">
-		SELECT S.*, M.*, I.ITEM_IMG_NAME AS ITEM_IMG_NAME, M.MIN_IMG_NUM
+		SELECT S.*, M.*, I.ITEM_IMG_NAME, M.MIN_IMG_NUM
 		FROM SELL_ITEM S LEFT JOIN MEMBER M ON
 		S.MEMBER_EMAIL = M.EMAIL
 		LEFT JOIN IMG I ON S.ITEM_NUM = I.ITEM_NUM JOIN
