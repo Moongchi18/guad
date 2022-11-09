@@ -4,8 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Mileage from "../Moodal/Mileage";
-import RegistList from "./RegistList";
-import BuyList from "./BuyList";
+import UserBuyList from "./UserBuyList";
 import UserSellList from "./UserSellList";
 
 function Mypage() {
@@ -94,7 +93,7 @@ function Mypage() {
           </div>
         </div>
         {/* <RegistList /> */}
-        <BuyList />
+        <UserBuyList />
         <UserSellList />
       </div>
     </>

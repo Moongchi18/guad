@@ -6,10 +6,10 @@ import axios from "axios";
 import BuyReview from "../Moodal/BuyReview";
 
 import "../../source/test.css";
+import { Link } from "react-router-dom";
 
-function UserSellList() {
+function UserSellList({ history }) {
   const [sellList, setSellList] = useState([]);
- 
 
   // const [ btnColor, setBtnColor ] = useState('');
 
@@ -39,7 +39,12 @@ function UserSellList() {
   return (
     <>
       <div className={style.category}>
-        <h3>판매 내역</h3>
+        <h3>
+          판매 내역
+          <Link to="/mypage/sellList">
+            <strong>더보기</strong>
+          </Link>
+        </h3>
       </div>
 
       <div className={style.sell_list_all}>
@@ -53,15 +58,15 @@ function UserSellList() {
           sellList.map((list) => (
             <div className={style.sell_list}>
               <div className={style.item_bb} key={list.itemNum}>
-              <img
-            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
-            alt={"img" + list.itemNum}
-           />
+                <img
+                  src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
+                  alt={"img" + list.itemNum}
+                />
                 <img
                   src={require("../../source/img/del2.png")}
                   alt="1"
                   className={style.del_icon}
-                  ></img>
+                ></img>
               </div>
               <div className={style.sell_list_info}>
                 <h3>
@@ -85,7 +90,7 @@ function UserSellList() {
                 <button className={list.sellState}>{list.sellState}</button>
                 <h3>
                   <strong>구매 일자 : </strong>
-                    {list.soldDate && list.soldDate.substring(0, 10)}
+                  {list.soldDate && list.soldDate.substring(0, 10)}
                 </h3>
               </div>
             </div>

@@ -7,6 +7,7 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 function Sell_Down({ match }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [item, setItem] = useState({});
+  const [discountRate, setDiscountRate] = useState(0);
 
   useEffect(() => {
     axios
@@ -28,8 +29,13 @@ function Sell_Down({ match }) {
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
       })
+
+      // setDiscountRate(item.auctionStartPrice)
+
       .catch((error) => console.log(error));
   }, []);
+
+
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -87,10 +93,10 @@ function Sell_Down({ match }) {
           <span className={style.top_head}>상품 정보</span>
           <span className={style.top_cate}>{item.itemType}</span>
           <span className={style.top_title}>{item.itemSub}</span>
-          <div className={style.rating_option}>
+          {/* <div className={style.rating_option}>
             <img src={require("../source/img/star.png")} alt="별점" />
             <span>4</span>
-          </div>
+          </div> */}
           <div className={style.rating_option}>
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>{item.hitCnt}</span>
@@ -100,12 +106,12 @@ function Sell_Down({ match }) {
           </span>
           <div className={style.start_bb}>
             <span className={style.deli_name}>시작 경매가</span>
-            <span className={style.deli_tag}>1,000,000</span>
+            <span className={style.deli_tag}>{item.auctionStartPrice?.toLocaleString()}</span>
           </div>
           <div className={style.deli_bb}>
             <span className={style.deli_name}>최저 경매가</span>
             <span className={style.deli_tag}>
-              200,000<strong> (50%)</strong>
+              {item.auctionMinPrice?.toLocaleString()}<strong> ({discountRate}%)</strong>
             </span>
           </div>
           <div className={style.sell_bb}>
