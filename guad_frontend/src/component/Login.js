@@ -19,8 +19,6 @@ function Login(props) {
   const onKeyEnter = (e) => {
     if (e.key == "Enter") {
       handlerSubmit();
-    }else{
-
     }
   };
 

@@ -57,7 +57,7 @@ function App() {
 
   return (
     <>
-      <Header isLogin={isLogin} setIsLogin={setIsLogin} nickName={nickName}/>
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} nickName={nickName} />
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route
         path="/login"
