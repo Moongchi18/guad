@@ -47,6 +47,7 @@ header {
 header ul {
   float: right;
   padding-top: 80px;
+  position: relative;
 }
 
 header ul li {
@@ -58,4 +59,14 @@ header ul li {
 }
 header ul li:first-child {
   margin-left: 40px;
+}
+.nick {
+  position: absolute;
+  right: 0px;
+  top: 30px;
+  color: #878787;
+}
+.nick strong {
+  color: black;
+  font-weight: normal;
 }
