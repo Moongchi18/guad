@@ -169,18 +169,7 @@ function SellItem({ history, match }) {
                     <span className={style.review_write}>{rev.contents}</span>
                   </li>
                 ))}
-            <li>
-              <span>시흥기린</span>
-              <img src={require("../source/img/gray_star.png")} alt="회색별" />
-              <span>3</span>
-              <span className={style.review_write}>이것은 리뷰입니다.</span>
-            </li>
-            <li>
-              <span>수원원숭이</span>
-              <img src={require("../source/img/gray_star.png")} alt="회색별" />
-              <span>4</span>
-              <span className={style.review_write}>이것은 리뷰입니다.</span>
-            </li>
+          
           </ul>
         </div>
       </div>

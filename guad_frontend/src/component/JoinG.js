@@ -19,7 +19,7 @@ function JoinG({history}) {
   console.log(email)
   const handlerGoogleJoin = () => {
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { email, pass : '', nickname: nickname, phone: phone, address: address, gender: g_check })
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { email, pass : '', nickname, phone, address, gender: g_check })
       .then((response) => console.log(response))
     history.push("/")
       .catch((error) => console.log(error)); 

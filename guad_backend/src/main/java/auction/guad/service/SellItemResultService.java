@@ -15,4 +15,6 @@ public interface SellItemResultService {
 	
     public List<SellItemResultDto> selectMyBuyList(String memberEmail) throws Exception;
     public List<SellItemDto> selectMySellList(String memberEmail) throws Exception;
+    public List<SellItemResultDto> selectMyBuyListDe(String memberEmail) throws Exception;
+    public List<SellItemDto> selectMySellListDe(String memberEmail) throws Exception;    
 }

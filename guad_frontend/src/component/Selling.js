@@ -216,6 +216,7 @@ function Selling({ history }) {
         .then((response) => {
           console.log(response);
           modalOpen.current.style = "display:block;";
+          refItemSub.current.focus();
         })
         .catch((error) => {
           console.log(error);

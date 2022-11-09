@@ -3,41 +3,50 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../../source/Moodal6.module.css";
 
-function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, history, modalChange }) {
+function BuyConfirm({
+  closeModal2,
+  modalChange2,
+  item,
+  presentPrice,
+  price,
+  history,
+  modalChange,
+}) {
   const [dto, setDto] = useState([]);
   const [purchasePrice, setPurchasePrice] = useState();
   const [member, setMember] = useState({});
   const [result, setResult] = useState(0);
   const [requestTrade, setRequestTrade] = useState({
-    sellType: '',
-    sellerEmail: '서버에서 입력',
-    sellerPhone: '서버에서 입력',
-    buyerEmail: '서버에서 입력',
-    buyerPhone: '서버에서 입력',
-    address: '',
-    addressDetail: '',
-    itemSub: '',
-    itemPrice: '',
-    soldDate: '쿼리문에 입력',
-    itemNum: '',
-    soldYn: '',
-    mileage: ''    
-  })
+    sellType: "",
+    sellerEmail: "서버에서 입력",
+    sellerPhone: "서버에서 입력",
+    buyerEmail: "서버에서 입력",
+    buyerPhone: "서버에서 입력",
+    address: "",
+    addressDetail: "",
+    itemSub: "",
+    itemPrice: "",
+    soldDate: "쿼리문에 입력",
+    itemNum: "",
+    soldYn: "",
+    mileage: "",
+  });
 
   useEffect(() => {
     setDto(item);
     setPurchasePrice(presentPrice);
 
-    setRequestTrade({...requestTrade, 
+    setRequestTrade({
+      ...requestTrade,
       sellType: item.sellType,
       address: member.address,
       itemSub: item.itemSub,
       itemPrice: price,
-      soldDate: '',
+      soldDate: "",
       itemNum: item.itemNum,
       soldYn: item.soldYn,
-      mileage: member.mileage
-    })
+      mileage: member.mileage,
+    });
   }, [item, presentPrice]);
 
   useEffect(() => {
@@ -54,25 +63,32 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
   }, [price]);
 
   const handlerTrade = () => {
-    console.log(requestTrade)
-    if (item.soldYn !== 'n') {
-      alert("이미 판매된 상품입니다.")
+    console.log(requestTrade);
+    if (item.soldYn !== "n") {
+      alert("이미 판매된 상품입니다.");
     } else if (result < 0) {
-      alert("마일리지가 부족합니다. 충전 후 이용해주세요.")
+      alert("마일리지가 부족합니다. 충전 후 이용해주세요.");
       history.push("/mypage");
     } else {
-      axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell`, requestTrade)
-      .then(response => {
-        console.log(response)
-        alert("결제에 성공했습니다.")
-        history.push(`/sell_after/${item.itemNum}`);
-      })
-      .catch(error => 
-        console.log(error))
-        alert("농담이시죠? 본인이 등록한 물건이에요!")       
+      axios
+        .post(
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell`,
+          requestTrade
+        )
+        .then((response) => {
+          if (response.status === 200) {
+            console.log(response);
+            alert("결제에 성공했습니다.");
+            history.push(`/sell_after/${item.itemNum}`);
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+          alert("농담이시죠? 본인이 등록한 물건이에요!");
+        });
     }
-  }
-  console.log(dto)
+  };
+  console.log(dto);
 
   return (
     <>
@@ -107,7 +123,11 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
               <span>배송 정보</span>
               <div className={style.input_b1}>
                 <p>주소</p>
-                <input type="text" className={style.input1} defaultValue={member.address} />
+                <input
+                  type="text"
+                  className={style.input1}
+                  defaultValue={member.address}
+                />
                 <button type="button">검색</button>
               </div>
               <div className={style.input_b2}>
@@ -119,7 +139,8 @@ function BuyConfirm({ closeModal2, modalChange2, item, presentPrice, price, hist
           <div className={style.modalfooter2}>
             <h2>거래결과</h2>
             <p>
-              거래 후 마일리지 <strong>{member && result.toLocaleString()}</strong>
+              거래 후 마일리지{" "}
+              <strong>{member && result.toLocaleString()}</strong>
             </p>
             <button
               type="button"

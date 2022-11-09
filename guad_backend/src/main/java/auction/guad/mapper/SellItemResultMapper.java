@@ -14,6 +14,9 @@ public interface SellItemResultMapper {
 	int insertSellItemResult(RequestTradeVo requestTrade) throws Exception;
 	RequestTradeVo selectOneByBuyerEmailAndItemNum(String buyerEmail, int itemNum) throws Exception;
 	List<SellItemResultDto> selectMyBuyList(String memberEmail) throws Exception;
-	List<SellItemDto> selectMySellList(String memberEmail) throws Exception;
+	List<SellItemDto> selectMySellList(String memberEmail) throws Exception;   
+	List<SellItemResultDto> selectMyBuyListDe(String memberEmail) throws Exception;
+    List<SellItemDto> selectMySellListDe(String memberEmail) throws Exception;
+	
 
 }
