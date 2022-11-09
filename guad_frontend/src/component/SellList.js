@@ -9,7 +9,7 @@ function Sell_List({location}) {
   const postPerPage = 12; //페이지당 아이템 개수
 
   const queryString = new URLSearchParams(location.search);
-  let params = queryString.get("searchWord");
+  let params = queryString.get("search");
   console.log(params)
 
   const [data, setData] = useState([]); // 상품 전체 정보

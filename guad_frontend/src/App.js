@@ -32,20 +32,21 @@ import Sell_End_d from "./component/Sell_End_d";
 import Mypage_SellList from "./component/Mypage/Mypage_SellList";
 
 function App() {
+  console.log(sessionStorage.getItem("token"))
   const [isLogin, setIsLogin] = useState(
-    sessionStorage.getItem("token") !== "" ||
-      sessionStorage.getItem("token") !== undefined
+    sessionStorage.getItem("token")
       ? true
       : false
   );
+  const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
 
-  function handlerIsLogin() {
-    setIsLogin(true);
-  }
+  // function handlerIsLogin() {
+  //   setIsLogin(true);
+  // }
 
-  function handlerIsLogout() {
-    setIsLogin(false);
-  }
+  // function handlerIsLogout() {
+  //   setIsLogin(false);
+  // }
 
   axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem("token");
@@ -56,11 +57,11 @@ function App() {
 
   return (
     <>
-      <Header handlerIsLogout={handlerIsLogout} />
+      <Header isLogin={isLogin} setIsLogin={setIsLogin} nickName={nickName} />
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route
         path="/login"
-        render={(props) => <Login handlerIsLogin={handlerIsLogin} {...props} />}
+        render={(props) => <Login setIsLogin={setIsLogin} setNickName={setNickName} {...props} />}
       />
       <Route path="/upload" component={FileUploadForm} exact={true} />
 

@@ -8,6 +8,7 @@ import Up_Before from "./Up_Before";
 function Sell_Up({ match }) {
   const [start, setStart] = useState(false);
   const [item, setItem] = useState({});
+  const [imgList, setImgList] = useState([]);
 
   const clickStart = () => {
     if (sessionStorage.length != 0) {
@@ -17,22 +18,23 @@ function Sell_Up({ match }) {
       setStart(false);
     }
   };
-  console.log(item.itemNum)
-
+  console.log(item.itemNum);
+  console.log(imgList)
 
   useEffect(() => {
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`)
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`
+      )
       .then((response) => {
         console.log(response.data);
         setItem(response.data);
+        imgList.push(response.data.itemImgName)
+        imgList.push(response.data.itemImgNameSub2)
+        imgList.push(response.data.itemImgNameSub3)
+        setImgList(imgList)
       })
       .catch((error) => console.log(error));
-    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`)
-      .then(response => {
-        console.log(response.data)
-      })
-      .catch(error => console.log(error))
   }, []);
 
   console.log(">>>>" + item.itemNum);
@@ -62,7 +64,10 @@ function Sell_Up({ match }) {
         </h2>
         <div className={style.img_item}>
           <img
-            src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+            src={
+              item.itemImgName &&
+              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
+            }
             alt={"img" + item.notifyNum}
             className={style.item}
           />
@@ -72,28 +77,26 @@ function Sell_Up({ match }) {
             className={style.up2}
           />
           <ul>
-            <li>
-              <img
-                src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
-                alt={"img" + item.notifyNum}
-                className={style.item}
-              /></li>
-            <li>
-              <img
-                src={item.itemImgNameSub2 && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgNameSub2}`}
-                alt={"img" + item.notifyNum}
-                className={style.item}
-              /></li>
-            <li>
-              <img
-                src={item.itemImgNameSub3 && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgNameSub3}`}
-                alt={"img" + item.notifyNum}
-                className={style.item}
-              /></li>
+            {imgList?.map((img, index) => (
+              <li key={index}>
+                <img
+                  src={ img ?
+                    `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                    : require("../source/img/no_photo.png")
+                  }
+                  alt={"img" + item.notifyNum}
+                  className={style.item_o}
+                />
+              </li>
+            ))}
           </ul>
         </div>
         {start == false && item && (
-          <Up_Before openModal={openModal} clickStart={clickStart} item={item} />
+          <Up_Before
+            openModal={openModal}
+            clickStart={clickStart}
+            item={item}
+          />
         )}
         {start == true && item && (
           <Up_After openModal={openModal} item={item} />
@@ -101,9 +104,7 @@ function Sell_Up({ match }) {
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
-        <p>
-          {item.itemContents}
-        </p>
+        <p>{item.itemContents}</p>
       </div>
     </>
   );

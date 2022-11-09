@@ -119,6 +119,23 @@ public class SellItemController {
 			throws Exception {
 		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
 		System.out.println(sellItem);
+		
+		if (sellItem == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		} else {
+			sellItem.setMemberEmail(" ");
+			return ResponseEntity.status(HttpStatus.OK).body(sellItem);
+		}
+	}
+	
+	
+	@ApiOperation(value = "게시물 상세 조회", notes = "등록된 게시물 상세 정보를 조회")
+	@GetMapping("/sellitem/n/{itemNum}")
+	public ResponseEntity<SellItemJoinMemberVo> openNaelimSellItemDetail(@PathVariable("itemNum") int itemNum)
+			throws Exception {
+		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
+		System.out.println(sellItem);
+		
 		if (sellItem == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
@@ -127,6 +144,8 @@ public class SellItemController {
 		}
 	}
 
+	
+	
 	@RequestMapping(value = "/sellItem/{itemNum}", method = RequestMethod.PUT)
 	public void updateSellItem(@PathVariable("itemNum") int itemNum, @RequestBody SellItemDto sellItemDto)
 			throws Exception {
