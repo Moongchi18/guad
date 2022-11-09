@@ -14,8 +14,8 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private ReviewMapper reviewMapper;
 
-	public List<ReviewDto> selectReviewListByItemNum(int itemNum) throws Exception {
-		return reviewMapper.selectReviewListByItemNum(itemNum);
+	public List<ReviewDto> selectReviewListByEmail(String email) throws Exception {
+		return reviewMapper.selectReviewListByEmail(email);
 	}
 
 	@Override

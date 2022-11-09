@@ -25,7 +25,7 @@ function DownConfirm({ closeModal2, modalChange2 }) {
               <p className={style.tag1}>상품 정보</p>
               <p className={style.tag2}>디올 가방 재고 처리합니다!</p>
               <p className={style.tag3}>
-                현재 입찰가 : <strong>450,000 / -55%</strong>
+                현재 입찰가 : <strong>450,000 (55%)</strong>
               </p>
             </div>
             <div className={style.body_mid}>

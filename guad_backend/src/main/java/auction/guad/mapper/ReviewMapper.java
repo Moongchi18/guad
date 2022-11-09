@@ -9,7 +9,7 @@ import auction.guad.dto.ReviewDto;
 @Mapper
 public interface ReviewMapper {
 
- List<ReviewDto> selectReviewListByItemNum(int itemNum) throws Exception;
+ List<ReviewDto> selectReviewListByEmail(String email) throws Exception;
  int insertReview(ReviewDto reviewDto) throws Exception;
  void updateReview(ReviewDto reviewDto) throws Exception;
  void deleteReview(int reviewNum) throws Exception;

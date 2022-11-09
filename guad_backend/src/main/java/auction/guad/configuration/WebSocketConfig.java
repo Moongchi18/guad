@@ -24,8 +24,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 				.withSockJS();
 	}
 	
-	// queue : 1대1
-	// topic : 1대다
+
 	
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {

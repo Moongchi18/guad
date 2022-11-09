@@ -165,6 +165,7 @@
 }
 .deli_tag strong {
   font-size: 20px;
+  color:#ff0000;
 }
 .sell_bb {
   margin-bottom: 20px;
@@ -216,6 +217,7 @@
   font-family: "SBAggroB";
   font-weight: 300;
   line-height: 3.3;
+  color:#630000;
 }
 .button_bb .bb_buy:hover {
   background-color: #098060;
@@ -406,7 +408,7 @@
   color: #e63947;
 }
 .sell_review_show {
-  margin-bottom: 70px;
+  margin-bottom: 140px;
 }
 .sell_review_show ul li {
   width: 100%;

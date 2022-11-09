@@ -96,9 +96,13 @@
   display: block;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   padding-bottom: 10px;
-  padding-left: 12px;
 }
-
+.category h3 strong {
+  float: right;
+  font-size: 15px;
+  line-height: 2.5;
+  cursor: pointer;
+}
 .page_name {
   text-align: left;
   display: block;
@@ -116,7 +120,8 @@
   text-align: left;
 }
 .item_bb > img {
-  width: 100%;
+  width: 150px;
+  height: 150px;
   border-radius: 10px;
 }
 
@@ -275,7 +280,7 @@
 .sellcheck button {
   width: 150px;
   height: 40px;
-  border-radius: 5px;  
+  border-radius: 5px;
   color: #ffffff;
   font-weight: 300;
 }

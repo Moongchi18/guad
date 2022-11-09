@@ -28,6 +28,11 @@ function Sell_Up({ match }) {
         setItem(response.data);
       })
       .catch((error) => console.log(error));
+    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(error => console.log(error))
   }, []);
 
   console.log(">>>>" + item.itemNum);
@@ -57,7 +62,7 @@ function Sell_Up({ match }) {
         </h2>
         <div className={style.img_item}>
           <img
-            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+            src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
             alt={"img" + item.notifyNum}
             className={style.item}
           />
@@ -67,9 +72,24 @@ function Sell_Up({ match }) {
             className={style.up2}
           />
           <ul>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>
+              <img
+                src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+                alt={"img" + item.notifyNum}
+                className={style.item}
+              /></li>
+            <li>
+              <img
+                src={item.itemImgNameSub2 && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgNameSub2}`}
+                alt={"img" + item.notifyNum}
+                className={style.item}
+              /></li>
+            <li>
+              <img
+                src={item.itemImgNameSub3 && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgNameSub3}`}
+                alt={"img" + item.notifyNum}
+                className={style.item}
+              /></li>
           </ul>
         </div>
         {start == false && item && (

@@ -29,7 +29,7 @@ import { useState, useRef } from "react";
 import MypageCheck from "./component/Mypage/MypageCheck";
 import Sell_End_u from "./component/Sell_End_u";
 import Sell_End_d from "./component/Sell_End_d";
-
+import Mypage_SellList from "./component/Mypage/Mypage_SellList";
 
 function App() {
   const [isLogin, setIsLogin] = useState(
@@ -77,6 +77,7 @@ function App() {
       <Route path="/mypage" component={Mypage} exact={true} />
       <Route path="/mypage/info" component={MypageInfo} exact={true} />
       <Route path="/mypage/check" component={MypageCheck} exact={true} />
+      <Route path="/mypage/selllist" component={Mypage_SellList} exact={true} />
       <Route path="/mileage" component={Mileage} exact={true} />
       <Route path="/manager" component={Manager} exact={true} />
       <Route path="/manager/member" component={ManagerMember} exact={true} />
