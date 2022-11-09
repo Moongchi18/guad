@@ -29,13 +29,10 @@ function Sell_List() {
   const c_m = useRef();
   const c_o = useRef();
 
+  console.log(selectedOptions)
   const OnItemType = (value, name) => {
     if (name === "sellType") {
-      if (value === "") {
-        setSelectedOptions({ ...selectedOptions, sellType: "" });
-      } else if (value !== "") {
-        setSelectedOptions({ ...selectedOptions, sellType: value });
-      }
+      setSelectedOptions({ ...selectedOptions, [name]: value });
     } else if (name === "itemType") {
       if (value === "") {
         setSelectedOptions({ ...selectedOptions, itemType: "", itemDType: "", sellType: "" });
@@ -59,49 +56,36 @@ function Sell_List() {
     }
   }
 
+  const handlerPresentData = (presentData) => {
+    setCount(presentData.length)
+    setCurrentPosts(presentData.slice(indexOfFirstPost, indexOfLastPost))
+  }
+
   useEffect(() => {
+    let presentData;
     if (selectedOptions.sellType === "" && selectedOptions.itemType === "") {
-      setCount(data.length);
-      setCurrentPosts(data.slice(indexOfFirstPost, indexOfLastPost));
+      handlerPresentData(data)
     } else if (selectedOptions.sellType === "" && selectedOptions.itemType !== "") {
-      setCount(data.filter((item) => item.itemType === selectedOptions.itemType).length);
-      setCurrentPosts(
-        data.filter((item) => item.itemType === selectedOptions.itemType.slice(indexOfFirstPost, indexOfLastPost)));
+      presentData = data.filter((item) => item.itemType === selectedOptions.itemType);
+      handlerPresentData(presentData)
     } else if (selectedOptions.sellType === "" && selectedOptions.itemType !== "" && selectedOptions.itemDType !== "") {
-      setCount(data.filter((item) => item.itemDType === selectedOptions.itemDType).length);
-      setCurrentPosts(
-        data.filter((item) => item.itemDType === selectedOptions.itemDType.slice(indexOfFirstPost, indexOfLastPost)));
+      presentData = data.filter((item) => item.itemDType === selectedOptions.itemDType);
+      handlerPresentData(presentData)
     } else if (selectedOptions.sellType !== "" && selectedOptions.itemType === "") {
-      setCount(data.filter((item) => item.sellType === selectedOptions.sellType).length);
-      setCurrentPosts(
-        data.filter((item) => item.sellType === selectedOptions.sellType).slice(indexOfFirstPost, indexOfLastPost)
-      );
+      presentData = data.filter((item) => item.sellType === selectedOptions.sellType);
+      handlerPresentData(presentData)
     } else if (selectedOptions.sellType !== "" && selectedOptions.itemType !== "") {
-      setCount(
-        data.filter((item) =>
-          item.itemType === selectedOptions.itemType &&
-          item.sellType === selectedOptions.sellType
-        ).length
+      presentData = data.filter((item) =>
+        item.itemType === selectedOptions.itemType &&
+        item.sellType === selectedOptions.sellType
       );
-      setCurrentPosts(
-        data.filter((item) =>
-          item.itemType === selectedOptions.itemType &&
-          item.sellType === selectedOptions.sellType
-        ).slice(indexOfFirstPost, indexOfLastPost)
-      );
+      handlerPresentData(presentData)
     } else if (selectedOptions.sellType !== "" && selectedOptions.itemType !== "" && selectedOptions.itemDType !== "") {
-      setCount(
-        data.filter((item) =>
-          item.itemDType === selectedOptions.itemDType &&
-          item.sellType === selectedOptions.sellType
-        ).length
+      presentData = data.filter((item) =>
+        item.itemDType === selectedOptions.itemDType &&
+        item.sellType === selectedOptions.sellType
       );
-      setCurrentPosts(
-        data.filter((item) =>
-          item.itemDType === selectedOptions.itemDType &&
-          item.sellType === selectedOptions.sellType
-        ).slice(indexOfFirstPost, indexOfLastPost)
-      );
+      handlerPresentData(presentData)
     }
 
     setIndexOfLastPost(currentpage * postPerPage);
