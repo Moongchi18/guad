@@ -8,6 +8,14 @@ import { Link } from "react-router-dom";
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [idCheck, setIdCheck] = useState(false);
+  const ChangeCheck = () => {
+    if (idCheck === false) {
+      setIdCheck(true);
+    } else {
+      setIdCheck(false);
+    }
+  };
 
   const changeEmail = (e) => setEmail(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
@@ -18,14 +26,21 @@ function Login(props) {
   const handlerSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, { email: email, pass: password })
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, {
+        email: email,
+        pass: password,
+      })
       .then((response) => {
         sessionStorage.setItem("token", response.data);
-        axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { header: { Authorization: response.data } })
-          .then(response => {
-            console.log(response.data.nickname)
+        axios
+          .get(
+            `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+            { header: { Authorization: response.data } }
+          )
+          .then((response) => {
+            console.log(response.data.nickname);
             sessionStorage.setItem("nickname", response.data.nickname);
-          })
+          });
         props.handlerIsLogin();
         alert("로그인 되었습니다.");
         props.history.push("/");
@@ -72,7 +87,17 @@ function Login(props) {
             value={password}
             onChange={changePassword}
           />
-          <span className={style.check_b}>아이디저장</span>
+          <div className={style.checkId} onClick={ChangeCheck}>
+            <img
+              src={
+                idCheck
+                  ? require("../source/img/check_on.png")
+                  : require("../source/img/check.png")
+              }
+              alt="체크"
+            />
+            <p className={style.check_b}>아이디저장</p>
+          </div>
           <button
             className={[style.login, style.btn_bb].join(" ")}
             onClick={handlerSubmit}

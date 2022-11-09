@@ -91,15 +91,20 @@
   font-size: 30px;
   text-align: left;
 }
-.check_b {
+.checkId {
+  display: block;
+}
+.checkId > img {
+  float: left;
+}
+.checkId > p {
   font-family: "SBAggroB";
   font-weight: 300;
   font-size: 15px;
-  padding-left: 26px;
   margin: 10px 0 30px;
-  float: left;
-  display: inline-block;
-  background: url(../source/img/check.png) no-repeat;
   line-height: 18px;
   cursor: pointer;
+  text-align: left;
+  padding-left: 20px;
+  width: 80px;
 }
