@@ -64,10 +64,9 @@ public class MemberServiceImpl extends DefaultOAuth2UserService implements Membe
 			e.printStackTrace();
 		}
 		
-		if(member == null) {
-			memberDto = MemberDto.builder()
-					.
-		}
+//		if(member == null) {
+//			MemberDto mem = new MemberDto(username, email, )
+//		}
 		
 		return super.loadUser(userRequest);
 	}
