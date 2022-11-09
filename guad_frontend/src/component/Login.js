@@ -16,6 +16,13 @@ function Login(props) {
       setIdCheck(false);
     }
   };
+  const onKeyEnter = (e) => {
+    if (e.key == "Enter") {
+      handlerSubmit();
+    }else{
+
+    }
+  };
 
   const changeEmail = (e) => setEmail(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
@@ -24,7 +31,7 @@ function Login(props) {
   // console.log(isLogin)
 
   const handlerSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     axios
       .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, {
         email: email,
@@ -32,13 +39,17 @@ function Login(props) {
       })
       .then((response) => {
         sessionStorage.setItem("token", response.data);
-        axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { header: { Authorization: response.data } })
-          .then(response => {
-            console.log(response.data.nickname)
-            props.setNickName(response.data.nickname)
-            props.setIsLogin(true)
+        axios
+          .get(
+            `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+            { header: { Authorization: response.data } }
+          )
+          .then((response) => {
+            console.log(response.data.nickname);
+            props.setNickName(response.data.nickname);
+            props.setIsLogin(true);
             sessionStorage.setItem("nickname", response.data.nickname);
-          })
+          });
         alert("로그인 되었습니다.");
         props.history.push("/");
         console.log(response.data);
@@ -83,6 +94,7 @@ function Login(props) {
             placeholder="비밀번호"
             value={password}
             onChange={changePassword}
+            onKeyDown={onKeyEnter}
           />
           <div className={style.checkId} onClick={ChangeCheck}>
             <img
