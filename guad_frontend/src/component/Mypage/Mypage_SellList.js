@@ -4,8 +4,14 @@ import Notify from "../Moodal/Notify";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import My_Sell from "./My_Sell";
+import My_Buy from "./My_Buy";
 
 function Mypage_SellList() {
+  const [checkList, setCheckList] = useState("buy");
+  const changeList = (e) => {
+    setCheckList(e.target.name);
+  };
   const [data, setData] = useState({
     nickname: "",
     mileage: 0,
@@ -48,16 +54,15 @@ function Mypage_SellList() {
         </div>
 
         <div className={style.category}>
-          <button>구매내역</button>
-          <button>판매내역</button>
+          <button onClick={changeList} name="buy">
+            구매내역
+          </button>
+          <button onClick={changeList} name="sell">
+            판매내역
+          </button>
         </div>
-
-        <div className={style.sell}>
-          <div className={style.sell_list}>
-            <img src={require("../../source/img/big_item.png")} alt="물품" />
-            <h3>구매물품</h3>
-          </div>
-        </div>
+        {checkList === "buy" && <My_Buy />}
+        {checkList !== "buy" && <My_Sell />}
       </div>
     </>
   );
