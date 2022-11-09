@@ -90,7 +90,7 @@ function Sell_List() {
 
     setIndexOfLastPost(currentpage * postPerPage);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
-  }, [selectedOptions])
+  }, [selectedOptions, currentpage, indexOfFirstPost, indexOfLastPost])
 
 
   useEffect(() => {
@@ -121,9 +121,9 @@ function Sell_List() {
 
   }, [])
 
-  // const handlerSetPage = (e) => {
-  //   setCurrentpage(e);
-  // };
+  const handlerSetPage = (e) => {
+    setCurrentpage(e);
+  };
 
   const OnCategory = (e) => {
     if (cateOn === false) {
@@ -214,13 +214,13 @@ function Sell_List() {
               ))}
           </ul>
           <span className={style.count_p}>
-            {/* <ul>
+            <ul>
               <SellListPaging
                 page={currentpage}
                 count={count}
                 handlerSetPage={handlerSetPage}
               />
-            </ul> */}
+            </ul>
           </span>
         </div>
       </div>
