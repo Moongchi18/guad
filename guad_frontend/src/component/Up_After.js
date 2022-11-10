@@ -6,6 +6,7 @@ import UpConfirm from "./Moodal/UpConfirm";
 import Up_Chat from "./Up_Chat";
 
 var stompClient = null;
+const token = `Bearer ${sessionStorage.getItem("token")}`;
 function Up_After({ openModal, item }) {
   const [publicChats, setPublicChats] = useState([]);
   const [auctionPeriodText, setAuctionPeriodText] = useState();
@@ -43,7 +44,7 @@ function Up_After({ openModal, item }) {
       console.log(chatMessage);
       stompClient.send(
         `/pub/up/${item?.itemNum}`,
-        {},
+        { Authorization: token },
         JSON.stringify(chatMessage)
       );
     }
