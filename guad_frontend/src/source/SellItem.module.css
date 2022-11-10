@@ -127,6 +127,15 @@
   margin: 0 20px 0 5px;
   line-height: 1.4;
 }
+.rating_option11 span {
+  margin: 0 20px 0 5px;
+  line-height: 1.4;
+  font-size: 25px;
+  font-family: "SBAggroB";
+  font-weight: 300;
+  color: #aeaeae;
+  vertical-align: top;
+}
 .seller {
   font-size: 20px;
   font-family: "SBAggroB";
