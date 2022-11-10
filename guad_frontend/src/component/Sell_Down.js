@@ -32,18 +32,11 @@ function Sell_Down({ match }) {
           `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
-<<<<<<< HEAD
-        imgList.push(response.data.itemImgName)
-        imgList.push(response.data.itemImgNameSub2)
-        imgList.push(response.data.itemImgNameSub3)
-        setImgList(imgList)
 
-=======
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
         imgList.push(response.data.itemImgNameSub3);
         setImgList(imgList);
->>>>>>> 24779db01a3c7a429c31de3663b9225f7cd3f11f
       })
       .catch((error) => console.log(error));
   }, []);
@@ -180,12 +173,11 @@ function Sell_Down({ match }) {
             판매자 : <strong>{item.nickname}</strong>
           </span>
           <div className={style.start_bb}>
-<<<<<<< HEAD
-=======
+
             <p className={style.time_check}>
               다음 내림까지 : <strong>59분23초</strong>
             </p>
->>>>>>> 24779db01a3c7a429c31de3663b9225f7cd3f11f
+
             <span className={style.deli_name}>시작 경매가</span>
             <span className={style.deli_tag}>
               {item.auctionStartPrice?.toLocaleString()}
@@ -211,14 +203,10 @@ function Sell_Down({ match }) {
               입찰 참여
             </button>
             <span className={style.bb_date}>
-<<<<<<< HEAD
+
               현재 할인율: <strong>{(100 - auctionCurrentPrice / item.auctionStartPrice * 100)}%</strong>
-=======
-              현재 할인율 :{" "}
-              <strong>
-                {100 - (item.currentPrice / item.auctionStartPrice) * 100}%
-              </strong>
->>>>>>> 24779db01a3c7a429c31de3663b9225f7cd3f11f
+
+
             </span >
     <p>
       남은 경매 시간 : <strong>{auctionPeriodText}</strong>
