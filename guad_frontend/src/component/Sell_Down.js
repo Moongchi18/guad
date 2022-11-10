@@ -116,14 +116,17 @@ function Sell_Down({ match }) {
 
   useEffect(() => {
     const id = setInterval(currentTimer, 1000);
-    setInterval(() => handlerBid(), 1000);
+    const id2 = setInterval(() => handlerBid(), 1000);
+    return () => {
+      clearInterval(id2);
+      clearInterval(id);
+    }
   }, []);
 
   //   clearInterval(startTimer());
   ///////////////////////////////////
   return (
     <>
-    <button onClick={handlerBid}>여기여기여기여기</button>
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
