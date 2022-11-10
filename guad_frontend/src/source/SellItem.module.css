@@ -67,7 +67,7 @@
   text-align: center;
   margin-top: 20px;
 }
-.img_item > ul > li {
+.img_item > ul li {
   display: inline-block;
   width: 130px;
   height: 130px;
