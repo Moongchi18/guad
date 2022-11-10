@@ -121,8 +121,9 @@ function Sell_Down({ match }) {
     return () => {
       clearInterval(id2);
       clearInterval(id);
-    };
+    }
   }, []);
+
 
   ///////////////////////////////////
   return (
@@ -200,10 +201,10 @@ function Sell_Down({ match }) {
           <div className={style.deli_bb}>
             <span className={style.deli_name}>최저 경매가</span>
             <span className={style.deli_tag}>
-              {item.auctionMinPrice?.toLocaleString()}
               <strong>
                 ({100 - (item.auctionMinPrice / item.auctionStartPrice) * 100}%)
               </strong>
+              {item.auctionMinPrice?.toLocaleString()}
             </span>
           </div>
           <div className={style.sell_bb}>
