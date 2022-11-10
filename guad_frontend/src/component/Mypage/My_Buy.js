@@ -21,7 +21,7 @@ function My_Buy() {
       <div className={style.sell}>
       {buyList &&
           buyList.map((list, index) => (
-        <Link to={`/sell_item/${list.sellType}/${list.itemNum}`}>
+        <Link to={`/sell_end/${list.sellType}/${list.itemNum}`}>
         <div className={style.sell_list}>
         <img src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
              alt={"img" + list.itemNum} />
