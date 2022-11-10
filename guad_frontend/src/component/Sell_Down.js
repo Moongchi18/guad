@@ -14,6 +14,8 @@ function Sell_Down({ match }) {
   const [item, setItem] = useState({});
   const [imgList, setImgList] = useState([]);
 
+  console.log(item)
+
   useEffect(() => {
     axios
       .get(
@@ -23,20 +25,20 @@ function Sell_Down({ match }) {
         console.log(response.data);
         setItem(response.data);
         const date = new Date(
-          response.data.auctionPeriod.slice(0, 10) +
-            " " +
-            response.data.auctionPeriod.slice(12, 19)
-        );
-        date.setHours(date.getHours() + 9);
-        setAuctionPeriodText(
-          `${date.getFullYear()}년 ${
-            date.getMonth() + 1
-          }월 ${date.getDate()}일 ${date.getHours()}시까지`
+          response.data.auctionFinishDate.slice(0, 10) +
+          " " +
+          response.data.auctionFinishDate.slice(12, 19)
         );
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
         imgList.push(response.data.itemImgNameSub3);
         setImgList(imgList);
+
+        date.setHours(date.getHours() + 9);
+        setAuctionPeriodText(
+          `${date.getFullYear()}년 ${date.getMonth() + 1
+          }월 ${date.getDate()}일 ${date.getHours()}시까지`
+        );
       })
       .catch((error) => console.log(error));
   }, []);
@@ -62,7 +64,7 @@ function Sell_Down({ match }) {
 
   useEffect(() => {
     connect();
-  }, [auctionCurrentPrice]);
+  }, []);
 
   const connect = () => {
     let Sock = new SockJS(
@@ -92,7 +94,7 @@ function Sell_Down({ match }) {
   };
 
   const handlerBid = () => {
-    // 서버에 데이터를 보낼 때
+    // 서버에서 데이터를 보낼 때
     stompClient.send(
       `/pub/sellitem/auction/d/${match.params.itemNum}`,
       { Authorization: token },
@@ -100,8 +102,29 @@ function Sell_Down({ match }) {
     );
   };
 
-  //////////////웹소캣//////////////
+  //////////////타이머//////////////
+  const [timer, setTimer] = useState("00분00초");
 
+  const currentTimer = () => {
+    const date = new Date();
+    const minutes = String(date.getHours()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+    setTimer(`${60 - minutes}분${60 - seconds}초`);
+  };
+
+  //setInterval(handlerBid, 5000);
+
+  // useEffect(() => {
+  //   const id = setInterval(currentTimer, 1000);
+  //   const id2 = setInterval(() => handlerBid(), 1000);
+  //   return () => {
+  //     clearInterval(id2);
+  //     clearInterval(id);
+  //   }
+  // }, []);
+
+  //   clearInterval(startTimer());
+  ///////////////////////////////////
   return (
     <>
       <NotifyWrite
@@ -110,10 +133,6 @@ function Sell_Down({ match }) {
         itemNum={item.itemNum}
       />
       <DownConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
-      <button onClick={handlerBid}>
-        여기여기여기여기여기여기여기여기여기여기여기
-      </button>
-      <input value={auctionCurrentPrice} />
       <div id={style.item_num} className={style.item_num}>
         2
       </div>
@@ -170,8 +189,9 @@ function Sell_Down({ match }) {
           </span>
           <div className={style.start_bb}>
             <p className={style.time_check}>
-              다음 내림까지 : <strong>59분23초</strong>
+              다음 내림까지 : <strong>{timer}</strong>
             </p>
+
             <span className={style.deli_name}>시작 경매가</span>
             <span className={style.deli_tag}>
               {item.auctionStartPrice?.toLocaleString()}
@@ -189,7 +209,7 @@ function Sell_Down({ match }) {
           <div className={style.sell_bb}>
             <span className={style.sell_price}>현재 경매가</span>
             <span className={style.sell_number}>
-              {item.currentPrice?.toLocaleString()}
+              {auctionCurrentPrice?.toLocaleString()}
             </span>
           </div>
           <div className={style.button_bb}>
@@ -197,9 +217,9 @@ function Sell_Down({ match }) {
               입찰 참여
             </button>
             <span className={style.bb_date}>
-              현재 할인율 :{" "}
+              현재 할인율:{" "}
               <strong>
-                {100 - (item.currentPrice / item.auctionStartPrice) * 100}%
+                {100 - (auctionCurrentPrice / item.auctionStartPrice) * 100}%
               </strong>
             </span>
             <p>

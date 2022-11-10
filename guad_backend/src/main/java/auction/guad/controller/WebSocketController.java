@@ -82,7 +82,7 @@ public class WebSocketController {
 	@SendTo("/sub/sellitem/auction/d/{itemNum}")
 	public ResponseEntity<Long> openNaelimSellItemDetail(@Payload @DestinationVariable int itemNum,
 			@Header String Authorization) throws Exception {
-		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
+		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailNoHitCnt(itemNum);
 
 		String token = Authorization.substring(7);
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
@@ -104,18 +104,23 @@ public class WebSocketController {
 		auctionStart.setMinutes(0);
 		auctionStart.setHours(12);
 		auctionStart.setDate(auctionStart.getDate()+1);
-		
-
 		// 현재날짜와 경매시작 날짜의 차이(시간)
-//		long diffHor = (format1.getTime() - format2.getTime()) / 3600000; //시 차이
+		double timeChange = ((now.getTime()-auctionStart.getTime())/3600000);
 		// 현재시각과 경매종료날짜 비교
 		boolean result = now.before(sellItem.getAuctionFinishDate());
 		// 현재 내림경매가
-		long CurrentPrice = StartPrice - ((( (now.getDate()- auctionStart.getDay())* 10) + periodTime) * Discount);
+		long CurrentPrice = (long) (StartPrice - (Math.floor(timeChange) * Discount));
 		
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>"+auctionStart.getTime());
+		System.out.println(">>>>>>>>>>>>>>>>>>"+now.getTime());
 		System.out.println(">>>>>>>>>>>>>>>>>>"+auctionStart);
 		System.out.println(">>>>>>>>>>>>>>>>>>"+sellItem.getWriteDate());
-			
+		System.out.println(">>>>>>>>>>>>>>>>>>"+StartPrice);
+		System.out.println(">>>>>>>>>>>>>>>>>>"+StartPrice);
+		System.out.println(">>>>>>>>>>>>>>>>>>"+Math.floor(timeChange) * Discount);
+		System.out.println(">>>>>>>>>>>>>>>>>>"+CurrentPrice);
+		
 		if (result) {
 			if (CurrentPrice < MinPrice) {
 				return ResponseEntity.status(HttpStatus.OK).body(MinPrice);
