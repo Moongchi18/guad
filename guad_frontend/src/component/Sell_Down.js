@@ -121,8 +121,9 @@ function Sell_Down({ match }) {
     return () => {
       clearInterval(id2);
       clearInterval(id);
-    };
+    }
   }, []);
+
 
   ///////////////////////////////////
   return (
