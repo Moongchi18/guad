@@ -26,8 +26,8 @@ function Sell_Down({ match }) {
         setItem(response.data);
         const date = new Date(
           response.data.auctionFinishDate.slice(0, 10) +
-            " " +
-            response.data.auctionFinishDate.slice(12, 19)
+          " " +
+          response.data.auctionFinishDate.slice(12, 19)
         );
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
@@ -36,8 +36,7 @@ function Sell_Down({ match }) {
 
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${
-            date.getMonth() + 1
+          `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
       })
@@ -115,17 +114,20 @@ function Sell_Down({ match }) {
 
   //setInterval(handlerBid, 5000);
 
-  // useEffect(() => {
-  //   const id = setInterval(currentTimer, 1000);
-  //   const id2 = setInterval(() => handlerBid(), 1000);
-  //   return () => {
-  //     clearInterval(id2);
-  //     clearInterval(id);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const id = setInterval(currentTimer, 1000);
+    const id2 = setInterval(() => handlerBid(), 1000);
+    return () => {
+      clearInterval(id2);
+      clearInterval(id);
+    }
+  }, []);
 
+  ///////////////할인율////////////////
 
-  ///////////////////////////////////
+  var discountRate = (100 - (item.auctionMinPrice / item.auctionStartPrice) * 100)
+  var discountRateNow = (100 - (auctionCurrentPrice / item.auctionStartPrice) * 100)
+  ////////////////////////////////////
   return (
     <>
       <NotifyWrite
@@ -202,7 +204,7 @@ function Sell_Down({ match }) {
             <span className={style.deli_name}>최저 경매가</span>
             <span className={style.deli_tag}>
               <strong>
-                ({100 - (item.auctionMinPrice / item.auctionStartPrice) * 100}%)
+                ({discountRate.toFixed(1)}%)
               </strong>
               {item.auctionMinPrice?.toLocaleString()}
             </span>
@@ -220,7 +222,7 @@ function Sell_Down({ match }) {
             <span className={style.bb_date}>
               현재 할인율:{" "}
               <strong>
-                {100 - (auctionCurrentPrice / item.auctionStartPrice) * 100}%
+                {discountRateNow.toFixed(1)}%
               </strong>
             </span>
             <p>
