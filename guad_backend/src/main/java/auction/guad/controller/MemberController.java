@@ -92,7 +92,7 @@ public class MemberController {
 
 	// 회원 탈퇴(flag)
 	@ApiOperation(value = "회원탈퇴-flag(email)", notes = "회원탈퇴-flag, 파라미터 : email")
-	@PutMapping("/member/delete")
+	@PostMapping("/member/delete")
 	public ResponseEntity<String> deleteMember(@RequestBody RequestVo request) throws Exception {
 		MemberDto member = memberService.selectMemberDetailByEmail(request.getEmail());
 		if (member == null) {

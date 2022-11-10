@@ -5,37 +5,35 @@ import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import Mileage from "../Moodal/Mileage";
 
-
-
-function MypageCheck({history}) {
-  
-
+function MypageCheck({ history }) {
   const [data, setData] = useState({
-    nickname : '',
-    mileage : 0
+    nickname: "",
+    mileage: 0,
   });
-  
-  
+
   useEffect(() => {
     axios
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
-      .then(response => {        
+      .then((response) => {
         setData({
-          nickname : response.data.nickname,
-          mileage: response.data.mileage        
-        })        
-      })   
-  }, [])
+          nickname: response.data.nickname,
+          mileage: response.data.mileage,
+        });
+      });
+  }, []);
 
-  const [pass, setPass] = useState('');
-  
+  const [pass, setPass] = useState("");
+
   const changePass = (e) => {
     setPass(e.target.value);
   };
 
   const handleCheck = () => {
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/mypage/passcheck`, { pass })
+      .post(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/mypage/passcheck`,
+        { pass }
+      )
       .then((response) => history.push("/mypage/info"))
       .catch((error) => alert("비밀번호를 확인해주세요"));
   };
@@ -53,7 +51,9 @@ function MypageCheck({history}) {
     <>
       <Mileage closeModal={closeModal} modalChange={modalChange} />
       <div className={style.All_Mboxi}>
-        <h1 className={style.page_namei}>마이페이지</h1>
+        <Link to="/mypage">
+          <h1 className={style.page_namei}>마이페이지</h1>
+        </Link>
         <div>
           <div className={style.Mboxi}>
             <div className={style.logo_boxi}>
@@ -67,15 +67,27 @@ function MypageCheck({history}) {
                 현재 마일리지 <strong>{data.mileage.toLocaleString()}</strong>원
               </h3>
             </div>
-            <div className={style.Mbox_buttoni}>
-              <button className={style.memberi}>회원정보</button>
-              <button
-                className={style.mileagei}
-                id="mileage"
-                onClick={openModal}
-              >
-                마일리지
-              </button>
+            <div className={style.Mbox_button}>
+              <ul>
+                <Link to="/mypage/check">
+                  <li>
+                    <button className={style.member} type="button"></button>
+                    <p>회원정보</p>
+                  </li>
+                </Link>
+                <li>
+                  <button
+                    className={style.mileage}
+                    onClick={openModal}
+                    type="button"
+                  ></button>
+                  <p>마일리지</p>
+                </li>
+                <li>
+                  <button type="button"></button>
+                  <p>신고내역</p>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

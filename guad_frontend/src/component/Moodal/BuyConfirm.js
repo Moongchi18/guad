@@ -35,7 +35,6 @@ function BuyConfirm({
     mileage: "",
   });
 
-
   useEffect(() => {
     setDto(item);
     setPurchasePrice(presentPrice);
@@ -59,8 +58,8 @@ function BuyConfirm({
       .then((response) => {
         console.log(response.data);
         setMember(response.data);
-        setAddress(response.data.address)
-        setAddressDetail(response.data.addressDetail)
+        setAddress(response.data.address);
+        setAddressDetail(response.data.addressDetail);
         const tempResult = response.data.mileage - price;
         console.log(tempResult);
         setResult(tempResult);
@@ -89,13 +88,13 @@ function BuyConfirm({
           }
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
           alert("농담이시죠? 본인이 등록한 물건이에요!");
         });
     }
   };
 
-  const handlerAddressDetail = (e) => setAddressDetail(e.target.value)
+  const handlerAddressDetail = (e) => setAddressDetail(e.target.value);
   console.log(dto);
 
   // 주소API
@@ -143,20 +142,29 @@ function BuyConfirm({
                   value={address}
                   readOnly
                 />
-                <button type="button" onClick={onToggleModal}>검색</button>
+                <button type="button" onClick={onToggleModal}>
+                  검색
+                </button>
               </div>
               <div className={style.input_b2}>
                 <p>상세주소</p>
-                <input type="text" className={style.input2} value={addressDetail} onChange={handlerAddressDetail} />
-              </div>
-              {isOpen && (
-                <AddressApi
-                  visible={isOpen}
-                  onOk={onToggleModal}
-                  onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
-                  setAddress={setAddress}
+                <input
+                  type="text"
+                  className={style.input2}
+                  value={addressDetail}
+                  onChange={handlerAddressDetail}
                 />
-              )}
+              </div>
+              <div className={style.daum}>
+                {isOpen && (
+                  <AddressApi
+                    visible={isOpen}
+                    onOk={onToggleModal}
+                    onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+                    setAddress={setAddress}
+                  />
+                )}
+              </div>
             </div>
           </div>
           <div className={style.modalfooter2}>
