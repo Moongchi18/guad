@@ -19,7 +19,6 @@ function Sell_List(props) {
     sellType: "",
     itemType: "",
     itemDType: '',
-    search: '',
   });
 
   const [currentpage, setCurrentpage] = useState(1); //현재페이지
@@ -122,6 +121,14 @@ function Sell_List(props) {
         setData(response.data);
         setCount(response.data.length);
         setCurrentPosts(response.data?.slice(indexOfFirstPost, indexOfLastPost));
+        if(props.searchWord.length > 0){
+          const temp = response.data.filter(d => {
+            return d.itemType.includes(props.searchWord) || d.itemDType.includes(props.searchWord)
+              || d.itemSub.includes(props.searchWord) || d.itemContents.includes(props.searchWord)
+          })
+          setCount(temp.length);
+          setCurrentPosts(temp.slice(indexOfFirstPost, indexOfLastPost));
+        }
       }
       )
       .catch((error) => console.log(error));
@@ -129,6 +136,7 @@ function Sell_List(props) {
   }, [])
 
   useEffect(() => {
+    console.log("검색어 변경")
     if (props.searchWord === null) {
       setCount(data.length);
       setCurrentPosts(data?.slice(indexOfFirstPost, indexOfLastPost));

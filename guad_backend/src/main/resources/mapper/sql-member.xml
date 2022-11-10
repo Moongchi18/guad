@@ -34,7 +34,7 @@
 	
 	<!-- 회원 상세 조회 -->
 	<select id="selectMemberDetailByEmail" parameterType="String" resultType="auction.guad.dto.MemberDto">
-		SELECT NICKNAME, EMAIL, ADDRESS, PHONE, MILEAGE, MILEAGE_USED
+		SELECT NICKNAME, EMAIL, ADDRESS, ADDRESS_DETAIL, PHONE, MILEAGE, MILEAGE_USED
 		FROM MEMBER
 		WHERE EMAIL = #{email}
 	</select>
