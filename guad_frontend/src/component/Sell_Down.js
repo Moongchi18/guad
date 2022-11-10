@@ -6,10 +6,8 @@ import style from "../source/SellItem.module.css";
 import DownConfirm from "./Moodal/DownConfirm";
 import NotifyWrite from "./Moodal/NotifyWrite";
 
-
-
-var stompClient = null
-const token = `Bearer ${sessionStorage.getItem("token")}`
+var stompClient = null;
+const token = `Bearer ${sessionStorage.getItem("token")}`;
 
 function Sell_Down({ match }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
@@ -35,14 +33,13 @@ function Sell_Down({ match }) {
             date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
-        imgList.push(response.data.itemImgName)
-        imgList.push(response.data.itemImgNameSub2)
-        imgList.push(response.data.itemImgNameSub3)
-        setImgList(imgList)
+        imgList.push(response.data.itemImgName);
+        imgList.push(response.data.itemImgNameSub2);
+        imgList.push(response.data.itemImgNameSub3);
+        setImgList(imgList);
       })
       .catch((error) => console.log(error));
   }, []);
-
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -60,45 +57,50 @@ function Sell_Down({ match }) {
     modalChange2.current.style = "display:block;";
   };
 
-//////////////웹소캣//////////////
+  //////////////웹소캣//////////////
   const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
 
   useEffect(() => {
-
-      connect();
-      
-  }, [auctionCurrentPrice])
+    connect();
+  }, [auctionCurrentPrice]);
 
   const connect = () => {
-      let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
-      stompClient = over(Sock);
-      stompClient.connect({}, onConnected, onError);
-  }
+    let Sock = new SockJS(
+      `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
+    );
+    stompClient = over(Sock);
+    stompClient.connect({}, onConnected, onError);
+  };
 
   const onConnected = () => {
-      console.log(match.params.itemNum)
-      // 구독url
-      stompClient.subscribe(`/sub/sellitem/auction/d/${match.params.itemNum}`, onReceived);
-  }
+    console.log(match.params.itemNum);
+    // 구독url
+    stompClient.subscribe(
+      `/sub/sellitem/auction/d/${match.params.itemNum}`,
+      onReceived
+    );
+  };
 
   const onReceived = (payload) => {
-      var payloadData = JSON.parse(payload.body);
-      console.log(payloadData.body);
-      setAuctionCurrentPrice(payloadData.body);
-  }
+    var payloadData = JSON.parse(payload.body);
+    console.log(payloadData.body);
+    setAuctionCurrentPrice(payloadData.body);
+  };
 
   const onError = (err) => {
-      console.log(err);
-  }
+    console.log(err);
+  };
 
   const handlerBid = () => {
-      // 서버에 데이터를 보낼 때
-      stompClient.send(`/pub/sellitem/auction/d/${match.params.itemNum}`, {Authorization: token}, JSON.stringify(auctionCurrentPrice));
-  }
+    // 서버에 데이터를 보낼 때
+    stompClient.send(
+      `/pub/sellitem/auction/d/${match.params.itemNum}`,
+      { Authorization: token },
+      JSON.stringify(auctionCurrentPrice)
+    );
+  };
 
-//////////////웹소캣//////////////
-
-
+  //////////////웹소캣//////////////
 
   return (
     <>
@@ -108,8 +110,10 @@ function Sell_Down({ match }) {
         itemNum={item.itemNum}
       />
       <DownConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
-      <button onClick={handlerBid}>여기여기여기여기여기여기여기여기여기여기여기</button>
-      <input value={auctionCurrentPrice}/>
+      <button onClick={handlerBid}>
+        여기여기여기여기여기여기여기여기여기여기여기
+      </button>
+      <input value={auctionCurrentPrice} />
       <div id={style.item_num} className={style.item_num}>
         2
       </div>
@@ -132,9 +136,10 @@ function Sell_Down({ match }) {
             {imgList?.map((img, index) => (
               <li key={index}>
                 <img
-                  src={ img ?
-                    `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
-                    : require("../source/img/no_photo.png")
+                  src={
+                    img
+                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      : require("../source/img/no_photo.png")
                   }
                   alt={"img" + item.notifyNum}
                   className={style.item_o}
@@ -164,14 +169,21 @@ function Sell_Down({ match }) {
             판매자 : <strong>{item.nickname}</strong>
           </span>
           <div className={style.start_bb}>
-            <p className={style.time_check}>다음 내림까지 : <strong>59분23초</strong></p>
+            <p className={style.time_check}>
+              다음 내림까지 : <strong>59분23초</strong>
+            </p>
             <span className={style.deli_name}>시작 경매가</span>
-            <span className={style.deli_tag}>{item.auctionStartPrice?.toLocaleString()}</span>
+            <span className={style.deli_tag}>
+              {item.auctionStartPrice?.toLocaleString()}
+            </span>
           </div>
           <div className={style.deli_bb}>
             <span className={style.deli_name}>최저 경매가</span>
             <span className={style.deli_tag}>
-              {item.auctionMinPrice?.toLocaleString()}<strong>({(100-item.auctionMinPrice/item.auctionStartPrice*100)}%)</strong>
+              {item.auctionMinPrice?.toLocaleString()}
+              <strong>
+                ({100 - (item.auctionMinPrice / item.auctionStartPrice) * 100}%)
+              </strong>
             </span>
           </div>
           <div className={style.sell_bb}>
@@ -185,7 +197,10 @@ function Sell_Down({ match }) {
               입찰 참여
             </button>
             <span className={style.bb_date}>
-              현재 할인율 : <strong>{(100-item.currentPrice/item.auctionStartPrice*100)}%</strong>
+              현재 할인율 :{" "}
+              <strong>
+                {100 - (item.currentPrice / item.auctionStartPrice) * 100}%
+              </strong>
             </span>
             <p>
               남은 경매 시간 : <strong>{auctionPeriodText}</strong>
