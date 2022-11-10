@@ -106,7 +106,7 @@ function SellItem({ history, match }) {
         </h2>
         <div className={style.img_item}>
           <img
-            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+            src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
             alt={"img" + item.notifyNum}
             className={style.item}
           />

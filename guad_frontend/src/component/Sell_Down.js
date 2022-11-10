@@ -1,8 +1,15 @@
 import axios from "axios";
 import { useRef, useEffect, useState } from "react";
+import SockJS from "sockjs-client";
+import { over } from "stompjs";
 import style from "../source/SellItem.module.css";
 import DownConfirm from "./Moodal/DownConfirm";
 import NotifyWrite from "./Moodal/NotifyWrite";
+
+
+
+var stompClient = null
+const token = `Bearer ${sessionStorage.getItem("token")}`
 
 function Sell_Down({ match }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
@@ -53,6 +60,46 @@ function Sell_Down({ match }) {
     modalChange2.current.style = "display:block;";
   };
 
+//////////////웹소캣//////////////
+  const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
+
+  useEffect(() => {
+
+      connect();
+      
+  }, [auctionCurrentPrice])
+
+  const connect = () => {
+      let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
+      stompClient = over(Sock);
+      stompClient.connect({}, onConnected, onError);
+  }
+
+  const onConnected = () => {
+      console.log(match.params.itemNum)
+      // 구독url
+      stompClient.subscribe(`/sub/sellitem/auction/d/${match.params.itemNum}`, onReceived);
+  }
+
+  const onReceived = (payload) => {
+      var payloadData = JSON.parse(payload.body);
+      console.log(payloadData.body);
+      setAuctionCurrentPrice(payloadData.body);
+  }
+
+  const onError = (err) => {
+      console.log(err);
+  }
+
+  const handlerBid = () => {
+      // 서버에 데이터를 보낼 때
+      stompClient.send(`/pub/sellitem/auction/d/${match.params.itemNum}`, {Authorization: token}, JSON.stringify(auctionCurrentPrice));
+  }
+
+//////////////웹소캣//////////////
+
+
+
   return (
     <>
       <NotifyWrite
@@ -61,6 +108,8 @@ function Sell_Down({ match }) {
         itemNum={item.itemNum}
       />
       <DownConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
+      <button onClick={handlerBid}>여기여기여기여기여기여기여기여기여기여기여기</button>
+      <input value={auctionCurrentPrice}/>
       <div id={style.item_num} className={style.item_num}>
         2
       </div>

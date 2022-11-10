@@ -126,8 +126,8 @@ public class SellItemController {
 	}
 	
 	
-	@ApiOperation(value = "게시물 상세 조회", notes = "등록된 게시물 상세 정보를 조회")
-	@GetMapping("/sellitem/n/{itemNum}")
+	@ApiOperation(value = "내림 상세 조회", notes = "내림 게시물 상세 정보를 조회")
+	@GetMapping("/sellitem/d/{itemNum}")
 	public ResponseEntity<SellItemJoinMemberVo> openNaelimSellItemDetail(@PathVariable("itemNum") int itemNum)
 			throws Exception {
 		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);

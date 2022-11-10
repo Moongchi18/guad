@@ -132,7 +132,7 @@ function BuyConfirm({
               </div>
               <div className={style.input_b2}>
                 <p>상세주소</p>
-                <input type="text" className={style.input2} />
+                <input type="text" className={style.input2} defaultValue={member.addressDetail} />
               </div>
             </div>
           </div>

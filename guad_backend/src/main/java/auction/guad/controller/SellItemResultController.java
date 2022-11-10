@@ -35,7 +35,7 @@ public class SellItemResultController {
     final private SellItemResultService sellItemResultService;
     final private SellItemService sellItemService;
     final private MemberService memberService;
-    private ImgService imgService;
+    final private ImgService imgService;
     /////////////////////////////////////////////////////////////////////////////
 
     @ApiOperation(value = "거래 결과(SellItemResultDto)", notes = "모든 상품 거래 결과 입력, 파라미터 : SellItemResultDto")
