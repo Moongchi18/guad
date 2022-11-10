@@ -39,6 +39,7 @@ function Sell_Down({ match }) {
         imgList.push(response.data.itemImgNameSub2)
         imgList.push(response.data.itemImgNameSub3)
         setImgList(imgList)
+      
       })
       .catch((error) => console.log(error));
   }, []);
@@ -90,9 +91,13 @@ function Sell_Down({ match }) {
   const onError = (err) => {
       console.log(err);
   }
+ 
+//  const playAlert = setInterval(function() {
+//    handlerBid();
+//  }, 3000);
 
   const handlerBid = () => {
-      // 서버에 데이터를 보낼 때
+      // 서버에서 데이터를 보낼 때
       stompClient.send(`/pub/sellitem/auction/d/${match.params.itemNum}`, {Authorization: token}, JSON.stringify(auctionCurrentPrice));
   }
 
@@ -164,7 +169,6 @@ function Sell_Down({ match }) {
             판매자 : <strong>{item.nickname}</strong>
           </span>
           <div className={style.start_bb}>
-            <p className={style.time_check}>다음 내림까지 : <strong>59분23초</strong></p>
             <span className={style.deli_name}>시작 경매가</span>
             <span className={style.deli_tag}>{item.auctionStartPrice?.toLocaleString()}</span>
           </div>
@@ -177,7 +181,7 @@ function Sell_Down({ match }) {
           <div className={style.sell_bb}>
             <span className={style.sell_price}>현재 경매가</span>
             <span className={style.sell_number}>
-              {item.currentPrice?.toLocaleString()}
+              {auctionCurrentPrice?.toLocaleString()}
             </span>
           </div>
           <div className={style.button_bb}>
@@ -185,7 +189,7 @@ function Sell_Down({ match }) {
               입찰 참여
             </button>
             <span className={style.bb_date}>
-              현재 할인율 : <strong>{(100-item.currentPrice/item.auctionStartPrice*100)}%</strong>
+              현재 할인율 : <strong>{(100-auctionCurrentPrice/item.auctionStartPrice*100)}%</strong>
             </span>
             <p>
               남은 경매 시간 : <strong>{auctionPeriodText}</strong>
