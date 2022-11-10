@@ -2,12 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
 import style from "../source/SellItem.module.css";
+import UpConfirm from "./Moodal/UpConfirm";
 import Up_Chat from "./Up_Chat";
 
 var stompClient = null;
 function Up_After({ openModal, item }) {
   const [publicChats, setPublicChats] = useState([]);
   const [auctionPeriodText, setAuctionPeriodText] = useState();
+
+  console.log(publicChats)
+  console.log(item)
 
   const connect = () => {
     let Sock = new SockJS(
@@ -59,11 +63,22 @@ function Up_After({ openModal, item }) {
         }월 ${date.getDate()}일 ${date.getHours()}시까지`
       );
     }
-    connect();
   }, [item]);
+
+  const modalChange2 = useRef();
+  const closeModal2 = () => {
+    modalChange2.current.style = "display:none;";
+  };
+  const openModal2 = () => {
+    modalChange2.current.style = "display:block;";
+  };
+  useEffect(() => {
+    connect();
+  }, [])
 
   return (
     <>
+      <UpConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
       <div className={style.info_top}>
         <img
           src={require("../source/img/warn.png")}
@@ -89,7 +104,11 @@ function Up_After({ openModal, item }) {
           판매자 : <strong>{item.nickname}</strong>
         </span>
         <div className={style.button_bb}>
-          <button type="button" className={style.aa_buy_now}>
+          <button
+            type="button"
+            className={style.aa_buy_now}
+            onClick={openModal2}
+          >
             즉시 구매
           </button>
           <button className={`${style.aa_buy} ${style.aa_btn}`}>
