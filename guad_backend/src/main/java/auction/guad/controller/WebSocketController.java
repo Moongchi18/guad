@@ -82,7 +82,7 @@ public class WebSocketController {
 	@SendTo("/sub/sellitem/auction/d/{itemNum}")
 	public ResponseEntity<Long> openNaelimSellItemDetail(@Payload @DestinationVariable int itemNum,
 			@Header String Authorization) throws Exception {
-		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
+		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailNoHitCnt(itemNum);
 
 		String token = Authorization.substring(7);
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);

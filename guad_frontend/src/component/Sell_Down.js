@@ -58,7 +58,7 @@ function Sell_Down({ match }) {
   };
 
   //////////////웹소캣//////////////
-  const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
+const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
 
   useEffect(() => {
     connect();
@@ -88,41 +88,44 @@ function Sell_Down({ match }) {
   };
 
   const onError = (err) => {
-
     console.log(err);
   }
 
-   const playAlert = setInterval(function() {
-     handlerBid();
-   }, 5000);
 
   const handlerBid = () => {
     // 서버에서 데이터를 보낼 때
     stompClient.send(`/pub/sellitem/auction/d/${match.params.itemNum}`, { Authorization: token }, JSON.stringify(auctionCurrentPrice));
   }
 
+
+
   //////////////타이머//////////////
-const [timer, setTimer] = useState("00:00:00");
+const [timer, setTimer] = useState("00분00초");
+
 
 const currentTimer = () => {
   const date = new Date();
   const minutes = String(date.getHours()).padStart(2,"0");
   const seconds = String(date.getSeconds()).padStart(2,"0");
-  setTimer(`${60-minutes}:${60-seconds}`)
+  setTimer(`${60-minutes}분${60-seconds}초`)
 }
 
+const startTimer = () => {
+  setInterval(currentTimer, 1000);
+  setInterval(handlerBid, 1000);
+}
+
+startTimer()
+///////////////////////////////////
   return (
     <>
+
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
         itemNum={item.itemNum}
       />
       <DownConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
-      <button onClick={handlerBid}>
-        여기여기여기여기여기여기여기여기여기여기여기
-      </button>
-      <input value={auctionCurrentPrice} />
       <div id={style.item_num} className={style.item_num}>
         2
       </div>
@@ -180,7 +183,7 @@ const currentTimer = () => {
           <div className={style.start_bb}>
 
             <p className={style.time_check}>
-              다음 내림까지 : <strong>59분23초</strong>
+              다음 내림까지 : <strong>{timer}</strong>
             </p>
 
             <span className={style.deli_name}>시작 경매가</span>
