@@ -254,6 +254,11 @@ function Selling({ history }) {
       );
       setItemType(temp2);
       setData(response.data);
+      auctionPeriod.setDate(auctionPeriod.getDate()+2)
+      auctionPeriod.setHours(12)
+      auctionPeriod.setMinutes(0)
+      auctionPeriod.setSeconds(0)
+      setAuctionPeriod(auctionPeriod)
     }).catch(error => console.log(error));
   }, []);
 
