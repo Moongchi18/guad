@@ -42,7 +42,7 @@
 }
 .mileage_box h3 {
   margin-bottom: 10px;
-  width: 720px;
+  width: 500px;
   color: #ffffff;
   font-weight: 300;
 }
@@ -54,19 +54,42 @@
 
 .Mbox_button {
   vertical-align: top;
+  float: right;
+  margin-right: 50px;
+}
+.Mbox_button ul li {
   display: inline-block;
+  margin-left: 30px;
+}
+.Mbox_button ul li:nth-child(1) button {
+  background-image: url("../source/img/my_b1.png");
+}
+.Mbox_button ul li:nth-child(2) button {
+  background-image: url("../source/img/my_b2.png");
+}
+.Mbox_button ul li:nth-child(3) button {
+  background-image: url("../source/img/my_b3.png");
 }
 .Mbox_button button {
   display: block;
-  width: 250px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   text-align: center;
-  border-radius: 3px;
+  border-radius: 50px;
   background-color: #ffffff;
   color: #8c8c8c;
-  font-size: 17px;
-  font-weight: 300;
   margin-bottom: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.Mbox_button p {
+  font-size: 13px;
+  color: white;
+  font-weight: 300;
+  text-align: center;
+}
+.Mbox_button p:hover {
+  color: #00460e;
 }
 .Mbox_button button:hover {
   background-color: #00460e;

@@ -6,6 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import My_Sell from "./My_Sell";
 import My_Buy from "./My_Buy";
+import Mileage from "../Moodal/Mileage";
 
 function Mypage_SellList() {
   const [checkList, setCheckList] = useState("buy");
@@ -16,6 +17,14 @@ function Mypage_SellList() {
     nickname: "",
     mileage: 0,
   });
+  const modalChange = useRef();
+  const closeModal = () => {
+    modalChange.current.style = "display:none;";
+  };
+
+  const openModal = () => {
+    modalChange.current.style = "display:block;";
+  };
 
   useEffect(() => {
     axios
@@ -29,6 +38,7 @@ function Mypage_SellList() {
   }, []);
   return (
     <>
+      <Mileage closeModal={closeModal} modalChange={modalChange} />
       <div className={style.All_Mbox}>
         <Link to="/mypage">
           <h1 className={style.page_name}>마이페이지</h1>
@@ -47,8 +57,26 @@ function Mypage_SellList() {
               </h3>
             </div>
             <div className={style.Mbox_button}>
-              <button className={style.member}>회원정보</button>
-              <button className={style.mileage}>마일리지</button>
+              <ul>
+                <Link to="/mypage/check">
+                  <li>
+                    <button className={style.member} type="button"></button>
+                    <p>회원정보</p>
+                  </li>
+                </Link>
+                <li>
+                  <button
+                    className={style.mileage}
+                    onClick={openModal}
+                    type="button"
+                  ></button>
+                  <p>마일리지</p>
+                </li>
+                <li>
+                  <button type="button"></button>
+                  <p>신고내역</p>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

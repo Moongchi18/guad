@@ -31,7 +31,7 @@ function Login(props) {
     setEmail(e.target.value);
     // 쿠키용
     if (idCheck === true) {
-      setCookie("rememberEmail", email, { maxAge: 2000 });
+      setCookie("rememberEmail", email, 30);
     } else {
       removeCookie("rememberEmail");
     }
@@ -85,8 +85,8 @@ function Login(props) {
     console.log(props.isLogin);
     console.log(props);
     console.log("호출");
-    console.log(cookies);
-    console.log(idCheck);
+    console.log("저장된 쿠키 :" + cookies);
+    console.log("아이디저장 :" + idCheck);
 
     // 쿠키용
     if (cookies.rememberUserId !== undefined) {

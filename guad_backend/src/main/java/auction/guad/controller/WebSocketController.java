@@ -120,6 +120,7 @@ public class WebSocketController {
 		System.out.println(">>>>>>>>>>>>>>>>>>"+StartPrice);
 		System.out.println(">>>>>>>>>>>>>>>>>>"+Math.floor(timeChange) * Discount);
 		System.out.println(">>>>>>>>>>>>>>>>>>"+CurrentPrice);
+		System.out.println(">>>>>>>>>>>>>>>>>>"+result);
 		
 		if (result) {
 			if (CurrentPrice < MinPrice) {

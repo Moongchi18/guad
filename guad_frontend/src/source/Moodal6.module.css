@@ -190,6 +190,11 @@
   color: white;
   transition: 0.3s all ease;
 }
+.daum {
+  position: absolute;
+  width: 550px;
+}
+
 @keyframes modalopen {
   from {
     margin-top: 15%;

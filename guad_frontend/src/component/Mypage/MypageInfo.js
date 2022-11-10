@@ -4,6 +4,7 @@ import MoodalMileage from "../Moodal/Mileage";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import AddressApi from "../Moodal/AddressApi";
+import { Link } from "react-router-dom";
 
 function MypageInfo({ history }) {
   const [data, setData] = useState({
@@ -70,20 +71,22 @@ function MypageInfo({ history }) {
   };
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`).then((response) => {
-      console.log(response.data);
-      setData({
-        email: response.data.email,
-        nickname: response.data.nickname,
-        phone: response.data.phone,
-        address: response.data.address,
-        addressDetail: response.data.addressDetail,
-        mileage: response.data.mileage,
+    axios
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .then((response) => {
+        console.log(response.data);
+        setData({
+          email: response.data.email,
+          nickname: response.data.nickname,
+          phone: response.data.phone,
+          address: response.data.address,
+          addressDetail: response.data.addressDetail,
+          mileage: response.data.mileage,
+        });
+        setAddress(response.data.address);
+        setPhone(response.data.phone);
+        setUserEmail(response.data.email);
       });
-      setAddress(response.data.address)
-      setPhone(response.data.phone)
-      setUserEmail(response.data.email);
-    });
   }, []);
 
   const handlerUpdate = () => {
@@ -91,13 +94,16 @@ function MypageInfo({ history }) {
       alert("두 비밀번호가 일치하지 않습니다.");
     } else {
       axios
-        .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`, {
-          phone,
-          address,
-          addressDetail,
-          pass,
-          email: userEmail,
-        })
+        .post(
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
+          {
+            phone,
+            address,
+            addressDetail,
+            pass,
+            email: userEmail,
+          }
+        )
         .then((response) => {
           alert("수정이 완료되었습니다.");
           history.push("/mypage");
@@ -114,13 +120,15 @@ function MypageInfo({ history }) {
   const onToggleModal = () => {
     setIsOpen((prev) => !prev); // false > true
   };
-  console.log(address)
-  console.log(phone)
+  console.log(address);
+  console.log(phone);
   return (
     <>
       <MoodalMileage />
       <div className={style.All_Mboxi}>
-        <h1 className={style.page_namei}>마이페이지</h1>
+        <Link to="/mypage">
+          <h1 className={style.page_namei}>마이페이지</h1>
+        </Link>
         <div>
           <div className={style.Mboxi}>
             <div className={style.logo_boxi}>
@@ -134,16 +142,21 @@ function MypageInfo({ history }) {
                 현재 마일리지 <strong>{data.mileage.toLocaleString()}</strong>원
               </h3>
             </div>
-            <div className={style.Mbox_buttoni}>
-              <button className={style.memberi}>회원정보</button>
-              <button
-                className={style.mileagei}
-                id="mileage"
-                onClick={warn}
-                type="button"
-              >
-                마일리지
-              </button>
+            <div className={style.Mbox_button}>
+              <ul>
+                <li>
+                  <button className={style.member} type="button"></button>
+                  <p>회원정보</p>
+                </li>
+                <li>
+                  <button className={style.mileage} type="button"></button>
+                  <p>마일리지</p>
+                </li>
+                <li>
+                  <button type="button"></button>
+                  <p>신고내역</p>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -160,7 +173,9 @@ function MypageInfo({ history }) {
           <div>
             <h3 className={style.addressi}>주소</h3>
             <input defaultValue={address} onChange={changeAddress} readOnly />
-            <button className={style.searchi} onClick={onToggleModal}>검색</button>
+            <button className={style.searchi} onClick={onToggleModal}>
+              검색
+            </button>
           </div>
           <h3>상세주소</h3>
           <input defaultValue={data.addressDetail} />

@@ -24,20 +24,20 @@ public class GoogleLoginController {
 //    }
 
 
-
-    @RequestMapping(value = "/google/auth", method = RequestMethod.POST)
-    public ResponseEntity<String> googleAuth(@RequestBody MemberDto member) throws Exception {
-      
-    	System.out.println("<<<<<<<<<<<<<<<<"+member);
-        String googleId = member.getEmail();
-        // 회원 조회서비스 추가 예정
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ googleId);
-        
-        
-        if (googleId != null) {
-            return ResponseEntity.status(HttpStatus.OK).body("로그인 성공");
-        } else {
-            return ResponseEntity.status(300).body("로그인 실패");
-        }  
-    }
+//
+//    @RequestMapping(value = "/google/auth", method = RequestMethod.POST)
+//    public ResponseEntity<String> googleAuth(@RequestBody MemberDto member) throws Exception {
+//      
+//    	System.out.println("<<<<<<<<<<<<<<<<"+member);
+//        String googleId = member.getEmail();
+//        // 회원 조회서비스 추가 예정
+//        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+ googleId);
+//        
+//        
+//        if (googleId != null) {
+//            return ResponseEntity.status(HttpStatus.OK).body("로그인 성공");
+//        } else {
+//            return ResponseEntity.status(300).body("로그인 실패");
+//        }  
+//    }
 }
