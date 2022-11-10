@@ -4,24 +4,22 @@ import style from "../source/SellItem.module.css";
 
 function Up_Before({ openModal, clickStart, item }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
-  console.log(typeof item.auctionPeriod)
+  console.log(typeof item.auctionPeriod);
 
   useEffect(() => {
-    console.log(item)
+    console.log(item);
     if (item.auctionPeriod) {
       const date = new Date(
-        item.auctionPeriod.slice(0, 10) +
-        " " +
-        item.auctionPeriod.slice(12, 19)
+        item.auctionPeriod.slice(0, 10) + " " + item.auctionPeriod.slice(12, 19)
       );
       date.setHours(date.getHours() + 9);
       setAuctionPeriodText(
-        `${date.getFullYear()}년 ${date.getMonth() + 1
+        `${date.getFullYear()}년 ${
+          date.getMonth() + 1
         }월 ${date.getDate()}일 ${date.getHours()}시까지`
       );
     }
-  }, [item])
-
+  }, [item]);
 
   return (
     <>
@@ -35,10 +33,6 @@ function Up_Before({ openModal, clickStart, item }) {
         <span className={style.top_cate}>{item.itemType}</span>
         <span className={style.top_title}>{item.itemSub}</span>
         <div className={style.rating_option}>
-          <img src={require("../source/img/star.png")} alt="별점" />
-          <span>4</span>
-        </div>
-        <div className={style.rating_option}>
           <img src={require("../source/img/see.png")} alt="조회수" />
           <span>{item.hitCnt}</span>
         </div>
@@ -51,7 +45,9 @@ function Up_Before({ openModal, clickStart, item }) {
         </div>
         <div className={style.sell_bb}>
           <span className={style.sell_price}>경매 시작가</span>
-          <span className={style.sell_number}>{item.auctionStartPrice?.toLocaleString()}</span>
+          <span className={style.sell_number}>
+            {item.auctionStartPrice?.toLocaleString()}
+          </span>
         </div>
         <div className={style.button_bb}>
           <button className={style.bb_buy} onClick={clickStart}>
