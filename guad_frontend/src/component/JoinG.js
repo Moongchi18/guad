@@ -2,6 +2,7 @@ import Terms from "./Moodal/Terms";
 import style from "../source/Join.module.css";
 import { useState } from "react";
 import axios from "axios";
+import AddressApi from "./Moodal/AddressApi";
 
 
 function JoinG({history}) {
@@ -13,30 +14,33 @@ function JoinG({history}) {
     } else {
       setG_check("w");    }
   };
+  const [nickname, setNickname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
+
+  const [isNickname, setIsNickname] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
+  const [isAddress, setIsAddress] = useState(false);
+  const [isAddressDetail, setIsAddressDetail] = useState(false);
+  const [isUsableNickname, setIsUsableNickname] = useState(false);
+
+  const [nicknameMessage, setNicknameMessage] = useState('');
+  const [usableNicknameMessage, setUsableNicknameMessage] = useState('');
   
   var email = sessionStorage.getItem("email");
   
   console.log(email)
   const handlerGoogleJoin = () => {
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { email, pass : '', nickname, phone, address, gender: g_check })
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { email, pass : '', nickname, phone, address, addressDetail, gender: g_check })
       .then((response) => console.log(response))
     history.push("/")
       .catch((error) => console.log(error)); 
   };
 
-  const [nickname, setNickname] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-
-  const [isNickname, setIsNickname] = useState(false);
-  const [isPhone, setIsPhone] = useState(false);
-  const [isAddress, setIsAddress] = useState(false);
-  const [isUsableNickname, setIsUsableNickname] = useState(false);
-
-  const [nicknameMessage, setNicknameMessage] = useState('');
-  const [usableNicknameMessage, setUsableNicknameMessage] = useState('');
-
+  console.log(address)
+  console.log(addressDetail)
   const changeNickname = (e) => {
     setNickname(e.target.value)
     if (e.target.value.length < 2 || e.target.value.length > 7) {
@@ -62,6 +66,13 @@ function JoinG({history}) {
       setIsAddress(true)
     }
   }
+  
+  const changeAddressDetail = (e) => {
+    setAddressDetail(e.target.value)
+    if (e.target.value.length > 0) {
+      setIsAddressDetail(true)
+    }
+  }
 
   const nicknameCheck = (e) => {
     console.log(nickname)
@@ -81,6 +92,12 @@ function JoinG({history}) {
       })
   }
 
+  // 주소API
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev); // false > true
+  };
   return (
     <>
       <Terms />
@@ -124,16 +141,24 @@ function JoinG({history}) {
             </li>
             <li className={style.add_in}>
               <label>주소</label>
-              <input type="text" value={address} onChange={changeAddress} />
-              <button>검색</button>
+              <input type="text" value={address} onChange={changeAddress} readOnly/>
+              <button onClick={onToggleModal}>검색</button>
             </li>
             <li>
               <label>상세주소</label>
-              <input type="text" />
+              <input type="text" value={addressDetail} onChange={changeAddressDetail}/>
             </li>
+            {isOpen && (
+                <AddressApi
+                  visible={isOpen}
+                  onOk={onToggleModal}
+                  onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+                  setAddress={setAddress}
+                />
+              )}
           </ul>
         </div>
-        <button className={style.last_btn} onClick={handlerGoogleJoin} disabled={!(isNickname && isPhone && isAddress)}>회원가입</button>
+        <button className={style.last_btn} onClick={handlerGoogleJoin} disabled={!(isNickname && isPhone && isAddress && isAddressDetail)}>회원가입</button>
       </div>
       <div></div>
     </>
