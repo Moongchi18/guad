@@ -55,7 +55,7 @@ function UserBuyList({ history }) {
                 </h3>
                 <h3>
                   <strong>가격 : </strong>
-                  {list.itemPrice}
+                  {list.itemPrice.toLocaleString()}
                 </h3>
                 <h3>
                   <strong>주소 : </strong>
