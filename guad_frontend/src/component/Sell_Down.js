@@ -92,19 +92,24 @@ function Sell_Down({ match }) {
     console.log(err);
   }
 
-  //  const playAlert = setInterval(function() {
-  //    handlerBid();
-  //  }, 3000);
+   const playAlert = setInterval(function() {
+     handlerBid();
+   }, 5000);
 
   const handlerBid = () => {
     // 서버에서 데이터를 보낼 때
     stompClient.send(`/pub/sellitem/auction/d/${match.params.itemNum}`, { Authorization: token }, JSON.stringify(auctionCurrentPrice));
   }
 
-  //////////////웹소캣//////////////
+  //////////////타이머//////////////
+const [timer, setTimer] = useState("00:00:00");
 
-
-  //////////////웹소캣//////////////
+const currentTimer = () => {
+  const date = new Date();
+  const minutes = String(date.getHours()).padStart(2,"0");
+  const seconds = String(date.getSeconds()).padStart(2,"0");
+  setTimer(`${60-minutes}:${60-seconds}`)
+}
 
   return (
     <>
