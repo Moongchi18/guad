@@ -81,6 +81,7 @@ function MypageInfo({ history }) {
         mileage: response.data.mileage,
       });
       setAddress(response.data.address)
+      setPhone(response.data.phone)
       setUserEmail(response.data.email);
     });
   }, []);
@@ -113,6 +114,8 @@ function MypageInfo({ history }) {
   const onToggleModal = () => {
     setIsOpen((prev) => !prev); // false > true
   };
+  console.log(address)
+  console.log(phone)
   return (
     <>
       <MoodalMileage />
