@@ -21,7 +21,11 @@ public class SellItemDto {
 	private int auctionStartPrice;
 	private int auctionMaxPrice;
 	private int auctionMinPrice;
-	private Timestamp auctionPeriod;
+	
+	private int auctionPeriodTime;
+	private int auctionPeriodDay;
+	private Date auctionFinishDate;
+	
 	private boolean auctionRandomMethod;
 	private int auctionDiscountPerHour;
 	

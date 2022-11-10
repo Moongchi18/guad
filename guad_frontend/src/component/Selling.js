@@ -19,6 +19,12 @@ function Selling({ history }) {
     history.push("/sell_list");
   };
 
+  const handlerEnter = (e) => {
+    if (e.key === "Enter") {
+      closeModal();
+    }
+  }
+
   const [sellType, setSellType] = useState("u"); // 판매방식 u : up, d : down, n : normal
   const [data, setData] = useState(""); // 서버에서 카테고리를 받아와서 담을 dto
   const [itemType, setItemType] = useState(""); // 상품 대분류
@@ -184,6 +190,9 @@ function Selling({ history }) {
       const sendAuctionDiscountPerHout =
         sellType === "d" && !auctionRandomMethod ? auctionDiscountPerHour : "";
       const sendAuctionMinPrice = sellType === "d" ? auctionMinPrice : "";
+      const sendSelectedHour = sellType === 'n' ? '' : selectedHour;
+      const sendSelectedDay = sellType === 'n' ? '' : selectedDay;
+
 
       let dataSet = {
         sellType,
@@ -193,7 +202,9 @@ function Selling({ history }) {
         itemType: selectedItemType,
         itemDType: selectedItemDetailType,
         auctionStartPrice: auctionStartPrice,
-        auctionPeriod: sendAuctionPeriod,
+        auctionPeriodTime: sendSelectedHour,
+        auctionPeriodDay: sendSelectedDay,
+        auctionFinishDate: sendAuctionPeriod,
         auctionMaxPrice: sendAuctionMaxPrice,
         auctionRandomMethod: sendAuctionRandomMethod,
         auctionDiscountPerHour: sendAuctionDiscountPerHout,
@@ -220,7 +231,6 @@ function Selling({ history }) {
         .then((response) => {
           console.log(response);
           modalOpen.current.style = "display:block;";
-          refItemSub.current.focus();
         })
         .catch((error) => {
           console.log(error);
@@ -523,6 +533,7 @@ function Selling({ history }) {
             className={style.subBtn}
             id="openMan"
             onClick={handlerItemRegist}
+            onKeyDown={handlerEnter}
           >
             등록완료
           </button>

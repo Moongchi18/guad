@@ -1,8 +1,13 @@
 import style from "../source/SellItem.module.css";
 import NotifyWrite from "./Moodal/NotifyWrite";
 import { useRef, useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 
-function Sell_End_n() {
+function Sell_End_n({match, modalOpen}) {
+
+  const [contents, setContents] = useState('');
+  const [item, setItem] = useState('');
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -25,6 +30,28 @@ function Sell_End_n() {
       setRating("5");
     }
   };
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/${match.params.itemNum}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setItem(response.data);
+      });
+  }, []);
+
+  const handleSubmit = () => {    
+    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, {itemNum : item.itemNum, sellerEmail : item.sellerEmail, writerNickname : item.nickname, contents, starPoint : rating})
+    .then((response) => {
+      console.log(response)
+      alert("리뷰 작성이 완료되었습니다.")
+      modalOpen.current.style = "display:none;"
+  })}
+
+  const onChange = (e) => {
+    setContents(e.target.value)}
 
   return (
     <>
@@ -155,8 +182,8 @@ function Sell_End_n() {
               onClick={ratingClick}
             />
           </div>
-          <textarea placeholder="거래후기를 작성해주세요."></textarea>
-          <button type="button">작성</button>
+          <textarea placeholder="거래후기를 작성해주세요." onChange={onChange} value={contents}></textarea>
+          <button type="button" onClick={handleSubmit}>작성</button>
         </div>
         <div className={style.sell_review}>
           <h2>판매자님에 대한 리뷰</h2>

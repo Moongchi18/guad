@@ -10,6 +10,9 @@ function Up_After({ openModal, item }) {
   const [publicChats, setPublicChats] = useState([]);
   const [auctionPeriodText, setAuctionPeriodText] = useState();
 
+  console.log(publicChats)
+  console.log(item)
+
   const connect = () => {
     let Sock = new SockJS(
       `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
@@ -60,7 +63,6 @@ function Up_After({ openModal, item }) {
         }월 ${date.getDate()}일 ${date.getHours()}시까지`
       );
     }
-    connect();
   }, [item]);
 
   const modalChange2 = useRef();
@@ -70,6 +72,9 @@ function Up_After({ openModal, item }) {
   const openModal2 = () => {
     modalChange2.current.style = "display:block;";
   };
+  useEffect(() => {
+    connect();
+  }, [])
 
   return (
     <>
