@@ -52,7 +52,7 @@ function UserSellList({ history }) {
         {sellList &&
           sellList.map((list) => (
             <div className={style.sell_list}>
-              <Link to={`/sell_item/${list.sellType}/${list.itemNum}`}>
+              <Link to={`/sell_end/${list.sellType}/${list.itemNum}`}>
               <div className={style.item_bb} key={list.itemNum}>
                 <img
                   src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}

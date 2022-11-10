@@ -102,7 +102,19 @@
   width: 550px;
   margin: 0 auto;
 }
+.modalfooter3 {
+  font-family: "SBAggroB";
+  font-weight: 300;
+  width: 550px;
+  margin: 0 auto;
+}
 .modalfooter2 h3 {
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 55px 0 5px;
+  margin-bottom: 10px;
+}
+.modalfooter3 h3 {
   text-align: left;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   padding: 55px 0 5px;
@@ -125,8 +137,20 @@
   border-radius: 5px;
   margin-top: 50px;
 }
+.modalfooter3 button {
+  width: 150px;
+  height: 40px;
+  color: white;
+  background-color: #bcd7bd;
+  border-radius: 5px;
+  margin-top: 50px;
+}
 .modalfooter2 button:hover {
   background-color: #bb6363;
+  transition: 0.3s all ease;
+}
+.modalfooter3 button:hover {
+  background-color: #098060;
   transition: 0.3s all ease;
 }
 
