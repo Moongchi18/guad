@@ -126,7 +126,7 @@ function BuyConfirm({
             </div>
             <div className={style.info_c}>
               <span>
-                내 마일리지<strong>{member.mileage.toLocaleString()}</strong>
+                내 마일리지<strong>{member.mileage?.toLocaleString()}</strong>
               </span>
               <span>
                 상품 가격<strong>- {purchasePrice}</strong>
