@@ -93,8 +93,8 @@ function App() {
       <Route path="/selling" component={Selling} exact={true} />
       <Route path="/sell_item/u/:itemNum" component={Sell_Up} exact={true} />
       <Route path="/sell_item/d/:itemNum" component={Sell_Down} exact={true} />
-      <Route path="/sell_end/u" component={Sell_End_u} exact={true} />
-      <Route path="/sell_end/d" component={Sell_End_d} exact={true} />
+      <Route path="/sell_end/u/:itemNum" component={Sell_End_u} exact={true} />
+      <Route path="/sell_end/d/:itemNum" component={Sell_End_d} exact={true} />
       <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />
       <Footer />
     </>
