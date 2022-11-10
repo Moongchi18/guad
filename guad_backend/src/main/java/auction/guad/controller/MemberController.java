@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.dto.MemberDto;
+import auction.guad.security.PrincipalDetails;
 import auction.guad.service.MemberService;
 import auction.guad.vo.RequestVo;
 import io.swagger.annotations.ApiOperation;
@@ -173,5 +176,14 @@ public class MemberController {
 	public void test(@AuthenticationPrincipal User user) {
 		System.out.println(">>>>>>>>>>>>>>>>>>>" + user.getPassword());
 
+	}
+	
+	// oauth2 test
+	@GetMapping("/test/login")
+	public @ResponseBody String testLogin(Authentication authentication) {
+		System.out.println("/test/login =============");
+		PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal();
+		System.out.println("authenticationzzzzzzzzzz : " + principalDetails.getUsername());
+		return "세션정보 확인";
 	}
 }

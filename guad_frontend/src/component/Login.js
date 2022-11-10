@@ -4,30 +4,63 @@ import axios from "axios";
 import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function Login(props) {
+  // 쿠키용
+  const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"]);
+  // 아이디 저장 체크박스 체크 유무
+  const [idCheck, setIdCheck] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const ChangeCheck = () => {
+    if (idCheck === false) {
+      setIdCheck(true);
+    } else {
+      setIdCheck(false);
+    }
+  };
+  const onKeyEnter = (e) => {
+    if (e.key == "Enter") {
+      handlerSubmit();
+    }
+  };
 
-  const changeEmail = (e) => setEmail(e.target.value);
+  const changeEmail = (e) => {
+    setEmail(e.target.value);
+    // 쿠키용
+    if (idCheck === true) {
+      setCookie("rememberEmail", email, { maxAge: 2000 });
+    } else {
+      removeCookie("rememberEmail");
+    }
+  };
   const changePassword = (e) => setPassword(e.target.value);
 
   // handlerIsLogin(true);
   // console.log(isLogin)
 
   const handlerSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, { email: email, pass: password })
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, {
+        email: email,
+        pass: password,
+      })
       .then((response) => {
         sessionStorage.setItem("token", response.data);
-        axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { header: { Authorization: response.data } })
-          .then(response => {
-            console.log(response.data.nickname)
-            props.setNickName(response.data.nickname)
-            props.setIsLogin(true)
+        axios
+          .get(
+            `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+            { header: { Authorization: response.data } }
+          )
+          .then((response) => {
+            console.log(response.data.nickname);
+            props.setNickName(response.data.nickname);
+            props.setIsLogin(true);
             sessionStorage.setItem("nickname", response.data.nickname);
-          })
+          });
         alert("로그인 되었습니다.");
         props.history.push("/");
         console.log(response.data);
@@ -52,6 +85,13 @@ function Login(props) {
     console.log(props.isLogin);
     console.log(props);
     console.log("호출");
+    console.log(cookies);
+
+    // 쿠키용
+    if (cookies.rememberUserId !== undefined) {
+      setEmail(cookies.rememberUserId);
+      setIdCheck(true);
+    }
   }, []);
 
   return (
@@ -72,8 +112,19 @@ function Login(props) {
             placeholder="비밀번호"
             value={password}
             onChange={changePassword}
+            onKeyDown={onKeyEnter}
           />
-          <span className={style.check_b}>아이디저장</span>
+          <div className={style.checkId} onClick={ChangeCheck}>
+            <img
+              src={
+                idCheck
+                  ? require("../source/img/check_on.png")
+                  : require("../source/img/check.png")
+              }
+              alt="체크"
+            />
+            <p className={style.check_b}>아이디저장</p>
+          </div>
           <button
             className={[style.login, style.btn_bb].join(" ")}
             onClick={handlerSubmit}

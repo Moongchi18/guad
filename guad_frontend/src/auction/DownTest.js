@@ -9,6 +9,12 @@ const token = `Bearer ${sessionStorage.getItem("token")}`
 function AuctionTest({match}) {
     const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
 
+    const [sendDto, setSendDto] = useState({
+        itemNum: match.params.itemNum,
+        sold: ''
+    });
+    
+
     useEffect(() => {
 
         connect();

@@ -1,13 +1,21 @@
 import style from "../source/Header.module.css";
 import logo from "../source/img/head_logo.png";
 import search from "../source/img/h_search.png";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 function Header(props) {
   const [mypage, SetMypage] = useState();
   const [searchWord, setSearchWord] = useState("");
+  const SearchGo = (e) => {
+    if (e.key == "Enter") {
+      console.log("여기");
+      props.setSearchWord(searchWord)
+      setSearchWord('')
+      props.history.push("/sell_List");
+    }
+  };
 
   useEffect(() => {
     if (sessionStorage.length != 0) {
@@ -68,6 +76,7 @@ function Header(props) {
             className={style.search_b}
             value={searchWord}
             onChange={handlerSearchWord}
+            onKeyDown={SearchGo}
           />
           <img src={search} alt="검색창" className={style.search_icon} />
         </header>
@@ -75,4 +84,4 @@ function Header(props) {
     </>
   );
 }
-export default Header;
+export default withRouter(Header);

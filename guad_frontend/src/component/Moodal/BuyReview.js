@@ -1,8 +1,24 @@
+import axios from "axios";
 import { useState } from "react";
 import style from "../../source/BuyReview.module.css";
 
 function BuyReview({ modalOpen, closeModal, item }) {
+  
+  const nickname = sessionStorage.getItem("nickname");
+  const [contents, setContents] = useState('');
   const [rating, setRating] = useState("");
+  
+  const handleSubmit = () => {    
+    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, {itemNum : item.itemNum, sellerEmail : item.sellerEmail, writerNickname : nickname, contents, starPoint : rating})
+    .then((response) => {
+      console.log(response)
+      alert("리뷰 작성이 완료되었습니다.")
+      modalOpen.current.style = "display:none;"
+  })}
+
+  const onChange = (e) => {
+    setContents(e.target.value)}
+
   const ratingClick = (e) => {
     const star = e.target.name;
     if (star == "1") {
@@ -20,7 +36,7 @@ function BuyReview({ modalOpen, closeModal, item }) {
 
   return (
     <>
-      <div className={style.modal} ref={modalOpen}>
+      <div className={style.modal} ref={modalOpen} >
         <div className={style.modalcontent}>
           <div className={style.modalheader}>
             {/* 이건 닫기버튼 */}
@@ -93,10 +109,10 @@ function BuyReview({ modalOpen, closeModal, item }) {
             <p className={style.seller}>
               판매자 : <strong>{item.nickname}</strong>
             </p>
-            <textarea placeholder="거래 후기를 작성해주세요."></textarea>
+            <textarea placeholder="거래 후기를 작성해주세요." onChange={onChange} text={contents}></textarea>
           </div>
           <div className={style.modalfooter}>
-            <button type="button">작성</button>
+            <button type="button" onClick={handleSubmit}>작성</button>
           </div>
         </div>
       </div>

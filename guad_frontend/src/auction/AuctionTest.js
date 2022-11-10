@@ -64,6 +64,13 @@ function AuctionTest({match}) {
         setDto({ ...Dto, "auctionPrice": e.target.value })
     }
 
+    
+    // oauth2 test
+    useEffect(() => {
+        axios.get("http://localhost:8080/test/login")
+        .then(response => console.log(response.data))
+    }, [])
+
     return (
         <>
             <h2>입찰</h2>

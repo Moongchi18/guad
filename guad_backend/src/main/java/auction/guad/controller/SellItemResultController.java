@@ -35,7 +35,7 @@ public class SellItemResultController {
     final private SellItemResultService sellItemResultService;
     final private SellItemService sellItemService;
     final private MemberService memberService;
-    private ImgService imgService;
+    final private ImgService imgService;
     /////////////////////////////////////////////////////////////////////////////
 
     @ApiOperation(value = "거래 결과(SellItemResultDto)", notes = "모든 상품 거래 결과 입력, 파라미터 : SellItemResultDto")
@@ -46,28 +46,27 @@ public class SellItemResultController {
 
         requestTrade.setBuyerEmail(user.getUsername());
         requestTrade.setSellerEmail(sellItem.getMemberEmail());
-        
+
         MemberDto seller = memberService.selectMemberDetailByEmail(requestTrade.getSellerEmail());
         MemberDto buyer = memberService.selectMemberDetailByEmail(requestTrade.getBuyerEmail());
-        
+
         System.out.println("ggggggggggggggg" + seller);
         System.out.println("ggggggggggggggg" + buyer);
-        System.out.println(seller==buyer);
+        System.out.println(seller.getEmail().equals(buyer.getEmail()));
         if (seller.getEmail().equals(buyer.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } else {
-            
-        requestTrade.setBuyerPhone(buyer.getPhone());
-        requestTrade.setSellerPhone(seller.getPhone());
-        
-        System.out.println("tttttttttttttttttttttttttttttt" + requestTrade);
-        boolean result = sellItemResultService.normalTrade(requestTrade);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
-        
+
+            requestTrade.setBuyerPhone(buyer.getPhone());
+            requestTrade.setSellerPhone(seller.getPhone());
+
+            System.out.println("tttttttttttttttttttttttttttttt" + requestTrade);
+            boolean result = sellItemResultService.normalTrade(requestTrade);
+            return ResponseEntity.status(HttpStatus.OK).body(true);
+
         }
-        
-}
-        
+
+    }
 
     @ApiOperation(value = "거래결과 조회(buyerEmail)", notes = "buyerEmail을 기준으로 거래결과 조회, 파라미터 : buyerEmail")
     @GetMapping("/sell/{itemNum}")
@@ -90,8 +89,8 @@ public class SellItemResultController {
         List<ImgDto> ImgList = new ArrayList<>();
         return list;
     }
-    
-    @ApiOperation(value = "판매 조회", notes = "마이페이지에서 내 판매내역 조회")
+
+    @ApiOperation(value = "판매내역 조회", notes = "마이페이지에서 내 판매내역 조회")
     @RequestMapping(value = "/selllist", method = RequestMethod.GET)
     public List<SellItemDto> selectMySellList(@AuthenticationPrincipal User user)
             throws Exception {
@@ -100,7 +99,23 @@ public class SellItemResultController {
         System.out.println("list2>>>>>>>>>>>>>>>>>>>:" + list2);
         return list2;
     }
-    
-    
+
+    @ApiOperation(value = "구매내역 전체 조회", notes = "마이페이지에서 내 email로 구매내역 조회")
+    @RequestMapping(value = "/buylistd", method = RequestMethod.GET)
+    public List<SellItemResultDto> selectMyBuyListDe(@AuthenticationPrincipal User user)
+            throws Exception {
+        List<SellItemResultDto> list3 = sellItemResultService.selectMyBuyListDe(user.getUsername());
+        List<ImgDto> ImgList = new ArrayList<>();
+        return list3;
+    }
+
+    @ApiOperation(value = "판매내역 전체 조회", notes = "마이페이지에서 내 판매내역 조회")
+    @RequestMapping(value = "/selllistd", method = RequestMethod.GET)
+    public List<SellItemDto> selectMySellListDe(@AuthenticationPrincipal User user)
+            throws Exception {
+        List<SellItemDto> list4 = sellItemResultService.selectMySellListDe(user.getUsername());
+        List<ImgDto> ImgList = new ArrayList<>();
+        return list4;
+    }
 
 }

@@ -66,6 +66,17 @@ public class SellItemResultServiceImpl implements SellItemResultService{
     public List<SellItemDto> selectMySellList(String memberEmail) throws Exception {
               return sellItemResultMapper.selectMySellList(memberEmail);
     }
+    
+    @Override
+    public List<SellItemResultDto> selectMyBuyListDe(String memberEmail) throws Exception {
+              return sellItemResultMapper.selectMyBuyListDe(memberEmail);
+    }
+                
+    
+    @Override
+    public List<SellItemDto> selectMySellListDe(String memberEmail) throws Exception {
+              return sellItemResultMapper.selectMySellListDe(memberEmail);
+    }    
 	
 
 }

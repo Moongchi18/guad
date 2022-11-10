@@ -8,8 +8,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import auction.guad.dto.MemberDto;
 import auction.guad.mapper.MemberMapper;
@@ -18,7 +21,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Service
 //public class MemberServiceImpl extends DefaultOAuth2UserService  implements MemberService {
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl extends DefaultOAuth2UserService implements MemberService {
 
 	private MemberMapper memberMapper;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -28,7 +31,8 @@ public class MemberServiceImpl implements MemberService {
 		this.memberMapper = memberMapper;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
-
+	
+	// login
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberDto member = memberMapper.loginContainPass(username);
@@ -40,11 +44,32 @@ public class MemberServiceImpl implements MemberService {
 		return new User(member.getEmail(), member.getPass(), true, true, true, true, new PrincipalDetails(member).getAuthorities());
 	}
 	
-//	@Override
-//	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-//		System.out.println(userRequest);
-//		return super.loadUser(userRequest);
-//	}
+	// OAuth2
+	@Override
+	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+		System.out.println("userRequest : " + userRequest);
+		OAuth2User oauth2User = super.loadUser(userRequest);
+		
+		String provider = userRequest.getClientRegistration().getClientId();
+		String providerId = oauth2User.getAttribute("sub");
+		String username = provider+"_"+providerId;
+		String password = bCryptPasswordEncoder.encode("test");
+		String email = oauth2User.getAttribute("email");
+		
+		MemberDto member;
+		try {
+			member = memberMapper.selectMemberDetailByEmail(email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		if(member == null) {
+//			MemberDto mem = new MemberDto(username, email, )
+//		}
+		
+		return super.loadUser(userRequest);
+	}
 
 	@Override
 	public ArrayList<MemberDto> managerSelectMemberListExceptPass() throws Exception {
