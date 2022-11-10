@@ -184,6 +184,9 @@ function Selling({ history }) {
       const sendAuctionDiscountPerHout =
         sellType === "d" && !auctionRandomMethod ? auctionDiscountPerHour : "";
       const sendAuctionMinPrice = sellType === "d" ? auctionMinPrice : "";
+      const sendSelectedHour = sellType === 'n' ? '':selectedHour;
+      const sendSelectedDay = sellType === 'n' ? '':selectedDay;
+      
 
       let dataSet = {
         sellType,
@@ -193,7 +196,9 @@ function Selling({ history }) {
         itemType: selectedItemType,
         itemDType: selectedItemDetailType,
         auctionStartPrice: auctionStartPrice,
-        auctionPeriod: sendAuctionPeriod,
+        auctionPeriodTime: sendSelectedHour,
+        auctionPeriodDay: sendSelectedDay,
+        auctionFinishDate: sendAuctionPeriod,
         auctionMaxPrice: sendAuctionMaxPrice,
         auctionRandomMethod: sendAuctionRandomMethod,
         auctionDiscountPerHour: sendAuctionDiscountPerHout,
