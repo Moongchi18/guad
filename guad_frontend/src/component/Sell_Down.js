@@ -14,7 +14,7 @@ function Sell_Down({ match }) {
   const [item, setItem] = useState({});
   const [imgList, setImgList] = useState([]);
 
-  console.log(item)
+  console.log(item);
 
   useEffect(() => {
     axios
@@ -26,8 +26,8 @@ function Sell_Down({ match }) {
         setItem(response.data);
         const date = new Date(
           response.data.auctionFinishDate.slice(0, 10) +
-          " " +
-          response.data.auctionFinishDate.slice(12, 19)
+            " " +
+            response.data.auctionFinishDate.slice(12, 19)
         );
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
@@ -36,7 +36,8 @@ function Sell_Down({ match }) {
 
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${date.getMonth() + 1
+          `${date.getFullYear()}년 ${
+            date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
       })
@@ -114,16 +115,15 @@ function Sell_Down({ match }) {
 
   //setInterval(handlerBid, 5000);
 
-  // useEffect(() => {
-  //   const id = setInterval(currentTimer, 1000);
-  //   const id2 = setInterval(() => handlerBid(), 1000);
-  //   return () => {
-  //     clearInterval(id2);
-  //     clearInterval(id);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const id = setInterval(currentTimer, 1000);
+    const id2 = setInterval(() => handlerBid(), 1000);
+    return () => {
+      clearInterval(id2);
+      clearInterval(id);
+    };
+  }, []);
 
-  //   clearInterval(startTimer());
   ///////////////////////////////////
   return (
     <>
