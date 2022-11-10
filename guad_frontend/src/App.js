@@ -30,6 +30,7 @@ import MypageCheck from "./component/Mypage/MypageCheck";
 import Sell_End_u from "./component/Sell_End_u";
 import Sell_End_d from "./component/Sell_End_d";
 import Mypage_SellList from "./component/Mypage/Mypage_SellList";
+import Sell_End_n from "./component/Sell_End_n";
 
 function App() {
   console.log(sessionStorage.getItem("token"));
@@ -37,7 +38,7 @@ function App() {
     sessionStorage.getItem("token") ? true : false
   );
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
-  const [searchWord, setSearchWord] = useState('');
+  const [searchWord, setSearchWord] = useState("");
 
   // function handlerIsLogin() {
   //   setIsLogin(true);
@@ -56,7 +57,12 @@ function App() {
 
   return (
     <>
-      <Header isLogin={isLogin} setIsLogin={setIsLogin} nickName={nickName} setSearchWord={setSearchWord}/>
+      <Header
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+        nickName={nickName}
+        setSearchWord={setSearchWord}
+      />
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route
         path="/login"
@@ -86,8 +92,16 @@ function App() {
       <Route path="/manager/notify" component={ManagerNotify} exact={true} />
       <Route path="/join" component={Join} exact={true} />
       <Route path="/join_g" component={JoinG} exact={true} />
-      <Route path="/sell_list" render={(props) => <SellList searchWord={searchWord} setSearchWord={setSearchWord} {...props} />}
-      // component={SellList} exact={true} 
+      <Route
+        path="/sell_list"
+        render={(props) => (
+          <SellList
+            searchWord={searchWord}
+            setSearchWord={setSearchWord}
+            {...props}
+          />
+        )}
+        // component={SellList} exact={true}
       />
       <Route path="/sell_item/n/:itemNum" component={SellItem} exact={true} />
       <Route path="/selling" component={Selling} exact={true} />
@@ -95,6 +109,7 @@ function App() {
       <Route path="/sell_item/d/:itemNum" component={Sell_Down} exact={true} />
       <Route path="/sell_end/u" component={Sell_End_u} exact={true} />
       <Route path="/sell_end/d" component={Sell_End_d} exact={true} />
+      <Route path="/sell_end/n" component={Sell_End_n} exact={true} />
       <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />
       <Footer />
     </>

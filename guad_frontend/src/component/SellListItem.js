@@ -30,7 +30,7 @@ function SellListItem({ item }) {
           <span className={style.tex3}>
             {item.sellType === "n" ? "판매가격" : "경매시작가"}
             <strong>
-              {item.sellType === "n" ? item.itemPrice : item.auctionStartPrice}
+              {item.sellType === "n" ? item.itemPrice.toLocaleString() : item.auctionStartPrice.toLocaleString()}
             </strong>
           </span>
         </Link>

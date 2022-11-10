@@ -81,6 +81,7 @@ function MypageInfo({ history }) {
         mileage: response.data.mileage,
       });
       setAddress(response.data.address)
+      setPhone(response.data.phone)
       setUserEmail(response.data.email);
     });
   }, []);
@@ -113,6 +114,8 @@ function MypageInfo({ history }) {
   const onToggleModal = () => {
     setIsOpen((prev) => !prev); // false > true
   };
+  console.log(address)
+  console.log(phone)
   return (
     <>
       <MoodalMileage />
@@ -128,7 +131,7 @@ function MypageInfo({ history }) {
                 <strong>{data.nickname}</strong>님 환영합니다!
               </h3>
               <h3>
-                현재마일리지 <strong>{data.mileage}</strong>원
+                현재 마일리지 <strong>{data.mileage.toLocaleString()}</strong>원
               </h3>
             </div>
             <div className={style.Mbox_buttoni}>

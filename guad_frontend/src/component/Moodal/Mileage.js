@@ -23,9 +23,19 @@ function Mileage({ closeModal, modalChange, history, handlerChange, isChange }) 
   }, [isChange]);
 
   const changeMileage = (e) => {
-    setChargeMileage(e.target.value);
-    setTotalMileage(data.mileage*1 + e.target.value*1);
+     setTotalMileage(data.mileage*1 + e.target.value*1);
+     const value = e.target.value;
+     if (typeof value === 'string') {
+       if (value.includes(',')) {
+         setChargeMileage(+value.replaceAll(',', '')); // 문자로 들어온 경우 숫자로 바꿔준 후 state에 저장
+     } else {
+         setChargeMileage(+value); // 숫자는 숫자인 채로 state에 저장
+     }
+   }
   };
+  
+
+  
 
   const handleCharge = () => {
     console.log(userEmail, chargeMileage)
@@ -65,17 +75,17 @@ function Mileage({ closeModal, modalChange, history, handlerChange, isChange }) 
             <div className={style.mileageBox}>
               <div className={style.mileage}>
                 <h3 className={style.title}>기존 마일리지</h3>
-                <h3 className={style.number}>{data.mileage}</h3>
+                <h3 className={style.number}>{data.mileage.toLocaleString()}</h3>
               </div>
               <div className={style.mileage}>
                 <h3 className={style.title}>충전 마일리지</h3>
-                <h3 className={style.number}>{chargeMileage}</h3>
+                <h3 className={style.number}>{chargeMileage.toLocaleString()}</h3>
               </div>
             </div>
 
             <div className={style.total}>
               <h3 className={style.title}>총 마일리지</h3>
-              <h3 className={style.number}>{totalMileage}</h3>
+              <h3 className={style.number}>{totalMileage.toLocaleString()}</h3>
             </div>
           </div>
           <div class={style.modalfooter}>

@@ -1,17 +1,12 @@
 import style from "../../source/Mypage.module.css";
 import { useEffect, useState, useRef } from "react";
-import sell_1 from "../../source/img/selling_item_ex1.png";
-import sell_2 from "../../source/img/selling_item_ex2.png";
 import axios from "axios";
-import BuyReview from "../Moodal/BuyReview";
 
 import "../../source/test.css";
 import { Link } from "react-router-dom";
 
 function UserSellList({ history }) {
   const [sellList, setSellList] = useState([]);
-
-  // const [ btnColor, setBtnColor ] = useState('');
 
   useEffect(() => {
     axios.get(`http://localhost:8080/selllist`).then((response) => {
@@ -57,6 +52,7 @@ function UserSellList({ history }) {
         {sellList &&
           sellList.map((list) => (
             <div className={style.sell_list}>
+              <Link to={`/sell_item/${list.sellType}/${list.itemNum}`}>
               <div className={style.item_bb} key={list.itemNum}>
                 <img
                   src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
@@ -68,6 +64,7 @@ function UserSellList({ history }) {
                   className={style.del_icon}
                 ></img>
               </div>
+              </Link>
               <div className={style.sell_list_info}>
                 <h3>
                   <strong>상품명 : </strong>
@@ -75,7 +72,7 @@ function UserSellList({ history }) {
                 </h3>
                 <h3>
                   <strong>가격 : </strong>
-                  {list.itemPrice}
+                  {list.itemPrice.toLocaleString()}
                 </h3>
                 <h3>
                   <strong>주소 : </strong>

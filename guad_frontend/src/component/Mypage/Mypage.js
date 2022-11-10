@@ -73,7 +73,7 @@ function Mypage() {
                 <strong>{data.nickname}</strong>님 환영합니다!
               </h3>
               <h3>
-                현재마일리지 <strong>{data.mileage}</strong>원
+                현재 마일리지 <strong>{data.mileage.toLocaleString()}</strong>원
               </h3>
             </div>
             <div className={style.Mbox_button}>
