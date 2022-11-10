@@ -37,6 +37,7 @@ function Sell_Down({ match }) {
         imgList.push(response.data.itemImgNameSub2);
         imgList.push(response.data.itemImgNameSub3);
         setImgList(imgList);
+
       })
       .catch((error) => console.log(error));
   }, []);
@@ -58,11 +59,11 @@ function Sell_Down({ match }) {
   };
 
   //////////////웹소캣//////////////
-const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
+  const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
 
   useEffect(() => {
     connect();
-  }, [auctionCurrentPrice]);
+  }, []);
 
   const connect = () => {
     let Sock = new SockJS(
@@ -100,26 +101,29 @@ const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
 
 
   //////////////타이머//////////////
-const [timer, setTimer] = useState("00분00초");
+  const [timer, setTimer] = useState("00분00초");
 
 
-const currentTimer = () => {
-  const date = new Date();
-  const minutes = String(date.getHours()).padStart(2,"0");
-  const seconds = String(date.getSeconds()).padStart(2,"0");
-  setTimer(`${60-minutes}분${60-seconds}초`)
-}
+  const currentTimer = () => {
+    const date = new Date();
+    const minutes = String(date.getHours()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+    setTimer(`${60 - minutes}분${60 - seconds}초`)
+  }
 
-const startTimer = () => {
-  setInterval(currentTimer, 1000);
-  setInterval(handlerBid, 1000);
-}
 
-startTimer()
-///////////////////////////////////
+    //setInterval(handlerBid, 5000);
+
+  useEffect(() => {
+    const id = setInterval(currentTimer, 1000);
+    setInterval(() => handlerBid(), 1000);
+  }, []);
+
+  //   clearInterval(startTimer());
+  ///////////////////////////////////
   return (
     <>
-
+    <button onClick={handlerBid}>여기여기여기여기</button>
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
@@ -216,9 +220,9 @@ startTimer()
 
 
             </span >
-    <p>
-      남은 경매 시간 : <strong>{auctionPeriodText}</strong>
-    </p>
+            <p>
+              남은 경매 시간 : <strong>{auctionPeriodText}</strong>
+            </p>
           </div >
         </div >
       </div >
