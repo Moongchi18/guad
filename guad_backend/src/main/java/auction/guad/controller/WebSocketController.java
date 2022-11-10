@@ -89,7 +89,7 @@ public class WebSocketController {
 
 		
 		int CurrentPrice;
-		LocalDate now = LocalDate.now(); //현재날짜
+		Date now = new Date(); //현재날짜
 		int startday;	String token = Authorization.substring(7);
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
@@ -110,7 +110,8 @@ public class WebSocketController {
 		sellItem.getAuctionPeriod();
 		
 		Date now4 = new Date();
-		boolean result = now4.before(sellItem.getWriteDate());
+		
+		boolean result = now.before(sellItem.getAuctionPeriod()); //현재시각과 작성날짜 비교
 		
 		System.out.println(">>>>>>>>>>>>>>>>"+now);
 //		System.out.println(">>>>>>>>>>>>>>>>"+strNewDtFormat);
@@ -120,8 +121,9 @@ public class WebSocketController {
 		System.out.println(">>>>>>>>>>>>>>>>"+sellItem.getWriteDate().getHours());
 		System.out.println(">>>>>>>>>>>>>>>>"+(sellItem.getWriteDate().getHours()+100));
 		System.out.println(">>>>>>>>>>>>>>>>"+result);
-		   now4.setDate(sellItem.getWriteDate().getDate());
-		   now4.getTime();
+		   
+		now4.setDate(sellItem.getWriteDate().getDate());
+		now4.getTime();
 		   
 		   
 //		CurrentPrice = StratPrice - (*(Discount));
