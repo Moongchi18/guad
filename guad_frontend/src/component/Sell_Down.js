@@ -24,12 +24,13 @@ function Sell_Down({ match }) {
         setItem(response.data);
         const date = new Date(
           response.data.auctionPeriod.slice(0, 10) +
-          " " +
-          response.data.auctionPeriod.slice(12, 19)
+            " " +
+            response.data.auctionPeriod.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${date.getMonth() + 1
+          `${date.getFullYear()}년 ${
+            date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
 
@@ -37,7 +38,6 @@ function Sell_Down({ match }) {
         imgList.push(response.data.itemImgNameSub2);
         imgList.push(response.data.itemImgNameSub3);
         setImgList(imgList);
-
       })
       .catch((error) => console.log(error));
   }, []);
@@ -90,29 +90,28 @@ function Sell_Down({ match }) {
 
   const onError = (err) => {
     console.log(err);
-  }
-
+  };
 
   const handlerBid = () => {
     // 서버에서 데이터를 보낼 때
-    stompClient.send(`/pub/sellitem/auction/d/${match.params.itemNum}`, { Authorization: token }, JSON.stringify(auctionCurrentPrice));
-  }
-
-
+    stompClient.send(
+      `/pub/sellitem/auction/d/${match.params.itemNum}`,
+      { Authorization: token },
+      JSON.stringify(auctionCurrentPrice)
+    );
+  };
 
   //////////////타이머//////////////
   const [timer, setTimer] = useState("00분00초");
-
 
   const currentTimer = () => {
     const date = new Date();
     const minutes = String(date.getHours()).padStart(2, "0");
     const seconds = String(date.getSeconds()).padStart(2, "0");
-    setTimer(`${60 - minutes}분${60 - seconds}초`)
-  }
+    setTimer(`${60 - minutes}분${60 - seconds}초`);
+  };
 
-
-    //setInterval(handlerBid, 5000);
+  //setInterval(handlerBid, 5000);
 
   useEffect(() => {
     const id = setInterval(currentTimer, 1000);
@@ -123,7 +122,7 @@ function Sell_Down({ match }) {
   ///////////////////////////////////
   return (
     <>
-    <button onClick={handlerBid}>여기여기여기여기</button>
+      <button onClick={handlerBid}>여기여기여기여기</button>
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
@@ -185,7 +184,6 @@ function Sell_Down({ match }) {
             판매자 : <strong>{item.nickname}</strong>
           </span>
           <div className={style.start_bb}>
-
             <p className={style.time_check}>
               다음 내림까지 : <strong>{timer}</strong>
             </p>
@@ -194,7 +192,7 @@ function Sell_Down({ match }) {
             <span className={style.deli_tag}>
               {item.auctionStartPrice?.toLocaleString()}
             </span>
-          </div >
+          </div>
           <div className={style.deli_bb}>
             <span className={style.deli_name}>최저 경매가</span>
             <span className={style.deli_tag}>
@@ -215,17 +213,17 @@ function Sell_Down({ match }) {
               입찰 참여
             </button>
             <span className={style.bb_date}>
-
-              현재 할인율: <strong>{(100 - auctionCurrentPrice / item.auctionStartPrice * 100)}%</strong>
-
-
-            </span >
+              현재 할인율:{" "}
+              <strong>
+                {100 - (auctionCurrentPrice / item.auctionStartPrice) * 100}%
+              </strong>
+            </span>
             <p>
               남은 경매 시간 : <strong>{auctionPeriodText}</strong>
             </p>
-          </div >
-        </div >
-      </div >
+          </div>
+        </div>
+      </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
         <p>{item.itemContents}</p>
