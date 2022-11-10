@@ -76,7 +76,7 @@
 		ITEM_CONTENTS, ITEM_PRICE, ITEM_TYPE,
 		ITEM_D_TYPE, AUCTION_START_PRICE,
 		AUCTION_MAX_PRICE, AUCTION_MIN_PRICE,
-		AUCTION_PERIOD,
+		AUCTION_PERIOD_TIME, AUCTION_PERIOD_DAY, AUCTION_FINISH_DATE,
 		AUCTION_RANDOM_METHOD, AUCTION_DISCOUNT_PER_HOUR)
 		VALUES
 		(#{sellType},
@@ -85,8 +85,11 @@
 		, #{itemDType}, #{auctionStartPrice},
 		#{auctionMaxPrice},
 		#{auctionMinPrice},
-		#{auctionPeriod}, #{auctionRandomMethod},
+		#{auctionPeriodTime},
+		#{auctionPeriodDay},
+		#{auctionFinishDate}, #{auctionRandomMethod},
 		#{auctionDiscountPerHour})
+		
 	</insert>
 
 	<select id="selectSellItemDetail" parameterType="int"

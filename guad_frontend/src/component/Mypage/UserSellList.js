@@ -52,6 +52,7 @@ function UserSellList({ history }) {
         {sellList &&
           sellList.map((list) => (
             <div className={style.sell_list}>
+              <Link to={`/sell_end/${list.sellType}/${list.itemNum}`}>
               <div className={style.item_bb} key={list.itemNum}>
                 <img
                   src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
@@ -63,6 +64,7 @@ function UserSellList({ history }) {
                   className={style.del_icon}
                 ></img>
               </div>
+              </Link>
               <div className={style.sell_list_info}>
                 <h3>
                   <strong>상품명 : </strong>

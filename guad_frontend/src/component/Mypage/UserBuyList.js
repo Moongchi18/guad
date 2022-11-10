@@ -6,11 +6,12 @@ import moment from "moment";
 import "moment/locale/ko"; //대한민국
 import { Link } from "react-router-dom";
 
-function UserBuyList({ history }) {
+function UserBuyList({}) {
   const [buyList, setBuyList] = useState([]);
   var tempDate = moment().format("YYYY-MM-DD");
   buyList.soldDate = tempDate;
 
+  console.log(buyList[1]);
   useEffect(() => {
     axios
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/buylist`)
@@ -42,12 +43,14 @@ function UserBuyList({ history }) {
         {buyList &&
           buyList.map((list, index) => (
             <div className={style.buy_list}>
+              <Link to={`/sell_end/${list.sellType}/${list.itemNum}`}>
               <div className={style.item_bb} key={list.itemNum}>
                 <img
                   src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
                   alt={"img" + list.itemNum}
                 />
               </div>
+              </Link>
               <div className={style.buy_list_info}>
                 <h3>
                   <strong>상품명 : </strong>

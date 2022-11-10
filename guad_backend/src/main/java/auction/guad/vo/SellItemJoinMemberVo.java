@@ -22,8 +22,13 @@ public class SellItemJoinMemberVo {
 	private int auctionStartPrice;
 	private int auctionMaxPrice;
 	private int auctionMinPrice;
+	
 	private long currentPrice;  //현재가를 보내기 위해 추가하였습니다.
-	private Timestamp auctionPeriod;
+	
+	private int auctionPeriodTime;
+	private int auctionPeriodDay;
+	private Date auctionFinishDate;
+	
 	private boolean auctionRandomMethod;
 	private int auctionDiscountPerHour;
 	
