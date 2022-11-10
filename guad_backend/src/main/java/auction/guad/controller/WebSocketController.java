@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.Header;
@@ -22,7 +21,10 @@ import auction.guad.dto.MemberDto;
 import auction.guad.security.JwtTokenUtil;
 import auction.guad.service.AuctionService;
 import auction.guad.service.MemberService;
+import auction.guad.service.SellItemService;
+import auction.guad.vo.SellItemJoinMemberVo;
 import io.jsonwebtoken.Claims;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -65,7 +67,7 @@ public class WebSocketController {
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
 		auction.setNickname(member.getNickname());
 		auction.setMemberEmail(member.getEmail());
-		int bidNum = aucService.tryAuction(auction);
+		int bidNum = auctionService.tryAuction(auction);
         if (bidNum > 0) {
          simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()), "/sub/"+itemNum+"/bidlist", auction);
          bid = auction.getAuctionPrice();
@@ -73,26 +75,7 @@ public class WebSocketController {
         } return null;
 }
 	
-	
-	@MessageMapping("/naelim/{itemNum}")
-	@SendTo("/sub/naelim/{itemNum}")
-	public Auction aucNaelim(@Payload Auction auction, @DestinationVariable int itemNum, @Header String Authorization) throws Exception {
-		System.out.println("<<<<<<<<<<"+auction);
-		String token = Authorization.substring(7);
-		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
-		MemberDto member = memberService.loginContainPass(claims.getSubject());
-		auction.setNickname(member.getNickname());
-		auction.setMemberEmail(member.getEmail());
-		int bidNum = auctionService.tryAuction(auction);
-        if (bidNum > 0) {
-         simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()), "/sub/"+itemNum+"/bidlist", auction);
-         bid = auction.getAuctionPrice();
-        return auction;
-<<<<<<< HEAD
-        }
-        return null;
-}
-	
+
 	
 
 	
@@ -185,10 +168,9 @@ public class WebSocketController {
 //		}
 //        
 //}	
-=======
-        } return null;
-}	
->>>>>>> 814a01799f1fa482f39b654420ab5c8aa298cdf8
+
+
+
 	
 
 }
