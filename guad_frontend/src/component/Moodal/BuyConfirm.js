@@ -114,8 +114,8 @@ function BuyConfirm({
           <div className={style.modalbody2}>
             <div className={style.info_b}>
               <img
-                src={require("../../source/img/item01.png")}
-                alt="상품이미지"
+                src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+                alt={"img" + item.notifyNum}
               />
               <div className={style.info_in}>
                 <span className={style.info1}>상품 정보</span>
