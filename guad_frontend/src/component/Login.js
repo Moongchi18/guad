@@ -86,13 +86,14 @@ function Login(props) {
     console.log(props);
     console.log("호출");
     console.log(cookies);
+    console.log(idCheck);
 
     // 쿠키용
     if (cookies.rememberUserId !== undefined) {
       setEmail(cookies.rememberUserId);
       setIdCheck(true);
     }
-  }, []);
+  }, [idCheck]);
 
   return (
     <>
