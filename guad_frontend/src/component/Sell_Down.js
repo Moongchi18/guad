@@ -115,14 +115,14 @@ function Sell_Down({ match }) {
 
   //setInterval(handlerBid, 5000);
 
-  useEffect(() => {
-    const id = setInterval(currentTimer, 1000);
-    const id2 = setInterval(() => handlerBid(), 1000);
-    return () => {
-      clearInterval(id2);
-      clearInterval(id);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const id = setInterval(currentTimer, 1000);
+  //   const id2 = setInterval(() => handlerBid(), 1000);
+  //   return () => {
+  //     clearInterval(id2);
+  //     clearInterval(id);
+  //   }
+  // }, []);
 
 
   ///////////////////////////////////
