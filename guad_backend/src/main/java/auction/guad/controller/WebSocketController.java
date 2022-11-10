@@ -1,6 +1,8 @@
 package auction.guad.controller;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +14,6 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.controller.model.Auction;
@@ -31,10 +32,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSocketController {
 
-    @Autowired
-    AuctionService aucService;
-    SellItemService sellItemService;
-    
+	@Autowired
+//	private AuctionService auctionService;
+	
+    private final AuctionService auctionService;
+    private final SellItemService sellItemService;
 	private final SimpMessagingTemplate simpMessagingTemplate;
 	private final MemberService memberService;
 	private final JwtTokenUtil jwtTokenUtil;
@@ -68,7 +70,7 @@ public class WebSocketController {
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
 		auction.setNickname(member.getNickname());
 		auction.setMemberEmail(member.getEmail());
-		int bidNum = aucService.tryAuction(auction);
+		int bidNum = auctionService.tryAuction(auction);
         if (bidNum > 0) {
          simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()), "/sub/"+itemNum+"/bidlist", auction);
          bid = auction.getAuctionPrice();
@@ -82,31 +84,71 @@ public class WebSocketController {
 	
 
 		
-	
+
 	
 	
 	@ApiOperation(value = "내림 경매 상세 조회", notes = "등록된 게시물 상세 정보를 조회")
-	@MessageMapping("/sellitem/d/{itemNum}")
-	@SendTo("/sub/sellitem/d/{itemNum}")
-	public ResponseEntity<SellItemJoinMemberVo> openNaelimSellItemDetail(@DestinationVariable int itemNum, @Header String Authorization) throws Exception {
+	@MessageMapping("/sellitem/auction/d/{itemNum}")
+	@SendTo("/sub/sellitem/auction/d/{itemNum}")
+	public ResponseEntity<Integer> openNaelimSellItemDetail(@Payload @DestinationVariable int itemNum, @Header String Authorization) throws Exception {
+		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
+
 		
-		String token = Authorization.substring(7);
+		int CurrentPrice;
+		LocalDate now = LocalDate.now(); //현재날짜
+		int startday;	String token = Authorization.substring(7);
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
+		//날짜 형식 지정
+		SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+		//날짜를 지정된 형식으로 변경
+//		String strNewDtFormat = newDtFormat.format(sellItem.getWriteDate().getDay());
+//		String nowNewDtFormat = newDtFormat.format(now);
+		//문자열을 데이트 형식으로 변경해줌
+//		Date date1 = newDtFormat.parse(strNewDtFormat);
+//		Date date2 = newDtFormat.parse(nowNewDtFormat);
+	
 		
-		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
+		int Discount = sellItem.getAuctionDiscountPerHour();
+		int MinPrice = sellItem.getAuctionMinPrice();
+		int StartPrice = sellItem.getAuctionStartPrice();
+		sellItem.getWriteDate();
+		sellItem.getAuctionPeriod();
 		
-		sellItem.setNickname(member.getNickname());
-		sellItem.setMemberEmail(member.getEmail());
+		Date now4 = new Date();
+		boolean result = now4.before(sellItem.getWriteDate());
 		
-		int bidNum = aucService.tryAuction(auction);
+		System.out.println(">>>>>>>>>>>>>>>>"+now);
+//		System.out.println(">>>>>>>>>>>>>>>>"+strNewDtFormat);
+		System.out.println(">>>>>>>>>>>>>>>>"+sellItem.getWriteDate());
+//		System.out.println(">>>>>>>>>>>>>>>>"+nowNewDtFormat);
+		System.out.println(">>>>>>>>>>>>>>>>"+sellItem.getWriteDate().getDate());
+		System.out.println(">>>>>>>>>>>>>>>>"+sellItem.getWriteDate().getHours());
+		System.out.println(">>>>>>>>>>>>>>>>"+(sellItem.getWriteDate().getHours()+100));
+		System.out.println(">>>>>>>>>>>>>>>>"+result);
+		   now4.setDate(sellItem.getWriteDate().getDate());
+		   now4.getTime();
+		   
+		   
+//		CurrentPrice = StratPrice - (*(Discount));
 		
-        if (bidNum > 0) {
-         simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()), "/sub/bidlist/"+itemNum, auction);
-         bid = auction.getAuctionPrice();
-        return auction;
-        } 
-        return null;
+//		if (CurrentPrice == 0) {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//		} else {
+//			return ResponseEntity.status(HttpStatus.OK).body(CurrentPrice);
+//		}
+		   return null;
+		   
+	}
+
+
+		
+//        if (bidNum > 0) {
+//         simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()), "/sub/bidlist/"+itemNum, auction);
+//         bid = auction.getAuctionPrice();
+//        return auction;
+//        } 
+//        return null;
         
         
 //        SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
@@ -128,7 +170,7 @@ public class WebSocketController {
 //			return ResponseEntity.status(HttpStatus.OK).body(sellItem);
 //		}
 //        
-}	
+//}	
 	
 	
 	

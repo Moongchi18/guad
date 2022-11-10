@@ -52,13 +52,16 @@
 	<!-- 모든 상품목록 가져오기 -->
 	<select id="selectSellItemList"
 		resultType="auction.guad.dto.SellItemDto">
-		
+
 		SELECT S.*, I.ITEM_IMG_NAME AS ITEM_IMG_NAME, M.MIN_IMG_NUM
-		FROM SELL_ITEM S JOIN MEMBER M ON S.MEMBER_EMAIL = M.EMAIL
-		LEFT JOIN IMG I ON S.ITEM_NUM = I.ITEM_NUM JOIN
-		(SELECT MIN(IMG_NUM) AS 'MIN_IMG_NUM' FROM IMG GROUP BY ITEM_NUM) M ON
+		FROM SELL_ITEM S
+		JOIN MEMBER M ON S.MEMBER_EMAIL = M.EMAIL
+		LEFT JOIN IMG I ON S.ITEM_NUM
+		= I.ITEM_NUM JOIN
+		(SELECT MIN(IMG_NUM) AS 'MIN_IMG_NUM' FROM IMG GROUP
+		BY ITEM_NUM) M ON
 		(I.IMG_NUM = M.MIN_IMG_NUM)
-        WHERE S.DELETE_YN = 'n' AND M.DELETE_YN != 'y'
+		WHERE S.DELETE_YN = 'n' AND M.DELETE_YN != 'y'
 		ORDER BY S.ITEM_NUM DESC;
 
 	</select>
@@ -89,24 +92,27 @@
 	<select id="selectSellItemDetail" parameterType="int"
 		resultType="auction.guad.vo.SellItemJoinMemberVo">
 		SELECT S.*, M.*, I.ITEM_IMG_NAME, M.MIN_IMG_NUM
-		FROM SELL_ITEM S LEFT JOIN MEMBER M ON
+		FROM SELL_ITEM S LEFT
+		JOIN MEMBER M ON
 		S.MEMBER_EMAIL = M.EMAIL
-		LEFT JOIN IMG I ON S.ITEM_NUM = I.ITEM_NUM JOIN
-		(SELECT MIN(IMG_NUM) AS 'MIN_IMG_NUM' FROM IMG GROUP BY ITEM_NUM) M ON
+		LEFT JOIN IMG I ON S.ITEM_NUM
+		= I.ITEM_NUM JOIN
+		(SELECT MIN(IMG_NUM) AS 'MIN_IMG_NUM' FROM IMG GROUP
+		BY ITEM_NUM) M ON
 		(I.IMG_NUM = M.MIN_IMG_NUM)
 		WHERE
-		S.ITEM_NUM = #{itemNum}
-	
-	
-<!-- 	SELECT *
-      FROM SELL_ITEM I LEFT JOIN MEMBER M ON
-      I.MEMBER_EMAIL = M.EMAIL
-      WHERE
-      ITEM_NUM = #{itemNum} -->
-		
-		
+		S.ITEM_NUM =
+		#{itemNum}
+
+
+		<!-- SELECT * FROM SELL_ITEM I LEFT JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL 
+			WHERE ITEM_NUM = #{itemNum} -->
+
+
 
 	</select>
+
+
 
 	<update id="updateSellItem"
 		parameterType="auction.guad.dto.SellItemDto">
@@ -137,13 +143,9 @@
 	</delete>
 
 	<!-- 내 판매내역 조회 -->
-<!-- 	<select id="selectMySellList"
-		parameterType="auction.guad.vo.RequestTradeVo">
-		SELECT * FROM SELL_ITEM I JOIN MEMBER M ON
-		I.MEMBER_EMAIL = M.EMAIL
-		WHERE MEMBER_EMAIL = #{memberEmail}
-	</select>
- -->
+	<!-- <select id="selectMySellList" parameterType="auction.guad.vo.RequestTradeVo"> 
+		SELECT * FROM SELL_ITEM I JOIN MEMBER M ON I.MEMBER_EMAIL = M.EMAIL WHERE 
+		MEMBER_EMAIL = #{memberEmail} </select> -->
 	<!-- 검색어(제목, 내용)를 포함하는 상품 목록 조회 -->
 	<select id="selectSearchList"
 		resultType="auction.guad.dto.SellItemDto">
@@ -152,7 +154,8 @@
 		= M.EMAIL
 		WHERE
 		I.DELETE_YN = 'n' AND M.DELETE_YN != 'y' AND
-		(ITEM_SUB LIKE CONCAT('%', #{search}, '%') OR
+		(ITEM_SUB
+		LIKE CONCAT('%', #{search}, '%') OR
 		ITEM_CONTENTS LIKE CONCAT('%',
 		#{search}, '%'))
 	</select>

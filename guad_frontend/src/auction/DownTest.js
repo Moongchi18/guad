@@ -5,19 +5,17 @@ import { over } from "stompjs";
 
 var stompClient = null
 const token = `Bearer ${sessionStorage.getItem("token")}`
+
 function AuctionTest({match}) {
-    // const [bid, setBid] = useState();
     const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
-    const [sendDto, setSendDto] = useState({
-        itemNum: match.params.itemNum,
-        sold: ''
-    });
+
     useEffect(() => {
+
         connect();
     }, [auctionCurrentPrice])
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/bidlist`)
+        axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/auction/d/${match.params.itemNum}`)
         .then(response => {
             console.log(response.data)
         })
@@ -34,23 +32,24 @@ function AuctionTest({match}) {
     const onConnected = () => {
         console.log(match.params.itemNum)
         // 구독url
-        stompClient.subscribe(`/sub/${match.params.itemNum}/bidlist`, onMessageReceived);
+        stompClient.subscribe(`/sub/sellitem/auction/d/${match.params.itemNum}`, onReceived);
+    }
+
+    const onReceived = (payload) => {
+        var payloadData = JSON.parse(payload.body);
+        console.log(payloadData);
+        setAuctionCurrentPrice(payloadData);
     }
 
     const onError = (err) => {
         console.log(err);
     }
 
-    const onMessageReceived = (payload) => {
-        var payloadData = JSON.parse(payload.body);
-        console.log(payloadData)
-        // setAuctionCurrentPrice(payloadData)
-    }
-
     const handlerBid = () => {
         // 서버에 데이터를 보낼 때
-        stompClient.send(`/pub/bidlist/${match.params.itemNum}`, {Authorization: token}, JSON.stringify(sendDto));
+        stompClient.send(`/pub/sellitem/auction/d/${match.params.itemNum}`, {Authorization: token}, JSON.stringify(auctionCurrentPrice));
     }
+
     return (
         <>
             {/* <h2>입찰</h2>

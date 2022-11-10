@@ -25,4 +25,5 @@ public interface SellItemMapper {
 	int updateSellState(int itemNum) throws Exception;
 	void updateHitCnt(int itemNum) throws Exception;
 	List<SellItemDto> selectSearchList(String search) throws Exception;
+	
 }
