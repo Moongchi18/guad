@@ -9,7 +9,7 @@ public class RequestMileageVo {
 
 	private String email;
 	private Date chargeDate;
-	private int chargeAmount;
+	private long chargeAmount;
 	private String chargeMethod;
 	
 	// 
