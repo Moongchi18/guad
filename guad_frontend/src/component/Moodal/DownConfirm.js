@@ -5,7 +5,7 @@ import style from "../../source/Moodal8.module.css";
 
 function DownConfirm({ closeModal2, modalChange2 }) {
   useEffect(() => {}, []);
-
+  
   return (
     <>
       <div className={style.modal2} ref={modalChange2}>
