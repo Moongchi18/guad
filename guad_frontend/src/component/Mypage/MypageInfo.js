@@ -3,6 +3,7 @@ import logo from "../../source/img/mypage.png";
 import MoodalMileage from "../Moodal/Mileage";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import AddressApi from "../Moodal/AddressApi";
 
 function MypageInfo({ history }) {
   const [data, setData] = useState({
@@ -15,6 +16,7 @@ function MypageInfo({ history }) {
   });
 
   const [address, setAddress] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
   const [phone, setPhone] = useState("");
   const [pass, setPass] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
@@ -75,8 +77,10 @@ function MypageInfo({ history }) {
         nickname: response.data.nickname,
         phone: response.data.phone,
         address: response.data.address,
+        addressDetail: response.data.addressDetail,
         mileage: response.data.mileage,
       });
+      setAddress(response.data.address)
       setUserEmail(response.data.email);
     });
   }, []);
@@ -89,6 +93,7 @@ function MypageInfo({ history }) {
         .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`, {
           phone,
           address,
+          addressDetail,
           pass,
           email: userEmail,
         })
@@ -100,6 +105,13 @@ function MypageInfo({ history }) {
   };
   const warn = () => {
     alert("정보 수정을 완료해주세요!");
+  };
+
+  // 주소API
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev); // false > true
   };
   return (
     <>
@@ -144,11 +156,19 @@ function MypageInfo({ history }) {
           </div>
           <div>
             <h3 className={style.addressi}>주소</h3>
-            <input defaultValue={data.address} onChange={changeAddress} />
-            <button className={style.searchi}>검색</button>
+            <input defaultValue={address} onChange={changeAddress} readOnly />
+            <button className={style.searchi} onClick={onToggleModal}>검색</button>
           </div>
           <h3>상세주소</h3>
-          <input defaultValue={"대일빌딩 7층 1번 강의실"} />
+          <input defaultValue={data.addressDetail} />
+          {isOpen && (
+            <AddressApi
+              visible={isOpen}
+              onOk={onToggleModal}
+              onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+              setAddress={setAddress}
+            />
+          )}
           <h3>전화번호</h3>
           <input defaultValue={data.phone} onChange={changePhone} />
 

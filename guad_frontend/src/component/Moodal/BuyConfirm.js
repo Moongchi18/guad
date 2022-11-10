@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../../source/Moodal6.module.css";
+import AddressApi from "./AddressApi";
 
 function BuyConfirm({
   closeModal2,
@@ -16,6 +17,7 @@ function BuyConfirm({
   const [purchasePrice, setPurchasePrice] = useState();
   const [member, setMember] = useState({});
   const [result, setResult] = useState(0);
+  const [address, setAddress] = useState("");
   const [requestTrade, setRequestTrade] = useState({
     sellType: "",
     sellerEmail: "서버에서 입력",
@@ -31,6 +33,7 @@ function BuyConfirm({
     soldYn: "",
     mileage: "",
   });
+  
 
   useEffect(() => {
     setDto(item);
@@ -90,6 +93,12 @@ function BuyConfirm({
   };
   console.log(dto);
 
+  // 주소API
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev); // false > true
+  };
   return (
     <>
       <div className={style.modal2} ref={modalChange2}>
@@ -128,12 +137,20 @@ function BuyConfirm({
                   className={style.input1}
                   defaultValue={member.address}
                 />
-                <button type="button">검색</button>
+                <button type="button" onClick={onToggleModal}>검색</button>
               </div>
               <div className={style.input_b2}>
                 <p>상세주소</p>
                 <input type="text" className={style.input2} defaultValue={member.addressDetail} />
               </div>
+              {isOpen && (
+                <AddressApi
+                  visible={isOpen}
+                  onOk={onToggleModal}
+                  onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+                  setAddress={setAddress}
+                />
+              )}
             </div>
           </div>
           <div className={style.modalfooter2}>
