@@ -164,6 +164,7 @@ function Sell_Down({ match }) {
             판매자 : <strong>{item.nickname}</strong>
           </span>
           <div className={style.start_bb}>
+            <p className={style.time_check}>다음 내림까지 : <strong>59분23초</strong></p>
             <span className={style.deli_name}>시작 경매가</span>
             <span className={style.deli_tag}>{item.auctionStartPrice?.toLocaleString()}</span>
           </div>
