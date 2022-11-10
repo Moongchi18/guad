@@ -27,23 +27,23 @@ function Mypage() {
   // };
 
   const [data, setData] = useState({
-    nickname : '',
-    mileage: 0
+    nickname: "",
+    mileage: 0,
   });
 
   const [item, setItem] = useState("");
-  const [isChange,setIsChange] = useState(false);
+  const [isChange, setIsChange] = useState(false);
 
   useEffect(() => {
     axios
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
-      .then(response => {        
-        setData({ 
-          nickname : response.data.nickname ,        
-          mileage: response.data.mileage        
-        })       
-      })   
-  }, [isChange])
+      .then((response) => {
+        setData({
+          nickname: response.data.nickname,
+          mileage: response.data.mileage,
+        });
+      });
+  }, [isChange]);
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -55,42 +55,65 @@ function Mypage() {
   };
 
   const handlerChange = () => {
-    setIsChange(!isChange)
-  }
+    setIsChange(!isChange);
+  };
 
   return (
     <>
-      <Mileage closeModal={closeModal} modalChange={modalChange} handlerChange={handlerChange} isChange={isChange}/>
+      <Mileage
+        closeModal={closeModal}
+        modalChange={modalChange}
+        handlerChange={handlerChange}
+        isChange={isChange}
+      />
       <div className={style.All_Mbox}>
         <h1 className={style.page_name}>마이페이지</h1>
-        <div>
-          <div className={style.Mbox}>
-            <div className={style.logo_box}>
-              <img src={logo} alt="1"></img>
-            </div>
-            <div className={style.mileage_box}>
-              <h3>
-                <strong>{data.nickname}</strong>님 환영합니다!
-              </h3>
-              <h3>
-                현재 마일리지 <strong>{data.mileage.toLocaleString()}</strong>원
-              </h3>
-            </div>
-            <div className={style.Mbox_button}>
-              <Link to="/mypage/check">
-                <button className={style.member} type="button">
-                  회원정보
-                </button>
-              </Link>
-              <button
-                className={style.mileage}
-                onClick={openModal}
-                type="button"
-              >
-                마일리지
-              </button>
-            </div>
+        <div className={style.Mbox}>
+          <div className={style.logo_box}>
+            <img src={logo} alt="1"></img>
           </div>
+          <div className={style.mileage_box}>
+            <h3>
+              <strong>{data.nickname}</strong>님 환영합니다!
+            </h3>
+            <h3>
+              현재 마일리지 <strong>{data.mileage.toLocaleString()}</strong>원
+            </h3>
+          </div>
+          <div className={style.Mbox_button}>
+            <Link to="/mypage/check">
+              <button className={style.member} type="button">
+                회원정보
+              </button>
+            </Link>
+            <button className={style.mileage} onClick={openModal} type="button">
+              마일리지
+            </button>
+          </div>
+        </div>
+        <div className={style.now_state}>
+          <ul>
+            <li>
+              <span></span>
+              <p className={style.now1}>판매대기</p>
+              <p className={style.now2}>2</p>
+            </li>
+            <li>
+              <span></span>
+              <p className={style.now1}>준비중</p>
+              <p className={style.now2}>1</p>
+            </li>
+            <li>
+              <span></span>
+              <p className={style.now1}>배송중</p>
+              <p className={style.now2}>3</p>
+            </li>
+            <li>
+              <span></span>
+              <p className={style.now1}>배송완료</p>
+              <p className={style.now2}>4</p>
+            </li>
+          </ul>
         </div>
         {/* <RegistList /> */}
         <UserBuyList />
