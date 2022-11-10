@@ -159,6 +159,7 @@ function Join({ history }, props) {
       })
   }
 
+  // 주소API
   const [isOpen, setIsOpen] = useState(false);
 
   const onToggleModal = () => {
@@ -240,8 +241,13 @@ function Join({ history }, props) {
             </li>
             <li className={style.add_in}>
               <label>주소</label>
-              <input type="text" value={address} onChange={changeAddress} readOnly/>
+              <input type="text" value={address} onChange={changeAddress} readOnly />
               <button onClick={onToggleModal}>검색</button>
+            </li>
+            <li>
+              <label>상세주소</label>
+              <input type="text" value={addressDetail} onChange={handlerAddressDetail} />
+            </li>
               {isOpen && (
                 <AddressApi
                   visible={isOpen}
@@ -250,11 +256,6 @@ function Join({ history }, props) {
                   setAddress={setAddress}
                 />
               )}
-            </li>
-            <li>
-              <label>상세주소</label>
-              <input type="text" value={addressDetail} onChange={handlerAddressDetail} />
-            </li>
           </ul>
         </div>
         <button className={style.last_btn} onClick={handlerJoin} disabled={!(isNickname && isEmail && isPass && isPassConfirm && isPhone && address && addressDetail)}>회원가입</button>
