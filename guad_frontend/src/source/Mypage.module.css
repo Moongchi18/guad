@@ -295,3 +295,53 @@
   font-size: 15px;
   font-weight: 400;
 }
+.now_state {
+  width: 1130px;
+  height: 200px;
+  margin: 0 auto;
+  background-color: #5c9f69;
+  border-radius: 10px;
+  font-weight: 300;
+  color: white;
+}
+.now_state > ul {
+  background-image: url("../source/img/now5.png");
+  background-repeat: no-repeat;
+  background-position: center 45%;
+}
+.now_state > ul > li {
+  display: inline-block;
+  margin: 38px 75px 0px;
+}
+.now_state > ul > li > span {
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  background-color: white;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.now_state > ul > li:nth-child(1) > span {
+  background-image: url("../source/img/now1.png");
+}
+.now_state > ul > li:nth-child(2) > span {
+  background-image: url("../source/img/now2.png");
+}
+
+.now_state > ul > li:nth-child(3) > span {
+  background-image: url("../source/img/now3.png");
+}
+
+.now_state > ul > li:nth-child(4) > span {
+  background-image: url("../source/img/now4.png");
+}
+.now1 {
+  font-size: 15px;
+  margin: 5px 0;
+}
+.now2 {
+  font-family: "NanumSquare";
+  font-size: 30px;
+  font-weight: bold;
+}
