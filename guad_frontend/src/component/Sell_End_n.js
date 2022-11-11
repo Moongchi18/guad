@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 
-function Sell_End_n({match, modalOpen}) {
+function Sell_End_n({ match, modalOpen }) {
 
   const [contents, setContents] = useState('');
   const [item, setItem] = useState('');
@@ -42,20 +42,26 @@ function Sell_End_n({match, modalOpen}) {
       });
   }, []);
 
-  const handleSubmit = () => {    
-    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, {itemNum : item.itemNum, sellerEmail : item.sellerEmail, writerNickname : item.nickname, contents, starPoint : rating})
-    .then((response) => {
-      console.log(response)
-      alert("리뷰 작성이 완료되었습니다.")
-      modalOpen.current.style = "display:none;"
-  })}
+  const handleSubmit = () => {
+    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, { itemNum: item.itemNum, sellerEmail: item.sellerEmail, writerNickname: item.nickname, contents, starPoint: rating })
+      .then((response) => {
+        console.log(response)
+        alert("리뷰 작성이 완료되었습니다.")
+        modalOpen.current.style = "display:none;"
+      })
+  }
 
   const onChange = (e) => {
-    setContents(e.target.value)}
+    setContents(e.target.value)
+  }
 
   return (
     <>
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
+      <NotifyWrite
+        closeModal={closeModal}
+        modalChange={modalChange}
+        itemNum={item.itemNum}
+      />
       <div className={style.item_top}>
         <h2 className={style.normal}>
           <strong>일반</strong>판매
@@ -66,7 +72,7 @@ function Sell_End_n({match, modalOpen}) {
             alt="제품사진"
             className={style.item}
           />
-          <span className={style.up1}>경매종료</span>
+          <span className={style.up1}>판매종료</span>
           <img
             src={require("../source/img/del3_b.png")}
             alt="경매끝"
@@ -130,10 +136,10 @@ function Sell_End_n({match, modalOpen}) {
             <img
               src={
                 rating == "1" ||
-                rating == "2" ||
-                rating == "3" ||
-                rating == "4" ||
-                rating == "5"
+                  rating == "2" ||
+                  rating == "3" ||
+                  rating == "4" ||
+                  rating == "5"
                   ? require("../source/img/rating1.png")
                   : require("../source/img/rating2.png")
               }
