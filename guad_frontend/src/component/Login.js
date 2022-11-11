@@ -8,8 +8,8 @@ import { useCookies } from "react-cookie";
 
 function Login(props) {
   // 아이디 저장 체크박스 체크 유무
-  const [idCheck, setIdCheck] = useState(false);
-  const [email, setEmail] = useState("");
+  const [idCheck, setIdCheck] = useState(true);
+  const [email, setEmail] = useState(localStorage.getItem("email"));
   const [password, setPassword] = useState("");
   // 아이디 저장용
   const ChangeCheck = () => {
