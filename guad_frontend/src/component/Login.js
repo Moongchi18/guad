@@ -11,6 +11,7 @@ function Login(props) {
   const [idCheck, setIdCheck] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // 아이디 저장용
   const ChangeCheck = () => {
     if (idCheck === false) {
       setIdCheck(true);
@@ -55,6 +56,7 @@ function Login(props) {
         alert("로그인 되었습니다.");
         props.history.push("/");
         console.log(response.data);
+        // 아이디 저장용
         if (idCheck == true) {
           localStorage.setItem("email", email);
         } else {
@@ -65,6 +67,7 @@ function Login(props) {
         console.log(error);
         alert("로그인에 실패했습니다.");
         sessionStorage.clear();
+        // 아이디 저장용
         localStorage.setItem("email", "");
       });
   };
