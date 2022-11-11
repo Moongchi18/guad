@@ -33,7 +33,6 @@ function BuyConfirm({
 
   useEffect(() => {
     setDto(item);
-    // setPurchasePrice(price);
 
     setRequestTrade({
       ...requestTrade,

@@ -23,16 +23,9 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
   ////////////////////상품구매////////////////////////
 
   let requestTrade = {
-    sellType: "",
-    sellerEmail: "서버에서 입력",
-    sellerPhone: "서버에서 입력",
-    buyerEmail: "서버에서 입력",
-    buyerPhone: "서버에서 입력",
-    address: "",
-    addressDetail: "",
-    itemSub: "",
-    itemPrice: "",
-    soldDate: "쿼리문에 입력",
+    sellType: item.sellType,
+    itemSub: item.itemSub,
+    itemPrice: auctionCurrentPrice, //최종 판매가격
     itemNum: "",
     soldYn: "",
     mileage: "",

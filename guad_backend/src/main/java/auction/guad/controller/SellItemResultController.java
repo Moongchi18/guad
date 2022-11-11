@@ -50,16 +50,13 @@ public class SellItemResultController {
         MemberDto seller = memberService.selectMemberDetailByEmail(requestTrade.getSellerEmail());
         MemberDto buyer = memberService.selectMemberDetailByEmail(requestTrade.getBuyerEmail());
 
-        System.out.println("ggggggggggggggg" + seller);
-        System.out.println("ggggggggggggggg" + buyer);
-        System.out.println(seller.getEmail().equals(buyer.getEmail()));
+    
         if (seller.getEmail().equals(buyer.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } else {
             requestTrade.setBuyerPhone(buyer.getPhone());
             requestTrade.setSellerPhone(seller.getPhone());
 
-            System.out.println("tttttttttttttttttttttttttttttt" + requestTrade);
             boolean result = sellItemResultService.normalTrade(requestTrade);
             return ResponseEntity.status(HttpStatus.OK).body(true);
         }
