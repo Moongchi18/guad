@@ -11,8 +11,8 @@ function Header(props) {
   const SearchGo = (e) => {
     if (e.key == "Enter") {
       console.log("여기");
-      props.setSearchWord(searchWord)
-      setSearchWord('')
+      props.setSearchWord(searchWord);
+      setSearchWord("");
       props.history.push("/sell_List");
     }
   };
@@ -23,7 +23,7 @@ function Header(props) {
     } else if (sessionStorage.length == 0) {
       SetMypage(false);
     }
-  }, [sessionStorage.length]);
+  }, [sessionStorage.length, props.isLogin]);
 
   const handleSignOut = (e) => {
     e.preventDefault();

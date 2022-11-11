@@ -83,7 +83,10 @@ function App() {
       <Route path="/footer" component={Footer} exact={true} />
       <Route path="/" component={Main} exact={true} />
       <Route path="/mypage" component={Mypage} exact={true} />
-      <Route path="/mypage/info" component={MypageInfo} exact={true} />
+      <Route
+        path="/mypage/info"
+        render={(props) => <MypageInfo setIsLogin={setIsLogin} {...props} />}
+      />
       <Route path="/mypage/check" component={MypageCheck} exact={true} />
       <Route path="/mypage/selllist" component={Mypage_SellList} exact={true} />
       <Route path="/mileage" component={Mileage} exact={true} />
