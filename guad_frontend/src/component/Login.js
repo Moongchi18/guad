@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 function Login(props) {
-  // 쿠키용
+  // 쿠키용 존나 헷갈리네
   const [cookies, setCookie] = useCookies(["email"]);
   // 아이디 저장 체크박스 체크 유무
   const [idCheck, setIdCheck] = useState(false);
@@ -79,8 +79,6 @@ function Login(props) {
     console.log(props.isLogin);
     console.log(props);
     console.log("호출");
-    console.log("저장된 쿠키 :" + cookies);
-    console.log("아이디저장 :" + idCheck);
   }, []);
 
   return (
