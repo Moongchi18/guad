@@ -20,10 +20,8 @@ function SellListItem({ item }) {
             />
             <img
               src={
-                item.sellType === "d"
-                  ? require("../source/img/del1_b.png")
-                  : item.sellType === "u"
-                    ? require("../source/img/del2_b.png")
+                item.sellType === "d" ? (item.soldYn === 'y' || item.soldYn === 'Y' ? require("../source/img/del3_b.png") : require("../source/img/del1_b.png"))
+                  : item.sellType === "u" ? (item.soldYn === 'y' || item.soldYn === 'Y' ? require("../source/img/del3_b.png") : require("../source/img/del2_b.png"))
                     : require("../source/img/del4_b.png")
               }
               alt="망치"
