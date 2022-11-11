@@ -4,7 +4,6 @@ import axios from "axios";
 import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
 
 function Login(props) {
   // 아이디 저장 체크박스 체크 유무
