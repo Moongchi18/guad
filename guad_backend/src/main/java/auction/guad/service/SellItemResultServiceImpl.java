@@ -11,6 +11,7 @@ import auction.guad.dto.SellItemResultDto;
 import auction.guad.mapper.SellItemResultMapper;
 import auction.guad.vo.RequestMileageVo;
 import auction.guad.vo.RequestTradeVo;
+import auction.guad.vo.SellEndVo;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -76,7 +77,14 @@ public class SellItemResultServiceImpl implements SellItemResultService{
     @Override
     public List<SellItemDto> selectMySellListDe(String memberEmail) throws Exception {
               return sellItemResultMapper.selectMySellListDe(memberEmail);
-    }    
+    }
+
+
+    // sell_end
+	@Override
+	public SellEndVo selectNormalSellEnd(int itemNum) throws Exception {
+		return sellItemResultMapper.selectNormalSellEnd(itemNum);
+	}    
 	
 
 }

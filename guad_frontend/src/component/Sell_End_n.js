@@ -3,11 +3,14 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 import { useRef, useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { data } from "jquery";
 
 function Sell_End_n({ match, modalOpen }) {
+  const ratingList = [1, 2, 3, 4, 5];
 
-  const [contents, setContents] = useState('');
-  const [item, setItem] = useState('');
+  const [dataList, setDataList] = useState('');
+  const [soldDateText, setSoldDateText] = useState('')
+
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -15,52 +18,66 @@ function Sell_End_n({ match, modalOpen }) {
   const openModal = () => {
     modalChange.current.style = "display:block;";
   };
-  const [rating, setRating] = useState("");
-  const ratingClick = (e) => {
-    const star = e.target.name;
-    if (star == "1") {
-      setRating("1");
-    } else if (star == "2") {
-      setRating("2");
-    } else if (star == "3") {
-      setRating("3");
-    } else if (star == "4") {
-      setRating("4");
-    } else {
-      setRating("5");
-    }
-  };
 
+  // sell_item_result + sell_item + sellerNickname + buyerNickname
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/${match.params.itemNum}`
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/normal/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
-        setItem(response.data);
+        setDataList(response.data);
+        const date = new Date(
+          response.data.soldDate.slice(0, 10) +
+          " " +
+          response.data.soldDate.slice(12, 19)
+        );
+        date.setHours(date.getHours() + 9);
+        setSoldDateText(
+          `${date.getFullYear()}년 ${date.getMonth() + 1
+          }월 ${date.getDate()}일`
+        );
       });
   }, []);
 
+  // review 목록 조회
+  const [reviewList, setReviewList] = useState([]);
+  const [reviewUpdate, setReviewUpdate] = useState(false) // 리뷰가 작성되면 값이 바뀌고, 바뀐것을 감지해서 리뷰목록 갱신
+  useEffect(() => {
+    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`)
+      .then(response => {
+        console.log(response.data)
+        setReviewList(response.data)
+      }).catch(err => console.log(err))
+  }, [reviewUpdate])
+
+  // 리뷰 작성
+  const [rating, setRating] = useState("");
+  const [reviewContents, setReviewContents] = useState('');
+  const ratingClick = (e) => {
+    setRating(e.target.name);
+  };
   const handleSubmit = () => {
-    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, { itemNum: item.itemNum, sellerEmail: item.sellerEmail, writerNickname: item.nickname, contents, starPoint: rating })
+    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, { itemNum: match.params.itemNum, sellerEmail: dataList.sellerEmail, writerNickname: dataList.nickname, contents: reviewContents, starPoint: rating })
       .then((response) => {
         console.log(response)
         alert("리뷰 작성이 완료되었습니다.")
+        setReviewUpdate(!reviewUpdate)
         modalOpen.current.style = "display:none;"
       })
   }
 
-  const onChange = (e) => {
-    setContents(e.target.value)
+  const onReviewChange = (e) => {
+    setReviewContents(e.target.value)
   }
-
+  console.log(reviewContents)
   return (
     <>
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
-        itemNum={item.itemNum}
+        itemNum={match.params.itemNum}
       />
       <div className={style.item_top}>
         <h2 className={style.normal}>
@@ -70,7 +87,7 @@ function Sell_End_n({ match, modalOpen }) {
           <img
             src={require("../source/img/big_item.png")}
             alt="제품사진"
-            className={style.item}
+            className={style.dataList}
           />
           <span className={style.up1}>판매종료</span>
           <img
@@ -92,31 +109,31 @@ function Sell_End_n({ match, modalOpen }) {
             onClick={openModal}
           />
           <span className={style.top_head}>상품 정보</span>
-          <span className={style.top_cate}>의류 / 가방</span>
-          <span className={style.top_title}>디올 가방 재고 처리합니다!</span>
+          <span className={style.top_cate}>{dataList.itemType}</span>
+          <span className={style.top_title}>{dataList.itemSub}</span>
           <div className={style.rating_option}>
             <img src={require("../source/img/star.png")} alt="별점" />
             <span>4</span>
           </div>
           <div className={style.rating_option}>
             <img src={require("../source/img/see.png")} alt="조회수" />
-            <span>33</span>
+            <span>{dataList.hitCnt}</span>
           </div>
           <div className={style.last_nn}>
             <h2>
-              판매자 : <strong>시흥기린</strong>
+              판매자 : <strong>{dataList.sellerNickname}</strong>
             </h2>
             <p className={style.n_1}>
               배송비<strong>배송비 포함</strong>
             </p>
             <p className={style.n_2}>
-              판매가<strong>450,000</strong>
+              판매가<strong>{dataList.itemPrice?.toLocaleString()}</strong>
             </p>
             <span>
-              판매날짜 : <strong>2022년 3월 14일</strong>
+              판매날짜 : <strong>{soldDateText}</strong>
             </span>
             <span className={style.nn_last22}>
-              최종 입찰자 : <strong>부산물개</strong>
+              최종 입찰자 : <strong>{dataList.buyerNickname}</strong>
             </span>
           </div>
         </div>
@@ -124,75 +141,30 @@ function Sell_End_n({ match, modalOpen }) {
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
         <p>
-          따끈따끈한 신상 가방 재고 처리합니다.
-          <br />
-          상태는 A급 엄청 깔끔하게 관리했습니다.
-          <br />
-          많은 관심 부탁드립니다.
+          {dataList.itemContents}
         </p>
-        <div className={style.rating}>
-          <h3>거래는 어떠셨나요?</h3>
-          <div className={style.star}>
-            <img
-              src={
-                rating == "1" ||
-                  rating == "2" ||
-                  rating == "3" ||
-                  rating == "4" ||
-                  rating == "5"
-                  ? require("../source/img/rating1.png")
-                  : require("../source/img/rating2.png")
-              }
-              alt="별점"
-              name="1"
-              onClick={ratingClick}
-            />
-            <img
-              src={
-                rating == "2" || rating == "3" || rating == "4" || rating == "5"
-                  ? require("../source/img/rating1.png")
-                  : require("../source/img/rating2.png")
-              }
-              alt="별점"
-              name="2"
-              onClick={ratingClick}
-            />
-            <img
-              src={
-                rating == "3" || rating == "4" || rating == "5"
-                  ? require("../source/img/rating1.png")
-                  : require("../source/img/rating2.png")
-              }
-              alt="별점"
-              name="3"
-              onClick={ratingClick}
-            />
-            <img
-              src={
-                rating == "4" || rating == "5"
-                  ? require("../source/img/rating1.png")
-                  : require("../source/img/rating2.png")
-              }
-              alt="별점"
-              name="4"
-              onClick={ratingClick}
-            />
-            <img
-              src={
-                rating == "5"
-                  ? require("../source/img/rating1.png")
-                  : require("../source/img/rating2.png")
-              }
-              alt="별점"
-              name="5"
-              onClick={ratingClick}
-            />
-          </div>
-          <textarea placeholder="거래후기를 작성해주세요." onChange={onChange} value={contents}></textarea>
-          <button type="button" onClick={handleSubmit}>작성</button>
-        </div>
+        {dataList.buyerNickname === sessionStorage.getItem('nickname') &&
+          <div className={style.rating}>
+            <h3>거래는 어떠셨나요?</h3>
+            <div className={style.star}>
+              {ratingList.map((r, index) => (
+                <img
+                  src={
+                    r <= rating
+                      ? require("../source/img/rating1.png")
+                      : require("../source/img/rating2.png")
+                  }
+                  alt="별점"
+                  name={r}
+                  onClick={ratingClick}
+                />
+              ))}
+            </div>
+            <textarea placeholder="거래후기를 작성해주세요." onChange={onReviewChange} value={reviewContents}></textarea>
+            <button type="button" onClick={handleSubmit}>작성</button>
+          </div>}
         <div className={style.sell_review}>
-          <h2>판매자님에 대한 리뷰</h2>
+          <h2>{dataList.sellerNickname} 님에 대한 리뷰</h2>
           <img src={require("../source/img/red_star.png")} alt="붉은별" />
           <span>4</span>
         </div>

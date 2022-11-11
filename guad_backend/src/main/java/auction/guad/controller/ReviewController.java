@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import auction.guad.dto.MemberDto;
 import auction.guad.dto.ReviewDto;
+import auction.guad.service.MemberService;
 import auction.guad.service.ReviewService;
 import auction.guad.service.SellItemService;
 import io.swagger.annotations.ApiOperation;
@@ -20,11 +22,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 @RestController
 public class ReviewController {
 
+	private MemberService memberService;
 	private ReviewService reviewService;
 	private SellItemService sellItemService;
 		
 	@Autowired
-	public ReviewController(ReviewService reviewService, SellItemService sellItemService) {
+	public ReviewController(MemberService memberService, ReviewService reviewService, SellItemService sellItemService) {
+		this.memberService = memberService;
 		this.reviewService = reviewService;
 		this.sellItemService = sellItemService;
 	}
@@ -37,12 +41,15 @@ public class ReviewController {
 		return reviewService.selectReviewListByEmail(sellItemService.selectSellItemDetailNoHitCnt(itemNum).getMemberEmail());
 	}
 
+
 	@ApiOperation(value = "리뷰 등록", notes = "리뷰 제목과 내용을 저장")
 	@RequestMapping(value = "/review", method = RequestMethod.POST)
 	public void insertReview(
 			@Parameter(description = "리뷰 정보", required = true, example = "{ title: 제목, contents: 내용 }") @RequestBody ReviewDto review, @AuthenticationPrincipal User user)
 			throws Exception {
-	    review.setWriterEmail(user.getUsername()); 
+		MemberDto member = memberService.selectMemberDetailByEmail(user.getUsername());
+	    review.setWriterEmail(member.getEmail()); 
+	    review.setWriterNickname(member.getNickname());
 		reviewService.insertReview(review);
 	} 
 
