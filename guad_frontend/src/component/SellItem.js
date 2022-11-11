@@ -142,7 +142,7 @@ function SellItem({ history, match }) {
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>{item.hitCnt}</span>
           </div>
-          <div>
+          <div className={style.contents_in}>
             <div className={style.deli_bb}>
               <span className={style.deli_name}>배송비</span>
               <span className={style.deli_tag}>배송비 포함</span>
