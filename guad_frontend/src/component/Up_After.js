@@ -6,14 +6,14 @@ import UpConfirm from "./Moodal/UpConfirm";
 import Up_Chat from "./Up_Chat";
 
 var stompClient = null;
-let Sock
+let Sock;
 const token = `Bearer ${sessionStorage.getItem("token")}`;
 function Up_After({ openModal, item }) {
   const [publicChats, setPublicChats] = useState([]);
   const [auctionPeriodText, setAuctionPeriodText] = useState();
 
-  console.log(publicChats)
-  console.log(item)
+  console.log(publicChats);
+  console.log(item);
 
   const connect = () => {
     Sock = new SockJS(
@@ -61,7 +61,8 @@ function Up_After({ openModal, item }) {
       );
       date.setHours(date.getHours() + 9);
       setAuctionPeriodText(
-        `${date.getFullYear()}년 ${date.getMonth() + 1
+        `${date.getFullYear()}년 ${
+          date.getMonth() + 1
         }월 ${date.getDate()}일 ${date.getHours()}시까지`
       );
     }
@@ -77,9 +78,11 @@ function Up_After({ openModal, item }) {
   useEffect(() => {
     connect();
     return () => {
-      console.log("stomp disconnect")
-      stompClient.disconnect(() => console.log("disconnect2"), {message:"disconnect2"})
-      console.log("sock disconnect")
+      console.log("stomp disconnect");
+      stompClient.disconnect(() => console.log("disconnect2"), {
+        message: "disconnect2",
+      });
+      console.log("sock disconnect");
       closeConnection();
     };
   }, []);
@@ -87,7 +90,7 @@ function Up_After({ openModal, item }) {
 
   function closeConnection() {
     Sock.close();
-    console.log("sock.close()")
+    console.log("sock.close()");
   }
 
   return (
@@ -125,12 +128,6 @@ function Up_After({ openModal, item }) {
           >
             즉시 구매
           </button>
-          <button className={`${style.aa_buy} ${style.aa_btn}`}>
-            입찰 : <p>500,000</p>
-          </button>
-          <button type="button" className={style.aa_buy}>
-            현재 입찰자 : <strong></strong>
-          </button>
           {item.itemNum && (
             <Up_Chat
               item={item}
@@ -139,11 +136,17 @@ function Up_After({ openModal, item }) {
               connect={connect}
             />
           )}
-          <p>
-            남은 경매 시간 : <strong>{auctionPeriodText}</strong>
-          </p>
+          <button className={`${style.aa_buy} ${style.aa_btn}`}>
+            입찰 : <p>500,000</p>
+          </button>
+          <button type="button" className={style.aa_buy}>
+            현재 입찰자 : <strong></strong>
+          </button>
         </div>
       </div>
+      <p className={style.bb_time}>
+        남은 경매 시간 : <strong>{auctionPeriodText}</strong>
+      </p>
     </>
   );
 }

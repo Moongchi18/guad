@@ -9,7 +9,7 @@ function SellItem({ history, match }) {
   const [review, setReview] = useState([]);
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [price, setPrice] = useState(0);
-  const [imgList, setImgList] = useState([])
+  const [imgList, setImgList] = useState([]);
 
   useEffect(() => {
     axios
@@ -18,10 +18,10 @@ function SellItem({ history, match }) {
       )
       .then((response) => {
         console.log(response.data);
-        imgList.push(response.data.itemImgName)
-        imgList.push(response.data.itemImgNameSub2)
-        imgList.push(response.data.itemImgNameSub3)
-        setImgList(imgList)
+        imgList.push(response.data.itemImgName);
+        imgList.push(response.data.itemImgNameSub2);
+        imgList.push(response.data.itemImgNameSub3);
+        setImgList(imgList);
 
         setItem(response.data);
         const tempPrice =
@@ -32,15 +32,15 @@ function SellItem({ history, match }) {
 
         const date = new Date(
           response.data.auctionPeriod.slice(0, 10) +
-          " " +
-          response.data.auctionPeriod.slice(12, 19)
+            " " +
+            response.data.auctionPeriod.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${date.getMonth() + 1
+          `${date.getFullYear()}년 ${
+            date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
-
       })
       .catch((error) => console.log(error));
     axios
@@ -76,7 +76,7 @@ function SellItem({ history, match }) {
 
   return (
     <>
-     <NotifyWrite
+      <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
         itemNum={item.itemNum}
@@ -88,7 +88,7 @@ function SellItem({ history, match }) {
         price={price}
         history={history}
       />
-     
+
       <div id={style.item_num} className={style.item_num}>
         {item.itemNum}
       </div>
@@ -97,12 +97,15 @@ function SellItem({ history, match }) {
           {item.sellType === "n"
             ? "일반판매"
             : item.sellType === "u"
-              ? "오름경매"
-              : "내림경매"}
+            ? "오름경매"
+            : "내림경매"}
         </h2>
         <div className={style.img_item}>
           <img
-            src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+            src={
+              item.itemImgName &&
+              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
+            }
             alt={"img" + item.notifyNum}
             className={style.item}
           />
@@ -110,9 +113,10 @@ function SellItem({ history, match }) {
             {imgList?.map((img, index) => (
               <li key={index}>
                 <img
-                  src={img ?
-                    `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
-                    : require("../source/img/no_photo.png")
+                  src={
+                    img
+                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      : require("../source/img/no_photo.png")
                   }
                   alt={"img" + item.notifyNum}
                   className={style.item_o}
@@ -138,21 +142,29 @@ function SellItem({ history, match }) {
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>{item.hitCnt}</span>
           </div>
-          <div className={style.deli_bb}>
-            <span className={style.deli_name}>배송비</span>
-            <span className={style.deli_tag}>배송비 포함</span>
-          </div>
-          <div className={style.sell_bb}>
-            <span className={style.sell_price}>판매가</span>
-            <span className={style.sell_number}>{price?.toLocaleString()}</span>
-          </div>
-          <div className={style.button_bb}>
-            <button type="button" className={style.bb_buy} onClick={openModal2}>
-              구매
-            </button>
-            <span className={style.bb_date}>
-              판매자 : <strong>{item.nickname}</strong>
-            </span>
+          <div className={style.contents_in}>
+            <div className={style.deli_bb}>
+              <span className={style.deli_name}>배송비</span>
+              <span className={style.deli_tag}>배송비 포함</span>
+            </div>
+            <div className={style.sell_bb}>
+              <span className={style.sell_price}>판매가</span>
+              <span className={style.sell_number}>
+                {price?.toLocaleString()}
+              </span>
+            </div>
+            <div className={style.button_bb}>
+              <button
+                type="button"
+                className={style.bb_buy}
+                onClick={openModal2}
+              >
+                구매
+              </button>
+              <span className={style.bb_date}>
+                판매자 : <strong>{item.nickname}</strong>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -179,7 +191,6 @@ function SellItem({ history, match }) {
                     <span className={style.review_write}>{rev.contents}</span>
                   </li>
                 ))}
-          
           </ul>
         </div>
       </div>

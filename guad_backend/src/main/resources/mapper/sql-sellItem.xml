@@ -125,7 +125,7 @@
 
 	<update id="updateSoldYn" parameterType="int">
 		UPDATE SELL_ITEM SET
-		SOLD_YN = 'Y'
+		SOLD_YN = 'Y', SOLD_DATE = NOW()
 		WHERE ITEM_NUM = #{itemNum}
 
 	</update>

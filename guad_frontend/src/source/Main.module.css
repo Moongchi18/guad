@@ -54,17 +54,29 @@
   font-size: 20px;
   font-weight: normal;
 }
-.tip p strong:nth-child(3) {
+.t_1 {
   color: #098060;
   font-weight: normal;
 }
-.tip p strong:nth-child(5) {
+.t_2 {
   color: #e63947;
   font-weight: normal;
 }
-.tip p strong:nth-child(7) {
+.t_3 {
   font-weight: normal;
   color: blue;
+}
+.tt_1 {
+  color: #098060;
+  font-weight: normal;
+}
+.tt_2 {
+  color: #e63947;
+  font-weight: normal;
+}
+.tt_3 {
+  color: blue;
+  font-weight: normal;
 }
 .q_mark {
   background-color: transparent;

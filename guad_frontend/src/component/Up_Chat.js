@@ -30,8 +30,8 @@ const Up_Chat = ({ item, connect, sendValue, publicChats }) => {
   const openChat6 = useRef();
 
   const ClickChat = () => {
-    openChat1.current.style = "top:37px; height:538px;";
-    openChat2.current.style = "height:94%;";
+    openChat1.current.style = "height:452px;";
+    openChat2.current.style = "height:92%;";
     inputCursor.current.style = "display:inline-block;";
     openChat4.current.style = "display:none;";
     openChat5.current.style = "display:inline-block;";
@@ -39,7 +39,7 @@ const Up_Chat = ({ item, connect, sendValue, publicChats }) => {
   };
 
   const OffChat = () => {
-    openChat1.current.style = "top:535px; height:none;";
+    openChat1.current.style = "height:none;";
     openChat2.current.style = "height:0%;";
     inputCursor.current.style = "display:none;";
     openChat4.current.style = "display:block;";

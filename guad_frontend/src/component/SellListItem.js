@@ -7,18 +7,21 @@ function SellListItem({ item }) {
   return (
     <>
       <li className={style.item_info}>
-        <Link to={`/sell_item/${item.sellType}/${item.itemNum}`}>
+        <Link to={item.soldYn === 'y' || item.soldYn === 'Y' ? `/sell_end/${item.sellType}/${item.itemNum}` : `/sell_item/${item.sellType}/${item.itemNum}`}>
           <div className={style.item_bb}>
-            <img className={style.item_img}
+            <div className={style.end_a}>
+              {(item?.soldYn === "y" || item?.soldYn === "Y") &&
+                <p>{item?.sellType === "n" ? "판매종료" : "경매종료"}</p>}
+            </div>
+            <img
+              className={style.item_img}
               src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
               alt={"img" + item.notifyNum}
             />
             <img
               src={
-                item.sellType === "d"
-                  ? require("../source/img/del1_b.png")
-                  : item.sellType === "u"
-                    ? require("../source/img/del2_b.png")
+                item.sellType === "d" ? (item.soldYn === 'y' || item.soldYn === 'Y' ? require("../source/img/del3_b.png") : require("../source/img/del1_b.png"))
+                  : item.sellType === "u" ? (item.soldYn === 'y' || item.soldYn === 'Y' ? require("../source/img/del3_b.png") : require("../source/img/del2_b.png"))
                     : require("../source/img/del4_b.png")
               }
               alt="망치"
@@ -30,7 +33,9 @@ function SellListItem({ item }) {
           <span className={style.tex3}>
             {item.sellType === "n" ? "판매가격" : "경매시작가"}
             <strong>
-              {item.sellType === "n" ? item.itemPrice.toLocaleString() : item.auctionStartPrice.toLocaleString()}
+              {item.sellType === "n"
+                ? item.itemPrice.toLocaleString()
+                : item.auctionStartPrice.toLocaleString()}
             </strong>
           </span>
         </Link>

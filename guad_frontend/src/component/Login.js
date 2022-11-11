@@ -4,19 +4,18 @@ import axios from "axios";
 import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
 
 function Login(props) {
   // 아이디 저장 체크박스 체크 유무
-  const [idCheck, setIdCheck] = useState(false);
-  const [email, setEmail] = useState("");
+  const [idCheck, setIdCheck] = useState(true);
+  const [email, setEmail] = useState(localStorage.getItem("email"));
   const [password, setPassword] = useState("");
   // 아이디 저장용
   const ChangeCheck = () => {
-    if (idCheck === false) {
-      setIdCheck(true);
-    } else {
+    if (idCheck === true) {
       setIdCheck(false);
+    } else {
+      setIdCheck(true);
     }
   };
   const onKeyEnter = (e) => {
@@ -85,6 +84,7 @@ function Login(props) {
     console.log(props);
     console.log("호출");
     console.log("저장된 이메일 : " + localStorage.getItem("email"));
+    console.log("입력된 이메일 : " + email);
   }, []);
 
   return (

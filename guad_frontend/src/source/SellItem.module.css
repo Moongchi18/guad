@@ -81,12 +81,14 @@
 .info_top {
   display: inline-block;
   width: 660px;
+  height: 600px;
   vertical-align: top;
   margin-left: 50px;
+  position: relative;
 }
 .info_top > img {
   position: absolute;
-  top: 40px;
+  top: -40px;
   right: 0px;
 }
 .info_top > img:hover {
@@ -113,13 +115,13 @@
   font-weight: 300;
   display: block;
   margin-bottom: 10px;
+  word-break: break-all;
 }
 .rating_option {
   display: inline-block;
 }
 .rating_option11 {
   display: inline-block;
-  margin-bottom: 200px;
 }
 .rating_option span {
   font-size: 25px;
@@ -158,12 +160,16 @@
   font-size: 20px;
   font-family: "SBAggroB";
   display: block;
-  margin: 140px 0 10px;
+  margin: 0px 0 10px;
   line-height: 1.3;
 }
 .seller1 strong {
   font-weight: 300;
   font-size: 18px;
+}
+.contents_in {
+  position: absolute;
+  bottom: 0px;
 }
 .deli_bb {
   display: block;
@@ -247,8 +253,8 @@
   color: #fff;
   transition: 0.3s all ease-in;
 }
-.button_bb > p {
-  margin: 10px 10px 0 0;
+.bb_time {
+  margin: 0px 10px 10px 0;
   text-align: right;
   font-family: "SBAggroB";
   font-weight: 300;
@@ -363,7 +369,7 @@
 }
 .aa_buy_now {
   cursor: pointer;
-  display: block;
+  display: inline-block;
   width: 325px;
   height: 60px;
   border-radius: 5px;
@@ -437,7 +443,7 @@
   font-weight: 300;
   color: #767676;
   line-height: 1.7;
-  white-space:pre-wrap;
+  white-space: pre-wrap;
   word-break: break-all;
 }
 .sell_review {
