@@ -199,6 +199,10 @@ li.item_info:nth-child(4n) {
   display: block;
   text-align: center;
 }
+.count_p ul{
+  list-style: none;
+  padding: 0;
+}
 .count_p ul li {
   display: inline-block;
   padding: 0 5px;

@@ -6,10 +6,6 @@
   justify-content: center;
   margin-top: 15px;
 }
-ul {
-  list-style: none;
-  padding: 0;
-}
 ul.pagination li {
   display: inline-block;
   width: 30px;
