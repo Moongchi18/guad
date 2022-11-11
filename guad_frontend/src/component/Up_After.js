@@ -6,6 +6,7 @@ import UpConfirm from "./Moodal/UpConfirm";
 import Up_Chat from "./Up_Chat";
 
 var stompClient = null;
+let Sock
 const token = `Bearer ${sessionStorage.getItem("token")}`;
 function Up_After({ openModal, item }) {
   const [publicChats, setPublicChats] = useState([]);
@@ -15,11 +16,12 @@ function Up_After({ openModal, item }) {
   console.log(item)
 
   const connect = () => {
-    let Sock = new SockJS(
+    Sock = new SockJS(
       `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
     );
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
+    // return () => stompClient.disconnect(() => console.log("disconnect1"), {});
   };
   const onConnected = () => {
     stompClient.subscribe(`/sub/up/${item?.itemNum}`, onMessageReceived);
@@ -59,8 +61,7 @@ function Up_After({ openModal, item }) {
       );
       date.setHours(date.getHours() + 9);
       setAuctionPeriodText(
-        `${date.getFullYear()}년 ${
-          date.getMonth() + 1
+        `${date.getFullYear()}년 ${date.getMonth() + 1
         }월 ${date.getDate()}일 ${date.getHours()}시까지`
       );
     }
@@ -75,7 +76,19 @@ function Up_After({ openModal, item }) {
   };
   useEffect(() => {
     connect();
-  }, [])
+    return () => {
+      console.log("stomp disconnect")
+      stompClient.disconnect(() => console.log("disconnect2"), {message:"disconnect2"})
+      console.log("sock disconnect")
+      closeConnection();
+    };
+  }, []);
+  // onclose: ((this: WebSocket, ev: CloseEvent) => any) | null;
+
+  function closeConnection() {
+    Sock.close();
+    console.log("sock.close()")
+  }
 
   return (
     <>

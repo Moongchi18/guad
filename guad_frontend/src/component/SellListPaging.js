@@ -1,4 +1,5 @@
 import Pagination from "react-js-pagination"
+import "./SellListPaging.css"
 
 function SellListPaging({ page, count, handlerSetPage }) {
     return (
