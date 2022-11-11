@@ -112,15 +112,15 @@ public class WebSocketController {
 		long CurrentPrice = (long) (StartPrice - (Math.floor(timeChange) * Discount));
 		
 		
-		System.out.println(">>>>>>>>>>>>>>>>>>"+auctionStart.getTime());
-		System.out.println(">>>>>>>>>>>>>>>>>>"+now.getTime());
-		System.out.println(">>>>>>>>>>>>>>>>>>"+auctionStart);
-		System.out.println(">>>>>>>>>>>>>>>>>>"+sellItem.getWriteDate());
-		System.out.println(">>>>>>>>>>>>>>>>>>"+StartPrice);
-		System.out.println(">>>>>>>>>>>>>>>>>>"+StartPrice);
-		System.out.println(">>>>>>>>>>>>>>>>>>"+Math.floor(timeChange) * Discount);
-		System.out.println(">>>>>>>>>>>>>>>>>>"+CurrentPrice);
-		System.out.println(">>>>>>>>>>>>>>>>>>"+result);
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+auctionStart.getTime());
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+now.getTime());
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+auctionStart);
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+sellItem.getWriteDate());
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+StartPrice);
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+StartPrice);
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+Math.floor(timeChange) * Discount);
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+CurrentPrice);
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+result);
 		
 		if (result) {
 			if (CurrentPrice < MinPrice) {
@@ -133,23 +133,5 @@ public class WebSocketController {
 		}
 	}
 
-//		Date now4 = new Date();
-//		now4.setDate(1,1,1,1,1,1);
-//		now4.getTime();
-	// 날짜 형식 지정
-//		SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
-	// 날짜를 지정된 형식으로 변경
-//		String strNewDtFormat = newDtFormat.format(sellItem.getWriteDate().getDay());
-//		String nowNewDtFormat = newDtFormat.format(now);
-	// 문자열을 데이트 형식으로 변경해줌
-//		Date date1 = newDtFormat.parse(strNewDtFormat);
-//		Date date2 = newDtFormat.parse(nowNewDtFormat);
-
-//		Calendar cal1 = Calendar.getInstance();
-//		cal1.add(Calendar.DATE, 6); // 일 계산
-//		cal1.add(Calendar.MONTH, 4); // 월 연산
-//		cal1.add(Calendar.DATE, -3); // 빼고 싶다면 음수 입력
-//
-//		Date date = new Date(cal1.getTimeInMillis());
 
 }

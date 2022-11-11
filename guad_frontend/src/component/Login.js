@@ -7,13 +7,11 @@ import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 function Login(props) {
-  // 쿠키용 존나 헷갈리네
-  const [cookies, setCookie] = useCookies(["email"]);
   // 아이디 저장 체크박스 체크 유무
   const [idCheck, setIdCheck] = useState(false);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // 아이디 저장용
   const ChangeCheck = () => {
     if (idCheck === false) {
       setIdCheck(true);
@@ -58,12 +56,19 @@ function Login(props) {
         alert("로그인 되었습니다.");
         props.history.push("/");
         console.log(response.data);
+        // 아이디 저장용
+        if (idCheck == true) {
+          localStorage.setItem("email", email);
+        } else {
+          localStorage.setItem("email", "");
+        }
       })
-
       .catch((error) => {
         console.log(error);
         alert("로그인에 실패했습니다.");
         sessionStorage.clear();
+        // 아이디 저장용
+        localStorage.setItem("email", "");
       });
   };
 
@@ -79,6 +84,7 @@ function Login(props) {
     console.log(props.isLogin);
     console.log(props);
     console.log("호출");
+    console.log("저장된 이메일 : " + localStorage.getItem("email"));
   }, []);
 
   return (
@@ -90,7 +96,11 @@ function Login(props) {
           <input
             className={style.in_box}
             placeholder="아이디"
-            value={email}
+            defaultValue={
+              localStorage.getItem("email") == ""
+                ? email
+                : localStorage.getItem("email")
+            }
             onChange={changeEmail}
             name="email"
           />
