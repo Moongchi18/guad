@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import AddressApi from "../Moodal/AddressApi";
 import { Link } from "react-router-dom";
 
-function MypageInfo({ history }) {
+function MypageInfo(props) {
   const [data, setData] = useState({
     email: "",
     pass: "",
@@ -69,6 +69,20 @@ function MypageInfo({ history }) {
       setIsPassConfirm(false);
     }
   };
+  /// 탈퇴용
+  const HandlerDelete = () => {
+    axios
+      .post(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
+        { email: userEmail }
+      )
+      .then((response) => {
+        alert("회원 탈퇴되었습니다.");
+        sessionStorage.clear();
+        props.setIsLogin(false);
+        props.history.push("/login");
+      });
+  };
 
   useEffect(() => {
     axios
@@ -106,7 +120,7 @@ function MypageInfo({ history }) {
         )
         .then((response) => {
           alert("수정이 완료되었습니다.");
-          history.push("/mypage");
+          props.history.push("/mypage");
         });
     }
   };
@@ -220,7 +234,11 @@ function MypageInfo({ history }) {
           )}
         </div>
         <div className={style.btn_area}>
-          <button type="button" className={`${style.getouti} ${style.btni}`}>
+          <button
+            type="button"
+            className={`${style.getouti} ${style.btni}`}
+            onClick={HandlerDelete}
+          >
             회원탈퇴
           </button>
           <button
