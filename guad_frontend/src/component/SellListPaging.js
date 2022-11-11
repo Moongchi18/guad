@@ -7,7 +7,7 @@ function SellListPaging({ page, count, handlerSetPage }) {
             activePage={page}
             itemsCountPerPage={12}
             totalItemsCount={count}
-            pageRangeDisplayed={3}
+            pageRangeDisplayed={5}
             prevPageText={'‹'}
             nextPageText={'›'}
             onChange={handlerSetPage}
