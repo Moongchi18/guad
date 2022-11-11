@@ -197,7 +197,6 @@ li.item_info:nth-child(4n) {
   font-weight: bold;
   margin: 55px auto 100px;
   display: block;
-  width: 120px;
   text-align: center;
 }
 .count_p ul li {
@@ -210,6 +209,14 @@ li.item_info:nth-child(4n) {
 }
 .reset {
   cursor: pointer;
+}
+.empty {
+  margin: 150px 0 150px;
+  display: block;
+  text-align: center;
+  font-family: "SBAggroB";
+  font-size: 30px;
+  font-weight: 300;
 }
 
 /* 아이템 이미지 */

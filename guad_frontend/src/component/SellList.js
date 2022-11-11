@@ -243,7 +243,7 @@ function Sell_List(props) {
         <div className={style.sell_bot}>
           <ul>
             {currentPosts.length === 0 ?
-              <span>게시물이 없습니다.</span> :
+              <span className={style.empty}>게시물이 없습니다.</span> :
               currentPosts.map((item, index) => (
                 <SellListItem item={item} key={index} />
               ))}
