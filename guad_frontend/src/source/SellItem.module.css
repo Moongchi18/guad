@@ -229,8 +229,6 @@
 }
 .button_bb {
   margin-bottom: 20px;
-  position: absolute;
-  bottom: 0px;
 }
 .button_bb span {
   display: block;
