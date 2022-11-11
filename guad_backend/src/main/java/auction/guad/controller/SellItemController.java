@@ -71,9 +71,7 @@ public class SellItemController {
 			System.out.println("originFileName : " + originFileName);
 			System.out.println("fileSize : " + fileSize);
 			String safeFile = System.currentTimeMillis() + originFileName;
-
 //	            FileNames = FileNames+","+safeFile; 
-
 			if (sellItemService.selectLastItemNum() == null) {
 				imgDto.setItemNum(1);
 			} else {
@@ -96,7 +94,6 @@ public class SellItemController {
 				e.printStackTrace();
 			}
 		}
-
 		sellItem.setMemberEmail(user.getUsername());
 		System.out.println("minPrice>>>>>>>>>>>>>>>>>>>" + sellItem.getAuctionMinPrice());
 		boolean sellItemresult = sellItemService.insertSellItem(sellItem);
