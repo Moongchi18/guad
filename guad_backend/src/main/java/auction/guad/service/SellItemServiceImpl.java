@@ -47,10 +47,11 @@ public class SellItemServiceImpl implements SellItemService {
 		// 해당 itemNum에 입력된 imgName을 vo값에 세팅
 		List<ImgDto> imgList = imgService.allImgByItemNum(itemNum);
 		SellItemJoinMemberVo vo = sellItemMapper.selectSellItemDetail(itemNum);
-		vo.setItemImgName(imgList.get(0).getItemImgName());
-		if(imgList.size() >= 2) {
+
+		if(imgList.size() == 2) {
 			vo.setItemImgNameSub2(imgList.get(1).getItemImgName());
 		} else if(imgList.size() == 3) {
+			vo.setItemImgNameSub2(imgList.get(1).getItemImgName());
 			vo.setItemImgNameSub3(imgList.get(2).getItemImgName());
 		}
 		return vo;
@@ -59,13 +60,14 @@ public class SellItemServiceImpl implements SellItemService {
 	@Override
 	public SellItemJoinMemberVo selectSellItemDetailNoHitCnt(int itemNum) throws Exception {
 		List<ImgDto> imgList = imgService.allImgByItemNum(itemNum);
-		
+		System.out.println("imgListㅡㅡㅡㅡㅡㅡㅡㅡㅡ" + imgList);
 		// 해당 itemNum에 입력된 imgName을 vo값에 세팅
 		SellItemJoinMemberVo vo = sellItemMapper.selectSellItemDetail(itemNum);
-		vo.setItemImgName(imgList.get(0).getItemImgName());
-		if(imgList.size() >= 2) {
+		
+		if(imgList.size() == 2) {
 			vo.setItemImgNameSub2(imgList.get(1).getItemImgName());
 		} else if(imgList.size() == 3) {
+			vo.setItemImgNameSub2(imgList.get(1).getItemImgName());
 			vo.setItemImgNameSub3(imgList.get(2).getItemImgName());
 		}
 		return vo;

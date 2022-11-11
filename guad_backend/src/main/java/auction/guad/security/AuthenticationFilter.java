@@ -18,16 +18,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import auction.guad.dto.MemberDto;
 import auction.guad.service.MemberService;
+import auction.guad.service.MemberServiceImpl;
 import auction.guad.vo.RequestVo;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-	private MemberService memberService;
+	private MemberServiceImpl memberService;
 	private JwtTokenUtil jwtTokenUtil;
 	
-	public AuthenticationFilter(MemberService memberService, JwtTokenUtil jwtTokenUtil) {
+	public AuthenticationFilter(MemberServiceImpl memberService, JwtTokenUtil jwtTokenUtil) {
 		this.memberService = memberService;
 		this.jwtTokenUtil = jwtTokenUtil; 
 	}
@@ -35,6 +36,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
+		System.out.println(request + "ㅗㅗㅗㅗㅗ" + response);
 		try {
 			// 요청(request)에서 인증 처리에 필요한 정보를 추출
 			RequestVo creds = new ObjectMapper().readValue(request.getInputStream(), RequestVo.class);
@@ -51,6 +53,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		}
 	}
 	
+	
+	
 	@Override 
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
@@ -64,4 +68,5 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		response.setHeader("token", jwtToken);
 		response.getWriter().write(jwtToken);
 	}
+	
 }

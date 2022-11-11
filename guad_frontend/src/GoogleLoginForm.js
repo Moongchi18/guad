@@ -15,9 +15,9 @@ function GoogleLoginForm({history}) {
     document.getElementById("signInDiv").hidden = true;
     //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/api/google/auth`, {
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2/code/google`, {
         // email: user.email,
-        email: userObject.email,
+        // email: userObject.email,
       })
       .then((response) => {
         alert("오르내림에 오신걸 환영합니다.");
@@ -26,7 +26,7 @@ function GoogleLoginForm({history}) {
         // sessionStorage.setItem("token", response.data);
        
         sessionStorage.setItem("email", userObject.email);
-        history.push("/join_g");
+        // history.push("/join_g");
       })
       .catch((error) => {
         alert("로그인에 실패했습니다.");
