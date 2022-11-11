@@ -215,8 +215,13 @@ li.item_info:nth-child(4n) {
   display: block;
   text-align: center;
   font-family: "SBAggroB";
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 300;
+  line-height: 1.3;
+}
+.empty img {
+  width: 90px;
+  height: 90px;
 }
 
 /* 아이템 이미지 */
