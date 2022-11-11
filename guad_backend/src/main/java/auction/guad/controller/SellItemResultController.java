@@ -49,7 +49,7 @@ public class SellItemResultController {
 
         MemberDto seller = memberService.selectMemberDetailByEmail(requestTrade.getSellerEmail());
         MemberDto buyer = memberService.selectMemberDetailByEmail(requestTrade.getBuyerEmail());
-
+        
     
         if (seller.getEmail().equals(buyer.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

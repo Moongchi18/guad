@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import style from "../../source/Moodal8.module.css";
 
 function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentPrice, discountRateNow }) {
 
+  console.log(item)
+  console.log(auctionCurrentPrice)
+  console.log(discountRateNow)
 
 
 
@@ -22,31 +24,17 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
   }, [auctionCurrentPrice]);
   ////////////////////상품구매////////////////////////
 
+  console.log(member)
+
   let requestTrade = {
     sellType: item.sellType,
     itemSub: item.itemSub,
     itemPrice: auctionCurrentPrice, //최종 판매가격
-    itemNum: "",
-    soldYn: "",
-    mileage: "",
+    itemNum: item.itemNum,
+    soldYn: item.soldYn,
+    mileage: member.mileage,
+    address: member.address + member.addressDetail
   };
-
-  // let dataSet = {
-  //   sellType,
-  //   itemSub,
-  //   itemContents,
-  //   itemPrice: sellPrice,
-  //   itemType: selectedItemType,
-  //   itemDType: selectedItemDetailType,
-  //   auctionStartPrice: auctionStartPrice,
-  //   auctionPeriodTime: sendSelectedHour,
-  //   auctionPeriodDay: sendSelectedDay,
-  //   auctionFinishDate: sendAuctionPeriod,
-  //   auctionMaxPrice: sendAuctionMaxPrice,
-  //   auctionRandomMethod: sendAuctionRandomMethod,
-  //   auctionDiscountPerHour: sendAuctionDiscountPerHout,
-  //   auctionMinPrice: sendAuctionMinPrice,
-  // };
 
   const handlerTrade = () => {
     if (result < 0) {
@@ -91,7 +79,7 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
               <p className={style.tag1}>상품 정보</p>
               <p className={style.tag2}>{item.itemSub}</p>
               <p className={style.tag3}>
-                현재 입찰가 : <strong>{auctionCurrentPrice} ({discountRateNow}%)</strong>
+                현재 입찰가 : <strong>{auctionCurrentPrice} ({discountRateNow.toFixed(1)}%)</strong>
               </p>
             </div>
             <div className={style.body_mid}>
@@ -108,7 +96,7 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
             <p className={style.tag6}>
               거래 후 마일리지<strong>{result}</strong>
             </p>
-            <button type="button">입찰완료</button>
+            <button type="button" onClick={handlerTrade}>입찰완료</button>
           </div>
         </div>
       </div>

@@ -12,10 +12,10 @@ import auction.guad.dto.MemberDto;
 import lombok.Data;
 
 @Data
-public class PrincipalDetails implements UserDetails{
+public class PrincipalDetails implements UserDetails, OAuth2User{
 	
 	private MemberDto member;
-//	private Map<String, Object> attributes;
+	private Map<String, Object> attributes;
 
 	// login
 	public PrincipalDetails(MemberDto member) {
@@ -23,10 +23,10 @@ public class PrincipalDetails implements UserDetails{
 	}
 	
 	// oauth2
-//	public PrincipalDetails(MemberDto member, Map<String, Object> attributes) {
-//		this.member = member;
-//		this.attributes = attributes;
-//	}
+	public PrincipalDetails(MemberDto member, Map<String, Object> attributes) {
+		this.member = member;
+		this.attributes = attributes;
+	}
 
 // 권한부여
 	@Override
@@ -71,14 +71,14 @@ public class PrincipalDetails implements UserDetails{
 		return true;
 	}
 
-//	@Override
-//	public Map<String, Object> getAttributes() {
-//		return attributes;
-//	}
-//
-//	@Override
-//	public String getName() {
-//		return (String)attributes.get("sub");
-//	}
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attributes;
+	}
+
+	@Override
+	public String getName() {
+		return (String)attributes.get("sub");
+	}
 
 }

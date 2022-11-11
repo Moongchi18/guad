@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../source/Sell_After.module.css";
-import BuyReview from "./Moodal/BuyReview";
 
 function Sell_After({ history, match }) {
   const [item, setItem] = useState("");
@@ -29,13 +28,15 @@ function Sell_After({ history, match }) {
         </div>
       </div>
       <div className={style.cont2}>
-        <img src={require("../source/img/big_item.png")} alt="제품사진" />
+        <img
+          src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+          alt={"img" + item.notifyNum}
+        />
         <div className={style.right_side}>
           <span className={style.category}>
             <p>{item.itemType}</p>
           </span>
           <span className={style.title}>{item.itemSub}</span>
-          <span className={style.title}>{item.itemContents}</span>
           <p className={style.add}>
             배송주소<strong>{item.address}</strong>
           </p>

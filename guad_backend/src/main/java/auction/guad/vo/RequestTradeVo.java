@@ -10,6 +10,7 @@ public class RequestTradeVo {
 	
 	private int itemNumResult;
 	private int itemNum;
+	private String sellState;
 	private char sellType;
 	private String sellerEmail;
 	private String sellerPhone;
@@ -21,8 +22,8 @@ public class RequestTradeVo {
 	private long itemPrice;	
 	
 	private Date soldDate; 	
+	
 	private char soldYn;
-	private String sellState;
 	private int mileage;
 	
 	

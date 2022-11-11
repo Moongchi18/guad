@@ -269,9 +269,6 @@ function Selling({ history }) {
   const [imgFile, setImgFile] = useState(null);
 
 
-  console.log(">>>>>>>>" + imgBase.length);
-  console.log(imgBase);
-
   const handleChangeFile = (event) => {
     //fd.append("file", event.target.files)
 
@@ -300,13 +297,9 @@ function Selling({ history }) {
             newImgBase.pop()
 
             if (base64) {
-              //  images.push(base64.toString())
               var base64Sub = base64.toString()
               setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
               setImgBase(newImgBase)
-
-              //  setImgBase64(newObj);
-              // 파일 base64 상태 업데이트
             }
           }
         }

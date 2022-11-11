@@ -15,6 +15,8 @@ function Sell_Down({ match, history }) {
   const [imgList, setImgList] = useState([]);
 
   console.log(item);
+  // console.log(auctionCurrentPrice)
+  // console.log(discountRateNow)
 
   useEffect(() => {
     axios

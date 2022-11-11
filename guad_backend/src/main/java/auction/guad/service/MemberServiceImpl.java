@@ -20,8 +20,8 @@ import auction.guad.security.PrincipalDetails;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @Service
-//public class MemberServiceImpl extends DefaultOAuth2UserService  implements MemberService {
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl extends DefaultOAuth2UserService  implements MemberService {
+//public class MemberServiceImpl implements MemberService {
 
 	private MemberMapper memberMapper;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -45,31 +45,31 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	// OAuth2
-//	@Override
-//	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-//		System.out.println("userRequest : " + userRequest);
-//		OAuth2User oauth2User = super.loadUser(userRequest);
-//		
-//		String provider = userRequest.getClientRegistration().getClientId();
-//		String providerId = oauth2User.getAttribute("sub");
-//		String username = provider+"_"+providerId;
-//		String password = bCryptPasswordEncoder.encode("test");
-//		String email = oauth2User.getAttribute("email");
-//		
-//		MemberDto member;
-//		try {
-//			member = memberMapper.selectMemberDetailByEmail(email);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+	@Override
+	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+		System.out.println("ㅡㅡㅡㅡㅡㅡuserRequest : " + userRequest);
+		OAuth2User oauth2User = super.loadUser(userRequest);
+		
+		String provider = userRequest.getClientRegistration().getClientId();
+		String providerId = oauth2User.getAttribute("sub");
+		String username = provider+"_"+providerId;
+		String password = bCryptPasswordEncoder.encode("test");
+		String email = oauth2User.getAttribute("email");
+		
+		MemberDto member;
+		try {
+			member = memberMapper.loginContainPass(email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		
 //		if(member == null) {
 //			MemberDto mem = new MemberDto(username, email, )
 //		}
-//		
-//		return super.loadUser(userRequest);
-//	}
+		
+		return super.loadUser(userRequest);
+	}
 
 	@Override
 	public ArrayList<MemberDto> managerSelectMemberListExceptPass() throws Exception {
