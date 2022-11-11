@@ -85,6 +85,7 @@ function Login(props) {
     console.log(props);
     console.log("호출");
     console.log("저장된 이메일 : " + localStorage.getItem("email"));
+    console.log("입력된 이메일 : " + email);
   }, []);
 
   return (
@@ -96,7 +97,7 @@ function Login(props) {
           <input
             className={style.in_box}
             placeholder="아이디"
-            defaultValue={
+            value={
               localStorage.getItem("email") == ""
                 ? email
                 : localStorage.getItem("email")
