@@ -168,6 +168,10 @@ li.item_info:nth-child(4n) {
 }
 .item_info > a > span {
   display: block;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tex1 {
   font-family: "Nanumsquare";
