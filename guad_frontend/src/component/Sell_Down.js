@@ -28,8 +28,8 @@ function Sell_Down({ match, history }) {
         setItem(response.data);
         const date = new Date(
           response.data.auctionFinishDate.slice(0, 10) +
-          " " +
-          response.data.auctionFinishDate.slice(12, 19)
+            " " +
+            response.data.auctionFinishDate.slice(12, 19)
         );
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
@@ -38,7 +38,8 @@ function Sell_Down({ match, history }) {
 
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${date.getMonth() + 1
+          `${date.getFullYear()}년 ${
+            date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
         handlerBid();
@@ -120,20 +121,21 @@ function Sell_Down({ match, history }) {
     handlerBid();
   }
 
-
   useEffect(() => {
     const id = setInterval(currentTimer, 1000);
     // const id2 = setInterval(() => handlerBid(), 1000);
     return () => {
       clearInterval(id);
       // clearInterval(id2);
-    }
+    };
   }, []);
 
   ///////////////할인율////////////////
 
-  var discountRate = (100 - (item.auctionMinPrice / item.auctionStartPrice) * 100)
-  var discountRateNow = (100 - (auctionCurrentPrice / item.auctionStartPrice) * 100)
+  var discountRate =
+    100 - (item.auctionMinPrice / item.auctionStartPrice) * 100;
+  var discountRateNow =
+    100 - (auctionCurrentPrice / item.auctionStartPrice) * 100;
   ////////////////////////////////////
   return (
     <>
@@ -143,11 +145,12 @@ function Sell_Down({ match, history }) {
         itemNum={item.itemNum}
       />
       <DownConfirm
-      closeModal2={closeModal2}
-      modalChange2={modalChange2}
-      item={item} history={history}
-      auctionCurrentPrice={auctionCurrentPrice}
-      discountRateNow={discountRateNow}
+        closeModal2={closeModal2}
+        modalChange2={modalChange2}
+        item={item}
+        history={history}
+        auctionCurrentPrice={auctionCurrentPrice}
+        discountRateNow={discountRateNow}
       />
       <div id={style.item_num} className={style.item_num}>
         2
@@ -216,9 +219,7 @@ function Sell_Down({ match, history }) {
           <div className={style.deli_bb}>
             <span className={style.deli_name}>최저 경매가</span>
             <span className={style.deli_tag}>
-              <strong>
-                ({discountRate.toFixed(1)}%)
-              </strong>
+              <strong>({discountRate.toFixed(1)}%)</strong>
               {item.auctionMinPrice?.toLocaleString()}
             </span>
           </div>
@@ -233,15 +234,12 @@ function Sell_Down({ match, history }) {
               입찰 참여
             </button>
             <span className={style.bb_date}>
-              현재 할인율:{" "}
-              <strong>
-                {discountRateNow.toFixed(1)}%
-              </strong>
+              현재 할인율: <strong>{discountRateNow.toFixed(1)}%</strong>
             </span>
-            <p>
-              남은 경매 시간 : <strong>{auctionPeriodText}</strong>
-            </p>
           </div>
+          <p className={style.bb_time}>
+            남은 경매 시간 : <strong>{auctionPeriodText}</strong>
+          </p>
         </div>
       </div>
       <div className={style.item_bot}>

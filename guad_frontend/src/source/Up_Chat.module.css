@@ -35,10 +35,8 @@
   border-radius: 5px;
   font-family: "nanumsquare";
   font-weight: normal;
-  position: absolute;
-  top: 450px;
-  right: 0px;
   transition: 0.3s all ease;
+  margin-left: 10px;
 }
 .member_list {
   width: 20%;
