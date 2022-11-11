@@ -8,11 +8,9 @@ function SellItem({ history, match }) {
   const [item, setItem] = useState({});
   const [review, setReview] = useState([]);
   const [auctionPeriodText, setAuctionPeriodText] = useState();
-  const [presentPrice, setPresentPrice] = useState(0);
   const [price, setPrice] = useState(0);
   const [imgList, setImgList] = useState([])
 
-  console.log(presentPrice);
   useEffect(() => {
     axios
       .get(
@@ -30,7 +28,6 @@ function SellItem({ history, match }) {
           response.data.sellType === "n"
             ? response.data.itemPrice
             : response.data.auctionStartPrice;
-        setPresentPrice(tempPrice.toLocaleString());
         setPrice(tempPrice);
 
         const date = new Date(
@@ -79,20 +76,19 @@ function SellItem({ history, match }) {
 
   return (
     <>
-      <BuyConfirm
-        closeModal2={closeModal2}
-        modalChange2={modalChange2}
-        itemNum={item.itemNum}
-        item={item}
-        presentPrice={presentPrice}
-        price={price}
-        history={history}
-      />
-      <NotifyWrite
+     <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
         itemNum={item.itemNum}
       />
+      <BuyConfirm
+        closeModal2={closeModal2}
+        modalChange2={modalChange2}
+        item={item}
+        price={price}
+        history={history}
+      />
+     
       <div id={style.item_num} className={style.item_num}>
         {item.itemNum}
       </div>
@@ -148,7 +144,7 @@ function SellItem({ history, match }) {
           </div>
           <div className={style.sell_bb}>
             <span className={style.sell_price}>판매가</span>
-            <span className={style.sell_number}>{presentPrice}</span>
+            <span className={style.sell_number}>{price?.toLocaleString()}</span>
           </div>
           <div className={style.button_bb}>
             <button type="button" className={style.bb_buy} onClick={openModal2}>
