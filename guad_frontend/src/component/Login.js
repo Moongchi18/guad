@@ -26,7 +26,6 @@ function Login(props) {
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
-    localStorage.setItem("email", e.target.value);
   };
   const changePassword = (e) => setPassword(e.target.value);
 
@@ -52,16 +51,21 @@ function Login(props) {
             props.setNickName(response.data.nickname);
             props.setIsLogin(true);
             sessionStorage.setItem("nickname", response.data.nickname);
-            localStorage.setItem("email", email);
           });
         alert("로그인 되었습니다.");
         props.history.push("/");
         console.log(response.data);
+        if (idCheck == true) {
+          localStorage.setItem("email", email);
+        } else {
+          localStorage.setItem("email", "");
+        }
       })
       .catch((error) => {
         console.log(error);
         alert("로그인에 실패했습니다.");
         sessionStorage.clear();
+        localStorage.setItem("email", "");
       });
   };
 
@@ -77,7 +81,7 @@ function Login(props) {
     console.log(props.isLogin);
     console.log(props);
     console.log("호출");
-    console.log("이메일 저장" + localStorage.getItem("email"));
+    console.log("저장된 이메일 : " + localStorage.getItem("email"));
   }, []);
 
   return (
@@ -89,7 +93,11 @@ function Login(props) {
           <input
             className={style.in_box}
             placeholder="아이디"
-            value={email}
+            defaultValue={
+              localStorage.getItem("email") == ""
+                ? email
+                : localStorage.getItem("email")
+            }
             onChange={changeEmail}
             name="email"
           />
