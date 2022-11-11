@@ -9,7 +9,7 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 var stompClient = null;
 const token = `Bearer ${sessionStorage.getItem("token")}`;
 
-function Sell_Down({ match }) {
+function Sell_Down({ match, history }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [item, setItem] = useState({});
   const [imgList, setImgList] = useState([]);
@@ -39,6 +39,7 @@ function Sell_Down({ match }) {
           `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
+        handlerBid();
       })
       .catch((error) => console.log(error));
   }, []);
@@ -113,13 +114,17 @@ function Sell_Down({ match }) {
   };
 
   //setInterval(handlerBid, 5000);
+  if (timer == "59분59초") {
+    handlerBid();
+  }
+
 
   useEffect(() => {
     const id = setInterval(currentTimer, 1000);
-    const id2 = setInterval(() => handlerBid(), 1000);
+    // const id2 = setInterval(() => handlerBid(), 1000);
     return () => {
-      clearInterval(id2);
       clearInterval(id);
+      // clearInterval(id2);
     }
   }, []);
 
@@ -135,7 +140,13 @@ function Sell_Down({ match }) {
         modalChange={modalChange}
         itemNum={item.itemNum}
       />
-      <DownConfirm closeModal2={closeModal2} modalChange2={modalChange2} />
+      <DownConfirm
+      closeModal2={closeModal2}
+      modalChange2={modalChange2}
+      item={item} history={history}
+      auctionCurrentPrice={auctionCurrentPrice}
+      discountRateNow={discountRateNow}
+      />
       <div id={style.item_num} className={style.item_num}>
         2
       </div>

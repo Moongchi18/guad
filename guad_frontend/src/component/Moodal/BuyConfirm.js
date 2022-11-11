@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import style from "../../source/Moodal6.module.css";
 import AddressApi from "./AddressApi";
 
@@ -8,13 +7,10 @@ function BuyConfirm({
   closeModal2,
   modalChange2,
   item,
-  presentPrice,
   price,
-  history,
-  modalChange,
+  history
 }) {
   const [dto, setDto] = useState([]);
-  const [purchasePrice, setPurchasePrice] = useState();
   const [member, setMember] = useState({});
   const [result, setResult] = useState(0);
   const [address, setAddress] = useState("");
@@ -37,7 +33,6 @@ function BuyConfirm({
 
   useEffect(() => {
     setDto(item);
-    setPurchasePrice(presentPrice);
 
     setRequestTrade({
       ...requestTrade,
@@ -50,28 +45,24 @@ function BuyConfirm({
       soldYn: item.soldYn,
       mileage: member.mileage,
     });
-  }, [item, presentPrice, address, addressDetail]);
+  }, [item, price, address, addressDetail]);
 
   useEffect(() => {
     axios
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
-        console.log(response.data);
         setMember(response.data);
         setAddress(response.data.address);
         setAddressDetail(response.data.addressDetail);
-        const tempResult = response.data.mileage - price;
-        console.log(tempResult);
-        setResult(tempResult);
+        setResult(response.data.mileage - price);
       })
       .catch((error) => console.log(error));
   }, [price]);
 
   const handlerTrade = () => {
     console.log(requestTrade);
-    if (item.soldYn !== "n") {
-      alert("이미 판매된 상품입니다.");
-    } else if (result < 0) {
+   
+    if (result < 0) {
       alert("마일리지가 부족합니다. 충전 후 이용해주세요.");
       history.push("/mypage");
     } else {
@@ -113,14 +104,14 @@ function BuyConfirm({
           <div className={style.modalbody2}>
             <div className={style.info_b}>
               <img
-                src={require("../../source/img/item01.png")}
-                alt="상품이미지"
+                src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+                alt={"img" + item.notifyNum}
               />
               <div className={style.info_in}>
                 <span className={style.info1}>상품 정보</span>
                 <span className={style.info2}>{dto.itemSub}</span>
                 <span className={style.info3}>상품 가격</span>
-                <span className={style.info4}>{purchasePrice}</span>
+                <span className={style.info4}>{price?.toLocaleString()}</span>
               </div>
             </div>
             <div className={style.info_c}>
@@ -128,7 +119,7 @@ function BuyConfirm({
                 내 마일리지<strong>{member.mileage?.toLocaleString()}</strong>
               </span>
               <span>
-                상품 가격<strong>- {purchasePrice}</strong>
+                상품 가격<strong>- {price?.toLocaleString()}</strong>
               </span>
             </div>
 

@@ -142,6 +142,8 @@ public class SellItemController {
 	}
 
 	
+
+	
 	
 	@RequestMapping(value = "/sellItem/{itemNum}", method = RequestMethod.PUT)
 	public void updateSellItem(@PathVariable("itemNum") int itemNum, @RequestBody SellItemDto sellItemDto)
