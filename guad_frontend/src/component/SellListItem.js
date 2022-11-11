@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
 function SellListItem({ item }) {
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   return (
     <>
       <li className={style.item_info}>
-        <Link to={`/sell_item/${item.sellType}/${item.itemNum}`}>
+        <Link to={item.soldYn === 'y' || item.soldYn === 'Y' ? `/sell_end/${item.sellType}/${item.itemNum}` : `/sell_item/${item.sellType}/${item.itemNum}`}>
           <div className={style.item_bb}>
             <div className={style.end_a}>
-              <p>{item?.sellType === "n" ? "판매종료" : "경매종료"}</p>
+              {(item?.soldYn === "y" || item?.soldYn === "Y") &&
+                <p>{item?.sellType === "n" ? "판매종료" : "경매종료"}</p>}
             </div>
             <img
               className={style.item_img}
@@ -22,8 +23,8 @@ function SellListItem({ item }) {
                 item.sellType === "d"
                   ? require("../source/img/del1_b.png")
                   : item.sellType === "u"
-                  ? require("../source/img/del2_b.png")
-                  : require("../source/img/del4_b.png")
+                    ? require("../source/img/del2_b.png")
+                    : require("../source/img/del4_b.png")
               }
               alt="망치"
               className={style.del_icon}
