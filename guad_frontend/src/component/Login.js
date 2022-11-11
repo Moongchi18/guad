@@ -12,10 +12,10 @@ function Login(props) {
   const [password, setPassword] = useState("");
   // 아이디 저장용
   const ChangeCheck = () => {
-    if (idCheck === false) {
-      setIdCheck(true);
-    } else {
+    if (idCheck === true) {
       setIdCheck(false);
+    } else {
+      setIdCheck(true);
     }
   };
   const onKeyEnter = (e) => {
@@ -96,7 +96,7 @@ function Login(props) {
           <input
             className={style.in_box}
             placeholder="아이디"
-            value={
+            defaultValue={
               localStorage.getItem("email") == ""
                 ? email
                 : localStorage.getItem("email")
