@@ -84,10 +84,11 @@
   height: 600px;
   vertical-align: top;
   margin-left: 50px;
+  position: relative;
 }
 .info_top > img {
   position: absolute;
-  top: 40px;
+  top: -40px;
   right: 0px;
 }
 .info_top > img:hover {
@@ -164,6 +165,10 @@
 .seller1 strong {
   font-weight: 300;
   font-size: 18px;
+}
+.contents_in {
+  position: absolute;
+  bottom: 0px;
 }
 .deli_bb {
   display: block;
