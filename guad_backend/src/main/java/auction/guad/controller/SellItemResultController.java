@@ -56,16 +56,13 @@ public class SellItemResultController {
         if (seller.getEmail().equals(buyer.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } else {
-
             requestTrade.setBuyerPhone(buyer.getPhone());
             requestTrade.setSellerPhone(seller.getPhone());
 
             System.out.println("tttttttttttttttttttttttttttttt" + requestTrade);
             boolean result = sellItemResultService.normalTrade(requestTrade);
             return ResponseEntity.status(HttpStatus.OK).body(true);
-
         }
-
     }
 
     @ApiOperation(value = "거래결과 조회(buyerEmail)", notes = "buyerEmail을 기준으로 거래결과 조회, 파라미터 : buyerEmail")
