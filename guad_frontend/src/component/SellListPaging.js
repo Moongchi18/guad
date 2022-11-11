@@ -1,4 +1,5 @@
 import Pagination from "react-js-pagination"
+import "./SellListPaging.css"
 
 function SellListPaging({ page, count, handlerSetPage }) {
     return (
@@ -6,7 +7,7 @@ function SellListPaging({ page, count, handlerSetPage }) {
             activePage={page}
             itemsCountPerPage={12}
             totalItemsCount={count}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={3}
             prevPageText={'‹'}
             nextPageText={'›'}
             onChange={handlerSetPage}
