@@ -437,6 +437,7 @@
   font-weight: 300;
   color: #767676;
   line-height: 1.7;
+  word-break: break-all;
 }
 .sell_review {
   border-top: 1px solid rgba(0, 0, 0, 0.15);

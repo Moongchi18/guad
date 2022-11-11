@@ -9,8 +9,6 @@ import { useCookies } from "react-cookie";
 function Login(props) {
   // 아이디 저장 체크박스 체크 유무
   const [idCheck, setIdCheck] = useState(false);
-
-  //////////////////////////////////////////// 여기까지 쿠키쓰
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const ChangeCheck = () => {
@@ -28,6 +26,7 @@ function Login(props) {
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
+    localStorage.setItem("email", e.target.value);
   };
   const changePassword = (e) => setPassword(e.target.value);
 
@@ -53,12 +52,12 @@ function Login(props) {
             props.setNickName(response.data.nickname);
             props.setIsLogin(true);
             sessionStorage.setItem("nickname", response.data.nickname);
+            localStorage.setItem("email", email);
           });
         alert("로그인 되었습니다.");
         props.history.push("/");
         console.log(response.data);
       })
-
       .catch((error) => {
         console.log(error);
         alert("로그인에 실패했습니다.");
@@ -78,6 +77,7 @@ function Login(props) {
     console.log(props.isLogin);
     console.log(props);
     console.log("호출");
+    console.log("이메일 저장" + localStorage.getItem("email"));
   }, []);
 
   return (
