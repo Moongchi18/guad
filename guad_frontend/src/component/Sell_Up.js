@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import style from "../source/SellItem.module.css";
+import style from "../source/SellItem_u.module.css";
 import NotifyWrite from "./Moodal/NotifyWrite";
 import Up_After from "./Up_After";
 import Up_Before from "./Up_Before";
@@ -9,6 +9,7 @@ function Sell_Up({ match }) {
   const [start, setStart] = useState(false);
   const [item, setItem] = useState({});
   const [imgList, setImgList] = useState([]);
+  const buyer = useRef();
 
   const clickStart = () => {
     if (sessionStorage.length != 0) {
@@ -19,7 +20,7 @@ function Sell_Up({ match }) {
     }
   };
   console.log(item.itemNum);
-  console.log(imgList)
+  console.log(imgList);
 
   useEffect(() => {
     axios
@@ -29,10 +30,10 @@ function Sell_Up({ match }) {
       .then((response) => {
         console.log(response.data);
         setItem(response.data);
-        imgList.push(response.data.itemImgName)
-        imgList.push(response.data.itemImgNameSub2)
-        imgList.push(response.data.itemImgNameSub3)
-        setImgList(imgList)
+        imgList.push(response.data.itemImgName);
+        imgList.push(response.data.itemImgNameSub2);
+        imgList.push(response.data.itemImgNameSub3);
+        setImgList(imgList);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -80,9 +81,10 @@ function Sell_Up({ match }) {
             {imgList?.map((img, index) => (
               <li key={index}>
                 <img
-                  src={ img ?
-                    `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
-                    : require("../source/img/no_photo.png")
+                  src={
+                    img
+                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      : require("../source/img/no_photo.png")
                   }
                   alt={"img" + item.notifyNum}
                   className={style.item_o}
@@ -99,7 +101,7 @@ function Sell_Up({ match }) {
           />
         )}
         {start == true && item && (
-          <Up_After openModal={openModal} item={item} />
+          <Up_After openModal={openModal} item={item} buyer={buyer} />
         )}
       </div>
       <div className={style.item_bot}>

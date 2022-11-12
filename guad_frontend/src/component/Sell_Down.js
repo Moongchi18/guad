@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRef, useEffect, useState } from "react";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
-import style from "../source/SellItem.module.css";
+import style from "../source/SellItem_d.module.css";
 import DownConfirm from "./Moodal/DownConfirm";
 import NotifyWrite from "./Moodal/NotifyWrite";
 
@@ -168,7 +168,7 @@ function Sell_Down({ match, history }) {
           <img
             src={require("../source/img/del1_b.png")}
             alt="내림경매"
-            className={style.up2}
+            className={style.up}
           />
           <ul>
             {imgList?.map((img, index) => (
@@ -195,61 +195,53 @@ function Sell_Down({ match, history }) {
           <span className={style.top_head}>상품 정보</span>
           <span className={style.top_cate}>{item.itemType}</span>
           <span className={style.top_title}>{item.itemSub}</span>
-          {/* <div className={style.rating_option}>
-            <img src={require("../source/img/star.png")} alt="별점" />
-            <span>4</span>
-          </div> */}
-          <div className={style.rating_option}>
+          <div className={style.see_option}>
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>{item.hitCnt}</span>
           </div>
-          <span className={style.seller_dd}>
+          <span className={style.seller}>
             판매자 : <strong>{item.nickname}</strong>
           </span>
-          <div className={style.start_bb}>
-            <p className={style.time_check}>
-              다음 내림까지 : <strong>{timer}</strong>
+          <div className={style.cont_bot}>
+            <div className={style.start_box}>
+              <p className={style.time_check}>
+                다음 내림까지 : <strong>{timer}</strong>
+              </p>
+              <span className={style.deli_name}>시작 경매가</span>
+              <span className={style.deli_tag}>
+                {item.auctionStartPrice?.toLocaleString()}
+              </span>
+            </div>
+            <div className={style.deli_box}>
+              <span className={style.deli_name}>최저 경매가</span>
+              <span className={style.deli_tag}>
+                <strong>({discountRate.toFixed(1)}%)</strong>
+                {item.auctionMinPrice?.toLocaleString()}
+              </span>
+            </div>
+            <div className={style.sell_box}>
+              <span className={style.sell_price}>현재 경매가</span>
+              <span className={style.sell_number}>
+                {auctionCurrentPrice?.toLocaleString()}
+              </span>
+            </div>
+            <div className={style.button_box}>
+              <button className={style.now_buy} onClick={openModal2}>
+                입찰 참여
+              </button>
+              <span className={style.now_sale}>
+                현재 할인율: <strong>{discountRateNow.toFixed(1)}%</strong>
+              </span>
+            </div>
+            <p className={style.time_box}>
+              남은 경매 시간 : <strong>{auctionPeriodText}</strong>
             </p>
-
-            <span className={style.deli_name}>시작 경매가</span>
-            <span className={style.deli_tag}>
-              {item.auctionStartPrice?.toLocaleString()}
-            </span>
           </div>
-          <div className={style.deli_bb}>
-            <span className={style.deli_name}>최저 경매가</span>
-            <span className={style.deli_tag}>
-              <strong>({discountRate.toFixed(1)}%)</strong>
-              {item.auctionMinPrice?.toLocaleString()}
-            </span>
-          </div>
-          <div className={style.sell_bb}>
-            <span className={style.sell_price}>현재 경매가</span>
-            <span className={style.sell_number}>
-              {auctionCurrentPrice?.toLocaleString()}
-            </span>
-          </div>
-          <div className={style.button_bb}>
-            <button className={style.bb_down} onClick={openModal2}>
-              입찰 참여
-            </button>
-            <span className={style.bb_date}>
-              현재 할인율: <strong>{discountRateNow.toFixed(1)}%</strong>
-            </span>
-          </div>
-          <p className={style.bb_time}>
-            남은 경매 시간 : <strong>{auctionPeriodText}</strong>
-          </p>
         </div>
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
         <p>{item.itemContents}</p>
-      </div>
-      <div className={style.review}>
-        <h2>후기 작성</h2>
-        <textarea placeholder="경매 후기를 작성해주세요."></textarea>
-        <button type="button">작성</button>
       </div>
     </>
   );
