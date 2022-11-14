@@ -56,10 +56,12 @@ function Sell_End_n({ match, modalOpen }) {
         console.log(response.data)
         setReviewList(response.data)
         let sumRating = 0
-        response.data.forEach(element => {
-          sumRating += element.starPoint
-        });
-        sumRating = Math.round(sumRating / response.data.length * 10) / 10
+        if(response.data.length > 0){
+          response.data.forEach(element => {
+            sumRating += element.starPoint
+          });
+          sumRating = Math.round(sumRating / response.data.length * 10) / 10
+        }
         setAverageRating(sumRating)
       }).catch(err => console.log(err))
   }, [reviewUpdate])
