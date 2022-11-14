@@ -94,11 +94,8 @@ function SellItem({ history, match }) {
       </div>
       <div className={style.item_top}>
         <h2>
-          {item.sellType === "n"
-            ? "일반판매"
-            : item.sellType === "u"
-            ? "오름경매"
-            : "내림경매"}
+          <strong>일반</strong>
+          판매
         </h2>
         <div className={style.img_item}>
           <img
@@ -154,11 +151,7 @@ function SellItem({ history, match }) {
               </span>
             </div>
             <div className={style.button_box}>
-              <button
-                type="button"
-                className={style.buy}
-                onClick={openModal2}
-              >
+              <button type="button" className={style.buy} onClick={openModal2}>
                 구매
               </button>
               <span className={style.seller}>
