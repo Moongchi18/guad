@@ -6,10 +6,12 @@ import axios from "axios";
 
 function SellItem({ history, match }) {
   const [item, setItem] = useState({});
-  const [review, setReview] = useState([]);
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [price, setPrice] = useState(0);
   const [imgList, setImgList] = useState([]);
+  
+  const [review, setReview] = useState([]);
+  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
     axios
@@ -49,6 +51,14 @@ function SellItem({ history, match }) {
       )
       .then((response) => {
         setReview(response.data);
+        let sumRating = 0
+        if(response.data.length > 0){
+          response.data.forEach(element => {
+            sumRating += element.starPoint
+          });
+          sumRating = Math.round(sumRating / response.data.length * 10) / 10
+        }
+        setAverageRating(sumRating)
         console.log(response.data);
       })
       .catch((error) => console.log(error));
@@ -136,7 +146,7 @@ function SellItem({ history, match }) {
           <span className={style.top_title}>{item.itemSub}</span>
           <div className={style.rating_option}>
             <img src={require("../source/img/star.png")} alt="별점" />
-            <span>4</span>
+            <span>{averageRating}</span>
           </div>
           <div className={style.rating_option2}>
             <img src={require("../source/img/see.png")} alt="조회수" />
@@ -174,7 +184,7 @@ function SellItem({ history, match }) {
         <div className={style.sell_review}>
           <h2>판매자님에 대한 리뷰</h2>
           <img src={require("../source/img/red_star.png")} alt="붉은별" />
-          <span>4</span>
+          <span>{averageRating}</span>
         </div>
         <div className={style.sell_review_show}>
           <ul>
