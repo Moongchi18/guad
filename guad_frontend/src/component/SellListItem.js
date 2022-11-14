@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
 function SellListItem({ item }) {
-  useEffect(() => { }, []);
   return (
     <>
       <li className={style.item_info}>
-        <Link to={item.soldYn === 'y' || item.soldYn === 'Y' ? `/sell_end/${item.sellType}/${item.itemNum}` : `/sell_item/${item.sellType}/${item.itemNum}`}>
+        <Link to={item.soldYn === 'y' || item.soldYn === 'Y' ? `/sell_end/${item.sellType}/${item.itemNum}` :
+          item.sellType === 'd' && item.auctionRandomMethod ? `/sell_item/dr/${item.itemNum}` : `/sell_item/${item.sellType}/${item.itemNum}`
+        }>
           <div className={style.item_bb}>
             <div className={style.end_a}>
               {(item?.soldYn === "y" || item?.soldYn === "Y") &&
