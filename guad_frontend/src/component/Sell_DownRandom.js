@@ -221,7 +221,7 @@ function Sell_Down({ match, history }) {
             <div className={style.sell_box}>
               <span className={style.sell_price}>현재 경매가</span>
               <span className={style.sell_number}>
-                {auctionCurrentPrice === -1 ? "경매 준비중" : auctionCurrentPrice === 0 ? "경매가 종료되었습니다." :
+                {auctionCurrentPrice === -1 ? "경매 준비중" : 
                   auctionCurrentPrice?.toLocaleString()}
               </span>
             </div>
