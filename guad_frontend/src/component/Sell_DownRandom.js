@@ -9,7 +9,7 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 var stompClient = null;
 const token = `Bearer ${sessionStorage.getItem("token")}`;
 
-function Sell_Down({ match, history }) {
+function Sell_DownRandom({ match, history }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [item, setItem] = useState({});
   const [imgList, setImgList] = useState([]);
@@ -246,4 +246,4 @@ function Sell_Down({ match, history }) {
     </>
   );
 }
-export default Sell_Down;
+export default Sell_DownRandom;
