@@ -60,8 +60,13 @@ function Sell_Down({ match, history }) {
     modalChange2.current.style = "display:none;";
   };
   const openModal2 = () => {
-    modalChange2.current.style = "display:block;";
-  };
+    if(auctionCurrentPrice == -1) {
+      alert("경매 준비 중에는 입찰할 수 없습니다.")
+    } else {
+      modalChange2.current.style = "display:block;";
+    };
+  }
+    
 
   //////////////웹소캣//////////////
   const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
