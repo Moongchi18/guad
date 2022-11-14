@@ -8,8 +8,8 @@ import { data } from "jquery";
 function Sell_End_n({ match, modalOpen }) {
   const ratingList = [1, 2, 3, 4, 5];
 
-  const [dataList, setDataList] = useState('');
-  const [soldDateText, setSoldDateText] = useState('')
+  const [dataList, setDataList] = useState("");
+  const [soldDateText, setSoldDateText] = useState("");
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -30,48 +30,58 @@ function Sell_End_n({ match, modalOpen }) {
         setDataList(response.data);
         const date = new Date(
           response.data.soldDate.slice(0, 10) +
-          " " +
-          response.data.soldDate.slice(12, 19)
+            " " +
+            response.data.soldDate.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setSoldDateText(
-          `${date.getFullYear()}년 ${date.getMonth() + 1
-          }월 ${date.getDate()}일`
+          `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`
         );
       });
   }, []);
 
   // review 목록 조회
   const [reviewList, setReviewList] = useState([]);
-  const [reviewUpdate, setReviewUpdate] = useState(false) // 리뷰가 작성되면 값이 바뀌고, 바뀐것을 감지해서 리뷰목록 갱신
+  const [reviewUpdate, setReviewUpdate] = useState(false); // 리뷰가 작성되면 값이 바뀌고, 바뀐것을 감지해서 리뷰목록 갱신
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`)
-      .then(response => {
-        console.log(response.data)
-        setReviewList(response.data)
-      }).catch(err => console.log(err))
-  }, [reviewUpdate])
+    axios
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setReviewList(response.data);
+      })
+      .catch((err) => console.log(err));
+  }, [reviewUpdate]);
 
   // 리뷰 작성
   const [rating, setRating] = useState("");
-  const [reviewContents, setReviewContents] = useState('');
+  const [reviewContents, setReviewContents] = useState("");
   const ratingClick = (e) => {
     setRating(e.target.name);
   };
   const handleSubmit = () => {
-    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, { itemNum: match.params.itemNum, sellerEmail: dataList.sellerEmail, writerNickname: dataList.nickname, contents: reviewContents, starPoint: rating })
-      .then((response) => {
-        console.log(response)
-        alert("리뷰 작성이 완료되었습니다.")
-        setReviewUpdate(!reviewUpdate)
-        modalOpen.current.style = "display:none;"
+    axios
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, {
+        itemNum: match.params.itemNum,
+        sellerEmail: dataList.sellerEmail,
+        writerNickname: dataList.nickname,
+        contents: reviewContents,
+        starPoint: rating,
       })
-  }
+      .then((response) => {
+        console.log(response);
+        alert("리뷰 작성이 완료되었습니다.");
+        setReviewUpdate(!reviewUpdate);
+        modalOpen.current.style = "display:none;";
+      });
+  };
 
   const onReviewChange = (e) => {
-    setReviewContents(e.target.value)
-  }
-  console.log(reviewContents)
+    setReviewContents(e.target.value);
+  };
+  console.log(reviewContents);
   return (
     <>
       <NotifyWrite
@@ -140,10 +150,8 @@ function Sell_End_n({ match, modalOpen }) {
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
-        <p>
-          {dataList.itemContents}
-        </p>
-        {dataList.buyerNickname === sessionStorage.getItem('nickname') &&
+        <p>{dataList.itemContents}</p>
+        {dataList.buyerNickname === sessionStorage.getItem("nickname") && (
           <div className={style.rating}>
             <h3>거래는 어떠셨나요?</h3>
             <div className={style.star}>
@@ -160,9 +168,16 @@ function Sell_End_n({ match, modalOpen }) {
                 />
               ))}
             </div>
-            <textarea placeholder="거래후기를 작성해주세요." onChange={onReviewChange} value={reviewContents}></textarea>
-            <button type="button" onClick={handleSubmit}>작성</button>
-          </div>}
+            <textarea
+              placeholder="거래후기를 작성해주세요."
+              onChange={onReviewChange}
+              value={reviewContents}
+            ></textarea>
+            <button type="button" onClick={handleSubmit}>
+              작성
+            </button>
+          </div>
+        )}
         <div className={style.sell_review}>
           <h2>{dataList.sellerNickname} 님에 대한 리뷰</h2>
           <img src={require("../source/img/red_star.png")} alt="붉은별" />
