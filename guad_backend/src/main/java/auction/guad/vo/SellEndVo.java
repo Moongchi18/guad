@@ -21,4 +21,9 @@ public class SellEndVo {
 	private String sellerEmail;
 	private String sellerNickname;
 	private String buyerNickname;
+	
+	
+	private String itemImgName;
+	private String itemImgNameSub2;
+	private String itemImgNameSub3;
 }
