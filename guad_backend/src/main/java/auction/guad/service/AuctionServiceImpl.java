@@ -9,6 +9,7 @@ import auction.guad.controller.model.Auction;
 import auction.guad.dto.AuctionDownDto;
 import auction.guad.dto.AuctionDto;
 import auction.guad.mapper.AuctionMapper;
+import auction.guad.vo.AuctionVo;
 
 @Service
 public class AuctionServiceImpl implements AuctionService{
@@ -17,14 +18,12 @@ public class AuctionServiceImpl implements AuctionService{
 	AuctionMapper aucMapper;
 	
 	@Override
-	public int tryAuction(Auction auc) throws Exception {
-				
+	public int tryAuction(AuctionVo auc) throws Exception {
 		return aucMapper.tryAuction(auc);
-		
 	}
 	
 	@Override
-	public void cancelAuction(Auction auc) throws Exception {
+	public void cancelAuction(AuctionVo auc) throws Exception {
 		
 		aucMapper.cancelAuction(auc);
 	}
