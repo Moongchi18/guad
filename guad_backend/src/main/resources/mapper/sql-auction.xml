@@ -6,7 +6,7 @@
 
 	<!-- 입찰 -->
 	<insert id="tryAuction"
-		parameterType="auction.guad.controller.model.Auction">
+		parameterType="auction.guad.vo.AuctionVo">
 		INSERT INTO AUCTION (ITEM_NUM, MEMBER_EMAIL, AUCTION_PRICE,
 		AUCTION_TIME) VALUES
 		(#{itemNum}, #{memberEmail}, #{auctionPrice},
@@ -22,7 +22,7 @@
 	</delete>
 
 	<!-- 내림랜덤 열수 조회 -->
-	<select id="naelimRandomCount" resultType="int">
+	<select id="naelimRandomCount" parameterType="int" resultType="int">
 		SELECT COUNT(*)
 		FROM AUCTION_DOWN
 		WHERE EMAIL = #{itemNum}

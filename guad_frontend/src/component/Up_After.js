@@ -57,12 +57,11 @@ function Up_After({ openModal, item, buyer }) {
     console.log(item);
     if (item.auctionPeriod) {
       const date = new Date(
-        item.auctionPeriod.slice(0, 10) + " " + item.auctionPeriod.slice(12, 19)
+        item.auctionFinishDate.slice(0, 10) + " " + item.auctionFinishDate.slice(12, 19)
       );
       date.setHours(date.getHours() + 9);
       setAuctionPeriodText(
-        `${date.getFullYear()}년 ${
-          date.getMonth() + 1
+        `${date.getFullYear()}년 ${date.getMonth() + 1
         }월 ${date.getDate()}일 ${date.getHours()}시까지`
       );
     }
