@@ -29,14 +29,14 @@
 }
 .chat_box {
   background-color: #dfdfdf;
-  padding: 9px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   border-radius: 5px;
   font-family: "nanumsquare";
   font-weight: normal;
   transition: 0.3s all ease;
-  margin-left: 10px;
+  margin-left: 9px;
 }
 .member_list {
   width: 20%;

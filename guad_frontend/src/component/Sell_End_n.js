@@ -35,13 +35,12 @@ function Sell_End_n({ match, modalOpen }) {
         setImgList(imgList)
         const date = new Date(
           response.data.soldDate.slice(0, 10) +
-          " " +
-          response.data.soldDate.slice(12, 19)
+            " " +
+            response.data.soldDate.slice(12, 19)
         );
         date.setHours(date.getHours() + 9);
         setSoldDateText(
-          `${date.getFullYear()}년 ${date.getMonth() + 1
-          }월 ${date.getDate()}일`
+          `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`
         );
       });
   }, []);
@@ -58,7 +57,6 @@ function Sell_End_n({ match, modalOpen }) {
         setReviewList(response.data)
         let sumRating = 0
         response.data.forEach(element => {
-          console.log(element.starPoint)
           sumRating += element.starPoint
         });
         sumRating = Math.round(sumRating / response.data.length * 10) / 10
@@ -70,24 +68,31 @@ function Sell_End_n({ match, modalOpen }) {
 
   // 리뷰 작성
   const [rating, setRating] = useState("");
-  const [reviewContents, setReviewContents] = useState('');
+  const [reviewContents, setReviewContents] = useState("");
   const ratingClick = (e) => {
     setRating(e.target.name);
   };
   const handleSubmit = () => {
-    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, { itemNum: match.params.itemNum, sellerEmail: dataList.sellerEmail, writerNickname: dataList.nickname, contents: reviewContents, starPoint: rating })
-      .then((response) => {
-        console.log(response)
-        alert("리뷰 작성이 완료되었습니다.")
-        setReviewUpdate(!reviewUpdate)
-        modalOpen.current.style = "display:none;"
+    axios
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, {
+        itemNum: match.params.itemNum,
+        sellerEmail: dataList.sellerEmail,
+        writerNickname: dataList.nickname,
+        contents: reviewContents,
+        starPoint: rating,
       })
-  }
+      .then((response) => {
+        console.log(response);
+        alert("리뷰 작성이 완료되었습니다.");
+        setReviewUpdate(!reviewUpdate);
+        modalOpen.current.style = "display:none;";
+      });
+  };
 
   const onReviewChange = (e) => {
-    setReviewContents(e.target.value)
-  }
-  console.log(reviewContents)
+    setReviewContents(e.target.value);
+  };
+  console.log(reviewContents);
   return (
     <>
       <NotifyWrite
@@ -190,12 +195,20 @@ function Sell_End_n({ match, modalOpen }) {
                   alt="별점"
                   name={r}
                   onClick={ratingClick}
+                  key={index}
                 />
               ))}
             </div>
-            <textarea placeholder="거래후기를 작성해주세요." onChange={onReviewChange} value={reviewContents}></textarea>
-            <button type="button" onClick={handleSubmit}>작성</button>
-          </div>}
+            <textarea
+              placeholder="거래후기를 작성해주세요."
+              onChange={onReviewChange}
+              value={reviewContents}
+            ></textarea>
+            <button type="button" onClick={handleSubmit}>
+              작성
+            </button>
+          </div>
+        }
         <div className={style.sell_review}>
           <h2>{dataList.sellerNickname} 님에 대한 리뷰</h2>
           <img src={require("../source/img/red_star.png")} alt="붉은별" />
@@ -205,8 +218,8 @@ function Sell_End_n({ match, modalOpen }) {
           <ul>
             {
               reviewList?.length >= 1 &&
-              reviewList.map(review => (
-                <li>
+              reviewList.map((review, index) => (
+                <li key={index}>
                   <span>{review.writerNickname}</span>
                   <img src={require("../source/img/gray_star.png")} alt="회색별" />
                   <span>{review.starPoint}</span>

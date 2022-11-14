@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import style from "../source/SellItem.module.css";
+import style from "../source/SellItem_n.module.css";
 import NotifyWrite from "./Moodal/NotifyWrite";
 import BuyConfirm from "./Moodal/BuyConfirm";
 import axios from "axios";
@@ -138,30 +138,30 @@ function SellItem({ history, match }) {
             <img src={require("../source/img/star.png")} alt="별점" />
             <span>4</span>
           </div>
-          <div className={style.rating_option11}>
+          <div className={style.rating_option2}>
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>{item.hitCnt}</span>
           </div>
           <div className={style.contents_in}>
-            <div className={style.deli_bb}>
+            <div className={style.deli_box}>
               <span className={style.deli_name}>배송비</span>
               <span className={style.deli_tag}>배송비 포함</span>
             </div>
-            <div className={style.sell_bb}>
+            <div className={style.sell_box}>
               <span className={style.sell_price}>판매가</span>
               <span className={style.sell_number}>
                 {price?.toLocaleString()}
               </span>
             </div>
-            <div className={style.button_bb}>
+            <div className={style.button_box}>
               <button
                 type="button"
-                className={style.bb_buy}
+                className={style.buy}
                 onClick={openModal2}
               >
                 구매
               </button>
-              <span className={style.bb_date}>
+              <span className={style.seller}>
                 판매자 : <strong>{item.nickname}</strong>
               </span>
             </div>
@@ -178,19 +178,21 @@ function SellItem({ history, match }) {
         </div>
         <div className={style.sell_review_show}>
           <ul>
-            {!review
-              ? "등록된 리뷰가 없습니다."
-              : review.map((rev, index) => (
-                  <li key={index}>
-                    <span>{rev.writerNickname}</span>
-                    <img
-                      src={require("../source/img/gray_star.png")}
-                      alt="회색별"
-                    />
-                    <span>{rev.starPoint}</span>
-                    <span className={style.review_write}>{rev.contents}</span>
-                  </li>
-                ))}
+            {review === null ? (
+              <p>"등록된 리뷰가 없습니다."</p>
+            ) : (
+              review.map((rev, index) => (
+                <li key={index}>
+                  <span>{rev.writerNickname}</span>
+                  <img
+                    src={require("../source/img/gray_star.png")}
+                    alt="회색별"
+                  />
+                  <span>{rev.starPoint}</span>
+                  <span className={style.review_write}>{rev.contents}</span>
+                </li>
+              ))
+            )}
           </ul>
         </div>
       </div>
