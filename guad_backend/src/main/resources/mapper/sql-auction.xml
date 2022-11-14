@@ -7,7 +7,7 @@
 	<!-- 입찰 -->
 	<insert id="tryAuction"
 		parameterType="auction.guad.vo.AuctionVo">
-		INSERT INTO AUCTION (ITEM_NUM, MEMBER_EMAIL, AUCTION_PRICE,
+		INSERT INTO AUCTION_UP (ITEM_NUM, MEMBER_EMAIL, AUCTION_PRICE,
 		AUCTION_TIME) VALUES
 		(#{itemNum}, #{memberEmail}, #{auctionPrice},
 		now())

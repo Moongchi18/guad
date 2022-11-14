@@ -86,7 +86,7 @@ public class WebSocketController {
 //	}
 	
 	@ApiOperation(value = "오름 경매 상세 조회", notes = "오름 경매 상세 정보를 조회")
-	@MessageMapping("/sellitem/auction/u{itemNum}")
+	@MessageMapping("/sellitem/auction/u/{itemNum}")
 	@SendTo("/sub/sellitem/auction/u/{itemNum}")
 	public AuctionVo openOllimSellItemDetail(@Payload AuctionVo auction, @DestinationVariable int itemNum,
 			@Header String Authorization) throws Exception {
@@ -96,13 +96,15 @@ public class WebSocketController {
 		
 		auction.setNickname(member.getNickname());
 		auction.setMemberEmail(member.getEmail());
-		
+		auction.setAuctionPrice(auction.getAuctionPrice()+1);
 		
 		int bidNum = auctionService.tryAuction(auction);
+		
+		
 		if (bidNum > 0) {
 			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
-					"/sub/" + itemNum + "/bidlist", auction);
-			bid = auction.getAuctionPrice();
+					"/sub/sellitem/auction/u/" + itemNum, auction);
+			
 			return auction;
 		
 		}

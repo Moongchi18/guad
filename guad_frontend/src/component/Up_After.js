@@ -8,9 +8,9 @@ import Up_Chat from "./Up_Chat";
 var stompClient = null;
 let Sock;
 const token = `Bearer ${sessionStorage.getItem("token")}`;
-function Up_After({ openModal, item, buyer }) {
+function Up_After({ openModal, item, buyer, auctionPeriodText, handlerBid, bid, bidNickname }) {
   const [publicChats, setPublicChats] = useState([]);
-  const [auctionPeriodText, setAuctionPeriodText] = useState();
+
 
   console.log(publicChats);
   console.log(item);
@@ -53,19 +53,6 @@ function Up_After({ openModal, item, buyer }) {
   };
   console.log(item);
 
-  useEffect(() => {
-    console.log(item);
-    if (item.auctionPeriod) {
-      const date = new Date(
-        item.auctionFinishDate.slice(0, 10) + " " + item.auctionFinishDate.slice(12, 19)
-      );
-      date.setHours(date.getHours() + 9);
-      setAuctionPeriodText(
-        `${date.getFullYear()}년 ${date.getMonth() + 1
-        }월 ${date.getDate()}일 ${date.getHours()}시까지`
-      );
-    }
-  }, [item]);
 
   const modalChange2 = useRef();
   const closeModal2 = () => {
@@ -91,6 +78,11 @@ function Up_After({ openModal, item, buyer }) {
     Sock.close();
     console.log("sock.close()");
   }
+
+  /////////////////////////////////////////
+
+
+
 
   return (
     <>
@@ -137,11 +129,11 @@ function Up_After({ openModal, item, buyer }) {
                 buyer={buyer}
               />
             )}
-            <button className={`${style.try_buy} ${style.aa_btn}`}>
-              입찰 : <p>500,000</p>
+            <button className={`${style.try_buy} ${style.aa_btn}`} onClick={() => handlerBid(bid)}>
+              입찰 : <p className={style.bid}>{bid}</p>
             </button>
             <button type="button" className={style.try_buy}>
-              현재 입찰자 : <strong></strong>
+              현재 입찰자 : <strong>{bidNickname}</strong>
             </button>
           </div>
         </div>
