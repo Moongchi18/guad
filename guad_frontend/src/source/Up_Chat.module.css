@@ -37,6 +37,8 @@
   font-weight: normal;
   transition: 0.3s all ease;
   margin-left: 9px;
+  transform: translate(0px, 2px);
+  height: 40px;
 }
 .member_list {
   width: 20%;

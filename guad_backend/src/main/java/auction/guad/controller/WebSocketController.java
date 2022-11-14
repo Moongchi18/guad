@@ -26,6 +26,7 @@ import auction.guad.security.JwtTokenUtil;
 import auction.guad.service.AuctionService;
 import auction.guad.service.MemberService;
 import auction.guad.service.SellItemService;
+import auction.guad.vo.AuctionVo;
 import auction.guad.vo.SellItemJoinMemberVo;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiOperation;
@@ -61,26 +62,56 @@ public class WebSocketController {
 		return bid;
 	}
 
-	@MessageMapping("/bidlist/{itemNum}")
-	@SendTo("/sub/{itemNum}/bidlist")
-	public Auction testList(@Payload Auction auction, @DestinationVariable int itemNum, @Header String Authorization)
-			throws Exception {
-		System.out.println("<<<<<<<<<<" + auction);
+//	@MessageMapping("/bidlist/{itemNum}")
+//	@SendTo("/sub/{itemNum}/bidlist")
+//	public Auction testList(@Payload Auction auction, @DestinationVariable int itemNum, @Header String Authorization)
+//			throws Exception {
+//		System.out.println("<<<<<<<<<<" + auction);
+//		String token = Authorization.substring(7);
+//		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
+//		MemberDto member = memberService.loginContainPass(claims.getSubject());
+//		
+//		auction.setNickname(member.getNickname());
+//		auction.setMemberEmail(member.getEmail());
+//		
+//		int bidNum = auctionService.tryAuction(auction);
+//		if (bidNum > 0) {
+//			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
+//					"/sub/" + itemNum + "/bidlist", auction);
+//			bid = auction.getAuctionPrice();
+//			return auction;
+//		
+//		}
+//		return null;
+//	}
+	
+	@ApiOperation(value = "오름 경매 상세 조회", notes = "오름 경매 상세 정보를 조회")
+	@MessageMapping("/sellitem/auction/u/{itemNum}")
+	@SendTo("/sub/sellitem/auction/u/{itemNum}")
+	public AuctionVo openOllimSellItemDetail(@Payload AuctionVo auction, @DestinationVariable int itemNum,
+			@Header String Authorization) throws Exception {
 		String token = Authorization.substring(7);
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
+		
 		auction.setNickname(member.getNickname());
 		auction.setMemberEmail(member.getEmail());
+		auction.setAuctionPrice(auction.getAuctionPrice()+1);
+		
 		int bidNum = auctionService.tryAuction(auction);
+		
+		
 		if (bidNum > 0) {
 			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
-					"/sub/" + itemNum + "/bidlist", auction);
-			bid = auction.getAuctionPrice();
+					"/sub/sellitem/auction/u/" + itemNum, auction);
+			
 			return auction;
+		
 		}
 		return null;
+		
 	}
-
+	
 	@ApiOperation(value = "내림 경매 상세 조회", notes = "내림 경매 상세 정보를 조회")
 	@MessageMapping("/sellitem/auction/d/{itemNum}")
 	@SendTo("/sub/sellitem/auction/d/{itemNum}")
@@ -180,7 +211,12 @@ public class WebSocketController {
 		}
 		// 현재 내림랜덤경매가 : 가져온 per값으로 현재가격을 계산에 내려준다.
 		long CurrentPrice = (long) (StartPrice - (StartPrice * (perDiscountAll / 100)));
-
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>" + naelimRandomcheck);
+		System.out.println(">>>>>>>>>>>>>>>>>>" + result2);
+		System.out.println(">>>>>>>>>>>>>>>>>>" + perDiscountList);
+		System.out.println(">>>>>>>>>>>>>>>>>>" + CurrentPrice);
+		
 		if (result2) {
 			return ResponseEntity.status(HttpStatus.OK).body(auctionNotyet);
 		} else {

@@ -24,6 +24,7 @@ import Selling from "./component/Selling";
 import ChatTest from "./auction/ChatTest";
 import Sell_Up from "./component/Sell_Up";
 import Sell_Down from "./component/Sell_Down";
+import Sell_DownRandom from "./component/Sell_DownRandom";
 import Sell_After from "./component/Sell_After";
 import { useState, useRef } from "react";
 import MypageCheck from "./component/Mypage/MypageCheck";
@@ -110,8 +111,10 @@ function App() {
       <Route path="/selling" component={Selling} exact={true} />
       <Route path="/sell_item/u/:itemNum" component={Sell_Up} exact={true} />
       <Route path="/sell_item/d/:itemNum" component={Sell_Down} exact={true} />
+      <Route path="/sell_item/dr/:itemNum" component={Sell_DownRandom} exact={true} />
       <Route path="/sell_end/u/:itemNum" component={Sell_End_u} exact={true} />
-      <Route path="/sell_end/d/:itemNum" component={Sell_End_d} exact={true} />
+      <Route path="/sell_end/dr/:itemNum" component={Sell_End_d} exact={true} />
+
       <Route path="/sell_end/n/:itemNum" component={Sell_End_n} exact={true} />
       <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />
       <Footer />

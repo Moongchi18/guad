@@ -26,20 +26,19 @@ function Sell_Down({ match, history }) {
       .then((response) => {
         console.log(response.data);
         setItem(response.data);
-        const date = new Date(
-          response.data.auctionFinishDate.slice(0, 10) +
-            " " +
-            response.data.auctionFinishDate.slice(12, 19)
-        );
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
         imgList.push(response.data.itemImgNameSub3);
         setImgList(imgList);
-
+        
+        const date = new Date(
+          response.data.auctionFinishDate.slice(0, 10) +
+          " " +
+          response.data.auctionFinishDate.slice(12, 19)
+        );
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${
-            date.getMonth() + 1
+          `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
         handlerBid();
@@ -60,11 +59,17 @@ function Sell_Down({ match, history }) {
     modalChange2.current.style = "display:none;";
   };
   const openModal2 = () => {
-    modalChange2.current.style = "display:block;";
-  };
+    if (auctionCurrentPrice == -1) {
+      alert("경매 준비 중에는 입찰할 수 없습니다.")
+    } else {
+      modalChange2.current.style = "display:block;";
+    };
+  }
+
 
   //////////////웹소캣//////////////
   const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
+
 
   useEffect(() => {
     connect();
@@ -222,7 +227,8 @@ function Sell_Down({ match, history }) {
             <div className={style.sell_box}>
               <span className={style.sell_price}>현재 경매가</span>
               <span className={style.sell_number}>
-                {auctionCurrentPrice?.toLocaleString()}
+                {auctionCurrentPrice === -1 ? "경매 준비중" :
+                  auctionCurrentPrice?.toLocaleString()}
               </span>
             </div>
             <div className={style.button_box}>
@@ -230,7 +236,7 @@ function Sell_Down({ match, history }) {
                 입찰 참여
               </button>
               <span className={style.now_sale}>
-                현재 할인율: <strong>{discountRateNow.toFixed(1)}%</strong>
+                현재 할인율: <strong>{auctionCurrentPrice === -1 ? "0" : discountRateNow.toFixed(1)}%</strong>
               </span>
             </div>
             <p className={style.time_box}>

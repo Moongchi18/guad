@@ -196,7 +196,7 @@ function Selling({ history }) {
     ) {
       alert("시간당 내릴 가격을 입력해주세요");
       refAuctionDiscountPerHour.current.focus();
-    } else if (sellType === "d" && itemPrice <= auctionMinPrice) {
+    } else if (sellType === "d" && itemPrice*1 <= auctionMinPrice*1) {
       console.log(itemPrice);
       console.log(auctionMinPrice);
       alert("경매시작 가격은 최저가격보다 같거나 낮을 수 없습니다.");

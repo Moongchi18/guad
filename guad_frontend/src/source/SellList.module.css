@@ -53,7 +53,22 @@
   margin-right: 20px;
   cursor: pointer;
 }
-.sell_top ul li button:hover {
+.sell_top ul li:nth-child(1) button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease-in;
+}
+.sell_top ul li:nth-child(2) button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease-in;
+}
+.sell_top ul li:nth-child(3) button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease-in;
+}
+.sell_top ul li:nth-child(4) button:hover {
   background-color: #098060;
   color: white;
   transition: 0.3s all ease-in;

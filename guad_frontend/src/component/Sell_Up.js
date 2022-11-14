@@ -1,14 +1,24 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import SockJS from "sockjs-client";
+import { over } from "stompjs";
 import style from "../source/SellItem_u.module.css";
 import NotifyWrite from "./Moodal/NotifyWrite";
 import Up_After from "./Up_After";
 import Up_Before from "./Up_Before";
 
+
+var stompClient = null
+const token = `Bearer ${sessionStorage.getItem("token")}`
 function Sell_Up({ match }) {
   const [start, setStart] = useState(false);
   const [item, setItem] = useState({});
   const [imgList, setImgList] = useState([]);
+  const [auctionPeriodText, setAuctionPeriodText] = useState();
+  const [change, setChange] = useState(false);
+  const [presentBid, setPresentBid] = useState('');
+
+
   const buyer = useRef();
 
   const clickStart = () => {
@@ -28,15 +38,31 @@ function Sell_Up({ match }) {
         `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`
       )
       .then((response) => {
+        const tempImgList=[]
         console.log(response.data);
         setItem(response.data);
-        imgList.push(response.data.itemImgName);
-        imgList.push(response.data.itemImgNameSub2);
-        imgList.push(response.data.itemImgNameSub3);
-        setImgList(imgList);
+        tempImgList.push(response.data.itemImgName);
+        tempImgList.push(response.data.itemImgNameSub2);
+        tempImgList.push(response.data.itemImgNameSub3);
+        setImgList(tempImgList);
+        setPresentBid(response.data)
+
+        const date = new Date(
+          response.data.auctionFinishDate.slice(0, 10) +
+          " " +
+          response.data.auctionFinishDate.slice(12, 19)
+        );
+        date.setHours(date.getHours() + 9);
+        setAuctionPeriodText(
+          `${date.getFullYear()}년 ${date.getMonth() + 1
+          }월 ${date.getDate()}일 ${date.getHours()}시까지`
+        );
       })
       .catch((error) => console.log(error));
+
   }, []);
+
+
 
   console.log(">>>>" + item.itemNum);
 
@@ -48,6 +74,75 @@ function Sell_Up({ match }) {
   const openModal = () => {
     modalChange.current.style = "display:block;";
   };
+
+
+  //////////////////////오름 경매/////////////////////////
+
+  const [bid, setBid] = useState(0);
+  const [bidNickname, setBidNickname] = useState();
+  const [Dto, setDto] = useState({
+
+    itemNum: match.params.itemNum,
+    auctionPrice: bid,
+    nickname: '',
+    email: '',
+  });
+
+  useEffect(() => {
+    connect();
+  }, [presentBid])
+
+  // useEffect(() => {
+  //   axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/auction/u/${match.params.itemNum}`)
+  //     .then(response => {
+  //       console.log(response.data)
+  //       const newBidList = [...response.data]
+  //       setPresentBid(response.data)
+  //     })
+  //     .catch(error => console.log(error))
+  //   // connect();
+  // }, [change])
+
+  const connect = () => {
+    let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
+    stompClient = over(Sock);
+    stompClient.connect({}, onConnected, onError);
+  }
+
+  const onConnected = () => {
+    console.log(match.params.itemNum)
+    stompClient.subscribe(`/sub/sellitem/auction/u/${match.params.itemNum}`, onMessageReceived);
+    // stompClient.subscribe('/user/'+userData.username+'/private', onPrivateMessage);
+  }
+
+  const onError = (err) => {
+    console.log(err);
+  }
+
+  const onMessageReceived = (payload) => {
+    var payloadData = JSON.parse(payload.body);
+    console.log(payloadData);
+    setBid(payloadData.auctionPrice);
+    setBidNickname(payloadData.nickname);
+    setPresentBid(payloadData.auctionPrice);
+    setChange(!change);
+  }
+
+  const handlerBid = (r) => {
+    
+    // stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
+    // setBid(document.getElementsByClassName(`${style.bid}`)[0].value);
+    setBid(r);
+    setDto({ ...Dto, auctionPrice: r })
+    console.log(bid);
+    console.log(Dto);
+    stompClient.send(`/pub/sellitem/auction/u/${match.params.itemNum}`, { Authorization: token }, JSON.stringify({...Dto, auctionPrice:r}));
+  }
+
+
+
+
+
 
   return (
     <>
@@ -94,14 +189,29 @@ function Sell_Up({ match }) {
           </ul>
         </div>
         {start == false && item && (
-          <Up_Before
-            openModal={openModal}
-            clickStart={clickStart}
-            item={item}
-          />
+          <>
+            <Up_Before
+              openModal={openModal}
+              clickStart={clickStart}
+              item={item}
+              bid={bid}
+            />
+            <p className={style.bb_time}>
+              남은 경매 시간 : <strong>{auctionPeriodText}</strong>
+            </p>
+          </>
         )}
+
         {start == true && item && (
-          <Up_After openModal={openModal} item={item} buyer={buyer} />
+          <Up_After
+            openModal={openModal}
+            item={item}
+            buyer={buyer}
+            auctionPeriodText={auctionPeriodText}
+            handlerBid={handlerBid}
+            bid={bid}
+            bidNickname={bidNickname}
+          />
         )}
       </div>
       <div className={style.item_bot}>
