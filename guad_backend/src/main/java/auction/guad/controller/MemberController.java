@@ -171,19 +171,5 @@ public class MemberController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
 		}
 	}
-
-	@GetMapping("/member/authen")
-	public void test(@AuthenticationPrincipal User user) {
-		System.out.println(">>>>>>>>>>>>>>>>>>>" + user.getPassword());
-
-	}
 	
-	// oauth2 test
-	@GetMapping("/test/login")
-	public @ResponseBody String testLogin(Authentication authentication) {
-		System.out.println("/test/login =============");
-		PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal();
-		System.out.println("authenticationzzzzzzzzzz : " + principalDetails.getUsername());
-		return "세션정보 확인";
-	}
 }
