@@ -12,9 +12,6 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 .item_top > h2 > strong {
-  color: #098060;
-}
-.item_top > h2.normal > strong {
   color: #393ce6;
 }
 .img_item {

@@ -281,11 +281,13 @@
 .last_nn {
   font-family: "SBAggroB";
   font-weight: 300;
+  position: absolute;
+  bottom: 0px;
 }
 .last_nn > h2 {
   text-align: right;
   font-size: 20px;
-  margin: 170px 0 15px;
+  margin: 0px 0 15px;
 }
 .last_nn span {
   display: block;
@@ -319,11 +321,13 @@
 }
 .last_bb {
   font-family: "SBAggroB";
+  position: absolute;
+  bottom: 0px;
 }
 .last_bb > h2 {
   font-size: 20px;
   font-weight: 300;
-  margin: 235px 0 10px;
+  margin: 0px 0 10px;
 }
 .last_bb span {
   display: block;
@@ -335,7 +339,7 @@
   font-size: 25px;
   font-weight: 300;
   line-height: 2.5;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 .last_bb .bb_buy:hover {
   background-color: #098060;
@@ -423,7 +427,7 @@
 }
 .nn_last22 {
   color: #8c8c8c;
-  margin-bottom: 50px !important;
+  margin-bottom: 25px !important;
 }
 
 /* bot */
@@ -477,7 +481,7 @@
   color: #e63947;
 }
 .sell_review_show {
-  margin-bottom: 140px;
+  margin-bottom: 200px;
 }
 .sell_review_show ul li {
   width: 100%;
@@ -570,7 +574,7 @@
 }
 .review_dd {
   width: 1130px;
-  margin: 0 auto 140px;
+  margin: 0 auto 200px;
   font-family: "SBAggroB";
   padding-top: 50px;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
@@ -650,4 +654,9 @@
   background-color: #8a8a8a;
   color: white;
   transition: 0.3s all ease;
+}
+.dataList {
+  width: 420px;
+  height: 420px;
+  display: block;
 }

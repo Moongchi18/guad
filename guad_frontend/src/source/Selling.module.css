@@ -22,6 +22,13 @@
   font-size: 20px;
   margin-bottom: 5px;
 }
+.in_box > ul > li > label > strong {
+  font-size: 15px;
+  font-weight: 300;
+  color: #c23131;
+  float: right;
+  margin-top: 5px;
+}
 .in_box > ul > li:nth-child(1) {
   margin-bottom: 75px;
 }
@@ -175,16 +182,15 @@
 .down_b p strong {
   color: #ff0000;
   font-size: 17px;
-  display:inline-block;
+  display: inline-block;
   width: 100%;
   margin-bottom: 5px;
   font-weight: bold;
-  
 }
 
-.percent{ 
+.percent {
   font-size: 14px !important;
-  display:contents !important;
+  display: contents !important;
 }
 
 .fileupload {
