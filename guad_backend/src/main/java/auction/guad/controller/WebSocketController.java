@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import auction.guad.controller.model.Auction;
 import auction.guad.controller.model.Message;
+import auction.guad.dto.AuctionDownDto;
 import auction.guad.dto.MemberDto;
+import auction.guad.dto.SellItemResultDto;
 import auction.guad.security.JwtTokenUtil;
 import auction.guad.service.AuctionService;
 import auction.guad.service.MemberService;
@@ -90,10 +92,11 @@ public class WebSocketController {
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
 
-		int Discount = sellItem.getAuctionDiscountPerHour();
+		int discount = sellItem.getAuctionDiscountPerHour();
 		long MinPrice = sellItem.getAuctionMinPrice();
 		int StartPrice = sellItem.getAuctionStartPrice();
-		long auctionfinish = 0;
+		long auctionFinish = 0;
+		long auctionNotyet = -1;
 
 		// 현재날짜
 		Date now = new Date();
@@ -107,22 +110,29 @@ public class WebSocketController {
 		double timeChange = ((now.getTime() - auctionStart.getTime()) / 3600000);
 		// 현재시각과 경매종료날짜 비교
 		boolean result = now.before(sellItem.getAuctionFinishDate());
+		// 현재시각과 경매시작날짜 비교
+		boolean result2 = now.before(auctionStart);
 		// 현재 내림경매가
-		long CurrentPrice = (long) (StartPrice - (Math.floor(timeChange) * Discount));
+		long CurrentPrice = (long) (StartPrice - (Math.floor(timeChange) * discount));
 
-		if (result) {
-			if (CurrentPrice < MinPrice) {
-				return ResponseEntity.status(HttpStatus.OK).body(MinPrice);
-			} else {
-				return ResponseEntity.status(HttpStatus.OK).body(CurrentPrice);
-			}
+		if (result2) {
+			return ResponseEntity.status(HttpStatus.OK).body(auctionNotyet);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(auctionfinish);
+			if (result) {
+				if (CurrentPrice < MinPrice) {
+					return ResponseEntity.status(HttpStatus.OK).body(MinPrice);
+				} else {
+					return ResponseEntity.status(HttpStatus.OK).body(CurrentPrice);
+				}
+			} else {
+				return ResponseEntity.status(HttpStatus.OK).body(auctionFinish);
+			}
 		}
+
 	}
 
 	@ApiOperation(value = "내림 경매 랜덤 상세 조회", notes = "내림 경매 랜덤 정보를 조회")
-	@MessageMapping("/sellitem/auction/dr{itemNum}")
+	@MessageMapping("/sellitem/auction/dr/{itemNum}")
 	@SendTo("/sub/sellitem/auction/dr/{itemNum}")
 	public ResponseEntity<Long> openNaelimSellItemDetail_R(@Payload @DestinationVariable int itemNum,
 			@Header String Authorization) throws Exception {
@@ -132,13 +142,15 @@ public class WebSocketController {
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
 
-		int Discount;
-		//랜덤 숫자 생성
-		int PerDiscount = (int) (Math.random() * 4 + 1);
-		
+		int discount;
+		// 랜덤 숫자 생성
+		int perDiscount = (int) (Math.random() * 4 + 1);
+		int perDiscountAll = 0;
+
 		long MinPrice = sellItem.getAuctionMinPrice();
 		int StartPrice = sellItem.getAuctionStartPrice();
-		long auctionfinish = 0;
+		long auctionFinish = 0;
+		long auctionNotyet = -1;
 
 		// 현재날짜
 		Date now = new Date();
@@ -152,29 +164,35 @@ public class WebSocketController {
 		double timeChange = ((now.getTime() - auctionStart.getTime()) / 3600000);
 		// 현재시각과 경매종료날짜 비교
 		boolean result = now.before(sellItem.getAuctionFinishDate());
-		// 현재 내림경매가
+		// 현재시각과 경매시작날짜 비교
+		boolean result2 = now.before(auctionStart);
 
-
-		//서비스 작성 : 동일 아이템 넘버 auction_down 테이블의 갯수를 카운트 한다. 
-		Math.floor(timeChange);
-		//서비스 작성 : 위숫자보다 적은경우 하나의 랜덤 정수를 생성해 인서트 해준다.
-		
+		// 서비스 작성 : 동일 아이템 넘버 auction_down 테이블의 갯수를 카운트 한다.
+		int naelimRandomcheck = auctionService.naelimRandomCount(itemNum);
+		// 서비스 작성 : 위숫자보다 적은경우 하나의 랜덤 정수를 생성해 인서트 해준다.
+		if (Math.floor(timeChange) > naelimRandomcheck) {
+			auctionService.naelimRandomPerDiscountInsert(perDiscount, itemNum);
+		}
 		// 동일 아이템 넘버 auction_down 테이블의 auction_per값을 모두 불러와 더해준다. (반복문)
-		
-		// 가져온 per값으로 현재가격을 계산에 내려준다.
-		
-		
-		
-		long CurrentPrice = 0;
-			
-		if (result) {
-			if (CurrentPrice < MinPrice) {
-				return ResponseEntity.status(HttpStatus.OK).body(MinPrice);
-			} else {
-				return ResponseEntity.status(HttpStatus.OK).body(CurrentPrice);
-			}
+		List<AuctionDownDto> perDiscountList = auctionService.naelimRandomPerDiscountAll(itemNum);
+		for (int i = 0; i < perDiscountList.size(); i++) {
+			perDiscountAll += perDiscountList.get(i).getAuctionPer();
+		}
+		// 현재 내림랜덤경매가 : 가져온 per값으로 현재가격을 계산에 내려준다.
+		long CurrentPrice = (long) (StartPrice - (StartPrice * (perDiscountAll / 100)));
+
+		if (result2) {
+			return ResponseEntity.status(HttpStatus.OK).body(auctionNotyet);
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(auctionfinish);
+			if (result) {
+				if (CurrentPrice < MinPrice) {
+					return ResponseEntity.status(HttpStatus.OK).body(MinPrice);
+				} else {
+					return ResponseEntity.status(HttpStatus.OK).body(CurrentPrice);
+				}
+			} else {
+				return ResponseEntity.status(HttpStatus.OK).body(auctionFinish);
+			}
 		}
 	}
 }
