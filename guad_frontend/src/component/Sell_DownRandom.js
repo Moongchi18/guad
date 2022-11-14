@@ -28,8 +28,8 @@ function Sell_Down({ match, history }) {
         setItem(response.data);
         const date = new Date(
           response.data.auctionFinishDate.slice(0, 10) +
-            " " +
-            response.data.auctionFinishDate.slice(12, 19)
+          " " +
+          response.data.auctionFinishDate.slice(12, 19)
         );
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
@@ -38,8 +38,7 @@ function Sell_Down({ match, history }) {
 
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
-          `${date.getFullYear()}년 ${
-            date.getMonth() + 1
+          `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
         handlerBid();
@@ -222,7 +221,8 @@ function Sell_Down({ match, history }) {
             <div className={style.sell_box}>
               <span className={style.sell_price}>현재 경매가</span>
               <span className={style.sell_number}>
-                {auctionCurrentPrice?.toLocaleString()}
+                {auctionCurrentPrice === -1 ? "경매 준비중" : auctionCurrentPrice === 0 ? "경매가 종료되었습니다." :
+                  auctionCurrentPrice?.toLocaleString()}
               </span>
             </div>
             <div className={style.button_box}>
@@ -230,7 +230,7 @@ function Sell_Down({ match, history }) {
                 입찰 참여
               </button>
               <span className={style.now_sale}>
-                현재 할인율: <strong>{discountRateNow.toFixed(1)}%</strong>
+                현재 할인율: <strong>{auctionCurrentPrice === -1 ? "0" : discountRateNow.toFixed(1)}%</strong>
               </span>
             </div>
             <p className={style.time_box}>

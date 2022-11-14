@@ -66,6 +66,7 @@ function Sell_Down({ match, history }) {
   //////////////웹소캣//////////////
   const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
 
+
   useEffect(() => {
     connect();
   }, []);
@@ -222,7 +223,8 @@ function Sell_Down({ match, history }) {
             <div className={style.sell_box}>
               <span className={style.sell_price}>현재 경매가</span>
               <span className={style.sell_number}>
-                {auctionCurrentPrice?.toLocaleString()}
+                {auctionCurrentPrice === -1 ? "경매 준비중" : auctionCurrentPrice === 0 ? "경매가 종료되었습니다." :
+                auctionCurrentPrice?.toLocaleString()}
               </span>
             </div>
             <div className={style.button_box}>
@@ -230,7 +232,7 @@ function Sell_Down({ match, history }) {
                 입찰 참여
               </button>
               <span className={style.now_sale}>
-                현재 할인율: <strong>{discountRateNow.toFixed(1)}%</strong>
+                현재 할인율: <strong>{auctionCurrentPrice === -1 ? "0" :discountRateNow.toFixed(1)}%</strong>
               </span>
             </div>
             <p className={style.time_box}>
