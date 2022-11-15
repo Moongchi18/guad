@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 function Sell_End_d({match}) {
 
@@ -38,8 +39,9 @@ function Sell_End_d({match}) {
     .then((response) => {
       console.log(response)
       alert("후기 작성이 완료되었습니다.") 
-      setCommentUpdate(!commentUpdate);   
-  })}
+      setCommentUpdate(!commentUpdate);
+      setContents('');   
+    })}
 ////////////////////////////////////////////
 
 
@@ -119,12 +121,12 @@ function Sell_End_d({match}) {
         </p>
       </div>
       <div className={style.review}>
-        <h2>후기 작성</h2>
-        <textarea placeholder="경매 후기를 작성해주세요." onChange={handleChange}></textarea>
+        <h2>댓글 작성</h2>
+        <textarea placeholder="경매 후기를 작성해주세요." value={contents} onChange={handleChange}></textarea>
         <button type="button" onClick={handleWrite}>작성</button>
       </div>
       <div className={style.review_dd}>
-        <h2>경매 후기</h2>
+        <h2>수다방</h2>
         <ul>
           {comments && 
           comments.map((comments) => ( 
