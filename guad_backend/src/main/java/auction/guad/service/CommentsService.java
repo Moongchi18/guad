@@ -6,7 +6,7 @@ import auction.guad.dto.CommentsDto;
 
 public interface CommentsService {
 
-	public List<CommentsDto> commentsListByEmail() throws Exception;
+	public List<CommentsDto> commentsListByItemNum(int itemNum) throws Exception;
 	public int insertComment(CommentsDto commentsDto) throws Exception;
 	public CommentsDto selectCommentDetail(int commentNum) throws Exception;
 	public void updateComment(CommentsDto commentsDto) throws Exception;
