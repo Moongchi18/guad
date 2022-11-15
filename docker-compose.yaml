@@ -1,0 +1,32 @@
+version: "3.3"
+services:
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: hi!@34
+      MYSQL_DATABASE: olenaelim
+    volumes:
+      - ../olenaelim_data:/var/lib/mysql
+    ports:
+      - 33306:3306
+    restart: always
+  
+  server:
+    image: guad_backend:0.0.1-SNAPSHOT
+    depends_on:
+      - database
+    environment:
+      DB_CONNECTION_URL: jdbc:log4jdbc:mysql://database:3306/olenaelim?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
+      DB_USERNAME: root
+      DB_PASSWORD: hi!@34
+    restart: always
+    ports:
+      - 9090:8080
+
+  olenaelim.com:
+    image: guad_frontend:latest
+    restart: always
+    ports:
+      - 33000:80
+
+      
