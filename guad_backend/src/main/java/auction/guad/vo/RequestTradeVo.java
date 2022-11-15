@@ -20,7 +20,7 @@ public class RequestTradeVo {
 	
 	private String itemSub;
 	private long itemPrice;	
-	
+	private Date auctionFinishDate;
 	private Date soldDate; 	
 	
 	private char soldYn;
