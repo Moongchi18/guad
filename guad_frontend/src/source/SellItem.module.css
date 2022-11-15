@@ -538,14 +538,17 @@
   width: 1130px;
   margin: 0 auto;
   font-family: "SBAggroB";
-  text-align: right;
+  text-align: left;
   padding-top: 50px;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 140px;
 }
 .review h2 {
   font-size: 30px;
   text-align: left;
-  margin-bottom: 20px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 15px 0 0 10px;
 }
 .review textarea {
   resize: none;
@@ -564,8 +567,9 @@
   border-radius: 10px;
   font-size: 20px;
   font-weight: 300;
-  margin: 10px 0 126px;
+  margin: 10px 0 0;
   cursor: pointer;
+  float: right;
 }
 .review button:hover {
   background-color: rgb(161, 161, 161);
@@ -582,8 +586,10 @@
 }
 .review_dd h2 {
   font-size: 30px;
-  margin-bottom: 50px;
+  margin: 15px 0 0 10px;
   font-weight: normal;
+  display: inline-block;
+  vertical-align: top;
 }
 .review_dd li {
   text-align: right;
@@ -659,4 +665,13 @@
   width: 420px;
   height: 420px;
   display: block;
+}
+.fuck1 img {
+  display: inline-block;
+}
+.fuck1 {
+  margin-bottom: 10px;
+}
+.fuck2 {
+  margin-bottom: 10px;
 }
