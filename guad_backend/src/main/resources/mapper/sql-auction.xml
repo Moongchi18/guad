@@ -6,20 +6,36 @@
 
 	<!-- 입찰 -->
 	<insert id="tryAuction"
-		parameterType="auction.guad.controller.model.Auction">
-		INSERT INTO AUCTION (ITEM_NUM, MEMBER_EMAIL, AUCTION_PRICE,
-		AUCTION_TIME) values
-		(#{itemNum}, #{memberEmail}, #{auctionPrice}, now())
-	<!-- 	<selectKey keyProperty="auctionNum" resultType="Integer">
-			select last_insert_try()
-		</selectKey> -->
+		parameterType="auction.guad.vo.AuctionVo">
+		INSERT INTO AUCTION_UP (ITEM_NUM, MEMBER_EMAIL, AUCTION_PRICE,
+		AUCTION_TIME) VALUES
+		(#{itemNum}, #{memberEmail}, #{auctionPrice},
+		now())
+		<!-- <selectKey keyProperty="auctionNum" resultType="Integer"> select last_insert_try() 
+			</selectKey> -->
 	</insert>
 
 	<!-- 입찰 취소 -->
 	<delete id="cancelAuction" parameterType="int">
-		DELETE FROM AUCTION WHERE AUCTION_NUM = #{auctionNum}
+		DELETE FROM AUCTION
+		WHERE AUCTION_NUM = #{auctionNum}
 	</delete>
 
+	<!-- 내림랜덤 열수 조회 -->
+	<select id="naelimRandomCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM AUCTION_DOWN
+		WHERE EMAIL = #{itemNum}
+	</select>
+	
+	<!--  -->
+	<insert id="naelimRandomPerDiscountInsert">
+		INSERT INTO AUCTION_DOWN (ITEM_NUM, AUCTION_PER,AUCTION_TIME) VALUES
+		(#{itemNum}, #{perDiscount}, now())
+	</insert>
 
+	<select id="naelimRandomPerDiscountAll" resultType="auction.guad.dto.AuctionDownDto">
+		SELECT * FROM AUCTION_DOWN WHERE item_num = #{itemNum} ORDER BY auction_down_num
+	</select>
 
 </mapper>

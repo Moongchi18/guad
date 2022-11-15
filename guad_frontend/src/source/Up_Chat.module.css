@@ -29,16 +29,16 @@
 }
 .chat_box {
   background-color: #dfdfdf;
-  padding: 9px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   border-radius: 5px;
   font-family: "nanumsquare";
   font-weight: normal;
-  position: absolute;
-  top: 535px;
-  right: 0px;
   transition: 0.3s all ease;
+  margin-left: 9px;
+  transform: translate(0px, 2px);
+  height: 40px;
 }
 .member_list {
   width: 20%;

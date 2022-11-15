@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -25,10 +26,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-	private MemberServiceImpl memberService;
+	private MemberService memberService;
 	private JwtTokenUtil jwtTokenUtil;
 	
-	public AuthenticationFilter(MemberServiceImpl memberService, JwtTokenUtil jwtTokenUtil) {
+	public AuthenticationFilter(MemberService memberService, JwtTokenUtil jwtTokenUtil) {
 		this.memberService = memberService;
 		this.jwtTokenUtil = jwtTokenUtil; 
 	}

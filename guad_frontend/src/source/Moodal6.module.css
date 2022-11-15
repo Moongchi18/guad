@@ -65,6 +65,7 @@
 }
 .info2 {
   display: block;
+  width: 300px;
   font-size: 20px;
   margin-top: 10px;
   text-align: left;
@@ -73,8 +74,8 @@
   font-size: 15px;
   color: #6d6d6d;
   display: inline-block;
-  margin-top: 140px;
-  vertical-align: bottom;
+  position: absolute;
+  bottom: 10px;
 }
 .info4 {
   font-size: 25px;

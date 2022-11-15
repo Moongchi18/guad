@@ -6,9 +6,7 @@ import ItemSuccess from "./Moodal/ItemSuccess";
 function Selling({ history }) {
   const sellTypeList = ["u", "d", "n"];
   const selectListAPeriod = [1, 2, 3, 5, 7];
-  const selectListHour = [
-    12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
-  ];
+  const selectListHour = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
   const now = new Date();
   const tempDate = new Date();
 
@@ -23,7 +21,7 @@ function Selling({ history }) {
     if (e.key === "Enter") {
       closeModal();
     }
-  }
+  };
 
   const [sellType, setSellType] = useState("u"); // 판매방식 u : up, d : down, n : normal
   const [data, setData] = useState(""); // 서버에서 카테고리를 받아와서 담을 dto
@@ -42,8 +40,9 @@ function Selling({ history }) {
   const [auctionMinPrice, setAuctionMinPrice] = useState(""); // 내림경매 - 최저가격, 시작가격 ~ 최저가격
   const [auctionPeriod, setAuctionPeriod] = useState(new Date()); // 경매 종료 날짜 + 시간
   const [auctionPeriodText, setAuctionPeriodText] = useState(
-    `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1
-    }월 ${tempDate.getDate() + 2}일 ${selectedHour}시`
+    `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${
+      tempDate.getDate() + 2
+    }일 ${selectedHour}시`
   ); // 경매 종료 날짜 + 시간 표시양식
   const [auctionRandomMethod, setAuctionRandomMethod] = useState(false); // 내림경매 방식 - 랜덤discount true/false
   const [auctionDiscountPerHour, setAuctionDiscountPerHour] = useState(""); // 내림경매 - 시간당
@@ -81,12 +80,14 @@ function Selling({ history }) {
     setSelectedItemDetailType(e.target.value);
   const handlerItemSub = (e) => setItemSub(e.target.value);
   const handlerItemContents = (e) => setItemContents(e.target.value);
-  const handlerItemPrice = (e) => setItemPrice((e.target.value).replace(/,/g, ""));
+  const handlerItemPrice = (e) =>
+    setItemPrice(e.target.value.replace(/,/g, ""));
 
-  const handlerAuctionMaxPrice = (e) => setAuctionMaxPrice((e.target.value).replace(/,/g, ""));
+  const handlerAuctionMaxPrice = (e) =>
+    setAuctionMaxPrice(e.target.value.replace(/,/g, ""));
   const handlerAuctionMinPrice = (e) => {
-    setAuctionMinPrice((e.target.value).replace(/,/g, ""));
-  }
+    setAuctionMinPrice(e.target.value.replace(/,/g, ""));
+  };
 
   /////////////////날짜 핸들러////////////////
   const handlerSelectedDay = (e) => {
@@ -97,7 +98,8 @@ function Selling({ history }) {
     tempDate.setSeconds(0);
     setAuctionPeriod(tempDate);
     setAuctionPeriodText(
-      `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1
+      `${tempDate.getFullYear()}년 ${
+        tempDate.getMonth() + 1
       }월 ${tempDate.getDate()}일 ${selectedHour === "24" ? 0 : selectedHour}시`
     );
   };
@@ -109,18 +111,25 @@ function Selling({ history }) {
     tempDate.setSeconds(0);
     setAuctionPeriod(tempDate);
     setAuctionPeriodText(
-      `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1
-      }월 ${tempDate.getDate()}일 ${tempDate.getHours() === "24" ? 0 : tempDate.getHours()
+      `${tempDate.getFullYear()}년 ${
+        tempDate.getMonth() + 1
+      }월 ${tempDate.getDate()}일 ${
+        tempDate.getHours() === "24" ? 0 : tempDate.getHours()
       }시`
     );
   };
-  const nowText = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate() + 1}일 12시`;
+  const nowText = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${
+    now.getDate() + 1
+  }일 12시`;
   ////////////////////////////////////
 
   const handlerAuctionRandomMethod = (e) => {
     if (e.target.value === "고정내림") {
       setAuctionRandomMethod(false);
-      setAuctionMinPrice((itemPrice - ((selectedDay * 10 + (selectedHour - 12)) * auctionDiscountPerHour)));
+      setAuctionMinPrice(
+        itemPrice -
+          (selectedDay * 10 + (selectedHour - 12)) * auctionDiscountPerHour
+      );
     } else {
       setAuctionRandomMethod(true);
       setAuctionMinPrice(0);
@@ -128,14 +137,23 @@ function Selling({ history }) {
   };
 
   const handlerAuctionDiscountPerHour = (e) => {
-    setAuctionDiscountPerHour((e.target.value).replace(/,/g, ""));
+    setAuctionDiscountPerHour(e.target.value.replace(/,/g, ""));
     if (auctionRandomMethod == false) {
-      if ((itemPrice - ((selectedDay * 10 + (selectedHour - 12)) * Number((e.target.value).replace(/,/g, "")))) < 0) {
+      if (
+        itemPrice -
+          (selectedDay * 10 + (selectedHour - 12)) *
+            Number(e.target.value.replace(/,/g, "")) <
+        0
+      ) {
         alert("가격이 너무 낮습니다.");
         setAuctionDiscountPerHour(0);
         setAuctionMinPrice(0);
       } else {
-        setAuctionMinPrice((itemPrice - ((selectedDay * 10 + (selectedHour - 12)) * (e.target.value).replace(/,/g, ""))));
+        setAuctionMinPrice(
+          itemPrice -
+            (selectedDay * 10 + (selectedHour - 12)) *
+              e.target.value.replace(/,/g, "")
+        );
       }
     } else {
     }
@@ -171,12 +189,16 @@ function Selling({ history }) {
     } else if (sellType === "d" && auctionMinPrice === "") {
       alert("최저가격을 입력해주세요");
       refAuctionMinPrice.current.focus();
-    } else if (sellType === 'd' && !auctionRandomMethod && auctionDiscountPerHour === '') {
+    } else if (
+      sellType === "d" &&
+      !auctionRandomMethod &&
+      auctionDiscountPerHour === ""
+    ) {
       alert("시간당 내릴 가격을 입력해주세요");
       refAuctionDiscountPerHour.current.focus();
-    } else if (sellType === 'd' && itemPrice <= auctionMinPrice) {
-      console.log(itemPrice)
-      console.log(auctionMinPrice)
+    } else if (sellType === "d" && itemPrice*1 <= auctionMinPrice*1) {
+      console.log(itemPrice);
+      console.log(auctionMinPrice);
       alert("경매시작 가격은 최저가격보다 같거나 낮을 수 없습니다.");
     } else {
       const sellPrice = sellType === "n" ? itemPrice : "";
@@ -190,9 +212,8 @@ function Selling({ history }) {
       const sendAuctionDiscountPerHout =
         sellType === "d" && !auctionRandomMethod ? auctionDiscountPerHour : "";
       const sendAuctionMinPrice = sellType === "d" ? auctionMinPrice : "";
-      const sendSelectedHour = sellType === 'n' ? '' : selectedHour;
-      const sendSelectedDay = sellType === 'n' ? '' : selectedDay;
-
+      const sendSelectedHour = sellType === "n" ? "" : selectedHour;
+      const sendSelectedDay = sellType === "n" ? "" : selectedDay;
 
       let dataSet = {
         sellType,
@@ -211,7 +232,7 @@ function Selling({ history }) {
         auctionMinPrice: sendAuctionMinPrice,
       };
 
-      console.log(sellPrice)
+      console.log(sellPrice);
       // formData.append('data', dataSet);
       formData.append(
         "data",
@@ -226,7 +247,7 @@ function Selling({ history }) {
         data: formData,
         headers: {
           "Content-Type": `multipart/form-data; `,
-        }
+        },
       })
         .then((response) => {
           console.log(response);
@@ -245,21 +266,24 @@ function Selling({ history }) {
 
   // 카테고리 불러오기
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`).then((response) => {
-      // console.log(response.data);
-      const temp1 = [];
-      response.data.forEach((element) => temp1.push(element.itemType));
-      const temp2 = temp1.filter(
-        (element, index) => temp1.indexOf(element) === index
-      );
-      setItemType(temp2);
-      setData(response.data);
-      auctionPeriod.setDate(auctionPeriod.getDate()+2)
-      auctionPeriod.setHours(12)
-      auctionPeriod.setMinutes(0)
-      auctionPeriod.setSeconds(0)
-      setAuctionPeriod(auctionPeriod)
-    }).catch(error => console.log(error));
+    axios
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
+      .then((response) => {
+        // console.log(response.data);
+        const temp1 = [];
+        response.data.forEach((element) => temp1.push(element.itemType));
+        const temp2 = temp1.filter(
+          (element, index) => temp1.indexOf(element) === index
+        );
+        setItemType(temp2);
+        setData(response.data);
+        auctionPeriod.setDate(auctionPeriod.getDate() + 2);
+        auctionPeriod.setHours(12);
+        auctionPeriod.setMinutes(0);
+        auctionPeriod.setSeconds(0);
+        setAuctionPeriod(auctionPeriod);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   //////////////////////파일 업로드//////////////////////
@@ -268,25 +292,23 @@ function Selling({ history }) {
   const [imgBase, setImgBase] = useState([1, 2, 3]);
   const [imgFile, setImgFile] = useState(null);
 
-
   const handleChangeFile = (event) => {
     //fd.append("file", event.target.files)
 
-    const newImgBase = [1, 2, 3]
+    const newImgBase = [1, 2, 3];
     setImgFile(event.target.files);
-    setImgBase(newImgBase)
+    setImgBase(newImgBase);
     setImgBase64([]);
 
     if (event.target.files.length >= 4) {
-      alert('이미지는 최대 3개 까지 업로드가 가능합니다.');
-      const newImgBase = [1, 2, 3]
-      setImgBase(newImgBase)
+      alert("이미지는 최대 3개 까지 업로드가 가능합니다.");
+      const newImgBase = [1, 2, 3];
+      setImgBase(newImgBase);
       setImgBase64([]);
     } else {
       for (var i = 0; i < event.target.files.length; i++) {
-
         if (!event.target.files[i].type.match("image/.*")) {
-          alert('이미지 파일만 업로드가 가능합니다.');
+          alert("이미지 파일만 업로드가 가능합니다.");
         } else if (event.target.files[i]) {
           let reader = new FileReader();
           reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
@@ -294,18 +316,18 @@ function Selling({ history }) {
           reader.onloadend = () => {
             // 2. 읽기가 완료되면 아래코드가 실행됩니다.
             const base64 = reader.result;
-            newImgBase.pop()
+            newImgBase.pop();
 
             if (base64) {
-              var base64Sub = base64.toString()
-              setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
-              setImgBase(newImgBase)
+              var base64Sub = base64.toString();
+              setImgBase64((imgBase64) => [...imgBase64, base64Sub]);
+              setImgBase(newImgBase);
             }
-          }
+          };
         }
       }
     }
-  }
+  };
   /////////////////////////////////////////////////////
   return (
     <>
@@ -314,8 +336,11 @@ function Selling({ history }) {
         <div className={style.in_box}>
           <ul>
             <li>
-              <label>거래종류</label>
-              {sellTypeList.map(type => (
+              <label>
+                거래종류
+                <strong>※경매 상품은 등록한 후 수정이 어렵습니다.</strong>
+              </label>
+              {sellTypeList.map((type) => (
                 <button
                   key={type}
                   type="button"
@@ -324,12 +349,16 @@ function Selling({ history }) {
                       ? `${style.button_active}`
                       : `${style.button_no}`
                   }
-                  className={type === 'd' ? style.mid : ""}
+                  className={type === "d" ? style.mid : ""}
                   name={type}
                   onClick={handlerSellType}
                   ref={refSellType}
                 >
-                  {type === "u" ? "오름경매" : (type === "d" ? "내림경매" : "일반판매")}
+                  {type === "u"
+                    ? "오름경매"
+                    : type === "d"
+                    ? "내림경매"
+                    : "일반판매"}
                 </button>
               ))}
             </li>
@@ -390,7 +419,6 @@ function Selling({ history }) {
                 value={Number(itemPrice).toLocaleString()}
                 onChange={handlerItemPrice}
                 ref={refItemPrice}
-
               />
               {sellType === "u" && (
                 <>
@@ -470,7 +498,9 @@ function Selling({ history }) {
                 ) : (
                   <p>
                     <strong>랜덤내림이란?</strong>
-                    경매시작 가격에서부터 최저가격까지 시간당 랜덤(<strong className={style.percent}>시작가격의 1~5%</strong>)으로 하락해서 경매에 재미를 더하는 방법
+                    경매시작 가격에서부터 최저가격까지 시간당 랜덤(
+                    <strong className={style.percent}>시작가격의 1~5%</strong>
+                    )으로 하락해서 경매에 재미를 더하는 방법
                   </p>
                 )}
                 <label>최저 가격</label>
@@ -482,7 +512,6 @@ function Selling({ history }) {
                   ref={refAuctionMinPrice}
                   readOnly={!auctionRandomMethod}
                 />
-
               </li>
             ) : (
               ""
@@ -501,28 +530,29 @@ function Selling({ history }) {
                         alt="First slide"
                       />
                     </label>
-                  )
+                  );
                 })}
-
 
                 {imgBase.map((item) => (
                   <label for="file" key={item}>
                     <img src={require("../source/img/pic.png")} alt="사진1" />
                   </label>
                 ))}
-
               </div>
             </li>
             {/*  파일 업로드 */}
             <div className={style.filebox}>
-              <input type="file" id="file" className={style.upload} onChange={handleChangeFile} multiple="multiple" />
-
+              <input
+                type="file"
+                id="file"
+                className={style.upload}
+                onChange={handleChangeFile}
+                multiple="multiple"
+              />
             </div>
-
 
             {/* <button onClick={WriteBoard} style={{ border: '2px solid black', width: '700px', fontSize: '40px' }}>작성완료</button> */}
             {/*  파일 업로드 */}
-
           </ul>
           <button
             type="button"
@@ -533,7 +563,12 @@ function Selling({ history }) {
           >
             등록완료
           </button>
-          <ItemSuccess closeModal={closeModal} modalOpen={modalOpen} itemSub={itemSub} itemContents={itemContents} />
+          <ItemSuccess
+            closeModal={closeModal}
+            modalOpen={modalOpen}
+            itemSub={itemSub}
+            itemContents={itemContents}
+          />
         </div>
       </div>
     </>

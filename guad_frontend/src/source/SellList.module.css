@@ -53,7 +53,22 @@
   margin-right: 20px;
   cursor: pointer;
 }
-.sell_top ul li button:hover {
+.sell_top ul li:nth-child(1) button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease-in;
+}
+.sell_top ul li:nth-child(2) button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease-in;
+}
+.sell_top ul li:nth-child(3) button:hover {
+  background-color: #098060;
+  color: white;
+  transition: 0.3s all ease-in;
+}
+.sell_top ul li:nth-child(4) button:hover {
   background-color: #098060;
   color: white;
   transition: 0.3s all ease-in;
@@ -166,6 +181,20 @@ li.item_info:nth-child(4n) {
   width: 30px;
   height: 30px;
 }
+.end_a {
+  position: absolute;
+}
+.end_a p {
+  color: white;
+  width: 230px;
+  height: 230px;
+  text-align: center;
+  font-size: 40px;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-family: "SBAggroB";
+  font-weight: 300;
+  line-height: 6;
+}
 .item_info > a > span {
   display: block;
   width: 200px;
@@ -203,7 +232,7 @@ li.item_info:nth-child(4n) {
   display: block;
   text-align: center;
 }
-.count_p ul{
+.count_p ul {
   list-style: none;
   padding: 0;
 }

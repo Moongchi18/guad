@@ -15,6 +15,7 @@ function AuctionTest({match}) {
         nickname: '',
         email: '',
     });
+
     useEffect(() => {
         connect();
     }, [presentBid])
@@ -31,7 +32,6 @@ function AuctionTest({match}) {
     }, [change])
 
     const connect = () => {
-
         let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);

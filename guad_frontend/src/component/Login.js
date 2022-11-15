@@ -4,19 +4,19 @@ import axios from "axios";
 import { useState } from "react";
 import logo from "../source/img/login_logo.png";
 import { Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import jwt_decode from "jwt-decode";
 
 function Login(props) {
   // 아이디 저장 체크박스 체크 유무
-  const [idCheck, setIdCheck] = useState(false);
-  const [email, setEmail] = useState("");
+  const [idCheck, setIdCheck] = useState(true);
+  const [email, setEmail] = useState(localStorage.getItem("email"));
   const [password, setPassword] = useState("");
   // 아이디 저장용
   const ChangeCheck = () => {
-    if (idCheck === false) {
-      setIdCheck(true);
-    } else {
+    if (idCheck === true) {
       setIdCheck(false);
+    } else {
+      setIdCheck(true);
     }
   };
   const onKeyEnter = (e) => {
@@ -88,6 +88,79 @@ function Login(props) {
     console.log("입력된 이메일 : " + email);
   }, []);
 
+
+  // social login
+  //토큰 >> decoding
+  function handlerCallbackResponse(response) {
+    console.log("Encoded JWT ID token " + response.credential);
+    var userObject = jwt_decode(response.credential);
+    // setUser(userObject);
+
+    //로그인 하면 로그인 버튼 가리기
+    // document.getElementById("signInDiv").hidden = true;
+
+    //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
+    axios
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`, {
+        email: userObject.email,
+      })
+      .then((response) => {
+        // response.data == true : 요청email유효, 회원가입정보 O
+        if(response.data===" "){
+          localStorage.setItem("email", userObject.email);
+          alert("회원가입이 필요합니다.")
+          props.history.push("/join_g")
+        } 
+        // 요청email은 있으나 회원가입 X
+        else {
+          console.log(response.data);
+          sessionStorage.setItem("token", response.data);
+          axios
+            .get(
+              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+              { header: { Authorization: response.data } }
+            )
+            .then((response) => {
+              console.log(response.data.nickname);
+              props.setNickName(response.data.nickname);
+              props.setIsLogin(true);
+              sessionStorage.setItem("nickname", response.data.nickname);
+            });
+          alert("로그인 되었습니다.");
+          props.history.push("/");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        sessionStorage.clear();
+        // 아이디 저장용
+        localStorage.setItem("email", "");
+        alert("알 수 없는 에러가 발생했습니다. 관리자에게 문의해주세요.");
+      });
+  }
+
+  // function handleSignOut(e) {
+  //   setUser({});
+  //   //로그아웃 하면 로그인 버튼 생성
+  //   document.getElementById("signInDiv").hidden = false;
+  // }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "1068908873530-hp1930ja7o5k3qcree5o0v9tt21h055h.apps.googleusercontent.com",
+      callback: handlerCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      // theme: "outline",
+      // size: "large",
+    });
+
+    google.accounts.id.prompt();
+  }, []);
+
   return (
     <>
       <div className={style.All_box}>
@@ -97,7 +170,7 @@ function Login(props) {
           <input
             className={style.in_box}
             placeholder="아이디"
-            value={
+            defaultValue={
               localStorage.getItem("email") == ""
                 ? email
                 : localStorage.getItem("email")
@@ -131,6 +204,15 @@ function Login(props) {
           >
             로그인
           </button>
+          <div id="wrapper-signInDiv">
+            <div id="signInDiv" className={[style.g_join, style.btn_bb].join(" ")} >
+              <img
+                src={require("../source/img/gg2.png")}
+                alt="구글 로그인"
+                id="ggg"
+              />
+            </div>
+          </div>
           <Link to="/join_g">
             <button className={[style.g_join, style.btn_bb].join(" ")} id="gg">
               <img

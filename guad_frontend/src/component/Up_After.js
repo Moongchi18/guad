@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
-import style from "../source/SellItem.module.css";
+import style from "../source/SellItem_u.module.css";
 import UpConfirm from "./Moodal/UpConfirm";
 import Up_Chat from "./Up_Chat";
 
 var stompClient = null;
-let Sock
+let Sock;
 const token = `Bearer ${sessionStorage.getItem("token")}`;
-function Up_After({ openModal, item }) {
+function Up_After({ openModal, item, buyer, auctionPeriodText, handlerBid, bid, bidNickname }) {
   const [publicChats, setPublicChats] = useState([]);
-  const [auctionPeriodText, setAuctionPeriodText] = useState();
 
-  console.log(publicChats)
-  console.log(item)
+
+  console.log(publicChats);
+  console.log(item);
 
   const connect = () => {
     Sock = new SockJS(
@@ -53,19 +53,6 @@ function Up_After({ openModal, item }) {
   };
   console.log(item);
 
-  useEffect(() => {
-    console.log(item);
-    if (item.auctionPeriod) {
-      const date = new Date(
-        item.auctionPeriod.slice(0, 10) + " " + item.auctionPeriod.slice(12, 19)
-      );
-      date.setHours(date.getHours() + 9);
-      setAuctionPeriodText(
-        `${date.getFullYear()}년 ${date.getMonth() + 1
-        }월 ${date.getDate()}일 ${date.getHours()}시까지`
-      );
-    }
-  }, [item]);
 
   const modalChange2 = useRef();
   const closeModal2 = () => {
@@ -77,9 +64,11 @@ function Up_After({ openModal, item }) {
   useEffect(() => {
     connect();
     return () => {
-      console.log("stomp disconnect")
-      stompClient.disconnect(() => console.log("disconnect2"), {message:"disconnect2"})
-      console.log("sock disconnect")
+      console.log("stomp disconnect");
+      stompClient.disconnect(() => console.log("disconnect2"), {
+        message: "disconnect2",
+      });
+      console.log("sock disconnect");
       closeConnection();
     };
   }, []);
@@ -87,8 +76,13 @@ function Up_After({ openModal, item }) {
 
   function closeConnection() {
     Sock.close();
-    console.log("sock.close()")
+    console.log("sock.close()");
   }
+
+  /////////////////////////////////////////
+
+
+
 
   return (
     <>
@@ -102,48 +96,51 @@ function Up_After({ openModal, item }) {
         <span className={style.top_head}>상품 정보</span>
         <span className={style.top_cate}>{item.itemType}</span>
         <span className={style.top_title}>{item.itemSub}</span>
-        <div className={style.sell_aa}>
+        <div className={style.sell_box}>
           <span className={style.sell_price}>현재 입찰가</span>
           <span className={style.sell_number}>
             {item.auctionStartPrice?.toLocaleString()}
           </span>
         </div>
-        <div className={style.sell_aa}>
+        <div className={style.sell_box}>
           <span className={style.sell_price}>즉시구매 가격</span>
           <span className={style.sell_number2}>
             {item.auctionMaxPrice?.toLocaleString()}
           </span>
         </div>
-        <span className={style.seller1}>
-          판매자 : <strong>{item.nickname}</strong>
-        </span>
-        <div className={style.button_bb}>
-          <button
-            type="button"
-            className={style.aa_buy_now}
-            onClick={openModal2}
-          >
-            즉시 구매
-          </button>
-          <button className={`${style.aa_buy} ${style.aa_btn}`}>
-            입찰 : <p>500,000</p>
-          </button>
-          <button type="button" className={style.aa_buy}>
-            현재 입찰자 : <strong></strong>
-          </button>
-          {item.itemNum && (
-            <Up_Chat
-              item={item}
-              sendValue={sendValue}
-              publicChats={publicChats}
-              connect={connect}
-            />
-          )}
-          <p>
-            남은 경매 시간 : <strong>{auctionPeriodText}</strong>
-          </p>
+        <div className={style.cont_in}>
+          <span className={style.seller_a} ref={buyer}>
+            판매자 : <strong>{item.nickname}</strong>
+          </span>
+          <div className={style.button_box}>
+            <button
+              type="button"
+              className={style.now_buy}
+              onClick={openModal2}
+            >
+              즉시 구매
+            </button>
+            {item.itemNum && (
+              <Up_Chat
+                item={item}
+                sendValue={sendValue}
+                publicChats={publicChats}
+                connect={connect}
+                buyer={buyer}
+              />
+            )}
+            <button className={`${style.try_buy} ${style.aa_btn}`} onClick={() => handlerBid(bid)}>
+              입찰 : <p className={style.bid}>{bid}</p>
+            </button>
+            <button type="button" className={style.try_buy}>
+              현재 입찰자 : <strong>{bidNickname}</strong>
+            </button>
+          </div>
         </div>
       </div>
+      <p className={style.bb_time}>
+        남은 경매 시간 : <strong>{auctionPeriodText}</strong>
+      </p>
     </>
   );
 }

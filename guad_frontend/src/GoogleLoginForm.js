@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 
+/* global google */
 function GoogleLoginForm({history}) {
   const [user, setUser] = useState({});
 
@@ -15,9 +16,9 @@ function GoogleLoginForm({history}) {
     document.getElementById("signInDiv").hidden = true;
     //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2/code/google`, {
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`, {
         // email: user.email,
-        // email: userObject.email,
+        email: userObject.email,
       })
       .then((response) => {
         alert("오르내림에 오신걸 환영합니다.");
@@ -40,7 +41,6 @@ function GoogleLoginForm({history}) {
   }
 
   useEffect(() => {
-    /* global google */
     google.accounts.id.initialize({
       client_id:
         "1068908873530-hp1930ja7o5k3qcree5o0v9tt21h055h.apps.googleusercontent.com",

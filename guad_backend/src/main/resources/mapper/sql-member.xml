@@ -29,7 +29,7 @@
 	<select id="loginContainPass" resultType="auction.guad.dto.MemberDto">
 		SELECT * 
 		FROM MEMBER
-		WHERE EMAIL=#{email}
+		WHERE EMAIL=#{email} and delete_yn="N"
 	</select>
 	
 	<!-- 회원 상세 조회 -->

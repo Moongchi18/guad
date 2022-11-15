@@ -14,6 +14,7 @@ function JoinG({history}) {
     } else {
       setG_check("w");    }
   };
+  const email = localStorage.getItem("email");
   const [nickname, setNickname] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -28,14 +29,15 @@ function JoinG({history}) {
   const [nicknameMessage, setNicknameMessage] = useState('');
   const [usableNicknameMessage, setUsableNicknameMessage] = useState('');
   
-  var email = sessionStorage.getItem("email");
-  
   console.log(email)
   const handlerGoogleJoin = () => {
     axios
       .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { email, pass : '', nickname, phone, address, addressDetail, gender: g_check })
-      .then((response) => console.log(response))
-    history.push("/")
+      .then((response) => {
+        console.log(response)
+        alert("회원가입이 완료되었습니다.")
+        history.push("/")
+      })
       .catch((error) => console.log(error)); 
   };
 
@@ -82,13 +84,13 @@ function JoinG({history}) {
       .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`, JSON.stringify({ nickname: nickname }), { headers: { "Content-Type": 'application/json' } })
       .then((response) => {
         if (response.status === 200) {
-          setUsableNicknameMessage("사용 가능한 아이디입니다.") 
+          setUsableNicknameMessage("사용 가능한 닉네임입니다.") 
           setIsUsableNickname(true)
         } 
       })
       .catch(error => {
           setIsUsableNickname(false)
-          setUsableNicknameMessage("이미 사용중인 아이디 입니다.");      
+          setUsableNicknameMessage("이미 사용중인 닉네임 입니다.");      
       })
   }
 
@@ -158,7 +160,7 @@ function JoinG({history}) {
               )}
           </ul>
         </div>
-        <button className={style.last_btn} onClick={handlerGoogleJoin} disabled={!(isNickname && isPhone && isAddress && isAddressDetail)}>회원가입</button>
+        <button className={style.last_btn} onClick={handlerGoogleJoin} disabled={!(isNickname && isPhone && address && isAddressDetail)}>회원가입</button>
       </div>
       <div></div>
     </>

@@ -9,7 +9,7 @@ import NotifyWrite from "./Moodal/NotifyWrite";
 var stompClient = null;
 const token = `Bearer ${sessionStorage.getItem("token")}`;
 
-function Sell_Down({ match, history }) {
+function Sell_DownRandom({ match, history }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [item, setItem] = useState({});
   const [imgList, setImgList] = useState([]);
@@ -26,16 +26,16 @@ function Sell_Down({ match, history }) {
       .then((response) => {
         console.log(response.data);
         setItem(response.data);
-        imgList.push(response.data.itemImgName);
-        imgList.push(response.data.itemImgNameSub2);
-        imgList.push(response.data.itemImgNameSub3);
-        setImgList(imgList);
-        
         const date = new Date(
           response.data.auctionFinishDate.slice(0, 10) +
           " " +
           response.data.auctionFinishDate.slice(12, 19)
         );
+        imgList.push(response.data.itemImgName);
+        imgList.push(response.data.itemImgNameSub2);
+        imgList.push(response.data.itemImgNameSub3);
+        setImgList(imgList);
+
         date.setHours(date.getHours() + 9);
         setAuctionPeriodText(
           `${date.getFullYear()}년 ${date.getMonth() + 1
@@ -59,17 +59,15 @@ function Sell_Down({ match, history }) {
     modalChange2.current.style = "display:none;";
   };
   const openModal2 = () => {
-    if (auctionCurrentPrice == -1) {
+    if(auctionCurrentPrice == -1) {
       alert("경매 준비 중에는 입찰할 수 없습니다.")
     } else {
       modalChange2.current.style = "display:block;";
     };
   }
 
-
   //////////////웹소캣//////////////
   const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
-
 
   useEffect(() => {
     connect();
@@ -227,7 +225,7 @@ function Sell_Down({ match, history }) {
             <div className={style.sell_box}>
               <span className={style.sell_price}>현재 경매가</span>
               <span className={style.sell_number}>
-                {auctionCurrentPrice === -1 ? "경매 준비중" :
+                {auctionCurrentPrice === -1 ? "경매 준비중" : 
                   auctionCurrentPrice?.toLocaleString()}
               </span>
             </div>
@@ -252,4 +250,4 @@ function Sell_Down({ match, history }) {
     </>
   );
 }
-export default Sell_Down;
+export default Sell_DownRandom;
