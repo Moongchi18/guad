@@ -9,7 +9,7 @@ import auction.guad.dto.CommentsDto;
 @Mapper
 public interface CommentsMapper {
 
-List<CommentsDto> commentsListByEmail() throws Exception;
+List<CommentsDto> commentsListByItemNum(int itemNum) throws Exception;
 int insertComment(CommentsDto commentsDto) throws Exception;
 CommentsDto selectCommentDetail(int commentNum) throws Exception;
 void updateComment(CommentsDto commentsDto) throws Exception;

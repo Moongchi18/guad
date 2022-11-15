@@ -1,8 +1,46 @@
 import style from "../source/SellItem.module.css";
 import NotifyWrite from "./Moodal/NotifyWrite";
 import { useRef } from "react";
+import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { clear } from "@testing-library/user-event/dist/clear";
 
-function Sell_End_d() {
+function Sell_End_d({ match }) {
+  //////////////// 댓글 관련 /////////////////
+  const [comments, setComments] = useState([]);
+  const [contents, setContents] = useState("");
+  const [commentUpdate, setCommentUpdate] = useState(false);
+  useEffect(() => {
+    axios
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/comments/${match.params.itemNum}`
+      )
+      .then((response) => {
+        setComments(response.data);
+      });
+  }, [commentUpdate]);
+
+  const handleChange = (e) => {
+    setContents(e.target.value);
+  };
+
+  const handleWrite = () => {
+    console.log(match.params.itemNum)
+    console.log(contents)    
+    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/comments`, {
+      itemNum : match.params.itemNum,      
+      contents
+    })
+    .then((response) => {
+      console.log(response)
+      alert("후기 작성이 완료되었습니다.") 
+      setCommentUpdate(!commentUpdate);
+      setContents('');   
+    })}
+////////////////////////////////////////////
+
+
   const modalChange = useRef();
   const closeModal = () => {
     modalChange.current.style = "display:none;";
@@ -78,23 +116,33 @@ function Sell_End_d() {
           많은 관심 부탁드립니다.
         </p>
       </div>
-      <div className={style.review}>
-        <h2>후기 작성</h2>
-        <textarea placeholder="경매 후기를 작성해주세요."></textarea>
-        <button type="button">작성</button>
-      </div>
       <div className={style.review_dd}>
-        <h2>경매 후기</h2>
+        <div className={style.fuck1}>
+          <img src={require("../source/img/talk.png")} alt="목록" />
+          <h2>댓글 목록</h2>
+        </div>
         <ul>
-          <li>
-            <p>부산 갈매기</p>
-            <input type="text" disabled value="결국 이겼다" />
-          </li>
-          <li>
-            <p>인천 두더지</p>
-            <input type="text" disabled value="내가 졌다" />
-          </li>
+          {comments &&
+            comments.map((comments) => (
+              <li key={comments.commentNum}>
+                <p>{comments.writerNickname}</p>
+                <input type="text" disabled defaultValue={comments.contents} />
+              </li>
+            ))}
         </ul>
+      </div>
+      <div className={style.review}>
+        <div className={style.fuck2}>
+          <img src={require("../source/img/write.png")} alt="작성" />{" "}
+          <h2>댓글 작성</h2>
+        </div>
+        <textarea
+          placeholder="경매 후기를 작성해주세요."
+          onChange={handleChange}
+        ></textarea>
+        <button type="button" onClick={handleWrite}>
+          작성
+        </button>
       </div>
     </>
   );

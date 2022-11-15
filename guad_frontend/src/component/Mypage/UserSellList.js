@@ -4,33 +4,36 @@ import axios from "axios";
 
 import "../../source/test.css";
 import { Link } from "react-router-dom";
+import { now } from "moment";
 
 function UserSellList({ history }) {
   const [sellList, setSellList] = useState([]);
+  let now = new Date()
+  
+  function dateFormat(date) {
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+    
+    month = month >= 10 ? month : '0' + month;
+    day = day >= 10 ? day : '0' + day;
+    hour = hour >= 10 ? hour : '0' + hour;
+    minute = minute >= 10 ? minute : '0' + minute;
+    second = second >= 10 ? second : '0' + second;
+    
+    return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+  }
+  
+  console.log(dateFormat(now));
 
   useEffect(() => {
     axios.get(`http://localhost:8080/selllist`).then((response) => {
-      setSellList(response.data);
-      console.log(typeof response.data[0].soldDate);
+      setSellList(response.data);      
     });
   }, []);
-
-  console.log(sellList[1]);
-
-  // color();
-  // const colorChange = useRef();
-  // const color = () => {
-  //   if (sellList.sellState === "waiting") {
-  //     colorChange.current.style = "background-color : #253C76";
-  //   } else if (sellList.sellState === "ing") {
-  //     colorChange.current.style = "background-color : #D9D9D9";
-  //   } else if (sellList.sellState === "sold") {
-  //     colorChange.current.style = "background-color : #217A4F";
-  //   } else {
-  //     colorChange.current.style = "background-color : #BA101E";
-  //   }
-  // };
-
+ 
   return (
     <>
       <div className={style.category}>
@@ -84,15 +87,14 @@ function UserSellList({ history }) {
                 </h3>
               </div>
               <div className={style.sellcheck}>
-                <button className={list.sellState}>{list.sellState}</button>
+                <button className={list.auctionFinishDate < dateFormat(now) ? "경매만료" : list.sellState}>{list.auctionFinishDate < dateFormat(now) ? "경매만료" : list.sellState}</button>
                 <h3>
                   <strong>구매 일자 : </strong>
                   {list.soldDate && list.soldDate.substring(0, 10)}
                 </h3>
               </div>
             </div>
-          ))}
-        {/* 거래중 */}
+          ))}       
       </div>
     </>
   );

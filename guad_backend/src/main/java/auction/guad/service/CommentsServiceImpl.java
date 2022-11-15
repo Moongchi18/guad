@@ -15,8 +15,8 @@ public class CommentsServiceImpl implements CommentsService{
 	@Autowired
 	private CommentsMapper commentsMapper;
 	
-	public List<CommentsDto> commentsListByEmail() throws Exception {
-		return commentsMapper.commentsListByEmail();		
+	public List<CommentsDto> commentsListByItemNum(int itemNum) throws Exception {
+		return commentsMapper.commentsListByItemNum(itemNum);		
 	}
 	
 	public int insertComment(CommentsDto commentsDto) throws Exception {

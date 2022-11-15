@@ -6,6 +6,7 @@ import axios from "axios";
 import Mileage from "../Moodal/Mileage";
 import UserBuyList from "./UserBuyList";
 import UserSellList from "./UserSellList";
+import My_Notify from "../Moodal/My_Notify";
 
 function Mypage() {
   // window.onload = function () {
@@ -58,8 +59,20 @@ function Mypage() {
     setIsChange(!isChange);
   };
 
+  // 내 신고내역 보기
+  const modalChange3 = useRef();
+
+  const closeModal3 = () => {
+    modalChange3.current.style = "display:none;";
+  };
+
+  const openModal3 = (e) => {
+    modalChange3.current.style = "display:block;";
+  };
+
   return (
     <>
+      <My_Notify modalChange3={modalChange3} closeModal3={closeModal3} />
       <Mileage
         closeModal={closeModal}
         modalChange={modalChange}
@@ -97,7 +110,7 @@ function Mypage() {
                 <p>마일리지</p>
               </li>
               <li>
-                <button type="button"></button>
+                <button type="button" onClick={openModal3}></button>
                 <p>신고내역</p>
               </li>
             </ul>
