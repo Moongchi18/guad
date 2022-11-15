@@ -87,6 +87,15 @@ public class NotifyController {
 		
 		return notifyService.notifyList();
 	}
+	
+	@ApiOperation(value = "내 신고리스트 조회(NotifyVo)", notes = "신고 목록 조회, 파라미터 : NotifyVo")
+    @GetMapping("/my/list")
+    public List<NotifyVo> myNotifyList(@AuthenticationPrincipal User user) throws Exception {
+     
+        List<NotifyVo> myNotifyList = notifyService.myNotifyList(user.getUsername());
+        
+        return myNotifyList;
+    }
 
 	@ApiOperation(value = "신고리스트 상세 조회(NotifyDto)", notes = "신고 상세 조회, 파라미터 : NotifyDto")
 	@GetMapping("/admin/{notifyNum}")

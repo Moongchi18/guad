@@ -3,6 +3,18 @@ import { useEffect, useState } from "react";
 import style from "../../source/Moodal9.module.css";
 
 function My_Notify({ modalChange3, closeModal3 }) {
+
+  const [datas, setDatas] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/my/list`)
+      .then((response) => {
+        setDatas(response.data);
+        console.log(response.data);
+      });
+  }, []);
+
+  console.log(datas[0]);
   return (
     <>
       <div id="my-modal" className={style.modal} ref={modalChange3}>
@@ -17,50 +29,18 @@ function My_Notify({ modalChange3, closeModal3 }) {
               <p>내용</p>
             </div>
             <ul>
-              <li>
+            {datas &&
+            datas.map((notify) => (
+              <li key={notify.notifyNum}>
                 <div>
-                  <span>이곳은 제목입니다!</span>
-                  <span>user123@naver.com</span>
+                  <span>{notify.notifyTitle}</span>
+                  <span>{notify.sellerEmail}</span>
                 </div>
                 <p>
-                  이 상품 뭔가 이상해요!!이 상품 뭔가 이상해요!!이 상품 뭔가
-                  이상해요!!이 상품 뭔가 이상해요!!이 상품 뭔가 이상해요!!이
-                  상품 뭔가 이상해요!!
+                  {notify.notifyContents}
                 </p>
               </li>
-              <li>
-                <div>
-                  <span>이곳은 제목입니다!</span>
-                  <span>user123@naver.com</span>
-                </div>
-                <p>
-                  이 상품 뭔가 이상해요!!이 상품 뭔가 이상해요!!이 상품 뭔가
-                  이상해요!!이 상품 뭔가 이상해요!!이 상품 뭔가 이상해요!!이
-                  상품 뭔가 이상해요!!
-                </p>
-              </li>
-              <li>
-                <div>
-                  <span>이곳은 제목입니다!</span>
-                  <span>user123@naver.com</span>
-                </div>
-                <p>
-                  이 상품 뭔가 이상해요!!이 상품 뭔가 이상해요!!이 상품 뭔가
-                  이상해요!!이 상품 뭔가 이상해요!!이 상품 뭔가 이상해요!!이
-                  상품 뭔가 이상해요!!
-                </p>
-              </li>
-              <li>
-                <div>
-                  <span>이곳은 제목입니다!</span>
-                  <span>user123@naver.com</span>
-                </div>
-                <p>
-                  이 상품 뭔가 이상해요!!이 상품 뭔가 이상해요!!이 상품 뭔가
-                  이상해요!!이 상품 뭔가 이상해요!!이 상품 뭔가 이상해요!!이
-                  상품 뭔가 이상해요!!
-                </p>
-              </li>
+            ))}             
             </ul>
           </div>
           <div className={style.modalfooter}>

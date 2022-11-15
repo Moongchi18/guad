@@ -37,4 +37,11 @@ public class NotifyServiceImpl implements NotifyService{
 		
 	}
 	
+	@Override
+    public ArrayList<NotifyVo> myNotifyList(String memberEmail)throws Exception {
+        
+        return notifyMapper.myNotifyList(memberEmail);
+        
+    }
+	
 }

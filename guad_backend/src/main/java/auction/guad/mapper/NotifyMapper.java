@@ -13,5 +13,5 @@ public interface NotifyMapper {
 	int insertNotify(NotifyDto notify) throws Exception;
 	ArrayList<NotifyDto> notifyList() throws Exception;
 	NotifyVo notifyDetail(String notifyNum) throws Exception;
-
+	ArrayList<NotifyVo> myNotifyList(String memberEmail) throws Exception;
 }
