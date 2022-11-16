@@ -55,10 +55,13 @@
   background-color: #0fa880;
   transition: 0.3s all ease;
 }
+
 .g_join {
   background-color: #ffffff;
   border: 1px solid #a4a4a4;
   margin-bottom: 10px;
+  width: 450px;
+  height: 60px;
 }
 .g_join:hover {
   background-color: #5a5a5a;
@@ -109,7 +112,7 @@
   width: 80px;
 }
 
-#wrapper-signInDiv{
+#wrapper-signInDiv {
   display: block;
   width: 450px;
   height: 60px;
@@ -118,4 +121,11 @@
   font-family: "SBAggroB";
   font-weight: 300;
   cursor: pointer;
+}
+.google_1 {
+  margin-bottom: 10px;
+}
+.google_2 {
+  display: inline-block;
+  padding-top: 10px;
 }
