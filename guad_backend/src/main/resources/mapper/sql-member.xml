@@ -6,7 +6,7 @@
 	<!-- 모든 회원 조회 -->
 	<select id="managerSelectMemberListExceptPass" resultType="auction.guad.dto.MemberDto">
 		SELECT MEMBER_NUM, NICKNAME, EMAIL, PHONE, ADDRESS, JOIN_DATE_TIME, GENDER, MILEAGE, MILEAGE_USED, MANAGER_YN, DELETE_YN, UPDATED_DATE_TIME 
-		FROM MEMBER
+		FROM MEMBER WHERE DELETE_YN = 'N' or 'n' ORDER BY MEMBER_NUM DESC
 	</select>
 	
 	<!-- 관리자용 모든 멤버 pass 제외하고 목록 조회 -->
