@@ -67,7 +67,7 @@ jobs:
       - name: Docker run
         run: |
           docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:latest
-          docker run -d -p 8080:5000 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
+          docker run -d -p 9090:8080 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
           
           docker stop ${{ env.DOCKER_IMAGE_CLIENT }} && docker rm ${{ env.DOCKER_IMAGE_CLIENT }} && docker rmi ${{ env.DOCKER_IMAGE_CLIENT }}:latest
-          docker run -d -p 8080:5000 --name ${{ env.DOCKER_IMAGE_CLIENT }} --restart always ${{ env.DOCKER_IMAGE_CLIENT }}:latest
+          docker run -d -p 33000:80 --name ${{ env.DOCKER_IMAGE_CLIENT }} --restart always ${{ env.DOCKER_IMAGE_CLIENT }}:latest
