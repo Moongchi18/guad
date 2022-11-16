@@ -71,6 +71,7 @@ function MypageInfo(props) {
   };
   /// 탈퇴용
   const HandlerDelete = () => {
+    if (window.confirm("해당 회원을 추방하시겠습니까?")) {
     axios
       .post(
         `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
@@ -82,6 +83,9 @@ function MypageInfo(props) {
         props.setIsLogin(false);
         props.history.push("/login");
       });
+    } else {      
+      console.log('취소')           
+  }
   };
 
   useEffect(() => {
