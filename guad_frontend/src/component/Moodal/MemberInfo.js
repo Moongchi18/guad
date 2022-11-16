@@ -2,8 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import style from "../../source/Moodal7.module.css";
 
-function MemeberInfo({ modalChange, closeModal, infoEmail }) {
+
+function MemeberInfo({ modalChange, closeModal, infoEmail, onRemove }) {
   const [datas, setDatas] = useState({});
+
   console.log(datas);
 
   useEffect(() => {
@@ -17,8 +19,8 @@ function MemeberInfo({ modalChange, closeModal, infoEmail }) {
           alert("접근 권한이 없습니다. 로그인 후 다시 접속해 주세요.");
         }
       });
-  }, [infoEmail]);
-
+      }, [infoEmail]); 
+      
   return (
     <>
       <div id="my-modal" className={style.modal} ref={modalChange}>
@@ -47,7 +49,7 @@ function MemeberInfo({ modalChange, closeModal, infoEmail }) {
             </ul>
           </div>
           <div className={style.modalfooter}>
-            <button className={style.out_btn}>회원강퇴</button>
+            <button className={style.out_btn} onClick={onRemove} >회원강퇴</button>
             <button className={style.yet_btn} onClick={closeModal}>
               보류
             </button>
