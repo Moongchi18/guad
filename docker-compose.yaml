@@ -23,7 +23,7 @@ services:
     ports:
       - 9090:8080
 
-  olenaelim.com:
+  client:
     image: guad_frontend:latest
     restart: always
     ports:

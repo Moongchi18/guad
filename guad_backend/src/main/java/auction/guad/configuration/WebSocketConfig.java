@@ -18,8 +18,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry.addEndpoint("/ws")
 				// CORS
-				// security에서 잡아주기 때문에 필요없음
-//				.setAllowedOriginPatterns("*")
+				// websocket에 연결을 허용할 origin, security와 별도로 설정 필요
+				.setAllowedOriginPatterns("http://localhost:3000", "http://localhost:33000", "http://olenaelim.com:33000")
 				// websocket를 지원하지 않는 브라우저에서 websocket을 사용할 수 있도록 지원해주는 
 				// SockJS를 사용하겠다
 				.withSockJS();
