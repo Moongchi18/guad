@@ -1,5 +1,6 @@
 package auction.guad.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -84,34 +85,89 @@ public class WebSocketController {
 //		}
 //		return null;
 //	}
-	
+
 	@ApiOperation(value = "오름 경매 상세 조회", notes = "오름 경매 상세 정보를 조회")
 	@MessageMapping("/sellitem/auction/u/{itemNum}")
 	@SendTo("/sub/sellitem/auction/u/{itemNum}")
 	public AuctionVo openOllimSellItemDetail(@Payload AuctionVo auction, @DestinationVariable int itemNum,
 			@Header String Authorization) throws Exception {
+		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailNoHitCnt(itemNum);
+
 		String token = Authorization.substring(7);
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
-		
+
 		auction.setNickname(member.getNickname());
 		auction.setMemberEmail(member.getEmail());
-		auction.setAuctionPrice(auction.getAuctionPrice()+1);
-		
+
+		StringBuffer sb = new StringBuffer();
+		StringBuffer sb2 = new StringBuffer();
+		String basic = "0";
+		int bidAmount = auction.getAuctionPrice();
+
+		ArrayList<Integer> arrbidAmount = new ArrayList<>();
+		while (bidAmount > 0) {
+			arrbidAmount.add(bidAmount % 10);
+			bidAmount /= 10;
+		}
+
+		System.out.println("1>>>>>>>>>>>>>>>" + arrbidAmount);
+		System.out.println("2>>>>>>>>>>>>>>>" + arrbidAmount.get(arrbidAmount.size() - 3));
+		System.out.println(arrbidAmount.size() - 3);
+
+		sb.append(arrbidAmount.get(arrbidAmount.size() - 1));
+		sb.append(arrbidAmount.get(arrbidAmount.size() - 2));
+
+		if (arrbidAmount.get(arrbidAmount.size() - 2) != 0) {
+			for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+				sb.append(basic);
+			}
+		} else {
+			for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+				sb.append(basic);
+			}
+		}
+
+		if (arrbidAmount.get(arrbidAmount.size() - 1) < 5) {
+			sb2.append("1");
+			for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+				sb2.append(basic);
+			}
+		} else {
+			sb2.append("5");
+			for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+				sb2.append(basic);
+			}
+		}
+
+		System.out.println("3>>>>>>>>>>>>>>>" + sb.toString());
+		System.out.println("4>>>>>>>>>>>>>>>" + sb2.toString());
+		// 변경된 값을 넣어준다.
+		try {
+			int currentPrice = Integer.parseInt(sb.toString());
+			int plusePrice = Integer.parseInt(sb2.toString());
+			auction.setAuctionPrice(currentPrice + plusePrice);
+			System.out.println("5>>>>>>>>>>>>>>>" + currentPrice);
+			System.out.println("6>>>>>>>>>>>>>>>" + plusePrice);
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+		}
+
 		int bidNum = auctionService.tryAuction(auction);
-		
-		
-		if (bidNum > 0) {
+
+		if (auction.getAuctionPrice() > sellItem.getAuctionMaxPrice() && bidNum > 0) {
 			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
 					"/sub/sellitem/auction/u/" + itemNum, auction);
-			
+			auction.setAuctionPrice(-1);
 			return auction;
-		
+		} else {
+			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
+					"/sub/sellitem/auction/u/" + itemNum, auction);
+			return auction;
 		}
-		return null;
-		
+
 	}
-	
+
 	@ApiOperation(value = "내림 경매 상세 조회", notes = "내림 경매 상세 정보를 조회")
 	@MessageMapping("/sellitem/auction/d/{itemNum}")
 	@SendTo("/sub/sellitem/auction/d/{itemNum}")
@@ -176,7 +232,7 @@ public class WebSocketController {
 		int discount;
 		// 랜덤 숫자 생성
 		int perDiscount = (int) (Math.random() * 4 + 1);
-		int perDiscountAll = 0;
+		double perDiscountAll = 0;
 
 		long MinPrice = sellItem.getAuctionMinPrice();
 		int StartPrice = sellItem.getAuctionStartPrice();
@@ -201,8 +257,21 @@ public class WebSocketController {
 		// 서비스 작성 : 동일 아이템 넘버 auction_down 테이블의 갯수를 카운트 한다.
 		int naelimRandomcheck = auctionService.naelimRandomCount(itemNum);
 		// 서비스 작성 : 위숫자보다 적은경우 하나의 랜덤 정수를 생성해 인서트 해준다.
-		if (Math.floor(timeChange) > naelimRandomcheck) {
-			auctionService.naelimRandomPerDiscountInsert(perDiscount, itemNum);
+		int dayDiscount = (int) (Math.floor(timeChange) / 24);
+		int hourDiscount = (int) (Math.floor(timeChange) % 24);
+		if (hourDiscount > 10) {
+			hourDiscount = 10;
+		}
+
+		if ((dayDiscount * 10 + hourDiscount) > naelimRandomcheck) {
+			for (int i = 0; i < ((dayDiscount * 10 + hourDiscount) - naelimRandomcheck); i++) {
+				perDiscount = (int) (Math.random() * 4 + 1);
+				System.out.println("1>>>>>>>>>>>>>>>>>>" + ((dayDiscount * 10 + hourDiscount) - naelimRandomcheck));
+				System.out.println("1>>>>>>>>>>>>>>>>>>" + perDiscount);
+
+				auctionService.naelimRandomPerDiscountInsert(perDiscount, itemNum);
+			}
+
 		}
 		// 동일 아이템 넘버 auction_down 테이블의 auction_per값을 모두 불러와 더해준다. (반복문)
 		List<AuctionDownDto> perDiscountList = auctionService.naelimRandomPerDiscountAll(itemNum);
@@ -211,12 +280,10 @@ public class WebSocketController {
 		}
 		// 현재 내림랜덤경매가 : 가져온 per값으로 현재가격을 계산에 내려준다.
 		long CurrentPrice = (long) (StartPrice - (StartPrice * (perDiscountAll / 100)));
+
 		
-		System.out.println(">>>>>>>>>>>>>>>>>>" + naelimRandomcheck);
-		System.out.println(">>>>>>>>>>>>>>>>>>" + result2);
-		System.out.println(">>>>>>>>>>>>>>>>>>" + perDiscountList);
-		System.out.println(">>>>>>>>>>>>>>>>>>" + CurrentPrice);
-		
+		System.out.println("5>>>>>>>>>>>>>>>>>>" + CurrentPrice);
+
 		if (result2) {
 			return ResponseEntity.status(HttpStatus.OK).body(auctionNotyet);
 		} else {

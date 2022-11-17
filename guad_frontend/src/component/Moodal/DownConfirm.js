@@ -7,9 +7,6 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
   console.log(item)
   console.log(auctionCurrentPrice)
   console.log(discountRateNow)
-
-
-
   //////////////////////마일리지 정보/////////////////////////
   const [member, setMember] = useState({});
   const [result, setResult] = useState(0);
@@ -19,6 +16,7 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
       .then((response) => {
         setMember(response.data);
         setResult(response.data.mileage - auctionCurrentPrice);
+        console.log("<<<<<<<<<<<<<<<"+auctionCurrentPrice)
       })
       .catch((error) => console.log(error));
   }, [auctionCurrentPrice]);
@@ -79,22 +77,22 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
               <p className={style.tag1}>상품 정보</p>
               <p className={style.tag2}>{item.itemSub}</p>
               <p className={style.tag3}>
-                현재 입찰가 : <strong>{auctionCurrentPrice} ({discountRateNow.toFixed(1)}%)</strong>
+                현재 입찰가 : <strong>{auctionCurrentPrice?.toLocaleString()} ({discountRateNow.toFixed(1)}%)</strong>
               </p>
             </div>
             <div className={style.body_mid}>
               <p className={style.tag4}>
-                내 마일리지 <strong>{member.mileage}</strong>
+                내 마일리지 <strong>{member.mileage?.toLocaleString()}</strong>
               </p>
               <p className={style.tag5}>
-                현재 입찰가 <strong>-{auctionCurrentPrice}</strong>
+                현재 입찰가 <strong>-{auctionCurrentPrice?.toLocaleString()}</strong>
               </p>
             </div>
           </div>
           <div className={style.modalfooter2}>
             <h3>거래 결과</h3>
             <p className={style.tag6}>
-              거래 후 마일리지<strong>{result}</strong>
+              거래 후 마일리지<strong>{result?.toLocaleString()}</strong>
             </p>
             <button type="button" onClick={handlerTrade}>입찰완료</button>
           </div>

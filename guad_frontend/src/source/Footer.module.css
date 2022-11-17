@@ -1,7 +1,7 @@
 Footer {
   display: block;
-  height: 500px;
-  background-color: #320004;
+  height: 450px;
+  background-color: #00231d;
   color: white;
   font-family: "SBAggroB";
   font-weight: 300;
@@ -28,5 +28,8 @@ Footer {
 }
 .foot_bot p {
   line-height: 2;
-  font-size: 15px;
+  font-size: 13px;
+}
+.foot_bot address {
+  font-size: 13px;
 }
