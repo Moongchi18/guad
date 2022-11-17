@@ -144,6 +144,7 @@ function Join({ history }, props) {
   }
 
   const nicknameCheck = (e) => {
+    
     e.preventDefault();
     axios
       .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`, JSON.stringify({ nickname: nickname }), { headers: { "Content-Type": 'application/json' } })
@@ -258,7 +259,7 @@ function Join({ history }, props) {
               )}
           </ul>
         </div>
-        <button className={style.last_btn} onClick={handlerJoin} disabled={!(isNickname && isEmail && isPass && isPassConfirm && isPhone && address && addressDetail)}>회원가입</button>
+        <button className={style.last_btn} onClick={handlerJoin} disabled={!(isNickname && isEmail && isUsableNickname && isUsableId && isPass && isPassConfirm && isPhone && address && addressDetail)}>회원가입</button>
       </div>
       <div></div>
     </>
