@@ -48,7 +48,7 @@ public class SellItemController {
 
 /////////////////////////////////////////////////////////////////////////////////////	
 
-	@ApiOperation(value = "상품 전체 조회()", notes = "상품 전체 목록을 조회, 파라미터 : ''")
+	@ApiOperation(value = "상품 전체 조회", notes = "상품 전체 목록을 조회, 파라미터 : ''")
 	@GetMapping("/sellitem")
 	public List<SellItemDto> openSellItemList() throws Exception {
 //		sellItemService.selectAllItemCount();
@@ -166,16 +166,16 @@ public class SellItemController {
 
 	
 	
-	@RequestMapping(value = "/sellItem/{itemNum}", method = RequestMethod.PUT)
-	public void updateSellItem(@PathVariable("itemNum") int itemNum, @RequestBody SellItemDto sellItemDto)
-			throws Exception {
-		sellItemDto.setItemNum(itemNum);
-		sellItemService.updateSellItem(sellItemDto);
-	}
-
-	@RequestMapping(value = "/sellItem/{itemNum}", method = RequestMethod.DELETE)
-	public void deleteSellItem(@PathVariable("itemNum") int itemNum) throws Exception {
-		sellItemService.deleteSellItem(itemNum);
-	}
+//	@RequestMapping(value = "/sellItem/{itemNum}", method = RequestMethod.PUT)
+//	public void updateSellItem(@PathVariable("itemNum") int itemNum, @RequestBody SellItemDto sellItemDto)
+//			throws Exception {
+//		sellItemDto.setItemNum(itemNum);
+//		sellItemService.updateSellItem(sellItemDto);
+//	}
+//
+//	@RequestMapping(value = "/sellItem/{itemNum}", method = RequestMethod.DELETE)
+//	public void deleteSellItem(@PathVariable("itemNum") int itemNum) throws Exception {
+//		sellItemService.deleteSellItem(itemNum);
+//	}
 
 }

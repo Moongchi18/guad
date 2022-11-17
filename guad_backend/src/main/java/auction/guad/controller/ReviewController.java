@@ -53,16 +53,21 @@ public class ReviewController {
 		reviewService.insertReview(review);
 	} 
 
-	@RequestMapping(value = "/review/{reviewNum}", method = RequestMethod.PUT)
-	public void updateReview(@PathVariable("reviewNum") int reviewNum, @RequestBody ReviewDto reviewDto) throws Exception {
-		reviewDto.setReviewNum(reviewNum);
-		reviewService.updateReview(reviewDto);
-	}
-
-	@RequestMapping(value = "/Review/{reviewNum}", method = RequestMethod.DELETE)
-	public void deleteReview(@PathVariable("reviewNum") int reviewNum) throws Exception {
-		reviewService.deleteReview(reviewNum);
-	}
+	
+    /*
+     * @RequestMapping(value = "/review/{reviewNum}", method = RequestMethod.PUT)
+     * public void updateReview(@PathVariable("reviewNum") int
+     * reviewNum, @RequestBody ReviewDto reviewDto) throws Exception {
+     * reviewDto.setReviewNum(reviewNum);
+     * reviewService.updateReview(reviewDto);
+     * }
+     * 
+     * @RequestMapping(value = "/Review/{reviewNum}", method = RequestMethod.DELETE)
+     * public void deleteReview(@PathVariable("reviewNum") int reviewNum) throws
+     * Exception {
+     * reviewService.deleteReview(reviewNum);
+     * }
+     */
 }
 
 

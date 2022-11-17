@@ -76,7 +76,7 @@ public class SellItemResultController {
 	}
 
 	@ApiOperation(value = "구매내역 조회", notes = "마이페이지에서 내 email로 구매내역 조회")
-	@RequestMapping(value = "/buylist", method = RequestMethod.GET)
+	@GetMapping(value = "/buylist")
 	public List<SellItemResultDto> selectMyBuyList(@AuthenticationPrincipal User user) throws Exception {
 		List<SellItemResultDto> list = sellItemResultService.selectMyBuyList(user.getUsername());
 		List<ImgDto> ImgList = new ArrayList<>();
@@ -84,7 +84,7 @@ public class SellItemResultController {
 	}
 
 	@ApiOperation(value = "판매내역 조회", notes = "마이페이지에서 내 판매내역 조회")
-	@RequestMapping(value = "/selllist", method = RequestMethod.GET)
+	@GetMapping(value = "/selllist")
 	public List<SellItemDto> selectMySellList(@AuthenticationPrincipal User user) throws Exception {
 		List<SellItemDto> list2 = sellItemResultService.selectMySellList(user.getUsername());
 		List<ImgDto> ImgList = new ArrayList<>();
@@ -93,7 +93,7 @@ public class SellItemResultController {
 	}
 
 	@ApiOperation(value = "구매내역 전체 조회", notes = "마이페이지에서 내 email로 구매내역 조회")
-	@RequestMapping(value = "/buylistd", method = RequestMethod.GET)
+	@GetMapping(value = "/buylistd")
 	public List<SellItemResultDto> selectMyBuyListDe(@AuthenticationPrincipal User user) throws Exception {
 		List<SellItemResultDto> list3 = sellItemResultService.selectMyBuyListDe(user.getUsername());
 		List<ImgDto> ImgList = new ArrayList<>();
@@ -101,7 +101,7 @@ public class SellItemResultController {
 	}
 
 	@ApiOperation(value = "판매내역 전체 조회", notes = "마이페이지에서 내 판매내역 조회")
-	@RequestMapping(value = "/selllistd", method = RequestMethod.GET)
+	@GetMapping(value = "/selllistd")
 	public List<SellItemDto> selectMySellListDe(@AuthenticationPrincipal User user) throws Exception {
 		List<SellItemDto> list4 = sellItemResultService.selectMySellListDe(user.getUsername());
 		List<ImgDto> ImgList = new ArrayList<>();
