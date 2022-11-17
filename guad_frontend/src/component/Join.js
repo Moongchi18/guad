@@ -34,131 +34,158 @@ function Join({ history }, props) {
   const [isUsableId, setIsUsableId] = useState(false);
   const [isUsableNickname, setIsUsableNickname] = useState(false);
 
-  const [emailMessage, setEmailMessage] = useState('');
-  const [nicknameMessage, setNicknameMessage] = useState('');
-  const [passMessage, setPassMessage] = useState('');
-  const [passConfirmMessage, setPassConfirmMessage] = useState('');
-  const [usableIdMessage, setUsableIdMessage] = useState('');
-  const [usableNicknameMessage, setUsableNicknameMessage] = useState('');
-
-
+  const [emailMessage, setEmailMessage] = useState("");
+  const [nicknameMessage, setNicknameMessage] = useState("");
+  const [passMessage, setPassMessage] = useState("");
+  const [passConfirmMessage, setPassConfirmMessage] = useState("");
+  const [usableIdMessage, setUsableIdMessage] = useState("");
+  const [usableNicknameMessage, setUsableNicknameMessage] = useState("");
 
   const handlerJoin = () => {
-    axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { email, nickname, pass, phone, address, addressDetail, gender: g_check })
-      .then((response) => {
-        console.log(response)
-        alert("회원가입이 완료되었습니다.")
-        history.push("/login")
-      })
-      .catch((error) => console.log(error));
+    if (
+      (isNickname &&
+        isEmail &&
+        isUsableNickname &&
+        isUsableId &&
+        isPass &&
+        isPassConfirm &&
+        isPhone &&
+        address &&
+        addressDetail) == false
+    ) {
+      alert("입력된 정보를 다시 확인해주세요!");
+    } else {
+      axios
+        .post(
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+          {
+            email,
+            nickname,
+            pass,
+            phone,
+            address,
+            addressDetail,
+            gender: g_check,
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          alert("회원가입이 완료되었습니다.");
+          history.push("/login");
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   const changeEmail = (e) => {
-
     setEmail(e.target.value);
     const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-    const emailCurrent = e.target.value
-    setEmail(emailCurrent)
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
 
     if (!emailRegex.test(emailCurrent)) {
-      setEmailMessage('이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ')
-      setIsEmail(false)
+      setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ");
+      setIsEmail(false);
     } else {
-      setEmailMessage('올바른 이메일 형식이에요 : )')
-      setIsEmail(true)
+      setEmailMessage("올바른 이메일 형식이에요 : )");
+      setIsEmail(true);
     }
-  }
+  };
   const changePass = (e) => {
-
     setPass(e.target.value);
-    const passRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
-    const passCurrent = e.target.value
-    setPass(passCurrent)
+    const passRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passCurrent = e.target.value;
+    setPass(passCurrent);
 
     if (!passRegex.test(passCurrent)) {
-      setPassMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!')
-      setIsPass(false)
+      setPassMessage("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!");
+      setIsPass(false);
     } else {
-      setPassMessage('안전한 비밀번호에요 : )')
-      setIsPass(true)
+      setPassMessage("안전한 비밀번호에요 : )");
+      setIsPass(true);
     }
-  }
+  };
 
   const changePassConfirm = (e) => {
     setPassConfirm(e.target.value);
-    const passConfirmCurrent = e.target.value
-    setPassConfirm(passConfirmCurrent)
+    const passConfirmCurrent = e.target.value;
+    setPassConfirm(passConfirmCurrent);
 
     if (pass === passConfirmCurrent) {
-      setPassConfirmMessage('비밀번호를 똑같이 입력했어요 : )')
-      setIsPassConfirm(true)
+      setPassConfirmMessage("비밀번호를 똑같이 입력했어요 : )");
+      setIsPassConfirm(true);
     } else {
-      setPassConfirmMessage('비밀번호가 틀려요. 다시 확인해주세요 ㅜ ㅜ')
-      setIsPassConfirm(false)
+      setPassConfirmMessage("비밀번호가 틀려요. 다시 확인해주세요 ㅜ ㅜ");
+      setIsPassConfirm(false);
     }
-  }
+  };
   const changeNickname = (e) => {
-    setNickname(e.target.value)
+    setNickname(e.target.value);
     if (e.target.value.length < 2 || e.target.value.length > 7) {
-      setNicknameMessage('2글자 이상 7글자 미만으로 입력해주세요.')
-      setIsNickname(false)
+      setNicknameMessage("2글자 이상 7글자 미만으로 입력해주세요.");
+      setIsNickname(false);
     } else {
-      setNicknameMessage('올바른 별명 형식입니다 :)')
-      setIsNickname(true)
+      setNicknameMessage("올바른 별명 형식입니다 :)");
+      setIsNickname(true);
     }
-  }
-
+  };
 
   const changePhone = (e) => {
-    setPhone(e.target.value)
+    setPhone(e.target.value);
     if (e.target.value.length > 0) {
-      setIsPhone(true)
+      setIsPhone(true);
     }
-  }
+  };
 
   const changeAddress = (e) => {
-    setAddress(e.target.value)
+    setAddress(e.target.value);
     if (e.target.value.length > 0) {
-      setIsAddress(true)
+      setIsAddress(true);
     }
-  }
+  };
 
-  const handlerAddressDetail = (e) => setAddressDetail(e.target.value)
+  const handlerAddressDetail = (e) => setAddressDetail(e.target.value);
 
   const idCheck = (e) => {
-    console.log(email)
+    console.log(email);
     e.preventDefault();
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`, JSON.stringify({ email: email }), { headers: { "Content-Type": 'application/json' } })
+      .post(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`,
+        JSON.stringify({ email: email }),
+        { headers: { "Content-Type": "application/json" } }
+      )
       .then((response) => {
-        setUsableIdMessage("사용 가능한 아이디입니다.")
-        setIsUsableId(true)
-        console.log("idcheck")
+        setUsableIdMessage("사용 가능한 아이디입니다.");
+        setIsUsableId(true);
+        console.log("idcheck");
       })
-      .catch(error => {
-        setIsUsableId(false)
+      .catch((error) => {
+        setIsUsableId(false);
         setUsableIdMessage("이미 사용중인 아이디 입니다.");
-      })
-  }
+      });
+  };
 
   const nicknameCheck = (e) => {
-    
     e.preventDefault();
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`, JSON.stringify({ nickname: nickname }), { headers: { "Content-Type": 'application/json' } })
+      .post(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`,
+        JSON.stringify({ nickname: nickname }),
+        { headers: { "Content-Type": "application/json" } }
+      )
       .then((response) => {
         if (response.status === 200) {
-          setUsableNicknameMessage("사용 가능한 아이디입니다.")
-          setIsUsableNickname(true)
+          setUsableNicknameMessage("사용 가능한 아이디입니다.");
+          setIsUsableNickname(true);
         }
       })
-      .catch(error => {
-        setIsUsableNickname(false)
+      .catch((error) => {
+        setIsUsableNickname(false);
         setUsableNicknameMessage("이미 사용중인 아이디 입니다.");
-      })
-  }
+      });
+  };
 
   // 주소API
   const [isOpen, setIsOpen] = useState(false);
@@ -172,12 +199,11 @@ function Join({ history }, props) {
   //   onToggleModal();
   // };
 
-  console.log(address)
-  console.log(addressDetail)
+  console.log(address);
+  console.log(addressDetail);
   // console.log(isOpen)
 
   return (
-
     <>
       <Terms />
       <div className={style.join_all}>
@@ -187,22 +213,70 @@ function Join({ history }, props) {
           <ul>
             <li className={style.id_in}>
               <label>아이디</label>
-              <input type="email" placeholder="아이디를 입력해주세요." value={email} onChange={changeEmail} />
-              <button type="button" onClick={idCheck} >중복확인</button>
-              {email.length > 0 && <p style={isEmail ? { color: '#248f48' } : { color: '#ff2727' }}>{emailMessage}</p>}
-              <p style={isUsableId ? { color: '#248f48' } : { color: '#ff2727' }}>{usableIdMessage}</p>
+              <input
+                type="email"
+                placeholder="아이디를 입력해주세요."
+                value={email}
+                onChange={changeEmail}
+              />
+              <button type="button" onClick={idCheck}>
+                중복확인
+              </button>
+              {email.length > 0 && (
+                <p
+                  style={isEmail ? { color: "#248f48" } : { color: "#ff2727" }}
+                >
+                  {emailMessage}
+                </p>
+              )}
+              <p
+                style={isUsableId ? { color: "#248f48" } : { color: "#ff2727" }}
+              >
+                {usableIdMessage}
+              </p>
             </li>
             <li className={style.nick_in}>
               <label>별명</label>
-              <input type="text" placeholder="별명을 입력해주세요." value={nickname} onChange={changeNickname} />
-              <button type="button" onClick={nicknameCheck}>중복확인</button>
-              {nickname.length > 0 && <p className="messeageDiv" style={isNickname ? { color: '#248f48' } : { color: '#ff2727' }}>{nicknameMessage}</p>}
-              <p style={isUsableNickname ? { color: '#248f48' } : { color: '#ff2727' }}>{usableNicknameMessage}</p>
+              <input
+                type="text"
+                placeholder="별명을 입력해주세요."
+                value={nickname}
+                onChange={changeNickname}
+              />
+              <button type="button" onClick={nicknameCheck}>
+                중복확인
+              </button>
+              {nickname.length > 0 && (
+                <p
+                  className="messeageDiv"
+                  style={
+                    isNickname ? { color: "#248f48" } : { color: "#ff2727" }
+                  }
+                >
+                  {nicknameMessage}
+                </p>
+              )}
+              <p
+                style={
+                  isUsableNickname ? { color: "#248f48" } : { color: "#ff2727" }
+                }
+              >
+                {usableNicknameMessage}
+              </p>
             </li>
             <li className={style.pass_in}>
               <label>비밀번호</label>
-              <input type="password" placeholder="비밀번호를 입력해주세요." value={pass} onChange={changePass} />
-              {pass.length > 0 && <p style={isPass ? { color: '#248f48' } : { color: '#ff2727' }}>{passMessage}</p>}
+              <input
+                type="password"
+                placeholder="비밀번호를 입력해주세요."
+                value={pass}
+                onChange={changePass}
+              />
+              {pass.length > 0 && (
+                <p style={isPass ? { color: "#248f48" } : { color: "#ff2727" }}>
+                  {passMessage}
+                </p>
+              )}
             </li>
             <li className={style.check_in}>
               <label>비밀번호 확인</label>
@@ -212,11 +286,24 @@ function Join({ history }, props) {
                 value={passConfirm}
                 onChange={changePassConfirm}
               />
-              {passConfirm.length > 0 && <p style={isPassConfirm ? { color: '#248f48' } : { color: '#ff2727' }}>{passConfirmMessage}</p>}
+              {passConfirm.length > 0 && (
+                <p
+                  style={
+                    isPassConfirm ? { color: "#248f48" } : { color: "#ff2727" }
+                  }
+                >
+                  {passConfirmMessage}
+                </p>
+              )}
             </li>
             <li className={style.tel_in}>
               <label>전화번호</label>
-              <input type="text" placeholder="-를 제외하고 입력해주세요." value={phone} onChange={changePhone} />
+              <input
+                type="text"
+                placeholder="-를 제외하고 입력해주세요."
+                value={phone}
+                onChange={changePhone}
+              />
             </li>
             <li className={style.gen_in}>
               <label>성별</label>
@@ -242,24 +329,35 @@ function Join({ history }, props) {
             </li>
             <li className={style.add_in}>
               <label>주소</label>
-              <input type="text" value={address} onChange={changeAddress} readOnly />
+              <input
+                type="text"
+                value={address}
+                onChange={changeAddress}
+                readOnly
+              />
               <button onClick={onToggleModal}>검색</button>
             </li>
             <li>
               <label>상세주소</label>
-              <input type="text" value={addressDetail} onChange={handlerAddressDetail} />
+              <input
+                type="text"
+                value={addressDetail}
+                onChange={handlerAddressDetail}
+              />
             </li>
-              {isOpen && (
-                <AddressApi
-                  visible={isOpen}
-                  onOk={onToggleModal}
-                  onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
-                  setAddress={setAddress}
-                />
-              )}
+            {isOpen && (
+              <AddressApi
+                visible={isOpen}
+                onOk={onToggleModal}
+                onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+                setAddress={setAddress}
+              />
+            )}
           </ul>
         </div>
-        <button className={style.last_btn} onClick={handlerJoin} disabled={!(isNickname && isEmail && isUsableNickname && isUsableId && isPass && isPassConfirm && isPhone && address && addressDetail)}>회원가입</button>
+        <button className={style.last_btn} onClick={handlerJoin}>
+          회원가입
+        </button>
       </div>
       <div></div>
     </>

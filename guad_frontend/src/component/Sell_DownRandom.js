@@ -94,6 +94,8 @@ function Sell_DownRandom({ match, history }) {
     var payloadData = JSON.parse(payload.body);
     console.log(payloadData.body);
     setAuctionCurrentPrice(payloadData.body);
+    console.log(payloadData.body);
+    console.log(auctionCurrentPrice);
   };
 
   const onError = (err) => {
@@ -106,6 +108,7 @@ function Sell_DownRandom({ match, history }) {
       `/pub/sellitem/auction/d/${match.params.itemNum}`,
       { Authorization: token },
       JSON.stringify(auctionCurrentPrice)
+     
     );
   };
 
@@ -134,11 +137,10 @@ function Sell_DownRandom({ match, history }) {
   }, []);
 
   ///////////////할인율////////////////
-
   var discountRate =
     100 - (item.auctionMinPrice / item.auctionStartPrice) * 100;
   var discountRateNow =
-    100 - (auctionCurrentPrice / item.auctionStartPrice) * 100;
+    100 - (auctionCurrentPrice / auctionCurrentPrice) * 100;
   ////////////////////////////////////
   return (
     <>

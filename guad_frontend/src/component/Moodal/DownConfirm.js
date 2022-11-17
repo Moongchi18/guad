@@ -7,9 +7,6 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
   console.log(item)
   console.log(auctionCurrentPrice)
   console.log(discountRateNow)
-
-
-
   //////////////////////마일리지 정보/////////////////////////
   const [member, setMember] = useState({});
   const [result, setResult] = useState(0);
@@ -21,7 +18,7 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
         setResult(response.data.mileage - auctionCurrentPrice);
       })
       .catch((error) => console.log(error));
-  }, [auctionCurrentPrice]);
+  }, []);
   ////////////////////상품구매////////////////////////
 
   console.log(member)

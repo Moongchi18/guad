@@ -22,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import auction.guad.dto.ImgDto;
 import auction.guad.dto.SellItemDto;
+import auction.guad.service.AuctionService;
 import auction.guad.service.ImgService;
+import auction.guad.service.MemberService;
 import auction.guad.service.SellItemService;
 import auction.guad.vo.SellItemJoinMemberVo;
 import io.swagger.annotations.ApiOperation;
@@ -33,11 +35,15 @@ public class SellItemController {
 
 	private SellItemService sellItemService;
 	private ImgService imgService;
+	private MemberService memberService;
+	private AuctionService auctionService;
 
 	@Autowired
-	public SellItemController(SellItemService sellItemService, ImgService imgService) {
+	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService) {
 		this.sellItemService = sellItemService;
 		this.imgService = imgService;
+		this.memberService = memberService;
+		this.auctionService = auctionService; 
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////	
@@ -113,6 +119,24 @@ public class SellItemController {
 			throws Exception {
 		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
 		System.out.println(sellItem);
+		
+		
+		if (sellItem == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		} else {
+			sellItem.setMemberEmail(" ");
+			return ResponseEntity.status(HttpStatus.OK).body(sellItem);
+		}
+	}
+	
+	@ApiOperation(value = "오름 상세 조회", notes = "오름 게시물 상세 정보를 조회")
+	@GetMapping("/sellitem/u/{itemNum}")
+	public ResponseEntity<SellItemJoinMemberVo> openOrmSellItemDetail(@PathVariable("itemNum") int itemNum)
+			throws Exception {
+		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
+		System.out.println(sellItem);
+		
+		
 		
 		if (sellItem == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

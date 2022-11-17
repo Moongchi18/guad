@@ -99,7 +99,7 @@ function Up_After({ openModal, item, buyer, auctionPeriodText, handlerBid, bid, 
         <div className={style.sell_box}>
           <span className={style.sell_price}>현재 입찰가</span>
           <span className={style.sell_number}>
-            {item.auctionStartPrice?.toLocaleString()}
+            {bid === -1 ? "최고 경매가 달성" : bid?.toLocaleString()}
           </span>
         </div>
         <div className={style.sell_box}>
@@ -130,7 +130,7 @@ function Up_After({ openModal, item, buyer, auctionPeriodText, handlerBid, bid, 
               />
             )}
             <button className={`${style.try_buy} ${style.aa_btn}`} onClick={() => handlerBid(bid)}>
-              입찰 : <p className={style.bid}>{bid}</p>
+              <p className={style.bid}>{bid === -1 ? "최고 경매가 달성" : `입찰 : ${bid.toLocaleString()}`}</p>
             </button>
             <button type="button" className={style.try_buy}>
               현재 입찰자 : <strong>{bidNickname}</strong>
