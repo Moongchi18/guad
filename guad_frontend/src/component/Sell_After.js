@@ -47,7 +47,7 @@ function Sell_After({ history, match }) {
             배송비<strong>배송비 포함</strong>
           </p>
           <p className={style.price}>
-            판매가<strong>{item.itemPrice.toLocaleString()}</strong>
+            판매가<strong>{item.itemPrice?.toLocaleString()}</strong>
           </p>
         </div>
       </div>

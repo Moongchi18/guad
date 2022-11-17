@@ -16,4 +16,5 @@ public interface AuctionMapper {
 	int naelimRandomCount(int itemNum) throws Exception;
 	void naelimRandomPerDiscountInsert(int perDiscount, int itemNum) throws Exception;
 	List<AuctionDownDto> naelimRandomPerDiscountAll (int itemNum) throws Exception;
+	public AuctionVo lastAuction(int itemNum) throws Exception;
 }

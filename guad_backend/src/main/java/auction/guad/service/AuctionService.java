@@ -13,4 +13,5 @@ public interface AuctionService {
 	public int naelimRandomCount(int itemNum)throws Exception;
 	public void naelimRandomPerDiscountInsert(int perDiscount, int itemNum) throws Exception;
 	public List<AuctionDownDto> naelimRandomPerDiscountAll(int itemNum) throws Exception;
+	public AuctionVo lastAuction(int itemNum) throws Exception;
 }

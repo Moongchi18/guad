@@ -85,7 +85,7 @@ function Sell_DownRandom({ match, history }) {
     console.log(match.params.itemNum);
     // 구독url
     stompClient.subscribe(
-      `/sub/sellitem/auction/d/${match.params.itemNum}`,
+      `/sub/sellitem/auction/dr/${match.params.itemNum}`,
       onReceived
     );
   };
@@ -94,6 +94,8 @@ function Sell_DownRandom({ match, history }) {
     var payloadData = JSON.parse(payload.body);
     console.log(payloadData.body);
     setAuctionCurrentPrice(payloadData.body);
+    console.log(payloadData.body);
+    console.log(auctionCurrentPrice);
   };
 
   const onError = (err) => {
@@ -103,9 +105,10 @@ function Sell_DownRandom({ match, history }) {
   const handlerBid = () => {
     // 서버에서 데이터를 보낼 때
     stompClient.send(
-      `/pub/sellitem/auction/d/${match.params.itemNum}`,
+      `/pub/sellitem/auction/dr/${match.params.itemNum}`,
       { Authorization: token },
       JSON.stringify(auctionCurrentPrice)
+     
     );
   };
 
@@ -134,7 +137,6 @@ function Sell_DownRandom({ match, history }) {
   }, []);
 
   ///////////////할인율////////////////
-
   var discountRate =
     100 - (item.auctionMinPrice / item.auctionStartPrice) * 100;
   var discountRateNow =

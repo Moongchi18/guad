@@ -113,7 +113,7 @@ function App() {
       <Route path="/sell_item/d/:itemNum" component={Sell_Down} exact={true} />
       <Route path="/sell_item/dr/:itemNum" component={Sell_DownRandom} exact={true} />
       <Route path="/sell_end/u/:itemNum" component={Sell_End_u} exact={true} />
-      <Route path="/sell_end/dr/:itemNum" component={Sell_End_d} exact={true} />
+      <Route path="/sell_end/d/:itemNum" component={Sell_End_d} exact={true} />
 
       <Route path="/sell_end/n/:itemNum" component={Sell_End_n} exact={true} />
       <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />

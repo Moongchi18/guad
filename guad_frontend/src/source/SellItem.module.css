@@ -665,6 +665,7 @@
   width: 420px;
   height: 420px;
   display: block;
+  border-radius: 10px;
 }
 .fuck1 img {
   display: inline-block;

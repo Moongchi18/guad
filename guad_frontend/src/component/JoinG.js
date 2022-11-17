@@ -35,6 +35,7 @@ function JoinG({history}) {
       .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, { email, pass : '', nickname, phone, address, addressDetail, gender: g_check })
       .then((response) => {
         console.log(response)
+        localStorage.removeItem("email");
         alert("회원가입이 완료되었습니다.")
         history.push("/")
       })

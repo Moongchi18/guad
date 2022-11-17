@@ -147,6 +147,7 @@ public class MemberController {
 	@PostMapping(value = "/member/nicknamecheck")
 	public ResponseEntity<Integer> repetitionNicknameCheck(@RequestBody MemberDto member) throws Exception {
 		Integer result1 = memberService.repetitionNicknameCheck(member.getNickname());
+		
 		if (result1 == 1) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		} else if (result1 == 0) {
@@ -157,6 +158,7 @@ public class MemberController {
 
 	}
 
+	@ApiOperation(value = "비밀번호 재확인", notes = "개인정보 변경 전 비밀번호 재확인")
 	@PostMapping("/mypage/passcheck")
 	public ResponseEntity<Boolean> passCheck(@AuthenticationPrincipal User user, @RequestBody MemberDto member)
 			throws Exception {
