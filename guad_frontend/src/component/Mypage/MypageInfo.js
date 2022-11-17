@@ -71,21 +71,21 @@ function MypageInfo(props) {
   };
   /// 탈퇴용
   const HandlerDelete = () => {
-    if (window.confirm("해당 회원을 추방하시겠습니까?")) {
-    axios
-      .post(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
-        { email: userEmail }
-      )
-      .then((response) => {
-        alert("회원 탈퇴되었습니다.");
-        sessionStorage.clear();
-        props.setIsLogin(false);
-        props.history.push("/login");
-      });
-    } else {      
-      console.log('취소')           
-  }
+    if (window.confirm("오르내림 회원을 탈퇴 하시겠습니까?")) {
+      axios
+        .post(
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
+          { email: userEmail }
+        )
+        .then((response) => {
+          alert("회원 탈퇴되었습니다.");
+          sessionStorage.clear();
+          props.setIsLogin(false);
+          props.history.push("/login");
+        });
+    } else {
+      console.log("취소");
+    }
   };
 
   useEffect(() => {
