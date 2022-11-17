@@ -281,12 +281,6 @@ public class WebSocketController {
 		// 현재 내림랜덤경매가 : 가져온 per값으로 현재가격을 계산에 내려준다.
 		long CurrentPrice = (long) (StartPrice - (StartPrice * (perDiscountAll / 100)));
 
-		System.out.println("1>>>>>>>>>>>>>>>>>>" + naelimRandomcheck);
-		System.out.println("3>>>>>>>>>>>>>>>>>>" + result2);
-		System.out.println("4>>>>>>>>>>>>>>>>>>" + perDiscountList);
-		System.out.println("4>>>>>>>>>>>>>>>>>>" + perDiscountList.get(0).getAuctionPer());
-		System.out.println("4>>>>>>>>>>>>>>>>>>" + perDiscountAll/100);
-		System.out.println("4>>>>>>>>>>>>>>>>>>" + (StartPrice - (StartPrice * (perDiscountAll / 100))));
 		
 		System.out.println("5>>>>>>>>>>>>>>>>>>" + CurrentPrice);
 

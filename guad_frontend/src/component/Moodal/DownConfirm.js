@@ -16,9 +16,10 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
       .then((response) => {
         setMember(response.data);
         setResult(response.data.mileage - auctionCurrentPrice);
+        console.log("<<<<<<<<<<<<<<<"+auctionCurrentPrice)
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [auctionCurrentPrice]);
   ////////////////////상품구매////////////////////////
 
   console.log(member)
