@@ -147,6 +147,7 @@ public class MemberController {
 	@PostMapping(value = "/member/nicknamecheck")
 	public ResponseEntity<Integer> repetitionNicknameCheck(@RequestBody MemberDto member) throws Exception {
 		Integer result1 = memberService.repetitionNicknameCheck(member.getNickname());
+		
 		if (result1 == 1) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		} else if (result1 == 0) {
