@@ -28,7 +28,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("Spring Boot Open API with Swagger")
-				.description("게시판 API")
+				.description("오르내림 API")
 				.version("1.0.0")
 				.build();
 	}

@@ -11,17 +11,21 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class FileUpDown {
 
     
-    @RequestMapping(value = "/upload/fileUploadMultiple", method = RequestMethod.POST)
+    @ApiOperation(value = "이미지 업로드")
+    @PostMapping("/upload/fileUploadMultiple")
     public String fileUploadMultiple(@RequestParam("uploadFileMulti") ArrayList<MultipartFile> files, Model model) throws IOException {
         String savedFileName = "";
         // 1. 파일 저장 경로 설정 : 실제 서비스되는 위치(프로젝트 외부에 저장)
@@ -53,7 +57,7 @@ public class FileUpDown {
 	 * @description 글 작성
 	 */
 	
-	@RequestMapping(value="WriteBoard.do", method=RequestMethod.POST)
+	@PostMapping("WriteBoard.do")
 	public  Map<String,Object> WriteBoard (HttpServletRequest request,
 			@RequestParam(value="file", required=false) MultipartFile[] files
 			,@RequestParam(value="tag", required=false) String tag
