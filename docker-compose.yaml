@@ -12,7 +12,7 @@ services:
     restart: always
   
   server:
-    image: guad_backend:0.0.1-SNAPSHOT
+    image: olenaelim_server:latest
     depends_on:
       - database
     environment:
@@ -24,7 +24,7 @@ services:
       - 9090:8080
 
   client:
-    image: guad_frontend:latest
+    image: olenaelim_client:latest
     restart: always
     ports:
       - 33000:80
