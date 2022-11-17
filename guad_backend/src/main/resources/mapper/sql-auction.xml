@@ -25,7 +25,7 @@
 	<select id="naelimRandomCount" parameterType="int" resultType="int">
 		SELECT COUNT(*)
 		FROM AUCTION_DOWN
-		WHERE EMAIL = #{itemNum}
+		WHERE ITEM_NUM = #{itemNum}
 	</select>
 	
 	<insert id="naelimRandomPerDiscountInsert">

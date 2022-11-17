@@ -152,7 +152,7 @@ public class WebSocketController {
 		} catch (NumberFormatException ex) {
 			ex.printStackTrace();
 		}
-		
+
 		int bidNum = auctionService.tryAuction(auction);
 
 		if (auction.getAuctionPrice() > sellItem.getAuctionMaxPrice() && bidNum > 0) {
@@ -232,7 +232,7 @@ public class WebSocketController {
 		int discount;
 		// 랜덤 숫자 생성
 		int perDiscount = (int) (Math.random() * 4 + 1);
-		int perDiscountAll = 0;
+		double perDiscountAll = 0;
 
 		long MinPrice = sellItem.getAuctionMinPrice();
 		int StartPrice = sellItem.getAuctionStartPrice();
@@ -257,8 +257,21 @@ public class WebSocketController {
 		// 서비스 작성 : 동일 아이템 넘버 auction_down 테이블의 갯수를 카운트 한다.
 		int naelimRandomcheck = auctionService.naelimRandomCount(itemNum);
 		// 서비스 작성 : 위숫자보다 적은경우 하나의 랜덤 정수를 생성해 인서트 해준다.
-		if (Math.floor(timeChange) > naelimRandomcheck) {
-			auctionService.naelimRandomPerDiscountInsert(perDiscount, itemNum);
+		int dayDiscount = (int) (Math.floor(timeChange) / 24);
+		int hourDiscount = (int) (Math.floor(timeChange) % 24);
+		if (hourDiscount > 10) {
+			hourDiscount = 10;
+		}
+
+		if ((dayDiscount * 10 + hourDiscount) > naelimRandomcheck) {
+			for (int i = 0; i < ((dayDiscount * 10 + hourDiscount) - naelimRandomcheck); i++) {
+				perDiscount = (int) (Math.random() * 4 + 1);
+				System.out.println("1>>>>>>>>>>>>>>>>>>" + ((dayDiscount * 10 + hourDiscount) - naelimRandomcheck));
+				System.out.println("1>>>>>>>>>>>>>>>>>>" + perDiscount);
+
+				auctionService.naelimRandomPerDiscountInsert(perDiscount, itemNum);
+			}
+
 		}
 		// 동일 아이템 넘버 auction_down 테이블의 auction_per값을 모두 불러와 더해준다. (반복문)
 		List<AuctionDownDto> perDiscountList = auctionService.naelimRandomPerDiscountAll(itemNum);
@@ -268,10 +281,14 @@ public class WebSocketController {
 		// 현재 내림랜덤경매가 : 가져온 per값으로 현재가격을 계산에 내려준다.
 		long CurrentPrice = (long) (StartPrice - (StartPrice * (perDiscountAll / 100)));
 
-		System.out.println(">>>>>>>>>>>>>>>>>>" + naelimRandomcheck);
-		System.out.println(">>>>>>>>>>>>>>>>>>" + result2);
-		System.out.println(">>>>>>>>>>>>>>>>>>" + perDiscountList);
-		System.out.println(">>>>>>>>>>>>>>>>>>" + CurrentPrice);
+		System.out.println("1>>>>>>>>>>>>>>>>>>" + naelimRandomcheck);
+		System.out.println("3>>>>>>>>>>>>>>>>>>" + result2);
+		System.out.println("4>>>>>>>>>>>>>>>>>>" + perDiscountList);
+		System.out.println("4>>>>>>>>>>>>>>>>>>" + perDiscountList.get(0).getAuctionPer());
+		System.out.println("4>>>>>>>>>>>>>>>>>>" + perDiscountAll/100);
+		System.out.println("4>>>>>>>>>>>>>>>>>>" + (StartPrice - (StartPrice * (perDiscountAll / 100))));
+		
+		System.out.println("5>>>>>>>>>>>>>>>>>>" + CurrentPrice);
 
 		if (result2) {
 			return ResponseEntity.status(HttpStatus.OK).body(auctionNotyet);
