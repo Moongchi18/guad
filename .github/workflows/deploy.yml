@@ -66,6 +66,7 @@ jobs:
     # image build
       - name: Server Build the Docker image
         run: docker build . --file ServerDockerfile --tag olenaelim_server:$(date +%s)
+        working-directory: ../
     
     # image build
       - name: Client Build the Docker image        
