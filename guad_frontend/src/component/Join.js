@@ -42,22 +42,39 @@ function Join({ history }, props) {
   const [usableNicknameMessage, setUsableNicknameMessage] = useState("");
 
   const handlerJoin = () => {
-    axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, {
-        email,
-        nickname,
-        pass,
-        phone,
-        address,
-        addressDetail,
-        gender: g_check,
-      })
-      .then((response) => {
-        console.log(response);
-        alert("회원가입이 완료되었습니다.");
-        history.push("/login");
-      })
-      .catch((error) => console.log(error));
+    if (
+      (isNickname &&
+        isEmail &&
+        isUsableNickname &&
+        isUsableId &&
+        isPass &&
+        isPassConfirm &&
+        isPhone &&
+        address &&
+        addressDetail) == false
+    ) {
+      alert("입력된 정보를 다시 확인해주세요!");
+    } else {
+      axios
+        .post(
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+          {
+            email,
+            nickname,
+            pass,
+            phone,
+            address,
+            addressDetail,
+            gender: g_check,
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          alert("회원가입이 완료되었습니다.");
+          history.push("/login");
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   const changeEmail = (e) => {
@@ -338,23 +355,7 @@ function Join({ history }, props) {
             )}
           </ul>
         </div>
-        <button
-          className={style.last_btn}
-          onClick={handlerJoin}
-          disabled={
-            !(
-              isNickname &&
-              isEmail &&
-              isUsableNickname &&
-              isUsableId &&
-              isPass &&
-              isPassConfirm &&
-              isPhone &&
-              address &&
-              addressDetail
-            )
-          }
-        >
+        <button className={style.last_btn} onClick={handlerJoin}>
           회원가입
         </button>
       </div>
