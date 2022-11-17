@@ -345,6 +345,8 @@ function Join({ history }, props) {
             !(
               isNickname &&
               isEmail &&
+              isUsableNickname &&
+              isUsableId &&
               isPass &&
               isPassConfirm &&
               isPhone &&
