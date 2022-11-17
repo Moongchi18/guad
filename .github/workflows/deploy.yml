@@ -57,6 +57,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './guad_frontend/package-lock.json'
       - run: npm ci
+        working-directory: ./guad_frontend
       - run: npm run build --if-present
         working-directory: ./guad_frontend
       
