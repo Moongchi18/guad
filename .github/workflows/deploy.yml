@@ -47,7 +47,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn -B package --file ./guad_backend/pom.xml
+        run: mvn -B package --file ./guad_backend/pom.xml -DskipTests
     
     # react build
       - name: Use Node.js 18.12.1
