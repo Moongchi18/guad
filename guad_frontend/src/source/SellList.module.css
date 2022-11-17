@@ -172,6 +172,8 @@ li.item_info:nth-child(4n) {
   width: 230px;
   height: 230px;
   position: relative;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .item_bb .del_icon {

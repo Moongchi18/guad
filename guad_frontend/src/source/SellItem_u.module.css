@@ -29,6 +29,7 @@
   display: block;
   width: 420px;
   height: 420px;
+  border-radius: 10px;
 }
 .item_o {
   width: 130px;
