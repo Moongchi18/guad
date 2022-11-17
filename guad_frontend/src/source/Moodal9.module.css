@@ -82,6 +82,7 @@
   font-size: 13px;
   width: 350px;
   float: right;
+  text-align: right;
 }
 .modalfooter {
   width: 550px;
