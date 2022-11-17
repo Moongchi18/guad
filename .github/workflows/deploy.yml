@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  DOCKER_IMAGE_SERVER: ghcr.io/${{ github.actor }}/olenaelim_server
+  DOCKER_IMAGE_SERVER: ghcr.io/${{ github.actor }}/guad_backend
   DOCKER_IMAGE_CLIENT: ghcr.io/${{ github.actor }}/olenaelim_client
   VERSION: ${{ github.sha }}
   NAME: olenaelim_cicd
@@ -66,7 +66,7 @@ jobs:
           password: ${{ secrets.OLENAELIM_GHCR_TOKEN }}
       - name: Docker run
         run: |
-          docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:latest
+          docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:0.0.1-SNAPSHOT
           docker run -d -p 9090:8080 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
           
           docker stop ${{ env.DOCKER_IMAGE_CLIENT }} && docker rm ${{ env.DOCKER_IMAGE_CLIENT }} && docker rmi ${{ env.DOCKER_IMAGE_CLIENT }}:latest
