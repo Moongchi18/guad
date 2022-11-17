@@ -93,7 +93,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int repetitionNicknameCheck(String nickname) throws Exception {
-		return 0;
+		return memberMapper.repetitionNicknameCheck(nickname);
 	}
 
 	@Override
