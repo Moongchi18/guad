@@ -16,7 +16,7 @@ function Sell_Up({ match }) {
   const [imgList, setImgList] = useState([]);
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [change, setChange] = useState(false);
-  const [presentBid, setPresentBid] = useState('');
+
 
 
   const buyer = useRef();
@@ -35,7 +35,7 @@ function Sell_Up({ match }) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/u/${match.params.itemNum}`
       )
       .then((response) => {
         const tempImgList=[]
@@ -45,7 +45,8 @@ function Sell_Up({ match }) {
         tempImgList.push(response.data.itemImgNameSub2);
         tempImgList.push(response.data.itemImgNameSub3);
         setImgList(tempImgList);
-        setPresentBid(response.data)
+  
+        setBid(response.data.auctionStartPrice);
 
         const date = new Date(
           response.data.auctionFinishDate.slice(0, 10) +
@@ -84,24 +85,15 @@ function Sell_Up({ match }) {
 
     itemNum: match.params.itemNum,
     auctionPrice: bid,
-    nickname: '',
-    email: '',
+    // nickname: item.nickname,
+    // email: item.email,
   });
 
   useEffect(() => {
     connect();
-  }, [presentBid])
+   
+  }, [bid])
 
-  // useEffect(() => {
-  //   axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/auction/u/${match.params.itemNum}`)
-  //     .then(response => {
-  //       console.log(response.data)
-  //       const newBidList = [...response.data]
-  //       setPresentBid(response.data)
-  //     })
-  //     .catch(error => console.log(error))
-  //   // connect();
-  // }, [change])
 
   const connect = () => {
     let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
@@ -122,14 +114,13 @@ function Sell_Up({ match }) {
   const onMessageReceived = (payload) => {
     var payloadData = JSON.parse(payload.body);
     console.log(payloadData);
+    
     setBid(payloadData.auctionPrice);
     setBidNickname(payloadData.nickname);
-    setPresentBid(payloadData.auctionPrice);
     setChange(!change);
   }
 
   const handlerBid = (r) => {
-    
     // stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
     // setBid(document.getElementsByClassName(`${style.bid}`)[0].value);
     setBid(r);
@@ -195,6 +186,7 @@ function Sell_Up({ match }) {
               clickStart={clickStart}
               item={item}
               bid={bid}
+          
             />
             <p className={style.bb_time}>
               남은 경매 시간 : <strong>{auctionPeriodText}</strong>

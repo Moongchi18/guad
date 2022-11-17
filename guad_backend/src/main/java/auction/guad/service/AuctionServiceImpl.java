@@ -44,4 +44,9 @@ public class AuctionServiceImpl implements AuctionService{
 	public List<AuctionDownDto> naelimRandomPerDiscountAll(int itemNum) throws Exception {
 		return aucMapper.naelimRandomPerDiscountAll(itemNum);
 	}
+	
+	@Override
+	public AuctionVo lastAuction(int itemNum) throws Exception {
+		return aucMapper.lastAuction(itemNum);
+	}
 }
