@@ -37,8 +37,6 @@ jobs:
     # push된 파일 불러오기
       - name: Check out source code
         uses: actions/checkout@v3
-        with:
-          path: ../../olenaelim_test
     
     # java build
       - name: Set up JDK 17
