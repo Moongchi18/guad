@@ -104,6 +104,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
       
+      # S3 파일 정리
+      - name: Delete to AWS S3
+        run : aws s3 rm s3://$S3_BUCKET_NAME/ --recursive --include "*"
+      
+      # S3 코드 업로드
       - name: Upload to AWS S3
         run: |
           aws deploy push \
@@ -116,18 +121,18 @@ jobs:
       - name: Deploy to AWS EC2 from S3
         run: |
           aws deploy create-deployment \
-            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --application-name ${{ env.CODE_DEPLOY_APPLICAThttps://github.com/moongchi18/olenaelimION_NAME }} \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
            --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
           
           
-      - name: Docker Server run
-        run: |
-          docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:${{ env.VERSION }}
-          docker run -d -p 9090:8080 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
+#       - name: Docker Server run
+#         run: |
+#           docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:${{ env.VERSION }}
+#           docker run -d -p 9090:8080 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
       
-      - name: Docker Client run
-        run: |
-          docker stop ${{ env.DOCKER_IMAGE_CLIENT }} && docker rm ${{ env.DOCKER_IMAGE_CLIENT }} && docker rmi ${{ env.DOCKER_IMAGE_CLIENT }}:${{ env.VERSION }}
-          docker run -d -p 33000:80 --name ${{ env.DOCKER_IMAGE_CLIENT }} --restart always ${{ env.DOCKER_IMAGE_CLIENT }}:latest
+#       - name: Docker Client run
+#         run: |
+#           docker stop ${{ env.DOCKER_IMAGE_CLIENT }} && docker rm ${{ env.DOCKER_IMAGE_CLIENT }} && docker rmi ${{ env.DOCKER_IMAGE_CLIENT }}:${{ env.VERSION }}
+#           docker run -d -p 33000:80 --name ${{ env.DOCKER_IMAGE_CLIENT }} --restart always ${{ env.DOCKER_IMAGE_CLIENT }}:latest
