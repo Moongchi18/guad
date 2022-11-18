@@ -18,7 +18,7 @@ env:
   #aws
   AWS_REGION: ap-northeast-2                  
   S3_BUCKET_NAME: olenaelim-cicd-bucket
-  CODE_DEPLOY_APPLICATION_NAME: olenaelim-code_deploy_app
+  CODE_DEPLOY_APPLICATION_NAME: olenaelim-codedeploy_app
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: olenaelim-codedeploy-deployment-group
 
 permissions:
@@ -104,13 +104,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
       
-      - name: Upload to AWS S3
-        run: |
-          aws deploy push \
-            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-            --ignore-hidden-files \
-            --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
-            --source . 
+#       - name: Upload to AWS S3
+#         run: |
+#           aws deploy push \
+#             --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+#             --ignore-hidden-files \
+#             --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+#             --source . 
 
       # https://docs.aws.amazon.com/cli/latest/reference/deploy/create-deployment.html
       - name: Deploy to AWS EC2 from S3
