@@ -65,11 +65,11 @@ jobs:
       
     # image build
       - name: Server Build the Docker image
-        run: docker build . --file ServerDockerfile --tag ${{ DOCKER_IMAGE_SERVER }}:${{env.VERSION}}
+        run: docker build . --file ServerDockerfile --tag ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}}
     
     # image build
       - name: Client Build the Docker image        
-        run: docker build . --file ClientDockerfile --tag ${{ DOCKER_IMAGE_CLIENT }}:${{env.VERSION}}
+        run: docker build . --file ClientDockerfile --tag ${{ env.DOCKER_IMAGE_CLIENT }}:${{env.VERSION}}
 
 #     # image push          
       - name: Set up QEMU
