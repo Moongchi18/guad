@@ -18,7 +18,7 @@ env:
   #aws
   AWS_REGION: ap-northeast-2                  
   S3_BUCKET_NAME: olenaelim-cicd-bucket
-  CODE_DEPLOY_APPLICATION_NAME: olenaelim-codedeploy_app
+  CODE_DEPLOY_APPLICATION_NAME: olenaelim-codedeploy-app
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: olenaelim-codedeploy-deployment-group
 
 permissions:
