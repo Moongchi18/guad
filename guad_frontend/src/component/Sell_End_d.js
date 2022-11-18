@@ -6,11 +6,9 @@ import axios from "axios";
 import { useEffect } from "react";
 import { clear } from "@testing-library/user-event/dist/clear";
 
-function Sell_End_d({ match}) {
-
-  const [dataList, setDataList] = useState('');  
+function Sell_End_d({ match }) {
+  const [dataList, setDataList] = useState("");
   const [imgList, setImgList] = useState([]);
-
 
   // sell_item_result + sell_item + sellerNickname + buyerNickname + img
   useEffect(() => {
@@ -21,31 +19,33 @@ function Sell_End_d({ match}) {
       .then((response) => {
         console.log(response.data);
         setDataList(response.data);
-        imgList.push(response.data.itemImgName)
-        imgList.push(response.data.itemImgNameSub2)
-        imgList.push(response.data.itemImgNameSub3)
-        setImgList(imgList)
-              
+        imgList.push(response.data.itemImgName);
+        imgList.push(response.data.itemImgNameSub2);
+        imgList.push(response.data.itemImgNameSub3);
+        setImgList(imgList);
       });
   }, []);
-   
+
   const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`)
-      .then(response => {
-        console.log(response.data)        
-        let sumRating = 0
-        if(response.data.length > 0){
-          response.data.forEach(element => {
-            sumRating += element.starPoint
+    axios
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        let sumRating = 0;
+        if (response.data.length > 0) {
+          response.data.forEach((element) => {
+            sumRating += element.starPoint;
           });
-          sumRating = Math.round(sumRating / response.data.length * 10) / 10
+          sumRating = Math.round((sumRating / response.data.length) * 10) / 10;
         }
-        setAverageRating(sumRating)
-      }).catch(err => console.log(err))
-  }, [])
-
+        setAverageRating(sumRating);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   //////////////// 댓글 관련 /////////////////
   const [comments, setComments] = useState([]);
@@ -66,20 +66,24 @@ function Sell_End_d({ match}) {
   };
 
   const handleWrite = () => {
-    console.log(match.params.itemNum)
-    console.log(contents)    
-    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/comments`, {
-      itemNum : match.params.itemNum,      
-      contents
-    })
-    .then((response) => {
-      console.log(response)
-      alert("후기 작성이 완료되었습니다.") 
-      setCommentUpdate(!commentUpdate);
-      setContents('');   
-    })}
-////////////////////////////////////////////
-
+    console.log(match.params.itemNum);
+    console.log(contents);
+    axios
+      .post(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/comments`,
+        {
+          itemNum: match.params.itemNum,
+          contents,
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        alert("후기 작성이 완료되었습니다.");
+        setCommentUpdate(!commentUpdate);
+        setContents("");
+      });
+  };
+  ////////////////////////////////////////////
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -97,7 +101,7 @@ function Sell_End_d({ match}) {
           <strong>내림</strong>경매
         </h2>
         <div className={style.img_item}>
-        <img
+          <img
             src={
               dataList.itemImgName &&
               `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${dataList.itemImgName}`
@@ -112,7 +116,7 @@ function Sell_End_d({ match}) {
             className={style.up2}
           />
           <ul>
-          {imgList?.map((img, index) => (
+            {imgList?.map((img, index) => (
               <li key={index}>
                 <img
                   src={
@@ -138,16 +142,14 @@ function Sell_End_d({ match}) {
           <span className={style.top_cate}>{dataList.itemType}</span>
           <span className={style.top_title}>{dataList.itemSub}</span>
           <div className={style.rating_option}>
-            <img src={require("../source/img/star.png")} alt="별점" />
-            <span>{averageRating}</span>
-          </div>
-          <div className={style.rating_option}>
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>{dataList.hitCnt}</span>
           </div>
           <div className={style.end_bb}>
             <span className={style.last_price}>최종 낙찰가</span>
-            <span className={style.last_number22}>{dataList.itemPrice?.toLocaleString()}</span>
+            <span className={style.last_number22}>
+              {dataList.itemPrice?.toLocaleString()}
+            </span>
           </div>
           <div className={style.last_bb}>
             <h2>
@@ -161,9 +163,7 @@ function Sell_End_d({ match}) {
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
-        <p>
-        {dataList.itemContents}
-        </p>
+        <p>{dataList.itemContents}</p>
       </div>
       <div className={style.review_dd}>
         <div className={style.fuck1}>

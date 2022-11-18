@@ -47,10 +47,6 @@ function Sell_End_u() {
           <span className={style.top_cate}>의류 / 가방</span>
           <span className={style.top_title}>디올 가방 재고 처리합니다!</span>
           <div className={style.rating_option}>
-            <img src={require("../source/img/star.png")} alt="별점" />
-            <span>4</span>
-          </div>
-          <div className={style.rating_option}>
             <img src={require("../source/img/see.png")} alt="조회수" />
             <span>33</span>
           </div>
