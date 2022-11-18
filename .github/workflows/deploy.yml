@@ -9,9 +9,8 @@ on:
     tags: [ 'v*.*.*' ]
 
 env:
-  REGISTRY: ghcr.io
-  DOCKER_IMAGE_SERVER: ghcr.io/${{ github.actor }}/guad_backend
-  DOCKER_IMAGE_CLIENT: ghcr.io/${{ github.actor }}/olenaelim_client
+  DOCKER_IMAGE_SERVER: moongchi18/olenaelim_server
+  DOCKER_IMAGE_CLIENT: moongchi18/olenaelim_client
   VERSION: ${{ github.sha }}
   NAME: olenaelim_cicd
   
@@ -38,6 +37,8 @@ jobs:
     # push된 파일 불러오기
       - name: Check out source code
         uses: actions/checkout@v3
+        with:
+          path: ./olenaelim_test
     
     # java build
       - name: Set up JDK 17
@@ -71,68 +72,68 @@ jobs:
       - name: Client Build the Docker image        
         run: docker build . --file ClientDockerfile --tag olenaelim_client:$(date +%s)
 
-    # image push
-      ## Install the cosign tool except on PR
-      ## https://github.com/sigstore/cosign-installer
-      - name: Install cosign
-        if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6 #v2.6.0
-        with:
-          cosign-release: 'v1.11.0'
+#     # image push
+#       ## Install the cosign tool except on PR
+#       ## https://github.com/sigstore/cosign-installer
+#       - name: Install cosign
+#         if: github.event_name != 'pull_request'
+#         uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6 #v2.6.0
+#         with:
+#           cosign-release: 'v1.11.0'
           
           
-      ## Workaround: https://github.com/docker/build-push-action/issues/461
-      - name: Setup Docker buildx
-        uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
+#       ## Workaround: https://github.com/docker/build-push-action/issues/461
+#       - name: Setup Docker buildx
+#         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
         
         
-      ## Login against a Docker registry except on PR
-      ## https://github.com/docker/login-action
+#       ## Login against a Docker registry except on PR
+#       ## https://github.com/docker/login-action
       - name: Log into registry ghcr.io
         if: github.event_name != 'pull_request'
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.OLENAELIM_GHCR_TOKEN }}
+#           registry: ghcr.io
+          username: ${{ secrets.OLENAELIM_DOCKHUB_NICKNAME }}
+          password: ${{ secrets.OLENAELIM_DOCKHUB_TOKEN }}
           
-      ## Extract metadata (tags, labels) for Docker
-      ## https://github.com/docker/metadata-action
-      - name: Server Extract Docker metadata
-        id: meta_Server
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ghcr.io/${{ env.DOCKER_IMAGE_SERVER }}
+#       ## Extract metadata (tags, labels) for Docker
+#       ## https://github.com/docker/metadata-action
+#       - name: Server Extract Docker metadata
+#         id: meta_Server
+#         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+#         with:
+#           images: ghcr.io/${{ env.DOCKER_IMAGE_SERVER }}
       
-      - name: Client Extract Docker metadata
-        id: meta_Client
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ghcr.io/${{ env.DOCKER_IMAGE_CLIENT }}
+#       - name: Client Extract Docker metadata
+#         id: meta_Client
+#         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+#         with:
+#           images: ghcr.io/${{ env.DOCKER_IMAGE_CLIENT }}
           
-      ## Build and push Docker image with Buildx (don't push on PR)
-      ## https://github.com/docker/build-push-action
-      - name: Server Build and push Docker image
-        id: server-build-and-push
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta_Server.outputs.tags }}
-          labels: ${{ steps.meta_Server.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+#       ## Build and push Docker image with Buildx (don't push on PR)
+#       ## https://github.com/docker/build-push-action
+#       - name: Server Build and push Docker image
+#         id: server-build-and-push
+#         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+#         with:
+#           context: .
+#           push: ${{ github.event_name != 'pull_request' }}
+#           tags: ${{ steps.meta_Server.outputs.tags }}
+#           labels: ${{ steps.meta_Server.outputs.labels }}
+#           cache-from: type=gha
+#           cache-to: type=gha,mode=max
           
-      - name: Client Build and push Docker image
-        id: client-build-and-push
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta_Client.outputs.tags }}
-          labels: ${{ steps.meta_Client.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+#       - name: Client Build and push Docker image
+#         id: client-build-and-push
+#         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+#         with:
+#           context: .
+#           push: ${{ github.event_name != 'pull_request' }}
+#           tags: ${{ steps.meta_Client.outputs.tags }}
+#           labels: ${{ steps.meta_Client.outputs.labels }}
+#           cache-from: type=gha
+#           cache-to: type=gha,mode=max
           
 #       ## Sign the resulting Docker image digest except on PRs.
 #       ## This will only write to the public Rekor transparency log when the Docker
