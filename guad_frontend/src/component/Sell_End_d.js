@@ -94,7 +94,7 @@ function Sell_End_d({ match}) {
       <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
       <div className={style.item_top}>
         <h2 className={style.down}>
-          <strong>내림</strong>판매
+          <strong>내림</strong>경매
         </h2>
         <div className={style.img_item}>
         <img

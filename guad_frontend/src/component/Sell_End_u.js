@@ -16,7 +16,7 @@ function Sell_End_u() {
       <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
       <div className={style.item_top}>
         <h2>
-          <strong>오름</strong>판매
+          <strong>오름</strong>경매
         </h2>
         <div className={style.img_item}>
           <img
