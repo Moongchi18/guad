@@ -51,7 +51,7 @@ function Header(props) {
             <img src={logo} alt="로고" className={style.h_logo_b} />
           </Link>
           <ul>
-            <li onClick={go_sell}>
+            <li>
               <Link to="/sell_List">판매목록</Link>
             </li>
             <li onClick={go_sell}>상품등록</li>
