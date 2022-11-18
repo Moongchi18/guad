@@ -147,7 +147,7 @@ function Sell_Up({ match }) {
       </div>
       <div className={style.item_top}>
         <h2>
-          <strong>오름</strong>판매
+          <strong>오름</strong>경매
         </h2>
         <div className={style.img_item}>
           <img

@@ -41,7 +41,7 @@ function App() {
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
   const [searchWord, setSearchWord] = useState("");
 
-  // function handlerIsLogin() {
+  // function handlerIsLogin() {zz
   //   setIsLogin(true);
   // }
 
@@ -111,7 +111,11 @@ function App() {
       <Route path="/selling" component={Selling} exact={true} />
       <Route path="/sell_item/u/:itemNum" component={Sell_Up} exact={true} />
       <Route path="/sell_item/d/:itemNum" component={Sell_Down} exact={true} />
-      <Route path="/sell_item/dr/:itemNum" component={Sell_DownRandom} exact={true} />
+      <Route
+        path="/sell_item/dr/:itemNum"
+        component={Sell_DownRandom}
+        exact={true}
+      />
       <Route path="/sell_end/u/:itemNum" component={Sell_End_u} exact={true} />
       <Route path="/sell_end/d/:itemNum" component={Sell_End_d} exact={true} />
 
