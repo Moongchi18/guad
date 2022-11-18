@@ -3,6 +3,7 @@ package auction.guad.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,9 +13,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +24,7 @@ import auction.guad.service.AuctionService;
 import auction.guad.service.ImgService;
 import auction.guad.service.MemberService;
 import auction.guad.service.SellItemService;
+import auction.guad.vo.AuctionVo;
 import auction.guad.vo.SellItemJoinMemberVo;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -137,10 +136,17 @@ public class SellItemController {
 		System.out.println(sellItem);
 		
 		
-		
 		if (sellItem == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
+			Optional<AuctionVo> test = Optional.ofNullable(auctionService.lastAuction(itemNum));
+			if(test.isPresent()) {
+				sellItem.setBeforeAuctionPrice(auctionService.lastAuction(itemNum).getAuctionPrice());
+				sellItem.setBeforeNickname(memberService.managerSelectMemberDetailByEmail(auctionService.lastAuction(itemNum).getMemberEmail()).getNickname());
+			} else {
+				sellItem.setBeforeAuctionPrice(0);
+				sellItem.setBeforeNickname("");
+			}
 			sellItem.setMemberEmail(" ");
 			return ResponseEntity.status(HttpStatus.OK).body(sellItem);
 		}

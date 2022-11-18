@@ -58,6 +58,7 @@ function Sell_Up({ match }) {
           `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
+        handlerBid();
       })
       .catch((error) => console.log(error));
 
@@ -91,7 +92,7 @@ function Sell_Up({ match }) {
 
   useEffect(() => {
     connect();
-   
+    
   }, [bid])
 
 
@@ -123,14 +124,13 @@ function Sell_Up({ match }) {
   const handlerBid = (r) => {
     // stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
     // setBid(document.getElementsByClassName(`${style.bid}`)[0].value);
-    setBid(r);
+    // setBid(r);
     setDto({ ...Dto, auctionPrice: r })
     console.log(bid);
     console.log(Dto);
     stompClient.send(`/pub/sellitem/auction/u/${match.params.itemNum}`, { Authorization: token }, JSON.stringify({...Dto, auctionPrice:r}));
   }
-
-
+//////////////////////////////////////////
 
 
 

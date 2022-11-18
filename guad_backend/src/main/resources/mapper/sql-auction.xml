@@ -17,7 +17,7 @@
 	
 	<!--오름 입찰 조회 -->
 	<select id ="lastAuction" parameterType="auction.guad.vo.AuctionVo" resultType="auction.guad.vo.AuctionVo">
-		SELECT AUCTION_PRICE MEMBER_EMAIL FROM AUCTION_UP
+		SELECT * FROM AUCTION_UP
 		WHERE ITEM_NUM = #{itemNum} ORDER BY AUCTION_UP_NUM LIMIT 1;
 	</select>
 	

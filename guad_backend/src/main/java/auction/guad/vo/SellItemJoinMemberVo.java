@@ -43,4 +43,9 @@ public class SellItemJoinMemberVo {
 	private String itemImgNameSub2;
 	private String itemImgNameSub3;
 	
+	//////////////////////////////////////////////
+	
+	private int beforeAuctionPrice;
+	private String beforeNickname;
+	
 }
