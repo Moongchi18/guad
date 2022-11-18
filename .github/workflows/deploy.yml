@@ -38,7 +38,7 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v3
         with:
-          path: ./olenaelim_test
+          path: ../../olenaelim_test
     
     # java build
       - name: Set up JDK 17
