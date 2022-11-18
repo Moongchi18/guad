@@ -12,7 +12,7 @@ services:
     restart: always
   
   server:
-    image: olenaelim_server:latest
+    image: moongchi18/olenaelim_server:latest
     depends_on:
       - database
     environment:
@@ -24,7 +24,7 @@ services:
       - 9090:8080
 
   client:
-    image: olenaelim_client:latest
+    image: moongchi18/olenaelim_client:latest
     restart: always
     ports:
       - 33000:80
