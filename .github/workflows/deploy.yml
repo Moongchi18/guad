@@ -88,8 +88,7 @@ jobs:
           password: ${{ secrets.OLENAELIM_DOCKHUB_TOKEN }}
           
       - name : image push dockhub
-        run: docker image push ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}} &&
-              docker image push ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}}
+        run: docker image push ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}} && docker image push ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}}
           
 #       ## Build and push Docker image with Buildx (don't push on PR)
 #       ## https://github.com/docker/build-push-action
