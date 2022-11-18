@@ -73,10 +73,6 @@ jobs:
 #     # image push          
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-
-#       ## Workaround: https://github.com/docker/build-push-action/issues/461
-#       - name: Setup Docker buildx
-#         uses: docker/setup-buildx-action@v2
                 
 #       ## Login against a Docker registry except on PR
 #       ## https://github.com/docker/login-action
@@ -89,86 +85,8 @@ jobs:
           
       - name : image push dockhub
         run: docker image push ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}} && docker image push ${{ env.DOCKER_IMAGE_CLIENT }}:${{env.VERSION}}
-          
-#       ## Build and push Docker image with Buildx (don't push on PR)
-#       ## https://github.com/docker/build-push-action
-#       - name: Server Build and push Docker image
-#         id: server-build-and-push
-#         uses: docker/build-push-action@v3
-#         with:
-#           context: .
-#           push: ${{ github.event_name != 'pull_request' }}
-#           tags: ${{ env.DOCKER_IMAGE_SERVER }}:${{ env.VERSION }}
-#           cache-from: type=gha
-#           cache-to: type=gha,mode=max
-          
-#       - name: Client Build and push Docker image
-#         id: client-build-and-push
-#         uses: docker/build-push-action@v3
-#         with:
-#           context: .
-#           push: ${{ github.event_name != 'pull_request' }}
-#           tags: ${{ env.DOCKER_IMAGE_CLIENT }}:${{ env.VERSION }}
-#           cache-from: type=gha
-#           cache-to: type=gha,mode=max
-          
-#       ## Sign the resulting Docker image digest except on PRs.
-#       ## This will only write to the public Rekor transparency log when the Docker
-#       ## repository is public to avoid leaking data.  If you would like to publish
-#       ## transparency data even for private images, pass --force to cosign below.
-#       ## https://github.com/sigstore/cosign
-#       - name: Server Sign the published Docker image
-#         if: ${{ github.event_name != 'pull_request' }}
-#         env:
-#           COSIGN_EXPERIMENTAL: "true"
-#         ### This step uses the identity token to provision an ephemeral certificate
-#         ### against the sigstore community Fulcio instance.
-#         run: echo "${{ steps.meta_Server.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.server-build-and-push.outputs.digest }}
-
-#       - name: Client Sign the published Docker image
-#         if: ${{ github.event_name != 'pull_request' }}
-#         env:
-#           COSIGN_EXPERIMENTAL: "true"
-#         ### This step uses the identity token to provision an ephemeral certificate
-#         ### against the sigstore community Fulcio instance.
-#         run: echo "${{ steps.meta_Client.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.client-build-and-push.outputs.digest }}
       
     # start deploy
-      
-# #       - name: Set up docker buildx
-# #         id: buildx
-# #         uses: docker/setup-buildx-action@v1
-      
-# #       - name: Cache docker layers
-# #         uses: actions/cache@v2
-# #         with:
-# #           path: /tmp/.buildx-cache
-# #           key: ${{ runner.os }}-buildx-${{ env.VERSION }}
-# #           restore-keys: |
-# #             ${{ runner.os }}-buildx-
-      
-#       - name: Login to ghcr
-#         uses: docker/login-action@v1
-#         with:
-#           registry: ghcr.io
-#           username: ${{ github.actor }}
-#           password: ${{ secrets.OLENAELIM_GHCR_TOKEN }}
-      
-#       - name: Server Build and Push
-#         id: server_build
-#         uses: docker/build-push-action@v2
-#         with:
-#           builder: ${{ steps.buildx.outputs.name }}
-#           push: true
-#           tags: ${{ env.DOCKER_IMAGE_SERVER }}:latest
-      
-#       - name: Client Build and Push
-#         id: client_build
-#         uses: docker/build-push-action@v2
-#         with:
-#           builder: ${{ steps.buildx.outputs.name }}
-#           push: true
-#           tags: ${{ env.DOCKER_IMAGE_CLIENT }}:latest
 
   deploy:
     needs: build
@@ -178,18 +96,36 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Login to ghcr
-        uses: docker/login-action@v1
+      
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.OLENAELIM_GHCR_TOKEN }}
+          host: ${{ secrets.EC2_PRIVATE_IP }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          source: "docker-compose.yaml"
+          target: "/home/ec2-user/"
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_PRIVATE_IP }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: "docker-compose pull && docker-compose up -d"
+      
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1	⇐ https://github.com/aws-actions/configure-aws-credentials
+#         with: 
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ env.AWS_REGION }}
           
-      - name: Docker run
-        run: |
-          docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:0.0.1-SNAPSHOT
-          docker run -d -p 9090:8080 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
+#       - name: Docker run
+#         run: |
+#           docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:${{ env.VERSION }}
+#           docker run -d -p 9090:8080 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
           
-          docker stop ${{ env.DOCKER_IMAGE_CLIENT }} && docker rm ${{ env.DOCKER_IMAGE_CLIENT }} && docker rmi ${{ env.DOCKER_IMAGE_CLIENT }}:latest
-          docker run -d -p 33000:80 --name ${{ env.DOCKER_IMAGE_CLIENT }} --restart always ${{ env.DOCKER_IMAGE_CLIENT }}:latest
+#           docker stop ${{ env.DOCKER_IMAGE_CLIENT }} && docker rm ${{ env.DOCKER_IMAGE_CLIENT }} && docker rmi ${{ env.DOCKER_IMAGE_CLIENT }}:${{ env.VERSION }}
+#           docker run -d -p 33000:80 --name ${{ env.DOCKER_IMAGE_CLIENT }} --restart always ${{ env.DOCKER_IMAGE_CLIENT }}:latest
