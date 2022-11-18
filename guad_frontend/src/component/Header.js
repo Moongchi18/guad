@@ -17,6 +17,15 @@ function Header(props) {
     }
   };
 
+  const go_sell = (e) => {
+    if (sessionStorage.length != 0) {
+      e.preventDefault();
+      props.history.push("/selling");
+    } else {
+      alert("상품을 등록하려면 로그인 해주세요!");
+    }
+  };
+
   useEffect(() => {
     if (sessionStorage.length != 0) {
       SetMypage(true);
@@ -42,12 +51,10 @@ function Header(props) {
             <img src={logo} alt="로고" className={style.h_logo_b} />
           </Link>
           <ul>
-            <li>
+            <li onClick={go_sell}>
               <Link to="/sell_List">판매목록</Link>
             </li>
-            <li>
-              <Link to="/selling">상품등록</Link>
-            </li>
+            <li onClick={go_sell}>상품등록</li>
 
             {!props.isLogin && (
               <li>
