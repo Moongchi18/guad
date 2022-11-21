@@ -47,5 +47,7 @@ public class SellItemJoinMemberVo {
 	
 	private int beforeAuctionPrice;
 	private String beforeNickname;
+	private int bidPrice;
+
 	
 }

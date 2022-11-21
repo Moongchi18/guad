@@ -71,6 +71,7 @@ public class WebSocketController {
 		Optional<AuctionVo> test = Optional.ofNullable(auctionService.lastAuction(itemNum));
 		if(test.isPresent()) {
 			auction.setBeforeAuctionPrice(auctionService.lastAuction(itemNum).getAuctionPrice());
+			System.out.println(">>>>>>>>>>>>>>" + auction.getBeforeAuctionPrice());
 			auction.setBeforeNickname(memberService.managerSelectMemberDetailByEmail(auctionService.lastAuction(itemNum).getMemberEmail()).getNickname());
 		} else {
 			auction.setBeforeAuctionPrice(0);
@@ -96,9 +97,11 @@ public class WebSocketController {
 		}
 	
 		
+		System.out.println("1>>>>>>>>>>>>" + auction.getBeforeAuctionPrice());
+		System.out.println("1>>>>>>>>>>>>" + auction.getAuctionPrice());
+		System.out.println(sellItem.getAuctionStartPrice());
+		System.out.println(auction.getBeforeAuctionPrice());
 		
-		System.out.println(">>>>>>>>>>>>" + bidAmount);
-		System.out.println(">>>>>>>>>>>>" + auction.getAuctionPrice());
 		
 		ArrayList<Integer> arrbidAmount = new ArrayList<>();
 		while (bidAmount > 0) {
@@ -134,6 +137,10 @@ public class WebSocketController {
 		System.out.println("3>>>>>>>>>>>>>>>" + sb.toString());
 		System.out.println("4>>>>>>>>>>>>>>>" + sb2.toString());
 		// 변경된 값을 넣어준다.
+		
+
+		int bidNum = auctionService.tryAuction(auction);
+		
 		try {
 			int currentPrice = Integer.parseInt(sb.toString());
 			int plusePrice = Integer.parseInt(sb2.toString());
@@ -143,8 +150,8 @@ public class WebSocketController {
 		} catch (NumberFormatException ex) {
 			ex.printStackTrace();
 		}
-
-		int bidNum = auctionService.tryAuction(auction);
+		
+		auction.setBeforeAuctionPrice(auctionService.lastAuction(itemNum).getAuctionPrice());
 
 		if (auction.getAuctionPrice() > sellItem.getAuctionMaxPrice() && bidNum > 0) {
 			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
