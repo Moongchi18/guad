@@ -103,14 +103,23 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
+          
+      - id: install-aws-cli
+        uses: unfor19/install-aws-cli-action@v1.0.4
+        with:
+          version: 2     # default
+          verbose: false # default
+          arch: amd64    # allowed values: amd64, arm64
+          rootdir: ""    # defaults to "PWD"
+          workdir: ""    # defaults to "PWD/unfor19-awscli"
       
 #       - name: Login to Amazon ECR
 #         id: login-ecr
 #         uses: aws-actions/amazon-ecr-login@v1
       
-# #       S3 파일 정리
-#       - name: Delete to AWS S3
-#         run : aws s3 rm s3://$S3_BUCKET_NAME/ --recursive --include "*"
+#       S3 파일 정리
+      - name: Delete to AWS S3
+        run : aws s3 rm s3://$S3_BUCKET_NAME/ --recursive --include "*"
       
       # S3 코드 업로드
       - name: Upload to AWS S3
