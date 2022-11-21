@@ -3,7 +3,12 @@ cd $REPOSITORY
 
 echo ">> 실행" 
 # docker kill $(docker ps -q) || true
-docker-compose down && docker-compose pull && docker-compose up -d
+list=$(docker ps -q)
+if [ -n $names ]; then 
+  docker kill $list
+else
+  docker-compose pull && docker-compose up -d;
+fi
 
 
 # echo docker-compose up
