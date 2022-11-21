@@ -18,7 +18,7 @@
 	<!--오름 입찰 조회 -->
 	<select id ="lastAuction" parameterType="auction.guad.vo.AuctionVo" resultType="auction.guad.vo.AuctionVo">
 		SELECT * FROM AUCTION_UP
-		WHERE ITEM_NUM = #{itemNum} ORDER BY AUCTION_UP_NUM LIMIT 1;
+		WHERE ITEM_NUM = #{itemNum} ORDER BY AUCTION_UP_NUM DESC LIMIT 1;
 	</select>
 	
 	<!-- 내림랜덤 열수 조회 -->

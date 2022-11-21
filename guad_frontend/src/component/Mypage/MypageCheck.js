@@ -6,7 +6,7 @@ import axios from "axios";
 import Mileage from "../Moodal/Mileage";
 import My_Notify from "../Moodal/My_Notify";
 
-function MypageCheck({ history }) {
+function MypageCheck({ history}) {
   const [data, setData] = useState({
     nickname: "",
     mileage: 0,
@@ -57,7 +57,7 @@ function MypageCheck({ history }) {
   const openModal3 = (e) => {
     modalChange3.current.style = "display:block;";
   };
-
+  
   return (
     <>
       <My_Notify modalChange3={modalChange3} closeModal3={closeModal3} />
