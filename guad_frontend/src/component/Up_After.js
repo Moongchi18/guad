@@ -8,9 +8,18 @@ import Up_Chat from "./Up_Chat";
 var stompClient = null;
 let Sock;
 const token = `Bearer ${sessionStorage.getItem("token")}`;
-function Up_After({ openModal, history, item, buyer, auctionPeriodText, handlerBid, bid, bidNickname, auctionCurrentPrice }) {
+function Up_After({
+  openModal,
+  history,
+  item,
+  buyer,
+  auctionPeriodText,
+  handlerBid,
+  bid,
+  bidNickname,
+  auctionCurrentPrice,
+}) {
   const [publicChats, setPublicChats] = useState([]);
-
 
   console.log(publicChats);
   console.log(item);
@@ -52,7 +61,7 @@ function Up_After({ openModal, history, item, buyer, auctionPeriodText, handlerB
     }
   };
   console.log(item);
-
+  const btn_b = useRef();
 
   const modalChange2 = useRef();
   const closeModal2 = () => {
@@ -70,7 +79,6 @@ function Up_After({ openModal, history, item, buyer, auctionPeriodText, handlerB
       });
       console.log("sock disconnect");
       closeConnection();
-
     };
   }, []);
   // onclose: ((this: WebSocket, ev: CloseEvent) => any) | null;
@@ -80,8 +88,6 @@ function Up_After({ openModal, history, item, buyer, auctionPeriodText, handlerB
     console.log("sock.close()");
   }
 
-
-
   ///////////////할인율////////////////
 
   var discountRate =
@@ -89,9 +95,6 @@ function Up_After({ openModal, history, item, buyer, auctionPeriodText, handlerB
   var discountRateNow =
     100 - (auctionCurrentPrice / item.auctionStartPrice) * 100;
   ////////////////////////////////////
-
-
-
 
   return (
     <>
@@ -115,7 +118,9 @@ function Up_After({ openModal, history, item, buyer, auctionPeriodText, handlerB
         <div className={style.sell_box}>
           <span className={style.sell_price}>현재 입찰가</span>
           <span className={style.sell_number}>
-            {bid === -1 ? "최고 경매가 달성" : auctionCurrentPrice?.toLocaleString()}
+            {bid === -1
+              ? "최고 경매가 달성"
+              : auctionCurrentPrice?.toLocaleString()}
           </span>
         </div>
         <div className={style.sell_box}>
@@ -133,6 +138,7 @@ function Up_After({ openModal, history, item, buyer, auctionPeriodText, handlerB
               type="button"
               className={style.now_buy}
               onClick={openModal2}
+              ref={btn_b}
             >
               즉시 구매
             </button>
@@ -143,15 +149,24 @@ function Up_After({ openModal, history, item, buyer, auctionPeriodText, handlerB
                 publicChats={publicChats}
                 connect={connect}
                 buyer={buyer}
+                btn_b={btn_b}
               />
             )}
-            <button className={`${style.try_buy} ${style.aa_btn}`} onClick={() => handlerBid(bid)}>
-              <p className={style.bid}>{bid === -1 ? "최고 경매가 달성" : bid === 0 ? item.auctionStartPrice?.toLocaleString() : `${bid?.toLocaleString()}`}</p>
-
-
+            <button
+              className={`${style.try_buy} ${style.aa_btn}`}
+              onClick={() => handlerBid(bid)}
+            >
+              <p className={style.bid}>
+                {bid === -1
+                  ? "최고 경매가 달성"
+                  : bid === 0
+                  ? item.auctionStartPrice?.toLocaleString()
+                  : `${bid?.toLocaleString()}`}
+              </p>
             </button>
             <button type="button" className={style.try_buy}>
-              현재 입찰자 : <strong>{bidNickname === null ? "없음" : bidNickname}</strong>
+              현재 입찰자 :{" "}
+              <strong>{bidNickname === null ? "없음" : bidNickname}</strong>
             </button>
           </div>
         </div>
