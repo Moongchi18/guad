@@ -161,7 +161,7 @@ function Up_After({
                   ? "최고 경매가 달성"
                   : bid === 0
                   ? item.auctionStartPrice?.toLocaleString()
-                  : `${bid?.toLocaleString()}`}
+                  : "입찰하기 : "+`${bid?.toLocaleString()}`}
               </p>
             </button>
             <button type="button" className={style.try_buy}>
