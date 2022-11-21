@@ -105,8 +105,8 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       
       # S3 파일 정리
-      - name: Delete to AWS S3
-        run : aws s3 rm s3://$S3_BUCKET_NAME/ --recursive
+#       - name: Delete to AWS S3
+#         run : aws s3 rm s3://$S3_BUCKET_NAME/ --recursive
       
       # S3 코드 업로드
       - name: Upload to AWS S3
