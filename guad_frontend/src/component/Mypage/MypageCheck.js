@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import Mileage from "../Moodal/Mileage";
+import My_Notify from "../Moodal/My_Notify";
 
-function MypageCheck({ history }) {
+function MypageCheck({ history}) {
   const [data, setData] = useState({
     nickname: "",
     mileage: 0,
@@ -46,9 +47,20 @@ function MypageCheck({ history }) {
   const openModal = () => {
     modalChange.current.style = "display:block;";
   };
+  // 내 신고내역 보기
+  const modalChange3 = useRef();
 
+  const closeModal3 = () => {
+    modalChange3.current.style = "display:none;";
+  };
+
+  const openModal3 = (e) => {
+    modalChange3.current.style = "display:block;";
+  };
+  
   return (
     <>
+      <My_Notify modalChange3={modalChange3} closeModal3={closeModal3} />
       <Mileage closeModal={closeModal} modalChange={modalChange} />
       <div className={style.All_Mboxi}>
         <Link to="/mypage">
@@ -84,7 +96,7 @@ function MypageCheck({ history }) {
                   <p>마일리지</p>
                 </li>
                 <li>
-                  <button type="button"></button>
+                  <button type="button" onClick={openModal3}></button>
                   <p>신고내역</p>
                 </li>
               </ul>

@@ -41,7 +41,7 @@ function App() {
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
   const [searchWord, setSearchWord] = useState("");
 
-  // function handlerIsLogin() {
+  // function handlerIsLogin() {zz
   //   setIsLogin(true);
   // }
 

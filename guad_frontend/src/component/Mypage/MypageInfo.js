@@ -167,11 +167,22 @@ function MypageInfo(props) {
                   <p>회원정보</p>
                 </li>
                 <li>
-                  <button className={style.mileage} type="button"></button>
+                  <button
+                    className={style.mileage}
+                    type="button"
+                    onClick={() => {
+                      alert("정보수정중에는 이용할수 없습니다.");
+                    }}
+                  ></button>
                   <p>마일리지</p>
                 </li>
                 <li>
-                  <button type="button"></button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      alert("정보수정중에는 이용할수 없습니다.");
+                    }}
+                  ></button>
                   <p>신고내역</p>
                 </li>
               </ul>

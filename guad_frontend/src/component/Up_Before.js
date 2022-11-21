@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import style from "../source/SellItem_u.module.css";
 
-function Up_Before({ openModal, clickStart, item, bid }) {
+function Up_Before({ openModal, clickStart, item, bid, auctionCurrentPrice }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   console.log(typeof item.auctionPeriod);
 
@@ -54,7 +54,8 @@ function Up_Before({ openModal, clickStart, item, bid }) {
             <button className={style.buy_in} onClick={clickStart}>
               입찰 참여
             </button>
-            <span className={style.sell_date}>현재 입찰금액 : {bid === -1 ? "최고 경매가 달성" : `입찰 : ${bid.toLocaleString()}`}</span>
+            <span className={style.sell_date}>현재 입찰금액 : {bid === -1 ? "최고 경매가 달성" : `${auctionCurrentPrice
+                ?.toLocaleString()}`}</span>
           </div>
         </div>
       </div>

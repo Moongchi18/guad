@@ -10,12 +10,13 @@ import Up_Before from "./Up_Before";
 
 var stompClient = null
 const token = `Bearer ${sessionStorage.getItem("token")}`
-function Sell_Up({ match }) {
+function Sell_Up({ match, history }) {
   const [start, setStart] = useState(false);
   const [item, setItem] = useState({});
   const [imgList, setImgList] = useState([]);
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [change, setChange] = useState(false);
+
 
 
 
@@ -38,15 +39,20 @@ function Sell_Up({ match }) {
         `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/u/${match.params.itemNum}`
       )
       .then((response) => {
-        const tempImgList=[]
+        const tempImgList = []
         console.log(response.data);
         setItem(response.data);
         tempImgList.push(response.data.itemImgName);
         tempImgList.push(response.data.itemImgNameSub2);
         tempImgList.push(response.data.itemImgNameSub3);
         setImgList(tempImgList);
-  
-        setBid(response.data.auctionStartPrice);
+        if (response.data.bidPrice != null) {
+          setBid(response.data.auctionStartPrice);
+        }
+        setBid(response.data.bidPrice);
+
+        setAuctionCurrentPrice(response.data.beforeAuctionPrice);
+        setBidNickname(response.data.beforeNickname);
 
         const date = new Date(
           response.data.auctionFinishDate.slice(0, 10) +
@@ -58,6 +64,7 @@ function Sell_Up({ match }) {
           `${date.getFullYear()}년 ${date.getMonth() + 1
           }월 ${date.getDate()}일 ${date.getHours()}시까지`
         );
+
       })
       .catch((error) => console.log(error));
 
@@ -81,6 +88,7 @@ function Sell_Up({ match }) {
 
   const [bid, setBid] = useState(0);
   const [bidNickname, setBidNickname] = useState();
+  const [auctionCurrentPrice, setAuctionCurrentPrice] = useState();
   const [Dto, setDto] = useState({
 
     itemNum: match.params.itemNum,
@@ -91,7 +99,7 @@ function Sell_Up({ match }) {
 
   useEffect(() => {
     connect();
-   
+
   }, [bid])
 
 
@@ -114,7 +122,7 @@ function Sell_Up({ match }) {
   const onMessageReceived = (payload) => {
     var payloadData = JSON.parse(payload.body);
     console.log(payloadData);
-    
+    setAuctionCurrentPrice(payloadData.beforeAuctionPrice);
     setBid(payloadData.auctionPrice);
     setBidNickname(payloadData.nickname);
     setChange(!change);
@@ -123,14 +131,12 @@ function Sell_Up({ match }) {
   const handlerBid = (r) => {
     // stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
     // setBid(document.getElementsByClassName(`${style.bid}`)[0].value);
-    setBid(r);
+    // setBid(r);
     setDto({ ...Dto, auctionPrice: r })
     console.log(bid);
     console.log(Dto);
-    stompClient.send(`/pub/sellitem/auction/u/${match.params.itemNum}`, { Authorization: token }, JSON.stringify({...Dto, auctionPrice:r}));
+    stompClient.send(`/pub/sellitem/auction/u/${match.params.itemNum}`, { Authorization: token }, JSON.stringify({ ...Dto, auctionPrice: r }));
   }
-
-
 
 
 
@@ -186,7 +192,8 @@ function Sell_Up({ match }) {
               clickStart={clickStart}
               item={item}
               bid={bid}
-          
+              auctionCurrentPrice={auctionCurrentPrice}
+
             />
             <p className={style.bb_time}>
               남은 경매 시간 : <strong>{auctionPeriodText}</strong>
@@ -203,6 +210,8 @@ function Sell_Up({ match }) {
             handlerBid={handlerBid}
             bid={bid}
             bidNickname={bidNickname}
+            auctionCurrentPrice={auctionCurrentPrice}
+            history={history}
           />
         )}
       </div>

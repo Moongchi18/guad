@@ -5,7 +5,7 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 
 // var stompClient = null;
-const Up_Chat = ({ item, connect, sendValue, publicChats, buyer }) => {
+const Up_Chat = ({ item, connect, sendValue, publicChats, buyer, btn_b }) => {
   const inputCursor = useRef();
   // const [publicChats, setPublicChats] = useState([]);
   const [userData, setUserData] = useState({
@@ -30,13 +30,14 @@ const Up_Chat = ({ item, connect, sendValue, publicChats, buyer }) => {
   const openChat6 = useRef();
 
   const ClickChat = () => {
-    openChat1.current.style = "height:500px;";
+    openChat1.current.style = "height:500px; margin-bottom:10px;";
     openChat2.current.style = "height:92%;";
     inputCursor.current.style = "display:inline-block;";
     openChat4.current.style = "display:none;";
     openChat5.current.style = "display:inline-block;";
     openChat6.current.style = "height:none";
     buyer.current.style = "display:none";
+    btn_b.current.style = "vertical-align:bottom;";
   };
 
   const OffChat = () => {
@@ -47,6 +48,7 @@ const Up_Chat = ({ item, connect, sendValue, publicChats, buyer }) => {
     openChat5.current.style = "display:none;";
     openChat6.current.style = "height:40px;";
     buyer.current.style = "display:block;";
+    btn_b.current.style = "vertical-align:baseline;";
   };
 
   console.log(item.nickname);

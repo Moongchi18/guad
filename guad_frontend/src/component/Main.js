@@ -1,6 +1,7 @@
 import CarouselB from "./CarouselB";
 import style from "../source/Main.module.css";
 import { useEffect, useRef, useState } from "react";
+import video from "../source/img/back_01.mp4";
 
 function Main() {
   const [tip, setTip] = useState(false);
@@ -8,6 +9,11 @@ function Main() {
   return (
     <>
       <div className={style.all_back}>
+        <div className={style.control}>
+          <video autoPlay loop muted className={style.back_v}>
+            <source src={video} type="video/mp4" />
+          </video>
+        </div>
         <CarouselB />
         <span className={style.side_text}>
           오르내림은 중고 경매 거래 사이트로
