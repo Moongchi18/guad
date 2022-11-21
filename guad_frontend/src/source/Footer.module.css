@@ -5,6 +5,7 @@ Footer {
   color: white;
   font-family: "SBAggroB";
   font-weight: 300;
+  border-top: 1px solid rgb(255 255 255 / 30%);
 }
 .foot_top {
   width: 1200px;
