@@ -2,8 +2,8 @@ REPOSITORY=/home/ubuntu/olenaelim/
 cd $REPOSITORY
 
 echo ">> 실행"
-docker kill $(docker ps -q)
-docker-compose pull && docker-compose up -d
+# docker kill $(docker ps -q) || true
+docker-compose down && docker-compose pull && docker-compose up -d
 
 
 # echo docker-compose up
