@@ -146,7 +146,7 @@ function Up_After({ openModal, history, item, buyer, auctionPeriodText, handlerB
               />
             )}
             <button className={`${style.try_buy} ${style.aa_btn}`} onClick={() => handlerBid(bid)}>
-              <p className={style.bid}>{bid === -1 ? "최고 경매가 달성" : bid === 0 ? item.auctionStartPrice?.toLocaleString() : `${bid.toLocaleString()}`}</p>
+              <p className={style.bid}>{bid === -1 ? "최고 경매가 달성" : bid === 0 ? item.auctionStartPrice?.toLocaleString() : `${bid?.toLocaleString()}`}</p>
 
 
             </button>
