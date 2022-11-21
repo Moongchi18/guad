@@ -10,7 +10,7 @@ import Up_Before from "./Up_Before";
 
 var stompClient = null
 const token = `Bearer ${sessionStorage.getItem("token")}`
-function Sell_Up({ match }) {
+function Sell_Up({ match, history }) {
   const [start, setStart] = useState(false);
   const [item, setItem] = useState({});
   const [imgList, setImgList] = useState([]);
@@ -137,7 +137,6 @@ function Sell_Up({ match }) {
     console.log(Dto);
     stompClient.send(`/pub/sellitem/auction/u/${match.params.itemNum}`, { Authorization: token }, JSON.stringify({ ...Dto, auctionPrice: r }));
   }
-  //////////////////////////////////////////
 
 
 
@@ -212,6 +211,7 @@ function Sell_Up({ match }) {
             bid={bid}
             bidNickname={bidNickname}
             auctionCurrentPrice={auctionCurrentPrice}
+            history={history}
           />
         )}
       </div>
