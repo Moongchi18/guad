@@ -56,9 +56,7 @@ function MypageCheck({ history}) {
 
   const openModal3 = (e) => {
     modalChange3.current.style = "display:block;";
-  };  
-
-
+  };
   
   return (
     <>
