@@ -1,4 +1,4 @@
-REPOSITORY=/home/ec2-user/olenaelim/
+REPOSITORY=/home/ubuntu/olenaelim/
 cd $REPOSITORY
 
 echo ">> 실행"
