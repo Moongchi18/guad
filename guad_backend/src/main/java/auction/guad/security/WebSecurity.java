@@ -77,7 +77,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://192.168.0.35:3000", "http://localhost:33000/", "http://olenaelim.com:33000"));
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://192.168.0.35:3000", "http://localhost:33000/", "http://52.79.138.125:33000"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "token"));
 		configuration.setAllowCredentials(true);
