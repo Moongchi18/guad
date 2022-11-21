@@ -8,15 +8,15 @@ files:
 permissions:
   - object: /
     pattern: "**"
-    owner: linux
-    group: linux
+    owner: self-hosted
+    group: self-hosted
         
 hooks:
   AfterInstall:
     - location: scripts/stop.sh
       timeout: 60
-      runas: linux
+      runas: self-hosted
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 60
-      runas: linux
+      runas: self-hosted
