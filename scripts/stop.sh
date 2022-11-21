@@ -1,3 +1,5 @@
+echo "<<<<<<<<<<stop process check"
+
 # echo docker-compose down
 
 
