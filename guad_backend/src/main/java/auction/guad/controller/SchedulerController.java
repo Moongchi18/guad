@@ -5,10 +5,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import auction.guad.service.MemberService;
-import auction.guad.service.ReviewService;
+
 import auction.guad.service.SchedulerService;
-import auction.guad.service.SellItemService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,7 +22,8 @@ public class SchedulerController {
 		this.schedulerservice = schedulerservice;
 	}
 	
-	@Scheduled(cron = "0 0 05 * * ?")
+	
+	@Scheduled(cron = "01 0 * * * ?")
     public void scheduleAuctionCheck() {
         long now = System.currentTimeMillis() / 1000;
         log.info("schedule tasks using cron jobs - {}", now);
