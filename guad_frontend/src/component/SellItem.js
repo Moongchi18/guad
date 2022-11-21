@@ -81,7 +81,12 @@ function SellItem({ history, match }) {
   };
 
   const openModal2 = () => {
+    if(sessionStorage.length != 0) {
     modalChange2.current.style = "display:block;";
+    } else {
+      alert('로그인이 필요합니다.')
+      history.push("/login")
+    }
   };
 
   return (

@@ -26,7 +26,7 @@ function Sell_Up({ match, history }) {
     if (sessionStorage.length != 0) {
       setStart(true);
     } else {
-      alert("로그인해주세요!");
+      alert("로그인이 필요합니다.");
       setStart(false);
     }
   };
