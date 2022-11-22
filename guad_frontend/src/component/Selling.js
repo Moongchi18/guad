@@ -284,6 +284,14 @@ function Selling({ history }) {
         setAuctionPeriod(auctionPeriod);
       })
       .catch((error) => console.log(error));
+
+      const escKeyModalClose = (e) => {
+        if (e.keyCode === 27) {
+          closeModal();
+        }
+      };
+      window.addEventListener("keydown", escKeyModalClose);
+      return () => window.removeEventListener("keydown", escKeyModalClose);
   }, []);
 
   //////////////////////파일 업로드//////////////////////

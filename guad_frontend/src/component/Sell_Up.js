@@ -26,7 +26,7 @@ function Sell_Up({ match, history }) {
     if (sessionStorage.length != 0) {
       setStart(true);
     } else {
-      alert("로그인해주세요!");
+      alert("로그인이 필요합니다.");
       setStart(false);
     }
   };
@@ -67,6 +67,14 @@ function Sell_Up({ match, history }) {
 
       })
       .catch((error) => console.log(error));
+
+      const escKeyModalClose = (e) => {
+        if (e.keyCode === 27) {
+          closeModal();
+        }
+      };
+      window.addEventListener("keydown", escKeyModalClose);
+      return () => window.removeEventListener("keydown", escKeyModalClose);
 
   }, []);
 
