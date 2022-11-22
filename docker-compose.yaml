@@ -3,9 +3,9 @@ services:
   database:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: hi!@34
-      MYSQL_DATABASE: olenaelim
-      TZ=Asia/Seoul
+      - MYSQL_ROOT_PASSWORD=hi!@34
+      - MYSQL_DATABASE=olenaelim
+      - TZ=Asia/Seoul
     command: # 수행 할 명령어
       - --character-set-server=utf8mb4  # mysql character
       - --collation-server=utf8mb4_unicode_ci # collation setting
