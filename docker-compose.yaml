@@ -6,7 +6,7 @@ services:
       MYSQL_ROOT_PASSWORD: hi!@34
       MYSQL_DATABASE: olenaelim
     volumes:
-      - ../olenaelim_data:/var/lib/mysql
+      - ./olenaelim_data:/var/lib/mysql
     networks:
       aws-internal-net:
         ipv4_address: 172.18.0.11
