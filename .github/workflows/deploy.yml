@@ -1,7 +1,7 @@
 name: CI/CD Docker
 
 on:
-  # 매일 00시 30분에 republish 예약
+#   매일 00시 30분에 republish 예약  
   schedule:
     - cron: '30 00 * * *'
   push:
@@ -9,16 +9,16 @@ on:
     tags: [ 'v*.*.*' ]
 
 env:
-  REGISTRY: ghcr.io
-  DOCKER_IMAGE_SERVER: ghcr.io/${{ github.actor }}/guad_backend
-  DOCKER_IMAGE_CLIENT: ghcr.io/${{ github.actor }}/olenaelim_client
-  VERSION: ${{ github.sha }}
+  DOCKER_IMAGE_SERVER: "moongchi18/olenaelim_server"
+  DOCKER_IMAGE_CLIENT: "moongchi18/olenaelim_client"
+#   VERSION: ${{ github.sha }}
+  VERSION: latest
   NAME: olenaelim_cicd
   
   #aws
   AWS_REGION: ap-northeast-2                  
   S3_BUCKET_NAME: olenaelim-cicd-bucket
-  CODE_DEPLOY_APPLICATION_NAME: olenaelim-code_deploy_app
+  CODE_DEPLOY_APPLICATION_NAME: olenaelim-codedeploy-app
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: olenaelim-codedeploy-deployment-group
 
 permissions:
@@ -65,133 +65,28 @@ jobs:
       
     # image build
       - name: Server Build the Docker image
-        run: docker build . --file ServerDockerfile --tag olenaelim_server:$(date +%s)
-        working-directory: ../
+        run: docker build . --file ServerDockerfile --tag ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}}
     
-    # image build
       - name: Client Build the Docker image        
-        run: docker build . --file ClientDockerfile --tag olenaelim_client:$(date +%s)
+        run: docker build . --file ClientDockerfile --tag ${{ env.DOCKER_IMAGE_CLIENT }}:${{env.VERSION}}
 
-    # image push
-      ## Install the cosign tool except on PR
-      ## https://github.com/sigstore/cosign-installer
-      - name: Install cosign
+#     # image push          
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+                
+#       ## Login against a Docker registry except on PR
+#       ## https://github.com/docker/login-action
+      - name: Log into registry dockhub
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6 #v2.6.0
+        uses: docker/login-action@v2
         with:
-          cosign-release: 'v1.11.0'
+          username: ${{ secrets.OLENAELIM_DOCKHUB_NICKNAME }}
+          password: ${{ secrets.OLENAELIM_DOCKHUB_TOKEN }}
           
-          
-      ## Workaround: https://github.com/docker/build-push-action/issues/461
-      - name: Setup Docker buildx
-        uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
-        
-        
-      ## Login against a Docker registry except on PR
-      ## https://github.com/docker/login-action
-      - name: Log into registry ghcr.io
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.OLENAELIM_GHCR_TOKEN }}
-          
-      ## Extract metadata (tags, labels) for Docker
-      ## https://github.com/docker/metadata-action
-      - name: Server Extract Docker metadata
-        id: meta_Server
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ghcr.io/${{ env.DOCKER_IMAGE_SERVER }}
-      
-      - name: Client Extract Docker metadata
-        id: meta_Client
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ghcr.io/${{ env.DOCKER_IMAGE_CLIENT }}
-          
-      ## Build and push Docker image with Buildx (don't push on PR)
-      ## https://github.com/docker/build-push-action
-      - name: Server Build and push Docker image
-        id: server-build-and-push
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta_Server.outputs.tags }}
-          labels: ${{ steps.meta_Server.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          
-      - name: Client Build and push Docker image
-        id: client-build-and-push
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta_Client.outputs.tags }}
-          labels: ${{ steps.meta_Client.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          
-#       ## Sign the resulting Docker image digest except on PRs.
-#       ## This will only write to the public Rekor transparency log when the Docker
-#       ## repository is public to avoid leaking data.  If you would like to publish
-#       ## transparency data even for private images, pass --force to cosign below.
-#       ## https://github.com/sigstore/cosign
-#       - name: Server Sign the published Docker image
-#         if: ${{ github.event_name != 'pull_request' }}
-#         env:
-#           COSIGN_EXPERIMENTAL: "true"
-#         ### This step uses the identity token to provision an ephemeral certificate
-#         ### against the sigstore community Fulcio instance.
-#         run: echo "${{ steps.meta_Server.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.server-build-and-push.outputs.digest }}
-
-#       - name: Client Sign the published Docker image
-#         if: ${{ github.event_name != 'pull_request' }}
-#         env:
-#           COSIGN_EXPERIMENTAL: "true"
-#         ### This step uses the identity token to provision an ephemeral certificate
-#         ### against the sigstore community Fulcio instance.
-#         run: echo "${{ steps.meta_Client.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.client-build-and-push.outputs.digest }}
+      - name : image push dockhub
+        run: docker image push ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}} && docker image push ${{ env.DOCKER_IMAGE_CLIENT }}:${{env.VERSION}}
       
     # start deploy
-      
-# #       - name: Set up docker buildx
-# #         id: buildx
-# #         uses: docker/setup-buildx-action@v1
-      
-# #       - name: Cache docker layers
-# #         uses: actions/cache@v2
-# #         with:
-# #           path: /tmp/.buildx-cache
-# #           key: ${{ runner.os }}-buildx-${{ env.VERSION }}
-# #           restore-keys: |
-# #             ${{ runner.os }}-buildx-
-      
-#       - name: Login to ghcr
-#         uses: docker/login-action@v1
-#         with:
-#           registry: ghcr.io
-#           username: ${{ github.actor }}
-#           password: ${{ secrets.OLENAELIM_GHCR_TOKEN }}
-      
-#       - name: Server Build and Push
-#         id: server_build
-#         uses: docker/build-push-action@v2
-#         with:
-#           builder: ${{ steps.buildx.outputs.name }}
-#           push: true
-#           tags: ${{ env.DOCKER_IMAGE_SERVER }}:latest
-      
-#       - name: Client Build and Push
-#         id: client_build
-#         uses: docker/build-push-action@v2
-#         with:
-#           builder: ${{ steps.buildx.outputs.name }}
-#           push: true
-#           tags: ${{ env.DOCKER_IMAGE_CLIENT }}:latest
 
   deploy:
     needs: build
@@ -201,18 +96,56 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Login to ghcr
-        uses: docker/login-action@v1
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with: 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          
+      - id: install-aws-cli
+        uses: unfor19/install-aws-cli-action@v1.0.4
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.OLENAELIM_GHCR_TOKEN }}
-          
-      - name: Docker run
+          version: 2     # default
+          verbose: false # default
+          arch: amd64    # allowed values: amd64, arm64
+          rootdir: ""    # defaults to "PWD"
+          workdir: ""    # defaults to "PWD/unfor19-awscli"
+      
+#       - name: Login to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v1
+      
+#       S3 파일 정리
+      - name: Delete to AWS S3
+        run : aws s3 rm s3://$S3_BUCKET_NAME/ --recursive --include "*"
+      
+      # S3 코드 업로드
+      - name: Upload to AWS S3
         run: |
-          docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:0.0.1-SNAPSHOT
-          docker run -d -p 9090:8080 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
+          aws deploy push \
+            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --ignore-hidden-files \
+            --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+            --source . 
+
+      # https://docs.aws.amazon.com/cli/latest/reference/deploy/create-deployment.html
+      - name: Deploy to AWS EC2 from S3
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+           --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
           
-          docker stop ${{ env.DOCKER_IMAGE_CLIENT }} && docker rm ${{ env.DOCKER_IMAGE_CLIENT }} && docker rmi ${{ env.DOCKER_IMAGE_CLIENT }}:latest
-          docker run -d -p 33000:80 --name ${{ env.DOCKER_IMAGE_CLIENT }} --restart always ${{ env.DOCKER_IMAGE_CLIENT }}:latest
+          
+#       - name: Docker Server run
+#         run: |
+#           docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:${{ env.VERSION }}
+#           docker run -d -p 9090:8080 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
+      
+#       - name: Docker Client run
+#         run: |
+#           docker stop ${{ env.DOCKER_IMAGE_CLIENT }} && docker rm ${{ env.DOCKER_IMAGE_CLIENT }} && docker rmi ${{ env.DOCKER_IMAGE_CLIENT }}:${{ env.VERSION }}
+#           docker run -d -p 33000:80 --name ${{ env.DOCKER_IMAGE_CLIENT }} --restart always ${{ env.DOCKER_IMAGE_CLIENT }}:latest
