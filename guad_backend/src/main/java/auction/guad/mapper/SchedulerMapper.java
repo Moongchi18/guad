@@ -2,12 +2,16 @@ package auction.guad.mapper;
 
 import java.util.List;
 
-import auction.guad.dto.SellItemDto;
+import org.apache.ibatis.annotations.Mapper;
 
+import auction.guad.dto.SellItemDto;
+import auction.guad.dto.SellItemResultDto;
+
+@Mapper
 public interface SchedulerMapper {
-	List<SellItemDto> auctionPeriodCheck() throws Exception;
-	void auctionSellitemUpdate(SellItemDto sellitem) throws Exception;
+	List<SellItemResultDto> auctionPeriodCheck() throws Exception;
+	void auctionSellitemUpdate(int itemNum) throws Exception;
+	int auctionResultInsert(SellItemResultDto sellItemResultDto) throws Exception;
 	void auctionDelete(SellItemDto sellitem) throws Exception;
-	int auctionResultInsert(SellItemDto sellitem) throws Exception;
 	
 }

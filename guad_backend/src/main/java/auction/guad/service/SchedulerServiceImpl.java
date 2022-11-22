@@ -3,27 +3,38 @@ package auction.guad.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import auction.guad.dto.SellItemDto;
+import auction.guad.dto.SellItemResultDto;
 import auction.guad.mapper.SchedulerMapper;
 
-public class SchedulerServiceImpl {
+@Service
+public class SchedulerServiceImpl implements SchedulerService {
 	
 	@Autowired
 	SchedulerMapper schedulerMapper;
-
-	public List<SellItemDto> auctionPeriodCheck() throws Exception {
+	
+	@Override
+	public List<SellItemResultDto> auctionPeriodCheck() throws Exception {
 		return schedulerMapper.auctionPeriodCheck();
 	}
 	
-	public void auctionSellitemUpdate(SellItemDto sellItem) throws Exception{
-		schedulerMapper.auctionSellitemUpdate(sellItem);
+	@Override
+	public void auctionSellitemUpdate(int itemNum) throws Exception{
+		schedulerMapper.auctionSellitemUpdate(itemNum);
 	}
 	
+	@Override
+	public int auctionResultInsert(SellItemResultDto sellItemResultDto) throws Exception {
+		return schedulerMapper.auctionResultInsert(sellItemResultDto);
+	}
+	
+	@Override
 	public void auctionDelete(SellItemDto sellItem) throws Exception {
 		schedulerMapper.auctionDelete(sellItem);
 	}
-	public int auctionResultInsert(SellItemDto sellItem) throws Exception {
-		return schedulerMapper.auctionResultInsert(sellItem);
-	}
+	
+	
+
 }
