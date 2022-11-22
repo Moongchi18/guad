@@ -4,7 +4,7 @@ cd $REPOSITORY
 echo ">> 실행" 
 # docker kill $(docker ps -q) || true
 list=$(docker ps -q)
-if [ -n $names ]; then 
+if [ -n $list ]; then 
   docker kill $list
 else
   docker-compose pull && docker-compose up -d;
