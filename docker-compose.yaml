@@ -5,6 +5,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: hi!@34
       MYSQL_DATABASE: olenaelim
+    command: # 수행 할 명령어
+      - --character-set-server=utf8mb4  # mysql character
+      - --collation-server=utf8mb4_unicode_ci # collation setting
+      - --lower_case_table_names=1 # 테이블 이름은 디스크에 소문자로 저장되며, 이름 비교는 대소문자를 구분하지 않습니다.
     volumes:
       - /home/ubuntu/olenaelim_data:/var/lib/mysql
     networks:
