@@ -3,16 +3,18 @@ import { useEffect, useState } from "react";
 import style from "../../source/Moodal9.module.css";
 
 function My_Notify({ modalChange3, closeModal3 }) {
-
   const [datas, setDatas] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/my/list`)
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/my/list`
+      )
       .then((response) => {
         setDatas(response.data);
         console.log(response.data);
       });
   }, []);
+ 
 
   console.log(datas[0]);
   return (
@@ -29,18 +31,16 @@ function My_Notify({ modalChange3, closeModal3 }) {
               <p>내용</p>
             </div>
             <ul>
-            {datas &&
-            datas.map((notify) => (
-              <li key={notify.notifyNum}>
-                <div>
-                  <span>{notify.notifyTitle}</span>
-                  <span>{notify.sellerEmail}</span>
-                </div>
-                <p>
-                  {notify.notifyContents}
-                </p>
-              </li>
-            ))}             
+              {datas &&
+                datas.map((notify) => (
+                  <li key={notify.notifyNum}>
+                    <div>
+                      <span>{notify.notifyTitle}</span>
+                      <span>{notify.sellerEmail}</span>
+                    </div>
+                    <p>{notify.notifyContents}</p>
+                  </li>
+                ))}
             </ul>
           </div>
           <div className={style.modalfooter}>
