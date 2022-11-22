@@ -5,6 +5,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: hi!@34
       MYSQL_DATABASE: olenaelim
+      MYSQL_USER: olenaelim
+      MYSQL_PASSWORD: hi!@34
     volumes:
       - /home/ubuntu/olenaelim_data:/var/lib/mysql
     networks:
