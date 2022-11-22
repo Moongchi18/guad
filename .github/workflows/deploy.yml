@@ -1,7 +1,7 @@
 name: CI/CD Docker
 
 on:
-#   매일 00시 30분에 republish 예약 
+#   매일 00시 30분에 republish 예약  
   schedule:
     - cron: '30 00 * * *'
   push:
