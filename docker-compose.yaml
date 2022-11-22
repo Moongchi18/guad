@@ -9,6 +9,7 @@ services:
     command: # 수행 할 명령어
       - --character-set-server=utf8mb4  # mysql character
       - --collation-server=utf8mb4_unicode_ci # collation setting
+      - --lower_case_table_names=1
     volumes:
       - /home/ubuntu/olenaelim_data:/var/lib/mysql
     networks:
