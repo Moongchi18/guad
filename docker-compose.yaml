@@ -5,8 +5,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: hi!@34
       MYSQL_DATABASE: olenaelim
-      MYSQL_USER: olenaelim
-      MYSQL_PASSWORD: hi!@34
     volumes:
       - /home/ubuntu/olenaelim_data:/var/lib/mysql
     networks:
@@ -22,7 +20,7 @@ services:
       - database
     environment:
       DB_CONNECTION_URL: jdbc:log4jdbc:mysql://172.18.0.11:3306/olenaelim?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
-      DB_USERNAME: olenaelim
+      DB_USERNAME: root
       DB_PASSWORD: hi!@34
     restart: always
     networks:
