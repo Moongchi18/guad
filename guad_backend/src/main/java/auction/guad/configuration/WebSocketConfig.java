@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
 		registry.addEndpoint("/ws")
 				// CORS
 				// websocket에 연결을 허용할 origin, security와 별도로 설정 필요
-				.setAllowedOriginPatterns("http://localhost:3000", "http://localhost:33000", "http://olenaelim.com:33000")
+				.setAllowedOriginPatterns("http://localhost:3000", "http://localhost:33000", "http://52.79.138.125:33000")
 				// websocket를 지원하지 않는 브라우저에서 websocket을 사용할 수 있도록 지원해주는 
 				// SockJS를 사용하겠다
 				.withSockJS();
