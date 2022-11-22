@@ -9,7 +9,8 @@ import auction.guad.dto.SellItemResultDto;
 
 @Mapper
 public interface SchedulerMapper {
-	List<SellItemResultDto> auctionPeriodCheck() throws Exception;
+	List<SellItemResultDto> auctionUpPeriodCheck() throws Exception;
+	List<SellItemResultDto> auctionDownPeriodCheck() throws Exception;
 	void auctionSellitemUpdate(int itemNum) throws Exception;
 	int auctionResultInsert(SellItemResultDto sellItemResultDto) throws Exception;
 	void auctionDelete(SellItemDto sellitem) throws Exception;

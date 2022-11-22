@@ -26,16 +26,18 @@ public class SchedulerController {
 	}
 	
 	@Scheduled(cron = "01 * * * * ?")
-    public void scheduleAuctionCheck() throws Exception {
-		List<SellItemResultDto> overPeriod = schedulerService.auctionPeriodCheck();
-		System.err.println(schedulerService.auctionPeriodCheck());
+    public void scheduleAuctionUpCheck() throws Exception {
+		List<SellItemResultDto> overPeriod = schedulerService.auctionUpPeriodCheck();
+		System.err.println(schedulerService.auctionUpPeriodCheck());
 		
 		for(int i = 0; i < overPeriod.size(); i++) {
 			schedulerService.auctionSellitemUpdate(overPeriod.get(i).getItemNum());
 		}
 		
 		for(int i = 0; i< overPeriod.size(); i++) {
-			schedulerService.auctionResultInsert(overPeriod.get(i));
+			overPeriod.get(i).setSellState('w');
+			overPeriod.get(i).setSellType('u');
+			System.out.println(">>>>>>>>" + schedulerService.auctionResultInsert(overPeriod.get(i)));
 		}
     }
 }

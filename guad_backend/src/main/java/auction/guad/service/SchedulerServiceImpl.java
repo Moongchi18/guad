@@ -16,8 +16,13 @@ public class SchedulerServiceImpl implements SchedulerService {
 	SchedulerMapper schedulerMapper;
 	
 	@Override
-	public List<SellItemResultDto> auctionPeriodCheck() throws Exception {
-		return schedulerMapper.auctionPeriodCheck();
+	public List<SellItemResultDto> auctionUpPeriodCheck() throws Exception {
+		return schedulerMapper.auctionUpPeriodCheck();
+	}
+	
+	@Override
+	public List<SellItemResultDto> auctionDownPeriodCheck() throws Exception {
+		return schedulerMapper.auctionDownPeriodCheck();
 	}
 	
 	@Override
