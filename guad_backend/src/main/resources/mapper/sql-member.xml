@@ -42,7 +42,7 @@
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="auction.guad.dto.MemberDto">
 		INSERT INTO MEMBER(NICKNAME, PASS, EMAIL, PHONE, ADDRESS, ADDRESS_DETAIL, GENDER, JOIN_DATE_TIME) 
-			VALUES (#{nickname}, #{pass}, #{email}, #{phone}, #{address}, #{addressDetail}, #{gender}, now())
+		VALUES (#{nickname}, #{pass}, #{email}, #{phone}, #{address}, #{addressDetail}, #{gender}, now())
 		<selectKey keyProperty="memberNum" resultType="Integer">
         	select last_insert_id()
     	</selectKey>
