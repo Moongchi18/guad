@@ -7,8 +7,11 @@ services:
       MYSQL_DATABASE: olenaelim
     volumes:
       - ../olenaelim_data:/var/lib/mysql
+    networks:
+      aws-internal-net:
+        ipv4_address: 172.18.0.11
     ports:
-      - 33306:3306
+      - 3306:3306
     restart: always
   
   server:
@@ -16,17 +19,27 @@ services:
     depends_on:
       - database
     environment:
-      DB_CONNECTION_URL: jdbc:log4jdbc:mysql://database:3306/olenaelim?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
-      DB_USERNAME: root
+      DB_CONNECTION_URL: jdbc:log4jdbc:mysql://172.18.0.11:3306/olenaelim?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
+      DB_USERNAME: olenaelim
       DB_PASSWORD: hi!@34
     restart: always
+    networks:
+      aws-internal-net:
+        ipv4_address: 172.18.0.21
     ports:
       - 9090:8080
 
   client:
     image: moongchi18/olenaelim_client:latest
     restart: always
+    networks:
+      aws-internal-net:
+        ipv4_address: 172.18.0.31
     ports:
-      - 33000:80
+      - 80:80
 
+networks: 
+  aws-internal-net: 
+    external: 
+      name: olenaelim
       

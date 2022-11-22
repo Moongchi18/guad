@@ -104,7 +104,6 @@ public class NotifyController {
 		System.out.println(">>>>>>>>>>>>>>>>>" + notifyService.notifyDetail(notifyNum));
 
 		return notifyService.notifyDetail(notifyNum);
-
 	}
 
 }

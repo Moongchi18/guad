@@ -1,6 +1,7 @@
 import CarouselB from "./CarouselB";
 import style from "../source/Main.module.css";
 import { useEffect, useRef, useState } from "react";
+import video from "../source/img/back_01.mp4";
 
 function Main() {
   const [tip, setTip] = useState(false);
@@ -8,11 +9,16 @@ function Main() {
   return (
     <>
       <div className={style.all_back}>
+        <div className={style.control}>
+          <video autoPlay loop muted className={style.back_v}>
+            <source src={video} type="video/mp4" />
+          </video>
+        </div>
         <CarouselB />
         <span className={style.side_text}>
           오르내림은 중고 경매 거래 사이트로
           <br />
-          가격을 경쟁하는 오름경매, 시간이 지남에 따라 가격을 인하하는 내림경매,
+          가격을 올려가며 경쟁하는 오름경매, 점점 할인해서 판매하는 내림경매,
           <br />
           상품을 확인해 판매자와 직접 거래하는 일반거래 시스템을 제공합니다.
         </span>

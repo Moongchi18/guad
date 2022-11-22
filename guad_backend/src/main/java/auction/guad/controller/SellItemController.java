@@ -2,7 +2,9 @@ package auction.guad.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,9 +14,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +25,7 @@ import auction.guad.service.AuctionService;
 import auction.guad.service.ImgService;
 import auction.guad.service.MemberService;
 import auction.guad.service.SellItemService;
+import auction.guad.vo.AuctionVo;
 import auction.guad.vo.SellItemJoinMemberVo;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -134,9 +134,75 @@ public class SellItemController {
 	public ResponseEntity<SellItemJoinMemberVo> openOrmSellItemDetail(@PathVariable("itemNum") int itemNum)
 			throws Exception {
 		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailContainHitCnt(itemNum);
+		
+		
+		StringBuffer sb = new StringBuffer();
+		StringBuffer sb2 = new StringBuffer();
+		String basic = "0";
+		
+		Optional<AuctionVo> test = Optional.ofNullable(auctionService.lastAuction(itemNum));
+		if(test.isPresent()) {
+			sellItem.setBeforeAuctionPrice(auctionService.lastAuction(itemNum).getAuctionPrice());
+			sellItem.setBeforeNickname(memberService.managerSelectMemberDetailByEmail(auctionService.lastAuction(itemNum).getMemberEmail()).getNickname());
+			ArrayList<Integer> arrbidAmount = new ArrayList<>();
+			int bidAmount = (int) sellItem.getBeforeAuctionPrice();
+			if(bidAmount > 0) {
+				while (bidAmount > 0) {
+					arrbidAmount.add(bidAmount % 10);
+					bidAmount /= 10;
+				}
+			} else {
+				bidAmount = sellItem.getAuctionStartPrice();
+				while (bidAmount > 0) {
+					arrbidAmount.add(bidAmount % 10);
+					bidAmount /= 10;
+				}
+			}
+			
+			
+			
+			
+			sb.append(arrbidAmount.get(arrbidAmount.size() - 1));
+			sb.append(arrbidAmount.get(arrbidAmount.size() - 2));
+
+			if (arrbidAmount.get(arrbidAmount.size() - 2) != 0) {
+				for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+					sb.append(basic);
+				}
+			} else {
+				for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+					sb.append(basic);
+				}
+			}
+
+			if (arrbidAmount.get(arrbidAmount.size() - 1) < 5) {
+				sb2.append("1");
+				for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+					sb2.append(basic);
+				}
+			} else {
+				sb2.append("5");
+				for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+					sb2.append(basic);
+				}
+			}
+		} else {
+			sellItem.setBeforeAuctionPrice(0);
+			sellItem.setBeforeNickname("");
+		}
+		
 		System.out.println(sellItem);
 		
-		
+			
+		try {
+			int currentPrice = Integer.parseInt(sb.toString());
+			int plusePrice = Integer.parseInt(sb2.toString());
+			sellItem.setBidPrice(currentPrice + plusePrice);
+			System.out.println("5>>>>>>>>>>>>>>>" + currentPrice);
+			System.out.println("6>>>>>>>>>>>>>>>" + plusePrice);
+		} catch (NumberFormatException ex) {
+			ex.printStackTrace();
+		}
 		
 		if (sellItem == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

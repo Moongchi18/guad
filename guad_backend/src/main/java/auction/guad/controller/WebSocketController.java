@@ -1,10 +1,9 @@
 package auction.guad.controller;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +17,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import auction.guad.controller.model.Auction;
 import auction.guad.controller.model.Message;
 import auction.guad.dto.AuctionDownDto;
 import auction.guad.dto.MemberDto;
-import auction.guad.dto.SellItemResultDto;
 import auction.guad.security.JwtTokenUtil;
 import auction.guad.service.AuctionService;
 import auction.guad.service.MemberService;
@@ -63,28 +60,6 @@ public class WebSocketController {
 		return bid;
 	}
 
-//	@MessageMapping("/bidlist/{itemNum}")
-//	@SendTo("/sub/{itemNum}/bidlist")
-//	public Auction testList(@Payload Auction auction, @DestinationVariable int itemNum, @Header String Authorization)
-//			throws Exception {
-//		System.out.println("<<<<<<<<<<" + auction);
-//		String token = Authorization.substring(7);
-//		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
-//		MemberDto member = memberService.loginContainPass(claims.getSubject());
-//		
-//		auction.setNickname(member.getNickname());
-//		auction.setMemberEmail(member.getEmail());
-//		
-//		int bidNum = auctionService.tryAuction(auction);
-//		if (bidNum > 0) {
-//			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
-//					"/sub/" + itemNum + "/bidlist", auction);
-//			bid = auction.getAuctionPrice();
-//			return auction;
-//		
-//		}
-//		return null;
-//	}
 
 	@ApiOperation(value = "오름 경매 상세 조회", notes = "오름 경매 상세 정보를 조회")
 	@MessageMapping("/sellitem/auction/u/{itemNum}")
@@ -92,7 +67,17 @@ public class WebSocketController {
 	public AuctionVo openOllimSellItemDetail(@Payload AuctionVo auction, @DestinationVariable int itemNum,
 			@Header String Authorization) throws Exception {
 		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailNoHitCnt(itemNum);
-
+		
+		Optional<AuctionVo> test = Optional.ofNullable(auctionService.lastAuction(itemNum));
+		if(test.isPresent()) {
+			auction.setBeforeAuctionPrice(auctionService.lastAuction(itemNum).getAuctionPrice());
+			System.out.println(">>>>>>>>>>>>>>" + auction.getBeforeAuctionPrice());
+			auction.setBeforeNickname(memberService.managerSelectMemberDetailByEmail(auctionService.lastAuction(itemNum).getMemberEmail()).getNickname());
+		} else {
+			auction.setBeforeAuctionPrice(0);
+			auction.setBeforeNickname("");
+		}
+		
 		String token = Authorization.substring(7);
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
@@ -103,17 +88,26 @@ public class WebSocketController {
 		StringBuffer sb = new StringBuffer();
 		StringBuffer sb2 = new StringBuffer();
 		String basic = "0";
-		int bidAmount = auction.getAuctionPrice();
-
+		int bidAmount;
+		
+		if(auction.getBeforeAuctionPrice() != 0) {
+			bidAmount = auction.getAuctionPrice();
+		}else {
+			bidAmount = sellItem.getAuctionStartPrice();
+		}
+	
+		
+		System.out.println("1>>>>>>>>>>>>" + auction.getBeforeAuctionPrice());
+		System.out.println("1>>>>>>>>>>>>" + auction.getAuctionPrice());
+		System.out.println(sellItem.getAuctionStartPrice());
+		System.out.println(auction.getBeforeAuctionPrice());
+		
+		
 		ArrayList<Integer> arrbidAmount = new ArrayList<>();
 		while (bidAmount > 0) {
 			arrbidAmount.add(bidAmount % 10);
 			bidAmount /= 10;
 		}
-
-		System.out.println("1>>>>>>>>>>>>>>>" + arrbidAmount);
-		System.out.println("2>>>>>>>>>>>>>>>" + arrbidAmount.get(arrbidAmount.size() - 3));
-		System.out.println(arrbidAmount.size() - 3);
 
 		sb.append(arrbidAmount.get(arrbidAmount.size() - 1));
 		sb.append(arrbidAmount.get(arrbidAmount.size() - 2));
@@ -143,6 +137,10 @@ public class WebSocketController {
 		System.out.println("3>>>>>>>>>>>>>>>" + sb.toString());
 		System.out.println("4>>>>>>>>>>>>>>>" + sb2.toString());
 		// 변경된 값을 넣어준다.
+		
+
+		int bidNum = auctionService.tryAuction(auction);
+		
 		try {
 			int currentPrice = Integer.parseInt(sb.toString());
 			int plusePrice = Integer.parseInt(sb2.toString());
@@ -152,8 +150,8 @@ public class WebSocketController {
 		} catch (NumberFormatException ex) {
 			ex.printStackTrace();
 		}
-
-		int bidNum = auctionService.tryAuction(auction);
+		
+		auction.setBeforeAuctionPrice(auctionService.lastAuction(itemNum).getAuctionPrice());
 
 		if (auction.getAuctionPrice() > sellItem.getAuctionMaxPrice() && bidNum > 0) {
 			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
@@ -165,7 +163,6 @@ public class WebSocketController {
 					"/sub/sellitem/auction/u/" + itemNum, auction);
 			return auction;
 		}
-
 	}
 
 	@ApiOperation(value = "내림 경매 상세 조회", notes = "내림 경매 상세 정보를 조회")

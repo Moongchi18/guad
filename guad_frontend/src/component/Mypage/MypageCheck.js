@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import Mileage from "../Moodal/Mileage";
+import My_Notify from "../Moodal/My_Notify";
 
 function MypageCheck({ history }) {
   const [data, setData] = useState({
@@ -20,12 +21,27 @@ function MypageCheck({ history }) {
           mileage: response.data.mileage,
         });
       });
+      const escKeyModalClose = (e) => {
+        if (e.keyCode === 27) {
+          closeModal3();
+          closeModal();
+        }
+      };
+      window.addEventListener("keydown", escKeyModalClose);
+      return () => window.removeEventListener("keydown", escKeyModalClose);
   }, []);
 
   const [pass, setPass] = useState("");
 
   const changePass = (e) => {
     setPass(e.target.value);
+  };
+
+  // 엔터로 입력
+  const onKeyEnter = (e) => {
+    if (e.key == "Enter") {
+      handleCheck();
+    }
   };
 
   const handleCheck = () => {
@@ -46,9 +62,20 @@ function MypageCheck({ history }) {
   const openModal = () => {
     modalChange.current.style = "display:block;";
   };
+  // 내 신고내역 보기
+  const modalChange3 = useRef();
+
+  const closeModal3 = () => {
+    modalChange3.current.style = "display:none;";
+  };
+
+  const openModal3 = (e) => {
+    modalChange3.current.style = "display:block;";
+  };
 
   return (
     <>
+      <My_Notify modalChange3={modalChange3} closeModal3={closeModal3} />
       <Mileage closeModal={closeModal} modalChange={modalChange} />
       <div className={style.All_Mboxi}>
         <Link to="/mypage">
@@ -84,7 +111,7 @@ function MypageCheck({ history }) {
                   <p>마일리지</p>
                 </li>
                 <li>
-                  <button type="button"></button>
+                  <button type="button" onClick={openModal3}></button>
                   <p>신고내역</p>
                 </li>
               </ul>
@@ -100,6 +127,7 @@ function MypageCheck({ history }) {
             type="password"
             placeholder="비밀번호를 입력해주세요."
             onChange={changePass}
+            onKeyDown={onKeyEnter}
           />
 
           <button type="button" onClick={handleCheck} value={pass}>
