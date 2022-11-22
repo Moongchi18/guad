@@ -1,4 +1,6 @@
-echo docker-compose down
+echo "<<<<<<<<<<stop process check"
+
+# echo docker-compose down
 
 
 
