@@ -28,7 +28,7 @@ jobs:
   build:
     name: Client And Server Build
     
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu:latest
     permissions:
       contents: read
       packages: write
