@@ -6,7 +6,7 @@ import axios from "axios";
 import Mileage from "../Moodal/Mileage";
 import My_Notify from "../Moodal/My_Notify";
 
-function MypageCheck({ history}) {
+function MypageCheck({ history }) {
   const [data, setData] = useState({
     nickname: "",
     mileage: 0,
@@ -27,6 +27,13 @@ function MypageCheck({ history}) {
 
   const changePass = (e) => {
     setPass(e.target.value);
+  };
+
+  // 엔터로 입력
+  const onKeyEnter = (e) => {
+    if (e.key == "Enter") {
+      handleCheck();
+    }
   };
 
   const handleCheck = () => {
@@ -57,7 +64,7 @@ function MypageCheck({ history}) {
   const openModal3 = (e) => {
     modalChange3.current.style = "display:block;";
   };
-  
+
   return (
     <>
       <My_Notify modalChange3={modalChange3} closeModal3={closeModal3} />
@@ -112,6 +119,7 @@ function MypageCheck({ history}) {
             type="password"
             placeholder="비밀번호를 입력해주세요."
             onChange={changePass}
+            onKeyDown={onKeyEnter}
           />
 
           <button type="button" onClick={handleCheck} value={pass}>
