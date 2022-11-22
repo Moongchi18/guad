@@ -91,7 +91,7 @@ jobs:
   deploy:
     needs: build
     name: Deploy
-    runs-on: [ label-go ]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
