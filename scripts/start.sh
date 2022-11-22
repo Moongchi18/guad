@@ -5,7 +5,8 @@ echo ">> 실행"
 # docker kill $(docker ps -q) || true
 list=$(docker ps -q)
 if [ -n $list ]; then 
-  docker kill $list
+  docker kill $list;
+  docker-compose pull && docker-compose up -d;
 else
   docker-compose pull && docker-compose up -d;
 fi
