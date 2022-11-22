@@ -2,21 +2,21 @@ version: 0.0
 os: linux
 files:
   - source: / 
-    destination: /home/ubuntu/app
+    destination: /home/ubuntu/olenaelim/
     overwrite: yes
 
 permissions:
   - object: /
     pattern: "**"
-    owner: self-hosted
-    group: self-hosted
+    owner: ubuntu
+    group: ubuntu
         
 hooks:
   AfterInstall:
     - location: scripts/stop.sh
       timeout: 60
-      runas: self-hosted
+      runas: ubuntu
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 60
-      runas: self-hosted
+      runas: ubuntu

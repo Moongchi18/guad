@@ -10,6 +10,7 @@ public class SellItemResultDto {
 
 	private int itemNumResult;
 	private int itemNum;
+	private char sellState;
 	private char sellType;
 	private String sellerEmail;
 	private String sellerPhone;
