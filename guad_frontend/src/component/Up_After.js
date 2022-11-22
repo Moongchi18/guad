@@ -95,7 +95,15 @@ function Up_After({
   var discountRateNow =
     100 - (auctionCurrentPrice / item.auctionStartPrice) * 100;
   ////////////////////////////////////
-
+  useEffect(() => {
+    const escKeyModalClose = (e) => {
+      if (e.keyCode === 27) {
+        closeModal2();
+      }
+    };
+    window.addEventListener("keydown", escKeyModalClose);
+    return () => window.removeEventListener("keydown", escKeyModalClose);
+  }, []);
   return (
     <>
       <UpConfirm
@@ -161,7 +169,7 @@ function Up_After({
                   ? "최고 경매가 달성"
                   : bid === 0
                   ? item.auctionStartPrice?.toLocaleString()
-                  : "입찰하기 : "+`${bid?.toLocaleString()}`}
+                  : "입찰하기 : " + `${bid?.toLocaleString()}`}
               </p>
             </button>
             <button type="button" className={style.try_buy}>

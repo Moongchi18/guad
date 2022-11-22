@@ -9,7 +9,7 @@ function SellItem({ history, match }) {
   const [auctionPeriodText, setAuctionPeriodText] = useState();
   const [price, setPrice] = useState(0);
   const [imgList, setImgList] = useState([]);
-  
+
   const [review, setReview] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
 
@@ -51,17 +51,26 @@ function SellItem({ history, match }) {
       )
       .then((response) => {
         setReview(response.data);
-        let sumRating = 0
-        if(response.data.length > 0){
-          response.data.forEach(element => {
-            sumRating += element.starPoint
+        let sumRating = 0;
+        if (response.data.length > 0) {
+          response.data.forEach((element) => {
+            sumRating += element.starPoint;
           });
-          sumRating = Math.round(sumRating / response.data.length * 10) / 10
+          sumRating = Math.round((sumRating / response.data.length) * 10) / 10;
         }
-        setAverageRating(sumRating)
+        setAverageRating(sumRating);
         console.log(response.data);
       })
       .catch((error) => console.log(error));
+
+    const escKeyModalClose = (e) => {
+      if (e.keyCode === 27) {
+        closeModal();
+        closeModal2();
+      }
+    };
+    window.addEventListener("keydown", escKeyModalClose);
+    return () => window.removeEventListener("keydown", escKeyModalClose);
   }, []);
 
   console.log(auctionPeriodText);
@@ -81,11 +90,11 @@ function SellItem({ history, match }) {
   };
 
   const openModal2 = () => {
-    if(sessionStorage.length != 0) {
-    modalChange2.current.style = "display:block;";
+    if (sessionStorage.length != 0) {
+      modalChange2.current.style = "display:block;";
     } else {
-      alert('로그인이 필요합니다.')
-      history.push("/login")
+      alert("로그인이 필요합니다.");
+      history.push("/login");
     }
   };
 

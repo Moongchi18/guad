@@ -11,7 +11,6 @@ function ManagerMember() {
   const [datas, setDatas] = useState([]);
   const [infoEmail, setInfoEmail] = useState("");
   const [memberUpdate, setMemberUpdate] = useState(false);
-  
 
   const handlerMember = (e) => {
     setInfoEmail(e);
@@ -29,29 +28,39 @@ function ManagerMember() {
   };
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`).then((response) => {
-      console.log(response.data);
-      setDatas(response.data);
-    });
+    axios
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setDatas(response.data);
+      });
+    const escKeyModalClose = (e) => {
+      if (e.keyCode === 27) {
+        closeModal();
+      }
+    };
+    window.addEventListener("keydown", escKeyModalClose);
+    return () => window.removeEventListener("keydown", escKeyModalClose);
   }, [memberUpdate]);
 
-
-  const onRemove = () => {    
+  const onRemove = () => {
     if (window.confirm("해당 회원을 추방하시겠습니까?")) {
       axios
-          .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
-            { email: infoEmail }
-            )
-            .then((response) => {
-             alert("회원 추방 완료")
-             setMemberUpdate(!memberUpdate)
-             modalChange.current.style = "display:none;"
-             });      
-     } else {      
-        alert("취소 되었습니다.");     
+        .post(
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
+          { email: infoEmail }
+        )
+        .then((response) => {
+          alert("회원 추방 완료");
+          setMemberUpdate(!memberUpdate);
+          modalChange.current.style = "display:none;";
+        });
+    } else {
+      alert("취소 되었습니다.");
     }
-    
-  };  
+  };
 
   return (
     <>

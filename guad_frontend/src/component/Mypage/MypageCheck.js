@@ -21,6 +21,14 @@ function MypageCheck({ history }) {
           mileage: response.data.mileage,
         });
       });
+      const escKeyModalClose = (e) => {
+        if (e.keyCode === 27) {
+          closeModal3();
+          closeModal();
+        }
+      };
+      window.addEventListener("keydown", escKeyModalClose);
+      return () => window.removeEventListener("keydown", escKeyModalClose);
   }, []);
 
   const [pass, setPass] = useState("");

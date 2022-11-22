@@ -10,7 +10,6 @@ function ManagerNotify() {
   const [notifyNum, setNotifyNum] = useState("");
 
   useEffect(() => {
-
     // axios
     //   .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/img/list`)
     //   .then((response) => {
@@ -26,7 +25,9 @@ function ManagerNotify() {
     //   });
 
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`)
+      .get(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`
+      )
       .then((response) => {
         setDatas(response.data);
         console.log(response.data);
@@ -36,8 +37,13 @@ function ManagerNotify() {
           alert("접근 권한이 없습니다. 로그인 후 다시 접속해 주세요.");
         }
       });
-
-
+    const escKeyModalClose = (e) => {
+      if (e.keyCode === 27) {
+        closeModal();
+      }
+    };
+    window.addEventListener("keydown", escKeyModalClose);
+    return () => window.removeEventListener("keydown", escKeyModalClose);
   }, []);
 
   const modalChange = useRef();
@@ -104,7 +110,6 @@ function ManagerNotify() {
                 <h3>{notify.notifyTitle}</h3>
               </div>
             ))}
-
         </div>
       </div>
     </>
