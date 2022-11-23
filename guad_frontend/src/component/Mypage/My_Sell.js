@@ -8,7 +8,7 @@ function My_Sell() {
   const [sellList, setSellList] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://localhost:8080/selllistd`).then((response) => {
+    axios.get(`http://localhost:8080/selllistd`).then((response) => {
       setSellList(response.data);    
     });
   }, []);
@@ -20,7 +20,7 @@ function My_Sell() {
           sellList.map((list) => (
          <Link to={`/sell_end/${list.sellType}/${list.itemNum}`}>
         <div className={style.sell_list}>
-          <img src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
+          <img src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
                alt={"img" + list.itemNum} />
           <h3>{list.itemSub}</h3>
         </div>
