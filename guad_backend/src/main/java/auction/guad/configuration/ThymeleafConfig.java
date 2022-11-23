@@ -22,7 +22,7 @@ public class ThymeleafConfig {
     public SpringResourceTemplateResolver springResourceTemplateResolver() {
         SpringResourceTemplateResolver springResourceTemplateResolver = new SpringResourceTemplateResolver();
         springResourceTemplateResolver.setOrder(1);
-        springResourceTemplateResolver.setPrefix("classpath:templates/");
+        springResourceTemplateResolver.setPrefix("classpath:html/");
         springResourceTemplateResolver.setSuffix(".html");
         springResourceTemplateResolver.setTemplateMode(TemplateMode.HTML);
         springResourceTemplateResolver.setCharacterEncoding("UTF-8");
