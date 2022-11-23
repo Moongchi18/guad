@@ -30,7 +30,7 @@ function ManagerMember() {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`
+        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`
       )
       .then((response) => {
         console.log(response.data);
@@ -49,7 +49,7 @@ function ManagerMember() {
     if (window.confirm("해당 회원을 추방하시겠습니까?")) {
       axios
         .post(
-          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
+          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
           { email: infoEmail }
         )
         .then((response) => {

@@ -12,7 +12,7 @@ function Sell_End_u({match}) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/normal/${match.params.itemNum}`
+        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/normal/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -44,7 +44,7 @@ function Sell_End_u({match}) {
            <img
             src={
               dataList.itemImgName &&
-              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${dataList.itemImgName}`
+              `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${dataList.itemImgName}`
             }
             alt="제품사진"
             className={style.dataList}
@@ -61,7 +61,7 @@ function Sell_End_u({match}) {
                 <img
                   src={
                     img
-                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                       : require("../source/img/no_photo.png")
                   }
                   alt={"img" + dataList.notifyNum}

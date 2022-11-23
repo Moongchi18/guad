@@ -12,7 +12,7 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
   const [result, setResult] = useState(0);
   useEffect(() => {
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
         setMember(response.data);
         setResult(response.data.mileage - auctionCurrentPrice);
@@ -41,7 +41,7 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
     } else {
       axios
         .post(
-          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell`,
+          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell`,
           requestTrade
         )
         .then((response) => {
@@ -71,7 +71,7 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
           <div className={style.modalbody2}>
             <div className={style.body_top}>
               <img
-                src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+                src={item.itemImgName && `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
                 alt={"img" + item.notifyNum}
               />
               <p className={style.tag1}>상품 정보</p>
