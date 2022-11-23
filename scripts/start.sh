@@ -11,6 +11,7 @@ else
   docker-compose pull && docker-compose up -d;
 fi
 docker image prune -af
+docker container prune -f
 
 # echo docker-compose up
 
