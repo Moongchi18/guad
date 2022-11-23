@@ -21,7 +21,7 @@ function Sell_Down({ match, history }) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/d/${match.params.itemNum}`
+        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/d/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -85,7 +85,7 @@ function Sell_Down({ match, history }) {
 
   const connect = () => {
     let Sock = new SockJS(
-      `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
+      `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
     );
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
@@ -124,10 +124,13 @@ function Sell_Down({ match, history }) {
 
   const currentTimer = () => {
     const date = new Date();
-    const minutes = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
     const seconds = String(date.getSeconds()).padStart(2, "0");
     setTimer(`${60 - minutes}분${60 - seconds}초`);
+    console.log(minutes)
+    console.log(seconds)
   };
+
 
   //setInterval(handlerBid, 5000);
   if (timer == "59분59초") {
@@ -174,7 +177,7 @@ function Sell_Down({ match, history }) {
         </h2>
         <div className={style.img_item}>
           <img
-            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+            src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
             alt={"img" + item.notifyNum}
             className={style.item}
           />
@@ -189,7 +192,7 @@ function Sell_Down({ match, history }) {
                 <img
                   src={
                     img
-                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                       : require("../source/img/no_photo.png")
                   }
                   alt={"img" + item.notifyNum}

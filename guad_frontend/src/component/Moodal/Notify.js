@@ -9,7 +9,7 @@ function Notify({ closeModal, modalChange, notifyNum}) {
   console.log(datas);
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/${notifyNum}`)
+    axios.get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/${notifyNum}`)
       .then(response => {
         setDatas(response.data);
       })

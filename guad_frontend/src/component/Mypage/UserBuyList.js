@@ -14,7 +14,7 @@ function UserBuyList({}) {
   console.log(buyList[1]);
   useEffect(() => {
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/buylist`)
+      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/buylist`)
       .then((response) => {
         console.log(response);
         setBuyList(response.data);
@@ -46,7 +46,7 @@ function UserBuyList({}) {
               <Link to={`/sell_end/${list.sellType}/${list.itemNum}`}>
               <div className={style.item_bb} key={list.itemNum}>
                 <img
-                  src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
+                  src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
                   alt={"img" + list.itemNum}
                 />
               </div>
