@@ -24,7 +24,7 @@ function Sell_End_n({ match, modalOpen }) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/normal/${match.params.itemNum}`
+        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/normal/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -56,7 +56,7 @@ function Sell_End_n({ match, modalOpen }) {
 
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
+        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -83,7 +83,7 @@ function Sell_End_n({ match, modalOpen }) {
   };
   const handleSubmit = () => {
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, {
+      .post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, {
         itemNum: match.params.itemNum,
         sellerEmail: dataList.sellerEmail,
         writerNickname: dataList.nickname,
@@ -117,7 +117,7 @@ function Sell_End_n({ match, modalOpen }) {
           <img
             src={
               dataList.itemImgName &&
-              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${dataList.itemImgName}`
+              `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${dataList.itemImgName}`
             }
             alt="제품사진"
             className={style.dataList}
@@ -134,7 +134,7 @@ function Sell_End_n({ match, modalOpen }) {
                 <img
                   src={
                     img
-                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                       : require("../source/img/no_photo.png")
                   }
                   alt={"img" + dataList.notifyNum}
