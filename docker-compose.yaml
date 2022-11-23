@@ -1,12 +1,17 @@
 version: "3.3"
 services:
   database:
-    image: mysql:8.0
+    image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: hi!@34
-      MYSQL_DATABASE: olenaelim
+      - MYSQL_ROOT_PASSWORD=hi!@34
+      - MYSQL_DATABASE=olenaelim
+      - TZ=Asia/Seoul
+    command: # 수행 할 명령어 
+      - --character-set-server=utf8mb4  # mysql character
+      - --collation-server=utf8mb4_unicode_ci # collation setting
+      - --lower_case_table_names=1
     volumes:
-      - /olenaelim_data:/var/lib/mysql
+      - /home/ubuntu/olenaelim_data:/var/lib/mysql
     networks:
       aws-internal-net:
         ipv4_address: 172.18.0.11
@@ -20,7 +25,7 @@ services:
       - database
     environment:
       DB_CONNECTION_URL: jdbc:log4jdbc:mysql://172.18.0.11:3306/olenaelim?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
-      DB_USERNAME: olenaelim
+      DB_USERNAME: root
       DB_PASSWORD: hi!@34
     restart: always
     networks:
