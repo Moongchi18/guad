@@ -103,7 +103,7 @@ function SellItem({ history, match }) {
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
-        itemNum={item.itemNum}
+        item={item}
       />
       <BuyConfirm
         closeModal2={closeModal2}

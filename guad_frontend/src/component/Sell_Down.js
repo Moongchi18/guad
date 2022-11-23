@@ -158,7 +158,7 @@ function Sell_Down({ match, history }) {
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
-        itemNum={item.itemNum}
+        item={item}
       />
       <DownConfirm
         closeModal2={closeModal2}
