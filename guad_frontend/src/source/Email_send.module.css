@@ -42,3 +42,16 @@
 .t2 {
   padding-bottom: 70px;
 }
+.E_box button {
+  width: 180px;
+  height: 40px;
+  font-size: 15px;
+  background-color: #098060;
+  color: white;
+  border-radius: 5px;
+  margin-top: 60px;
+}
+.E_box button:hover {
+  background-color: #17ac84;
+  transition: 0.3s all ease;
+}
