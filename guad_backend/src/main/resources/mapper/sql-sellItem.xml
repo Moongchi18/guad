@@ -96,6 +96,12 @@
 		WHERE ITEM_NUM = #{itemNum}
 
 	</update>
+	<update id="updateSellState2" parameterType="int">
+		UPDATE SELL_ITEM SET
+		SELL_STATE = '경매중'
+		WHERE ITEM_NUM = #{itemNum}
+
+	</update>
 
 	<delete id="deleteSellItem" parameterType="int">
 

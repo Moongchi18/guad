@@ -125,6 +125,11 @@ public class SellItemServiceImpl implements SellItemService {
 		int result = sellItemMapper.updateSellState(itemNum);
 		return result;
 	}
+	@Override
+    public int updateSellState2(int itemNum) throws Exception {
+        int result = sellItemMapper.updateSellState2(itemNum);
+        return result;
+    }
 
 	@Override
 	public List<SellItemDto> selectSearchList(String search) throws Exception {
