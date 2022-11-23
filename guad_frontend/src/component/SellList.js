@@ -139,7 +139,7 @@ function Sell_List(props) {
 
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
       .then((response) => {
         const temp1 = [];
         console.log(response.data);
@@ -154,7 +154,7 @@ function Sell_List(props) {
       .catch((error) => console.log(error));
 
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
       .then((response) => {
         console.log(response.data);
         setData(response.data);
