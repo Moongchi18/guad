@@ -27,7 +27,7 @@ function My_Notify({ modalChange3, closeModal3 }) {
           </div>
           <div className={style.modalbody}>
             <div className={style.main_tag}>
-              <p>제목 / 작성자</p>
+              <p>제목 / 물품 판매자</p>
               <p>내용</p>
             </div>
             <ul>

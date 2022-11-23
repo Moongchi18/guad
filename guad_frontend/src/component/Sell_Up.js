@@ -154,7 +154,7 @@ function Sell_Up({ match, history }) {
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
-        itemNum={item.itemNum}
+        item={item}
       />
       <div id={style.item_num} className={style.item_num}>
         {item.itemNum}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import style from "../../source/Moodal3.module.css";
 import axios from "axios";
 
-function NotifyWrite({ closeModal, modalChange, itemNum}) {
+function NotifyWrite({ closeModal, modalChange, item}) {
 
   const [notifyTitle, setNotifyTitle] = useState('');
   const [notifyContents, setMemberPass] = useState('');
@@ -17,7 +17,7 @@ function NotifyWrite({ closeModal, modalChange, itemNum}) {
     e.preventDefault();
     axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/write`,
       {
-        "itemNum": itemNum,
+        "itemNum": item.itemNum,
         "notifyTitle": notifyTitle,
         "notifyContents": notifyContents
       })
@@ -29,6 +29,13 @@ function NotifyWrite({ closeModal, modalChange, itemNum}) {
         console.log(error)
         alert("다시 신고해 주세요.");
       });
+
+      axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/emial`,
+      {
+        "itemNum": item.itemNum,
+        "notifyTitle": notifyTitle,
+        "notifyContents": notifyContents
+      })
   };
 
 
