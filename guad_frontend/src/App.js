@@ -32,6 +32,7 @@ import Sell_End_u from "./component/Sell_End_u";
 import Sell_End_d from "./component/Sell_End_d";
 import Mypage_SellList from "./component/Mypage/Mypage_SellList";
 import Sell_End_n from "./component/Sell_End_n";
+import Email_send from "./component/Email_send";
 
 function App() {
   console.log(sessionStorage.getItem("token"));
@@ -121,6 +122,8 @@ function App() {
 
       <Route path="/sell_end/n/:itemNum" component={Sell_End_n} exact={true} />
       <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />
+
+      <Route path="/email_send" component={Email_send} exact={true} />
       <Footer />
     </>
   );
