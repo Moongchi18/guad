@@ -21,7 +21,8 @@ public class EmailController {
 		public void contextLoad() throws Exception {
 			Map<String, Object> variables = new HashMap<>();
 			variables.put("title", "Study List");
-
+			
 			mailUtil.sendTemplateMail("olenaelim@google.com", "테스트 메일", "용우종", variables);
+			System.err.println(">>>>>>>>>>>>>>>" +"메일 전송완료");
 		}
 }
