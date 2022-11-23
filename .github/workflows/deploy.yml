@@ -118,8 +118,8 @@ jobs:
 #         uses: aws-actions/amazon-ecr-login@v1
       
 #       S3 파일 정리
-      - name: Delete to AWS S3
-        run : aws s3 rm s3://$S3_BUCKET_NAME/ --recursive --include "*"
+#       - name: Delete to AWS S3
+#         run : aws s3 rm s3://$S3_BUCKET_NAME/ --recursive --include "*"
       
       # S3 코드 업로드
       - name: Upload to AWS S3
