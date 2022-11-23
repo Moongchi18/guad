@@ -10,6 +10,7 @@ function My_Sell() {
   useEffect(() => {
     axios.get(`https://localhost:8080/selllistd`).then((response) => {
       setSellList(response.data);    
+   
     });
   }, []);
 
@@ -18,7 +19,7 @@ function My_Sell() {
       <div className={style.sell}>
       {sellList &&
           sellList.map((list) => (
-         <Link to={`/sell_end/${list.sellType}/${list.itemNum}`}>
+         <Link to={list.sellState === "판매완료" || list.sellState === '판매완료' ? `/sell_end/${list.sellType}/${list.itemNum}` : `/sell_item/${list.sellType}/${list.itemNum}`}>
         <div className={style.sell_list}>
           <img src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
                alt={"img" + list.itemNum} />

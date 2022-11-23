@@ -18,14 +18,13 @@ function Email_send() {
 
         <h3>접수된 신고 내역</h3>
         <div className={style.in_box}>
-          <p className={style.t1}>
-            제목 : 이건 사기물품 입니다! 제재해주세요...
-          </p>
+          <p className={style.t1}>이건 사기물품 입니다! 제재해주세요...</p>
           <p className={style.t2}>
-            내용 : 이 물건으로 큰 피해를 입었습니다. 이에대한 제재와 보상을
+            이 물건으로 큰 피해를 입었습니다. 이에대한 제재와 보상을
             마련해주세요. 판매자를 혼내주세요!!
           </p>
         </div>
+        <button type="button">오르내림 바로가기</button>
       </div>
     </>
   );

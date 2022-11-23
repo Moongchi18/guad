@@ -8,8 +8,8 @@ import { data } from "jquery";
 function Sell_End_n({ match, modalOpen }) {
   const ratingList = [1, 2, 3, 4, 5];
 
-  const [dataList, setDataList] = useState('');
-  const [soldDateText, setSoldDateText] = useState('')
+  const [dataList, setDataList] = useState("");
+  const [soldDateText, setSoldDateText] = useState("");
   const [imgList, setImgList] = useState([]);
 
   const modalChange = useRef();
@@ -29,10 +29,10 @@ function Sell_End_n({ match, modalOpen }) {
       .then((response) => {
         console.log(response.data);
         setDataList(response.data);
-        imgList.push(response.data.itemImgName)
-        imgList.push(response.data.itemImgNameSub2)
-        imgList.push(response.data.itemImgNameSub3)
-        setImgList(imgList)
+        imgList.push(response.data.itemImgName);
+        imgList.push(response.data.itemImgNameSub2);
+        imgList.push(response.data.itemImgNameSub3);
+        setImgList(imgList);
         const date = new Date(
           response.data.soldDate.slice(0, 10) +
             " " +
@@ -47,26 +47,33 @@ function Sell_End_n({ match, modalOpen }) {
 
   // review 목록 조회
   const [reviewList, setReviewList] = useState([]);
-  const [reviewUpdate, setReviewUpdate] = useState(false) // 리뷰가 작성되면 값이 바뀌고, 바뀐것을 감지해서 리뷰목록 갱신
+  const [reviewUpdate, setReviewUpdate] = useState(false); // 리뷰가 작성되면 값이 바뀌고, 바뀐것을 감지해서 리뷰목록 갱신
   const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
-    axios.get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`)
-      .then(response => {
-        console.log(response.data)
-        setReviewList(response.data)
-        let sumRating = 0
-        if(response.data.length > 0){
-          response.data.forEach(element => {
-            sumRating += element.starPoint
-          });
-          sumRating = Math.round(sumRating / response.data.length * 10) / 10
-        }
-        setAverageRating(sumRating)
-      }).catch(err => console.log(err))
-  }, [reviewUpdate])
+    console.log(sessionStorage.getItem("nickname"));
+    console.log(dataList.buyerNickname);
 
-  console.log(averageRating)
+    axios
+      .get(
+        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
+      )
+      .then((response) => {
+        console.log(response.data);
+        setReviewList(response.data);
+        let sumRating = 0;
+        if (response.data.length > 0) {
+          response.data.forEach((element) => {
+            sumRating += element.starPoint;
+          });
+          sumRating = Math.round((sumRating / response.data.length) * 10) / 10;
+        }
+        setAverageRating(sumRating);
+      })
+      .catch((err) => console.log(err));
+  }, [reviewUpdate]);
+
+  console.log(averageRating);
 
   // 리뷰 작성
   const [rating, setRating] = useState("");
@@ -176,41 +183,42 @@ function Sell_End_n({ match, modalOpen }) {
       </div>
       <div className={style.item_bot}>
         <h2>상품 설명</h2>
-        <p>
-          {dataList.itemContents}
-        </p>
+        <p>{dataList.itemContents}</p>
         {/* 구매자 == 로그인한 회원 && 해당 상품에 대한 리뷰 작성 기록이 없는 경우에만
           리뷰 작성기능 표시 */}
-        {
-          dataList.buyerNickname === sessionStorage.getItem('nickname') &&
-          reviewList.filter(review => review.writerNickname === sessionStorage.getItem('nickname') && review.itemNum === match.params.itemNum * 1).length === 0 &&
-          <div className={style.rating}>
-            <h3>거래는 어떠셨나요?</h3>
-            <div className={style.star}>
-              {ratingList.map((r, index) => (
-                <img
-                  src={
-                    r <= rating
-                      ? require("../source/img/rating1.png")
-                      : require("../source/img/rating2.png")
-                  }
-                  alt="별점"
-                  name={r}
-                  onClick={ratingClick}
-                  key={index}
-                />
-              ))}
+        {dataList.buyerNickname === sessionStorage.getItem("nickname") &&
+          reviewList.filter(
+            (review) =>
+              review.writerNickname === sessionStorage.getItem("nickname") &&
+              review.itemNum === match.params.itemNum * 1
+          ).length === 0 && (
+            <div className={style.rating}>
+              <h3>거래는 어떠셨나요?</h3>
+              <div className={style.star}>
+                {ratingList.map((r, index) => (
+                  <img
+                    src={
+                      r <= rating
+                        ? require("../source/img/rating1.png")
+                        : require("../source/img/rating2.png")
+                    }
+                    alt="별점"
+                    name={r}
+                    onClick={ratingClick}
+                    key={index}
+                  />
+                ))}
+              </div>
+              <textarea
+                placeholder="거래후기를 작성해주세요."
+                onChange={onReviewChange}
+                value={reviewContents}
+              ></textarea>
+              <button type="button" onClick={handleSubmit}>
+                작성
+              </button>
             </div>
-            <textarea
-              placeholder="거래후기를 작성해주세요."
-              onChange={onReviewChange}
-              value={reviewContents}
-            ></textarea>
-            <button type="button" onClick={handleSubmit}>
-              작성
-            </button>
-          </div>
-        }
+          )}
         <div className={style.sell_review}>
           <h2>{dataList.sellerNickname} 님에 대한 리뷰</h2>
           <img src={require("../source/img/red_star.png")} alt="붉은별" />
@@ -218,17 +226,18 @@ function Sell_End_n({ match, modalOpen }) {
         </div>
         <div className={style.sell_review_show}>
           <ul>
-            {
-              reviewList?.length >= 1 &&
+            {reviewList?.length >= 1 &&
               reviewList.map((review, index) => (
                 <li key={index}>
                   <span>{review.writerNickname}</span>
-                  <img src={require("../source/img/gray_star.png")} alt="회색별" />
+                  <img
+                    src={require("../source/img/gray_star.png")}
+                    alt="회색별"
+                  />
                   <span>{review.starPoint}</span>
                   <span className={style.review_write}>{review.contents}</span>
                 </li>
-              ))
-            }
+              ))}
           </ul>
         </div>
       </div>
