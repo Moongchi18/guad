@@ -150,7 +150,7 @@ public class WebSocketController {
 		} catch (NumberFormatException ex) {
 			ex.printStackTrace();
 		}
-		
+		sellItemService.updateSellState2(itemNum);
 		auction.setBeforeAuctionPrice(auctionService.lastAuction(itemNum).getAuctionPrice());
 
 		if (auction.getAuctionPrice() > sellItem.getAuctionMaxPrice() && bidNum > 0) {
