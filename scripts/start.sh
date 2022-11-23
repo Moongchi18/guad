@@ -10,7 +10,7 @@ if [ -n $list ]; then
 else
   docker-compose pull && docker-compose up -d;
 fi
-
+docker image prune -af
 
 # echo docker-compose up
 
