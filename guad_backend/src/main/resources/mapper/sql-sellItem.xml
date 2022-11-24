@@ -28,7 +28,6 @@
 	</select>
 
 	<!-- 판매 -->
-
 	<!-- 경매 및 일반 상품등록 -->
 	<insert id="insertSellItem"
 		parameterType="auction.guad.dto.SellItemDto">
@@ -88,19 +87,18 @@
 		UPDATE SELL_ITEM SET
 		SOLD_YN = 'Y', SOLD_DATE = NOW()
 		WHERE ITEM_NUM = #{itemNum}
-
 	</update>
+	
 	<update id="updateSellState" parameterType="int">
 		UPDATE SELL_ITEM SET
 		SELL_STATE = '판매완료'
 		WHERE ITEM_NUM = #{itemNum}
-
 	</update>
+	
 	<update id="updateSellState2" parameterType="int">
 		UPDATE SELL_ITEM SET
 		SELL_STATE = '경매중'
 		WHERE ITEM_NUM = #{itemNum}
-
 	</update>
 
 	<delete id="deleteSellItem" parameterType="int">

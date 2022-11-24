@@ -60,7 +60,10 @@ public class SellItemResultController {
 			} else {
 				requestTrade.setBuyerPhone(buyer.getPhone());
 				requestTrade.setSellerPhone(seller.getPhone());
-				boolean result = sellItemResultService.normalTrade(requestTrade);
+				//거래정보를 result 테이블에 생성
+				sellItemResultService.normalTrade(requestTrade);
+				//기존 sell_item 테이블의 정보를 수정
+				sellItemService.updateSoldYn(requestTrade.getItemNum());
 				return ResponseEntity.status(HttpStatus.OK).body(true);
 			}
 		}
