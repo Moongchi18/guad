@@ -23,7 +23,8 @@ public class EmailController {
 			Map<String, Object> variables = new HashMap<>();
 			variables.put("title", "Study List");
 			
-			mailUtil.sendTemplateMail("yong900305@google.com", "테스트 메일", "용우종", variables);
+			//받는 사람 이메일주소, 메일 제목, 이름
+			mailUtil.sendTemplateMail("yong900305@gmail.com", "테스트 메일", "용우종", variables);
 			System.err.println(">>>>>>>>>>>>>>>" +"메일 전송완료");
 		}
 }

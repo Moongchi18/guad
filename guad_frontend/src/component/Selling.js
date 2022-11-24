@@ -304,6 +304,7 @@ function Selling({ history }) {
     //fd.append("file", event.target.files)
 
     const newImgBase = [1, 2, 3];
+    var maxSize = 1 * 1024 * 1024 //1MB
     setImgFile(event.target.files);
     setImgBase(newImgBase);
     setImgBase64([]);
@@ -315,14 +316,20 @@ function Selling({ history }) {
       setImgBase64([]);
     } else {
       for (var i = 0; i < event.target.files.length; i++) {
+      
         if (!event.target.files[i].type.match("image/.*")) {
           alert("이미지 파일만 업로드가 가능합니다.");
+          return
+        } else if (event.target.files[i].size > maxSize) {
+          alert("이미지 크기는 1MB를 초과할 수 없습니다.")
+          return
         } else if (event.target.files[i]) {
+          console.log(event.target.files[i].size);
           let reader = new FileReader();
-          reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
-          // 파일 상태 업데이트
+          // 1. 파일을 읽어 버퍼에 저장합니다.
+          reader.readAsDataURL(event.target.files[i]); 
+          // 2. 읽기가 완료되면 아래코드가 실행됩니다.
           reader.onloadend = () => {
-            // 2. 읽기가 완료되면 아래코드가 실행됩니다.
             const base64 = reader.result;
             newImgBase.pop();
 
@@ -558,9 +565,6 @@ function Selling({ history }) {
                 multiple="multiple"
               />
             </div>
-
-            {/* <button onClick={WriteBoard} style={{ border: '2px solid black', width: '700px', fontSize: '40px' }}>작성완료</button> */}
-            {/*  파일 업로드 */}
           </ul>
           <button
             type="button"
