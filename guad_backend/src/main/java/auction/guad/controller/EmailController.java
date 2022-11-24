@@ -19,9 +19,11 @@ public class EmailController {
 		@ApiOperation(value = "신고접수 내용 메일전송", notes = "고객 이메일(아이디) 주소에 신고접수내용을 발송")
 		@PostMapping("/notify/email")
 		public void contextLoad() throws Exception {
+			System.err.println(">>>>>>>>>>>>>>>" +"메일 전송시작");
 			Map<String, Object> variables = new HashMap<>();
 			variables.put("title", "Study List");
-
-			mailUtil.sendTemplateMail("olenaelim@google.com", "테스트 메일", "용우종", variables);
+			
+			mailUtil.sendTemplateMail("yong900305@google.com", "테스트 메일", "용우종", variables);
+			System.err.println(">>>>>>>>>>>>>>>" +"메일 전송완료");
 		}
 }

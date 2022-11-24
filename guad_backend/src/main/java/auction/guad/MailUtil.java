@@ -1,7 +1,10 @@
 package auction.guad;
 
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -16,36 +19,56 @@ import org.thymeleaf.context.Context;
 @Component
 public class MailUtil {
 
-    @Autowired
-    private MailProperties mailProperties;
+	@Autowired
+	private MailProperties mailProperties;
 
-    @Autowired
-    private TemplateEngine htmlTemplateEngine;
+	@Autowired
+	private TemplateEngine htmlTemplateEngine;
 
-    public void sendTemplateMail(String toMail, String subject, String fromName, Map<String, Object> variables)
-            throws Exception {
-        Context context = new Context();
-        context.setVariables(variables);
+	public void sendTemplateMail(String toMail, String subject, String fromName, Map<String, Object> variables)
+			throws Exception {
+		Context context = new Context();
+		context.setVariable(fromName, context);
 
-        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-        javaMailSender.setHost(mailProperties.getHost());
-        javaMailSender.setPort(mailProperties.getPort());
-        javaMailSender.setUsername(mailProperties.getUsername());
-        javaMailSender.setPassword(mailProperties.getPassword());
+		JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+//		javaMailSender.setHost(mailProperties.getHost());
+//		javaMailSender.setPort(mailProperties.getPort());
+//		javaMailSender.setUsername(mailProperties.getUsername());
+//		javaMailSender.setPassword(mailProperties.getPassword());
 
-        InternetAddress from = new InternetAddress(mailProperties.getUsername(), fromName);
-        InternetAddress to = new InternetAddress(toMail);
+		Properties props = new Properties();
+		props.setProperty("mail.transport.protocol", "smtp");
+		props.setProperty("mail.host", "smtp.gmail.com");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "587");
+		props.put("mail.debug", "true");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.socketFactory.fallback", "false");
 
-        String htmlTemplate = htmlTemplateEngine.process("html/Email", context);
+		String from2 = "olenaelim@gmail.com";
+		String password = "obtwybsgiwdjahba";
 
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(from2, password);
+			}
+		});
+		javaMailSender.setSession(session);
 
-        messageHelper.setFrom(from);
-        messageHelper.setTo(to);
-        messageHelper.setSubject(subject);
-        messageHelper.setText(htmlTemplate, true);
+		InternetAddress from = new InternetAddress(mailProperties.getUsername(), fromName);
+		InternetAddress to = new InternetAddress(toMail);
 
-        javaMailSender.send(mimeMessage);
-    }
+		String htmlTemplate = htmlTemplateEngine.process("Email/Email", context);
+
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "UTF-8");
+
+		messageHelper.setFrom(from);
+		messageHelper.setTo(to);
+		messageHelper.setSubject(subject);
+		messageHelper.setText(htmlTemplate, true);
+
+		javaMailSender.send(mimeMessage);
+	}
 }

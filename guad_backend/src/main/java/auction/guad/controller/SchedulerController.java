@@ -13,9 +13,9 @@ import auction.guad.dto.SellItemResultDto;
 import auction.guad.service.SchedulerService;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-@Component 
-@EnableAsync 
+//@Slf4j
+//@Component 
+//@EnableAsync 
 public class SchedulerController {
 	
 	private SchedulerService schedulerService;
@@ -25,7 +25,7 @@ public class SchedulerController {
 		this.schedulerService = schedulerService;
 	}
 	
-	@Scheduled(cron = "01 * * * * ?")
+	@Scheduled(cron = "01 0 * * * ?")
     public void scheduleAuctionUpCheck() throws Exception {
 		List<SellItemResultDto> overPeriod = schedulerService.auctionUpPeriodCheck();
 		System.err.println(schedulerService.auctionUpPeriodCheck());
