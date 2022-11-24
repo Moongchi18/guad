@@ -8,6 +8,7 @@ import { useState } from "react";
 function Sell_End_u({match}) {
   const [dataList, setDataList] = useState("");
   const [imgList, setImgList] = useState([]);
+  const [item, setItem] = useState([]);
 
   useEffect(() => {
     axios
@@ -16,6 +17,7 @@ function Sell_End_u({match}) {
       )
       .then((response) => {
         console.log(response.data);
+        setItem(response.data);
         setDataList(response.data);
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
@@ -35,7 +37,7 @@ function Sell_End_u({match}) {
 
   return (
     <>
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
+      <NotifyWrite closeModal={closeModal} modalChange={modalChange} item={item}/>
       <div className={style.item_top}>
         <h2>
           <strong>오름</strong>경매

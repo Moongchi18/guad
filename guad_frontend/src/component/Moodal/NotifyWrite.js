@@ -15,6 +15,7 @@ function NotifyWrite({ closeModal, modalChange, item }) {
 
   const handlerClickSubmit = (e) => {
     e.preventDefault();
+    console.log(item.itemNum);
     axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/write`,
       {
         "itemNum": item.itemNum,
