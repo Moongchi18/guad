@@ -4,16 +4,9 @@ function Email_send() {
   return (
     <>
       <div className={style.E_box}>
-        <img
-          src={require("../source/img/head_logo.png")}
-          alt="로고"
-          className={style.i1}
-        />
-        <img
-          src={require("../source/img/mail.png")}
-          alt="편지"
-          className={style.i2}
-        />
+        <h1>
+          오르<strong>내</strong>림
+        </h1>
         <h2>고객님의 신고가 접수되었습니다.</h2>
 
         <h3>접수된 신고 내역</h3>
@@ -24,7 +17,6 @@ function Email_send() {
             마련해주세요. 판매자를 혼내주세요!!
           </p>
         </div>
-        <button type="button">오르내림 바로가기</button>
       </div>
     </>
   );

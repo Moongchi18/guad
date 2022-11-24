@@ -35,12 +35,13 @@ import Sell_End_n from "./component/Sell_End_n";
 import Email_send from "./component/Email_send";
 
 function App() {
-  console.log(sessionStorage.getItem("token"));
+  console.log("토큰 입니다. : " + sessionStorage.getItem("token"));
   const [isLogin, setIsLogin] = useState(
     sessionStorage.getItem("token") ? true : false
   );
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
   const [searchWord, setSearchWord] = useState("");
+  const [manager, setManager] = useState("");
 
   // function handlerIsLogin() {zz
   //   setIsLogin(true);
@@ -63,13 +64,20 @@ function App() {
         isLogin={isLogin}
         setIsLogin={setIsLogin}
         nickName={nickName}
+        manager={manager}
         setSearchWord={setSearchWord}
+        setManager={setManager}
       />
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route
         path="/login"
         render={(props) => (
-          <Login setIsLogin={setIsLogin} setNickName={setNickName} {...props} />
+          <Login
+            setIsLogin={setIsLogin}
+            setNickName={setNickName}
+            setManager={setManager}
+            {...props}
+          />
         )}
       />
       <Route path="/upload" component={FileUploadForm} exact={true} />

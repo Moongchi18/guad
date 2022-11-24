@@ -50,15 +50,22 @@ public class SellItemResultController {
 
 		MemberDto seller = memberService.selectMemberDetailByEmail(requestTrade.getSellerEmail());
 		MemberDto buyer = memberService.selectMemberDetailByEmail(requestTrade.getBuyerEmail());
-
+		System.out.println(">>>>>>>>>>>>>" + sellItem.getSoldYn().equals("Y"));
+		
 		if (seller.getEmail().equals(buyer.getEmail())) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		} else {
-			requestTrade.setBuyerPhone(buyer.getPhone());
-			requestTrade.setSellerPhone(seller.getPhone());
-
-			boolean result = sellItemResultService.normalTrade(requestTrade);
-			return ResponseEntity.status(HttpStatus.OK).body(true);
+			if (sellItem.getSoldYn().equals("Y")) {
+				return ResponseEntity.status(HttpStatus.OK).body(false);
+			} else {
+				requestTrade.setBuyerPhone(buyer.getPhone());
+				requestTrade.setSellerPhone(seller.getPhone());
+				//거래정보를 result 테이블에 생성
+				sellItemResultService.normalTrade(requestTrade);
+				//기존 sell_item 테이블의 정보를 수정
+				sellItemService.updateSoldYn(requestTrade.getItemNum());
+				return ResponseEntity.status(HttpStatus.OK).body(true);
+			}
 		}
 	}
 
@@ -107,10 +114,10 @@ public class SellItemResultController {
 		List<ImgDto> ImgList = new ArrayList<>();
 		return list4;
 	}
-	
+
 	@ApiOperation(value = "판매된 상품에 데이터 조회(itemNum)", notes = "/sell_end/n/{itemNum}페이지에 표시될 데이터")
 	@GetMapping("/sell/normal/{itemNum}")
-	public ResponseEntity<SellEndVo> selectNormalSellEnd(@PathVariable int itemNum) throws Exception{
+	public ResponseEntity<SellEndVo> selectNormalSellEnd(@PathVariable int itemNum) throws Exception {
 		SellEndVo sellEnd = sellItemResultService.selectNormalSellEnd(itemNum);
 		return ResponseEntity.status(HttpStatus.OK).body(sellEnd);
 	}

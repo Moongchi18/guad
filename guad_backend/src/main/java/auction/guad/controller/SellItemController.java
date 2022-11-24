@@ -166,9 +166,6 @@ public class SellItemController {
 				}
 			}
 			
-			
-			
-			
 			sb.append(arrbidAmount.get(arrbidAmount.size() - 1));
 			sb.append(arrbidAmount.get(arrbidAmount.size() - 2));
 

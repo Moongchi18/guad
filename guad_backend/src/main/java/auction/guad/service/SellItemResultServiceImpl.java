@@ -35,9 +35,10 @@ public class SellItemResultServiceImpl implements SellItemResultService{
 	public boolean normalTrade(RequestTradeVo requestTrade) throws Exception {
 		if(requestTrade.getMileage() - requestTrade.getItemPrice() < 0) {
 			throw new Exception();
-		} else if(requestTrade.getSoldYn() != 'n') {
-			throw new Exception();
-		}
+		} 
+//		else if(requestTrade.getSoldYn() != 'n') {
+//			throw new Exception();
+//		}
 		
 		int result = sellItemResultMapper.insertSellItemResult(requestTrade);
 		if(result == 1) {
