@@ -70,8 +70,8 @@ public class SellItemController {
 
 		ImgDto imgDto = new ImgDto();
 		String FileNames = "";
-		String filepath = "C:/img/";
-//		String filepath = "/home/ubuntu/olenaelim_image/";
+//		String filepath = "C:/img/";
+		String filepath = "/home/ubuntu/olenaelim_image/";
 
 		for (MultipartFile mf : files) {
 
