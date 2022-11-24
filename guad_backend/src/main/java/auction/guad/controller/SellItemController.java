@@ -24,6 +24,7 @@ import auction.guad.dto.SellItemDto;
 import auction.guad.service.AuctionService;
 import auction.guad.service.ImgService;
 import auction.guad.service.MemberService;
+import auction.guad.service.S3Uploader;
 import auction.guad.service.SellItemService;
 import auction.guad.vo.AuctionVo;
 import auction.guad.vo.SellItemJoinMemberVo;
@@ -37,13 +38,15 @@ public class SellItemController {
 	private ImgService imgService;
 	private MemberService memberService;
 	private AuctionService auctionService;
+	private S3Uploader s3Uploader;
 
 	@Autowired
-	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService) {
+	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService, S3Uploader s3Uploader) {
 		this.sellItemService = sellItemService;
 		this.imgService = imgService;
 		this.memberService = memberService;
 		this.auctionService = auctionService; 
+		this.s3Uploader = s3Uploader; 
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////	
@@ -68,6 +71,7 @@ public class SellItemController {
 		ImgDto imgDto = new ImgDto();
 		String FileNames = "";
 		String filepath = "C:/img/";
+//		String filepath = "/home/ubuntu/olenaelim_image/";
 
 		for (MultipartFile mf : files) {
 
@@ -94,6 +98,8 @@ public class SellItemController {
 			try {
 				File f1 = new File(filepath + safeFile);
 				mf.transferTo(f1);
+				s3Uploader.upload(f1, filepath);
+//				s3Uploader.putS3(f1, safeFile);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
