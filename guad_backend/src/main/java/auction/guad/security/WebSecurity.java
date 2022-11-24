@@ -44,7 +44,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/**/admin/**").hasRole("y").anyRequest().permitAll().and()
 				.addFilter(getAuthenticationFilter()).addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
-				.formLogin().disable()
 				.cors();
 		// oauth2
 		// 1. 코드받기(인증), 2. 액세스토큰(권한), 3. 사용자 프로필정보보 가져오기
@@ -77,7 +76,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://52.79.138.125", "http://ec2-52-79-138-125.ap-northeast-2.compute.amazonaws.com", "https://olenaelim.shop/"));
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://52.79.138.125", "http://ec2-52-79-138-125.ap-northeast-2.compute.amazonaws.com", "https://olenaelim.shop:9090", "https://olenaelim.shop"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "token"));
 		configuration.setAllowCredentials(true);
