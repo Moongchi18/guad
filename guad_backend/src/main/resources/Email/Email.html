@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>신고 접수 이메일</title>
 <style type="text/css">
-@import
+/* @import
 	url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css")
 	;
 
@@ -95,21 +95,31 @@
 
 .t2 {
 	padding-bottom: 70px;
-}
+} */
 </style>
 </head>
 <body>
-	<div class="E_box">
-		<h1>
-			오르<strong>내</strong>림
+	<div class="E_box"
+		style="width: 660px; margin: 140px auto 200px; text-align: center; border-top: 3px solid rgba(9, 128, 96, 0.5)">
+		<h1
+			style="font-size: 40px; font-weight: bold; color: #098060; text-align: left; margin: 100px 0 10px 30px;">
+			오르<strong style="color: #e63947">내</strong>림
 		</h1>
-		<h2>고객님의 신고가 접수되었습니다.</h2>
-
-		<h3>접수된 신고 내역</h3>
-		<div class="in_box">
-			<p class="t1" th:text="${title}"></p>
-			<p class="t2" th:text="${contents}"></p>
+		<h2 style="font-size: 20px; text-align: left; margin-left: 30px">고객님의
+			신고 내용이 접수되었습니다.</h2>
+		<h3
+			style="font-size: 25px; text-align: left; margin: 140px 0 10px 30px; font-weight: bold">접수된
+			신고 내역</h3>
+		<div class="in_box"
+			style="background-color: rgba(85, 161, 141, 0.4); text-align: left; box-sizing: border-box; padding: 20px; border-radius: 5px; margin: 0 30px; font-size: 15px">
+			<p class="t1"
+				style="border-bottom: 2px solid white; padding-bottom: 20px; margin-bottom: 20px"
+				th:text="${title}"></p>
+			<p class="t2" style="padding-bottom: 70px" th:text="${contents}"></p>
 		</div>
+		<h2 style="font-size: 15px; text-align: left; margin-left: 30px">담당자가 빠르게 내용확인 후 메일로 연락 드리겠습니다.</h2>
+		<h2 style="font-size: 15px; text-align: right; margin-left: 30px; margin-top: 50px">orenaelim@gmail.com</h2>
+		<h2 style="font-size: 15px; text-align: right; margin-left: 30px">서울시 종로구 하이미디어 7층</h2>
 	</div>
 </body>
 </html>

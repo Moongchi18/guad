@@ -22,7 +22,7 @@ function NotifyWrite({ closeModal, modalChange, item }) {
         "notifyContents": notifyContents
       })
       .then(response => {
-        alert("신고접수 되었습니다.");
+        alert("신고접수 되었습니다, 접수된 내용은 메일로 확인 가능합니다.");
         closeModal();
       })
       .catch(error => {
