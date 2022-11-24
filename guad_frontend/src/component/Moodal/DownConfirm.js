@@ -2,11 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import style from "../../source/Moodal8.module.css";
 
-function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentPrice, discountRateNow }) {
-
-  console.log(item)
-  console.log(auctionCurrentPrice)
-  console.log(discountRateNow)
+function DownConfirm({
+  closeModal2,
+  modalChange2,
+  item,
+  history,
+  auctionCurrentPrice,
+  discountRateNow,
+}) {
+  console.log(item);
+  console.log(auctionCurrentPrice);
+  console.log(discountRateNow);
   //////////////////////마일리지 정보/////////////////////////
   const [member, setMember] = useState({});
   const [result, setResult] = useState(0);
@@ -16,13 +22,13 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
       .then((response) => {
         setMember(response.data);
         setResult(response.data.mileage - auctionCurrentPrice);
-        console.log("<<<<<<<<<<<<<<<"+auctionCurrentPrice)
+        console.log("<<<<<<<<<<<<<<<" + auctionCurrentPrice);
       })
       .catch((error) => console.log(error));
   }, [auctionCurrentPrice]);
   ////////////////////상품구매////////////////////////
 
-  console.log(member)
+  console.log(member);
 
   let requestTrade = {
     sellType: item.sellType,
@@ -31,7 +37,7 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
     itemNum: item.itemNum,
     soldYn: item.soldYn,
     mileage: member.mileage,
-    address: member.address + member.addressDetail
+    address: member.address + member.addressDetail,
   };
 
   const handlerTrade = () => {
@@ -45,19 +51,24 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
           requestTrade
         )
         .then((response) => {
+          // if (response.data == true) {
           if (response.status === 200) {
-            console.log(response);
+            console.log(response.data);
             alert("결제에 성공했습니다.");
             history.push(`/sell_after/${item.itemNum}`);
           }
+          // } else {
+          // alert("이미 판매된 상품입니다.");
+          // }
         })
         .catch((error) => {
           console.log(error);
-          alert("농담이시죠? 본인이 등록한 물건이에요!");
+          alert("조건이 맞지않아 구매할수 없습니다!");
         });
     }
   };
   //////////////////////////////////////////////
+  const [dd, setDd] = useState(false);
   return (
     <>
       <div className={style.modal2} ref={modalChange2}>
@@ -71,13 +82,20 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
           <div className={style.modalbody2}>
             <div className={style.body_top}>
               <img
-                src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+                src={
+                  item.itemImgName &&
+                  `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
+                }
                 alt={"img" + item.notifyNum}
               />
               <p className={style.tag1}>상품 정보</p>
               <p className={style.tag2}>{item.itemSub}</p>
               <p className={style.tag3}>
-                현재 입찰가 : <strong>{auctionCurrentPrice?.toLocaleString()} ({discountRateNow.toFixed(1)}%)</strong>
+                현재 입찰가 :{" "}
+                <strong>
+                  {auctionCurrentPrice?.toLocaleString()} (
+                  {discountRateNow.toFixed(1)}%)
+                </strong>
               </p>
             </div>
             <div className={style.body_mid}>
@@ -85,7 +103,8 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
                 내 마일리지 <strong>{member.mileage?.toLocaleString()}</strong>
               </p>
               <p className={style.tag5}>
-                현재 입찰가 <strong>-{auctionCurrentPrice?.toLocaleString()}</strong>
+                현재 입찰가{" "}
+                <strong>-{auctionCurrentPrice?.toLocaleString()}</strong>
               </p>
             </div>
           </div>
@@ -94,7 +113,9 @@ function DownConfirm({ closeModal2, modalChange2, item, history, auctionCurrentP
             <p className={style.tag6}>
               거래 후 마일리지<strong>{result?.toLocaleString()}</strong>
             </p>
-            <button type="button" onClick={handlerTrade}>입찰완료</button>
+            <button type="button" onClick={handlerTrade}>
+              입찰완료
+            </button>
           </div>
         </div>
       </div>
