@@ -32,7 +32,7 @@ function NotifyWrite({ closeModal, modalChange, item }) {
   };
 
   const handlerClickSubmit2 = (e) => {
-    axios.post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/emial`,
+    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/email`,
       {
         "itemNum": item.itemNum,
         "notifyTitle": notifyTitle,
