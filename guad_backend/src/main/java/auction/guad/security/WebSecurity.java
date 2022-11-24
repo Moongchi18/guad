@@ -44,7 +44,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/**/admin/**").hasRole("y").anyRequest().permitAll().and()
 				.addFilter(getAuthenticationFilter()).addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
-				.formLogin().disable()
 				.cors();
 		// oauth2
 		// 1. 코드받기(인증), 2. 액세스토큰(권한), 3. 사용자 프로필정보보 가져오기
