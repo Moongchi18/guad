@@ -71,7 +71,7 @@ public class SellItemController {
 		ImgDto imgDto = new ImgDto();
 		String FileNames = "";
 //		String filepath = "C:/img/";
-		String filepath = "/home/ubuntu/olenaelim_image/";
+		String filepath = "/home/";
 
 		for (MultipartFile mf : files) {
 
@@ -100,7 +100,7 @@ public class SellItemController {
 				mf.transferTo(f1);
 //				s3Uploader.upload(f1, filepath, safeFile);
 				s3Uploader.putS3(f1, safeFile);
-//				s3Uploader.removeNewFile(f1);
+				s3Uploader.removeNewFile(f1);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
