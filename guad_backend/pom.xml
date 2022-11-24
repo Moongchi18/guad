@@ -145,12 +145,13 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-		<!-- spring cloud starter aws -->
+		<!-- spring cloud starter aws
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-aws</artifactId>
 			<version>2.2.6.RELEASE</version>
 		</dependency>
+			 -->
 	</dependencies>
 	<build>
 		<plugins>
