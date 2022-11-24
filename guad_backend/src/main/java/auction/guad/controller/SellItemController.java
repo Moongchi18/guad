@@ -98,7 +98,7 @@ public class SellItemController {
 			try {
 				File f1 = new File(filepath + safeFile);
 				mf.transferTo(f1);
-				s3Uploader.upload(f1, filepath);
+				s3Uploader.upload(f1, filepath, safeFile);
 //				s3Uploader.putS3(f1, safeFile);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
