@@ -48,7 +48,8 @@ function Login(props) {
             { header: { Authorization: response.data } }
           )
           .then((response) => {
-            console.log(response.data.nickname);
+            console.log(response.data);
+            props.setManager(response.data.managerYn);
             props.setNickName(response.data.nickname);
             props.setIsLogin(true);
             sessionStorage.setItem("nickname", response.data.nickname);

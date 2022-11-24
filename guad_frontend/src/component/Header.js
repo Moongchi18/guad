@@ -42,7 +42,7 @@ function Header(props) {
   };
 
   const handlerSearchWord = (e) => setSearchWord(e.target.value);
-  console.log(searchWord);
+  console.log("검색한 단어 : " + searchWord);
   return (
     <>
       <div className={style.header_b}>
@@ -74,7 +74,12 @@ function Header(props) {
             )}
             {mypage == true && (
               <li>
-                <Link to="/mypage">마이페이지</Link>
+                {props.manager != "ROLE_y" && (
+                  <Link to="/mypage">마이페이지</Link>
+                )}
+                {props.manager == "ROLE_y" && (
+                  <Link to="/manager">관리자페이지</Link>
+                )}
               </li>
             )}
           </ul>
