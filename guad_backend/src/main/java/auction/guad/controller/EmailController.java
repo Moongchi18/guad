@@ -39,7 +39,7 @@ public class EmailController {
 			variables.put("contents", notify.getNotifyContents());
 			
 			//받는 사람 이메일주소, 메일 제목, 이름
-			mailUtil.sendTemplateMail("yong900305@naver.com", "olenaelim 신고-접수내역", "오르내림", variables);
+			mailUtil.sendTemplateMail(user.getUsername(), "olenaelim 신고-접수내역", "오르내림", variables);
 			System.err.println(">>>>>>>>>>>>>>>" +"메일 전송완료");
 		}
 }
