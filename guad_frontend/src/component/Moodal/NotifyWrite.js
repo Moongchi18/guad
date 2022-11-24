@@ -16,7 +16,7 @@ function NotifyWrite({ closeModal, modalChange, item }) {
   const handlerClickSubmit = (e) => {
     e.preventDefault();
     console.log(item.itemNum);
-    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/write`,
+    axios.post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/write`,
       {
         "itemNum": item.itemNum,
         "notifyTitle": notifyTitle,
@@ -31,7 +31,7 @@ function NotifyWrite({ closeModal, modalChange, item }) {
         alert("다시 신고해 주세요.");
       });
 
-      axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/email`,
+      axios.post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/email`,
       {
         "itemNum": item.itemNum,
         "notifyTitle": notifyTitle,
@@ -40,7 +40,7 @@ function NotifyWrite({ closeModal, modalChange, item }) {
   };
 
   // const handlerClickSubmit2 = (e) => {
-  //   axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/email`,
+  //   axios.post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/email`,
   //     {
   //       "itemNum": item.itemNum,
   //       "notifyTitle": notifyTitle,
