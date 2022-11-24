@@ -28,13 +28,10 @@ public class MailUtil {
 	public void sendTemplateMail(String toMail, String subject, String fromName, Map<String, Object> variables)
 			throws Exception {
 		Context context = new Context();
-		context.setVariable(fromName, context);
+		context.setVariables(variables);
 
+		
 		JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-//		javaMailSender.setHost(mailProperties.getHost());
-//		javaMailSender.setPort(mailProperties.getPort());
-//		javaMailSender.setUsername(mailProperties.getUsername());
-//		javaMailSender.setPassword(mailProperties.getPassword());
 
 		Properties props = new Properties();
 		props.setProperty("mail.transport.protocol", "smtp");
@@ -54,6 +51,7 @@ public class MailUtil {
 				return new PasswordAuthentication(from2, password);
 			}
 		});
+		
 		javaMailSender.setSession(session);
 
 		InternetAddress from = new InternetAddress(mailProperties.getUsername(), fromName);

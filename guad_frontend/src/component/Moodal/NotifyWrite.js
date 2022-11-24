@@ -29,16 +29,23 @@ function NotifyWrite({ closeModal, modalChange, item }) {
         console.log(error)
         alert("다시 신고해 주세요.");
       });
-  };
 
-  const handlerClickSubmit2 = (e) => {
-    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/email`,
+      axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/email`,
       {
         "itemNum": item.itemNum,
         "notifyTitle": notifyTitle,
         "notifyContents": notifyContents
       });
   };
+
+  // const handlerClickSubmit2 = (e) => {
+  //   axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/email`,
+  //     {
+  //       "itemNum": item.itemNum,
+  //       "notifyTitle": notifyTitle,
+  //       "notifyContents": notifyContents
+  //     });
+  // };
 
   return (
     <>
@@ -55,9 +62,6 @@ function NotifyWrite({ closeModal, modalChange, item }) {
           <div className={style.modalfooter}>
             <button type="button" className={style.redBtn} onClick={handlerClickSubmit}>
               신고하기
-            </button>
-            <button type="button" className={style.redBtn} onClick={handlerClickSubmit2}>
-              신고하기2
             </button>
             <button type="text" onClick={closeModal}>
               취소
