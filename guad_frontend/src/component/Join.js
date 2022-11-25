@@ -80,6 +80,7 @@ function Join({ history }, props) {
   };
 
   const changeEmail = (e) => {
+    id_btn.current.style = "background-color: #fff; color:black;";
     setEmail(e.target.value);
     const emailRegex =
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -91,6 +92,7 @@ function Join({ history }, props) {
       setIsEmail(false);
     } else {
       setIsEmail(true);
+      setUsableIdMessage("");
     }
   };
   const changePass = (e) => {
@@ -123,11 +125,14 @@ function Join({ history }, props) {
   };
   // 닉네임
   const changeNickname = (e) => {
+    nick_btn.current.style = "background-color: #fff; color:black;";
     setNickname(e.target.value);
-    if (e.target.value.length < 2 || e.target.value.length > 7) {
-      setIsNickname(false);
-    } else {
+    if (e.target.value.length >= 2 && e.target.value.length < 7) {
+      setUsableNicknameMessage("");
       setIsNickname(true);
+    } else {
+      setUsableNicknameMessage("사용할 수 없는 닉네임입니다.");
+      setIsNickname(false);
     }
   };
 
@@ -149,11 +154,6 @@ function Join({ history }, props) {
 
   const idCheck = (e) => {
     e.preventDefault();
-    if (isEmail === true) {
-      id_btn.current.style = "background-color: #248f48; color:white;";
-    } else {
-      id_btn.current.style = "background-color: #ff2727; color:white;";
-    }
 
     axios
       .post(
@@ -165,14 +165,17 @@ function Join({ history }, props) {
         if (isEmail === true && email !== "") {
           setUsableIdMessage("사용 가능한 이메일입니다.");
           setIsUsableId(true);
+          id_btn.current.style = "background-color: #248f48; color:white;";
           console.log("idcheck");
         } else {
           setUsableIdMessage("사용할수 없는 이메일입니다.");
+          id_btn.current.style = "background-color: #ff2727; color:white;";
           setIsUsableId(false);
         }
       })
       .catch((error) => {
         setUsableIdMessage("이미 사용중인 이메일 입니다.");
+        id_btn.current.style = "background-color: #ff2727; color:white;";
         setIsEmail(false);
         setIsUsableId(false);
       });
@@ -180,11 +183,6 @@ function Join({ history }, props) {
 
   const nicknameCheck = (e) => {
     e.preventDefault();
-    if (isNickname == true) {
-      nick_btn.current.style = "background-color: #248f48; color:white;";
-    } else {
-      nick_btn.current.style = "background-color: #ff2727; color:white;";
-    }
 
     axios
       .post(
@@ -193,18 +191,21 @@ function Join({ history }, props) {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((response) => {
-        if (response.status === 200 && nickname !== "") {
+        if (isNickname === true && nickname !== "") {
           setUsableNicknameMessage("사용 가능한 닉네임입니다.");
+          nick_btn.current.style = "background-color: #248f48; color:white;";
           setIsUsableNickname(true);
         } else {
           setUsableNicknameMessage("사용할수 없는 닉네임입니다.");
+          nick_btn.current.style = "background-color: #ff2727; color:white;";
           setIsUsableNickname(false);
         }
       })
       .catch((error) => {
-        setIsUsableNickname(false);
-        setIsNickname(false);
         setUsableNicknameMessage("이미 사용중인 닉네임 입니다.");
+        nick_btn.current.style = "background-color: #ff2727; color:white;";
+        setIsNickname(false);
+        setIsUsableNickname(false);
       });
   };
 
@@ -222,7 +223,25 @@ function Join({ history }, props) {
   const id_btn = useRef();
   const nick_btn = useRef();
 
-  useEffect(() => {}, [isEmail, isUsableId]);
+  useEffect(() => {
+    axios
+      .post(
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`,
+        JSON.stringify({ email: email }),
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((response) => {
+        if (isEmail === true && email !== "") {
+          setIsUsableId(true);
+        } else {
+          setIsUsableId(false);
+        }
+      })
+      .catch((error) => {
+        setIsEmail(false);
+        setIsUsableId(false);
+      });
+  }, [isEmail, isUsableId, isNickname]);
 
   return (
     <>
