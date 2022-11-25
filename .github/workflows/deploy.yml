@@ -107,16 +107,18 @@ jobs:
       - name: start docker
         run: |
           list=$(docker ps -q)
+          echo $list
           if [ -n $list ]; then 
             docker kill $list;
             docker-compose pull && docker-compose up -d;
+            docker image prune -af
+            docker container prune -f
           else
             echo "작업중인 컨테이너가 없습니다."
             docker-compose pull && docker-compose up -d;
+            docker image prune -af
+            docker container prune -f
           fi
-
-          docker image prune -af
-          docker container prune -f
         working-directory: /home/ubuntu/
         shell: bash
         
