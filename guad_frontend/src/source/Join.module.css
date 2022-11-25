@@ -92,6 +92,9 @@
 .input_set ul li.nick_in input {
   width: 460px;
 }
+.input_set ul li.nick_in input::placeholder {
+  font-size: 15px;
+}
 .input_set ul li.nick_in button {
   margin-left: 20px;
 }
@@ -162,30 +165,26 @@
   transition: 0.3s all ease;
 }
 
-
 #idConfirm {
-position: absolute;
-width: 155px;
-height: 37px;
-left: 675px;
-top: 592px;
+  position: absolute;
+  width: 155px;
+  height: 37px;
+  left: 675px;
+  top: 592px;
 
-font-weight: 400;
-font-size: 13px;
-line-height: 16px;
-
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
 }
 
 #nicknameConfirm {
+  position: absolute;
+  width: 78px;
+  height: 16px;
+  left: 675px;
+  top: 709px;
 
-position: absolute;
-width: 78px;
-height: 16px;
-left: 675px;
-top: 709px;
-
-font-weight: 400;
-font-size: 13px;
-line-height: 16px;
-
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
 }
