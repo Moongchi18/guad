@@ -65,7 +65,14 @@ header ul li:first-child {
   right: 0px;
   top: 30px;
   color: #878787;
-  cursor:default;
+  cursor: default;
+}
+.nick img {
+  width: 35px;
+  border-radius: 50px;
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 .nick strong {
   color: black;

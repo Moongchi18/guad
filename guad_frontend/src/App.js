@@ -40,6 +40,7 @@ function App() {
     sessionStorage.getItem("token") ? true : false
   );
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
+  const [googleLoginImg, setGoogleLoginImg] = useState(sessionStorage.getItem("image"));
   const [searchWord, setSearchWord] = useState("");
   const [manager, setManager] = useState("");
 
@@ -67,6 +68,7 @@ function App() {
         manager={manager}
         setSearchWord={setSearchWord}
         setManager={setManager}
+        googleLoginImg={googleLoginImg}
       />
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route

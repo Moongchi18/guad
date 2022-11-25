@@ -9,7 +9,11 @@ function GoogleLoginForm({history}) {
   //토큰 >> decoding
   function handlerCallbackResponse(response) {
     console.log("Encoded JWT ID token " + response.credential);
+    console.log(response)
+    console.log(response.credential)
     var userObject = jwt_decode(response.credential);
+    console.log(userObject.picture);
+    
     setUser(userObject);
 
     //로그인 하면 로그인 버튼 가리기
@@ -60,11 +64,11 @@ function GoogleLoginForm({history}) {
       <div className="App">
         <div id="signInDiv"></div>
 
-        {Object.keys(user).length != 0 && (
+        {/* {Object.keys(user).length != 0 && ( */}
           <button id="logOutBt" onClick={(e) => handleSignOut(e)}>
             로그아웃
           </button>
-        )}
+        {/* )} */}
 
         {user && (
           <div>

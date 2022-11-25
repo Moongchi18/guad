@@ -69,6 +69,7 @@ function Header(props) {
             )}
             {props.isLogin && (
               <li className={style.nick}>
+                <img src={props.googleLoginImg}></img>
                 <strong>{props.nickName}</strong>님 환영합니다!
               </li>
             )}

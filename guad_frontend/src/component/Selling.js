@@ -32,12 +32,12 @@ function Selling({ history }) {
     useState("소분류"); // 선택된 소분류
   const [itemSub, setItemSub] = useState(""); // 상품 판매글 제목
   const [itemContents, setItemContents] = useState(""); // 상품 판매글 내용
-  const [itemPrice, setItemPrice] = useState(""); // 일반판매 상품 가격
+  const [itemPrice, setItemPrice] = useState(0); // 일반판매 상품 가격
   const [selectedDay, setSelectedDay] = useState(1); // 선택된 경매기간
   const [selectedHour, setSelectedHour] = useState(12); // 선택된 경매종료 시간
 
-  const [auctionMaxPrice, setAuctionMaxPrice] = useState(""); // 오름경매 - 즉시구매가격
-  const [auctionMinPrice, setAuctionMinPrice] = useState(""); // 내림경매 - 최저가격, 시작가격 ~ 최저가격
+  const [auctionMaxPrice, setAuctionMaxPrice] = useState(0); // 오름경매 - 즉시구매가격
+  const [auctionMinPrice, setAuctionMinPrice] = useState(0); // 내림경매 - 최저가격, 시작가격 ~ 최저가격
   const [auctionPeriod, setAuctionPeriod] = useState(new Date()); // 경매 종료 날짜 + 시간
   const [auctionPeriodText, setAuctionPeriodText] = useState(
     `${tempDate.getFullYear()}년 ${tempDate.getMonth() + 1}월 ${
@@ -45,7 +45,7 @@ function Selling({ history }) {
     }일 ${selectedHour}시`
   ); // 경매 종료 날짜 + 시간 표시양식
   const [auctionRandomMethod, setAuctionRandomMethod] = useState(false); // 내림경매 방식 - 랜덤discount true/false
-  const [auctionDiscountPerHour, setAuctionDiscountPerHour] = useState(""); // 내림경매 - 시간당
+  const [auctionDiscountPerHour, setAuctionDiscountPerHour] = useState(0); // 내림경매 - 시간당
 
   const refSellType = useRef();
   const refItemType = useRef();
