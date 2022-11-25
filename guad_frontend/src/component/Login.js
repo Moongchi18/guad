@@ -85,6 +85,9 @@ function Login(props) {
   function handlerCallbackResponse(response) {
     console.log("Encoded JWT ID token " + response.credential);
     var userObject = jwt_decode(response.credential);
+    console.log(userObject.picture);
+    //구글 이미지 저장
+    sessionStorage.setItem("image", userObject.picture)
     // setUser(userObject);
 
     //로그인 하면 로그인 버튼 가리기
