@@ -126,7 +126,7 @@ function Sell_Down({ match, history }) {
     const date = new Date();
     const minutes = String(date.getMinutes()).padStart(2, "0");
     const seconds = String(date.getSeconds()).padStart(2, "0");
-    setTimer(`${60 - minutes}분${60 - seconds}초`);
+    setTimer(`${59 - minutes}분${59 - seconds}초`);
     console.log(minutes);
     console.log(seconds);
   };
