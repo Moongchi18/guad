@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import style from "../source/Login.module.css";
 import axios from "axios";
 import { useState } from "react";
@@ -20,7 +20,7 @@ function Login(props) {
     }
   };
   const onKeyEnter = (e) => {
-    if (e.key == "Enter") {
+    if (e.key === "Enter") {
       handlerSubmit();
     }
   };
@@ -58,7 +58,7 @@ function Login(props) {
         props.history.push("/");
         console.log(response.data);
         // 아이디 저장용
-        if (idCheck == true) {
+        if (idCheck === true) {
           localStorage.setItem("email", email);
         } else {
           localStorage.setItem("email", "");
@@ -78,7 +78,6 @@ function Login(props) {
     console.log(props);
     console.log("호출");
     console.log("저장된 이메일 : " + localStorage.getItem("email"));
-    console.log("입력된 이메일 : " + email);
   }, []);
 
   // social login
@@ -170,7 +169,7 @@ function Login(props) {
             className={style.in_box}
             placeholder="아이디"
             defaultValue={
-              localStorage.getItem("email") == ""
+              localStorage.getItem("email") === ""
                 ? email
                 : localStorage.getItem("email")
             }
