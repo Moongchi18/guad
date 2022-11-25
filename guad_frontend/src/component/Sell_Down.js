@@ -127,10 +127,9 @@ function Sell_Down({ match, history }) {
     const minutes = String(date.getMinutes()).padStart(2, "0");
     const seconds = String(date.getSeconds()).padStart(2, "0");
     setTimer(`${60 - minutes}분${60 - seconds}초`);
-    console.log(minutes)
-    console.log(seconds)
+    console.log(minutes);
+    console.log(seconds);
   };
-
 
   //setInterval(handlerBid, 5000);
   if (timer == "59분59초") {
