@@ -109,10 +109,12 @@ jobs:
           list=$(docker ps -q)
           if [ -n $list ]; then 
             docker kill $list;
+            docker-compose pull && docker-compose up -d;
           else
             echo "작업중인 컨테이너가 없습니다."
+            docker-compose pull && docker-compose up -d;
           fi
-          docker-compose pull && docker-compose up -d;
+
           docker image prune -af
           docker container prune -f
         working-directory: /home/ubuntu/
