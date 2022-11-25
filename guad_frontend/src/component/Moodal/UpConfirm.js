@@ -44,10 +44,13 @@ function UpConfirm({ closeModal2, modalChange2, item, history, auctionCurrentPri
           requestTrade
         )
         .then((response) => {
-          if (response.status === 200) {
+          if (response.data === true) {
             console.log(response);
             alert("결제에 성공했습니다.");
             history.push(`/sell_after/${item.itemNum}`);
+          } else { 
+            alert("이미 판매된 상품입니다.")
+            history.push(`/sell_end/u/${item.itemNum}`)
           }
         })
         .catch((error) => {
