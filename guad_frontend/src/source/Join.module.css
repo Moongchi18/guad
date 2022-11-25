@@ -84,7 +84,7 @@
 .input_set ul li.nick_in button:hover,
 .input_set ul li.add_in button:hover,
 .input_set ul li.gen_in button:hover {
-  background-color: #f38790;
+  background-color: #a0a0a0;
   color: white;
   border: none;
   transition: 0.3s all ease;

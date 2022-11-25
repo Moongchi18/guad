@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import DaumPostcode from "react-daum-postcode";
 import AddressApi from "./Moodal/AddressApi";
+import { useRef } from "react";
 
 function Join({ history }, props) {
   const [g_check, setG_check] = useState("");
@@ -150,6 +151,12 @@ function Join({ history }, props) {
   const idCheck = (e) => {
     console.log(email);
     e.preventDefault();
+    if (isEmail === true) {
+      id_btn.current.style = "background-color: #248f48; color:white;";
+    } else {
+      id_btn.current.style = "background-color: #ff2727; color:white;";
+    }
+
     axios
       .post(
         `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`,
@@ -194,14 +201,11 @@ function Join({ history }, props) {
     setIsOpen((prev) => !prev); // false > true
   };
 
-  // const handleComplete = (data) => {
-  //   console.log(data);
-  //   onToggleModal();
-  // };
-
   console.log(address);
   console.log(addressDetail);
-  // console.log(isOpen)
+
+  // 체크용
+  const id_btn = useRef();
 
   return (
     <>
@@ -219,7 +223,7 @@ function Join({ history }, props) {
                 value={email}
                 onChange={changeEmail}
               />
-              <button type="button" onClick={idCheck}>
+              <button type="button" onClick={idCheck} ref={id_btn}>
                 중복확인
               </button>
               {email.length > 0 && (
