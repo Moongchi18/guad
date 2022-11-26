@@ -9,6 +9,7 @@ import { clear } from "@testing-library/user-event/dist/clear";
 function Sell_End_d({ match }) {
   const [dataList, setDataList] = useState("");
   const [imgList, setImgList] = useState([]);
+  const [item, setItem] = useState([]);
 
   // sell_item_result + sell_item + sellerNickname + buyerNickname + img
   useEffect(() => {
@@ -19,6 +20,7 @@ function Sell_End_d({ match }) {
       .then((response) => {
         console.log(response.data);
         setDataList(response.data);
+        setItem(response.data);
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
         imgList.push(response.data.itemImgNameSub3);
@@ -95,7 +97,7 @@ function Sell_End_d({ match }) {
 
   return (
     <>
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} />
+      <NotifyWrite closeModal={closeModal} modalChange={modalChange} item={item}/>
       <div className={style.item_top}>
         <h2 className={style.down}>
           <strong>내림</strong>경매

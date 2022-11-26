@@ -11,6 +11,7 @@ function Sell_End_n({ match, modalOpen }) {
   const [dataList, setDataList] = useState("");
   const [soldDateText, setSoldDateText] = useState("");
   const [imgList, setImgList] = useState([]);
+  const [item, setItem] = useState([]);
 
   const modalChange = useRef();
   const closeModal = () => {
@@ -28,6 +29,7 @@ function Sell_End_n({ match, modalOpen }) {
       )
       .then((response) => {
         console.log(response.data);
+        setItem(response.data);
         setDataList(response.data);
         imgList.push(response.data.itemImgName);
         imgList.push(response.data.itemImgNameSub2);
@@ -107,7 +109,7 @@ function Sell_End_n({ match, modalOpen }) {
       <NotifyWrite
         closeModal={closeModal}
         modalChange={modalChange}
-        itemNum={match.params.itemNum}
+        item={item}
       />
       <div className={style.item_top}>
         <h2 className={style.normal}>
