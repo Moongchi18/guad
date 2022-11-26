@@ -50,13 +50,13 @@ public class SellItemResultController {
 
 		MemberDto seller = memberService.selectMemberDetailByEmail(requestTrade.getSellerEmail());
 		MemberDto buyer = memberService.selectMemberDetailByEmail(requestTrade.getBuyerEmail());
-
+		System.out.println(">>>>>>>>>>>>>" + sellItem.getSoldYn().equals("Y"));
+		
 		if (seller.getEmail().equals(buyer.getEmail())) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		} else {
-
-			if (sellItem.getSoldYn() == "n") {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+			if (sellItem.getSoldYn().equals("Y")) {
+				return ResponseEntity.status(HttpStatus.OK).body(false);
 			} else {
 				requestTrade.setBuyerPhone(buyer.getPhone());
 				requestTrade.setSellerPhone(seller.getPhone());

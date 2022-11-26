@@ -52,13 +52,13 @@ function DownConfirm({
         )
         .then((response) => {
            if (response.data == true) {
-            console.log(response.data)
-            alert("이미 거래 완료된 제품입니다.")
-            history.push(`/sell_after/${item.itemNum}`);
-          } else if (response.data == false){
             console.log(response.data);
             alert("결제에 성공했습니다.");
             history.push(`/sell_after/${item.itemNum}`);
+          } else if (response.data == false){
+            console.log(response.data)
+            alert("이미 거래 완료된 제품입니다.")
+            history.push(`/sell_List`);
           }
         })
         .catch((error) => {
