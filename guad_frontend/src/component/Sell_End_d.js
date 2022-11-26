@@ -70,20 +70,24 @@ function Sell_End_d({ match }) {
   const handleWrite = () => {
     console.log(match.params.itemNum);
     console.log(contents);
-    axios
-      .post(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/comments`,
-        {
-          itemNum: match.params.itemNum,
-          contents,
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        alert("후기 작성이 완료되었습니다.");
-        setCommentUpdate(!commentUpdate);
-        setContents("");
-      });
+    if (sessionStorage.length === 0) {
+      alert("로그인 해주세요");
+    } else {
+      axios
+        .post(
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/comments`,
+          {
+            itemNum: match.params.itemNum,
+            contents,
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          alert("후기 작성이 완료되었습니다.");
+          setCommentUpdate(!commentUpdate);
+          setContents("");
+        });
+    }
   };
   ////////////////////////////////////////////
 
