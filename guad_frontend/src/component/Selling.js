@@ -189,6 +189,8 @@ function Selling({ history }) {
     } else if (sellType === "d" && auctionMinPrice === "") {
       alert("최저가격을 입력해주세요");
       refAuctionMinPrice.current.focus();
+    } else if(imgBase64.length < 1) {
+      alert("상품 이미지를 등록해 주세요")
     } else if (
       sellType === "d" &&
       !auctionRandomMethod &&
