@@ -4,6 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import DaumPostcode from "react-daum-postcode";
 import AddressApi from "./Moodal/AddressApi";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 function Join({ history }, props) {
   const [g_check, setG_check] = useState("");
@@ -85,10 +87,9 @@ function Join({ history }, props) {
     setEmail(emailCurrent);
 
     if (!emailRegex.test(emailCurrent)) {
-      setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ");
+      setUsableIdMessage("이메일 형식이 맞지 않습니다.");
       setIsEmail(false);
     } else {
-      setEmailMessage("올바른 이메일 형식이에요 : )");
       setIsEmail(true);
     }
   };
@@ -120,13 +121,12 @@ function Join({ history }, props) {
       setIsPassConfirm(false);
     }
   };
+  // 닉네임
   const changeNickname = (e) => {
     setNickname(e.target.value);
     if (e.target.value.length < 2 || e.target.value.length > 7) {
-      setNicknameMessage("2글자 이상 7글자 미만으로 입력해주세요.");
       setIsNickname(false);
     } else {
-      setNicknameMessage("올바른 별명 형식입니다 :)");
       setIsNickname(true);
     }
   };
@@ -148,8 +148,13 @@ function Join({ history }, props) {
   const handlerAddressDetail = (e) => setAddressDetail(e.target.value);
 
   const idCheck = (e) => {
-    console.log(email);
     e.preventDefault();
+    if (isEmail === true) {
+      id_btn.current.style = "background-color: #248f48; color:white;";
+    } else {
+      id_btn.current.style = "background-color: #ff2727; color:white;";
+    }
+
     axios
       .post(
         `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`,
@@ -157,18 +162,30 @@ function Join({ history }, props) {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((response) => {
-        setUsableIdMessage("사용 가능한 아이디입니다.");
-        setIsUsableId(true);
-        console.log("idcheck");
+        if (isEmail === true && email !== "") {
+          setUsableIdMessage("사용 가능한 이메일입니다.");
+          setIsUsableId(true);
+          console.log("idcheck");
+        } else {
+          setUsableIdMessage("사용할수 없는 이메일입니다.");
+          setIsUsableId(false);
+        }
       })
       .catch((error) => {
+        setUsableIdMessage("이미 사용중인 이메일 입니다.");
+        setIsEmail(false);
         setIsUsableId(false);
-        setUsableIdMessage("이미 사용중인 아이디 입니다.");
       });
   };
 
   const nicknameCheck = (e) => {
     e.preventDefault();
+    if (isNickname == true) {
+      nick_btn.current.style = "background-color: #248f48; color:white;";
+    } else {
+      nick_btn.current.style = "background-color: #ff2727; color:white;";
+    }
+
     axios
       .post(
         `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`,
@@ -176,14 +193,18 @@ function Join({ history }, props) {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((response) => {
-        if (response.status === 200) {
-          setUsableNicknameMessage("사용 가능한 아이디입니다.");
+        if (response.status === 200 && nickname !== "") {
+          setUsableNicknameMessage("사용 가능한 닉네임입니다.");
           setIsUsableNickname(true);
+        } else {
+          setUsableNicknameMessage("사용할수 없는 닉네임입니다.");
+          setIsUsableNickname(false);
         }
       })
       .catch((error) => {
         setIsUsableNickname(false);
-        setUsableNicknameMessage("이미 사용중인 아이디 입니다.");
+        setIsNickname(false);
+        setUsableNicknameMessage("이미 사용중인 닉네임 입니다.");
       });
   };
 
@@ -194,14 +215,14 @@ function Join({ history }, props) {
     setIsOpen((prev) => !prev); // false > true
   };
 
-  // const handleComplete = (data) => {
-  //   console.log(data);
-  //   onToggleModal();
-  // };
-
   console.log(address);
   console.log(addressDetail);
-  // console.log(isOpen)
+
+  // 체크용
+  const id_btn = useRef();
+  const nick_btn = useRef();
+
+  useEffect(() => {}, [isEmail, isUsableId]);
 
   return (
     <>
@@ -212,23 +233,16 @@ function Join({ history }, props) {
         <div className={style.input_set}>
           <ul>
             <li className={style.id_in}>
-              <label>아이디</label>
+              <label>이메일</label>
               <input
                 type="email"
-                placeholder="아이디를 입력해주세요."
+                placeholder="이메일을 입력해주세요."
                 value={email}
                 onChange={changeEmail}
               />
-              <button type="button" onClick={idCheck}>
+              <button type="button" onClick={idCheck} ref={id_btn}>
                 중복확인
               </button>
-              {email.length > 0 && (
-                <p
-                  style={isEmail ? { color: "#248f48" } : { color: "#ff2727" }}
-                >
-                  {emailMessage}
-                </p>
-              )}
               <p
                 style={isUsableId ? { color: "#248f48" } : { color: "#ff2727" }}
               >
@@ -236,14 +250,14 @@ function Join({ history }, props) {
               </p>
             </li>
             <li className={style.nick_in}>
-              <label>별명</label>
+              <label>닉네임</label>
               <input
                 type="text"
-                placeholder="별명을 입력해주세요."
+                placeholder="2글자 이상 7글자 미만으로 입력해주세요."
                 value={nickname}
                 onChange={changeNickname}
               />
-              <button type="button" onClick={nicknameCheck}>
+              <button type="button" onClick={nicknameCheck} ref={nick_btn}>
                 중복확인
               </button>
               {nickname.length > 0 && (
