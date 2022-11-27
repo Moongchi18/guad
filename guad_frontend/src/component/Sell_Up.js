@@ -50,8 +50,15 @@ function Sell_Up({ match, history }) {
           setBid(response.data.auctionStartPrice);
         }
         setBid(response.data.bidPrice);
-
-        setAuctionCurrentPrice(response.data.beforeAuctionPrice);
+        console.log(response.data.beforeAuctionPrice);
+        if(response.data.beforeAuctionPrice !== 0) {
+          
+          setAuctionCurrentPrice(response.data.beforeAuctionPrice);
+        } else {
+          setAuctionCurrentPrice("입찰 없음");
+        }
+        
+        
         setBidNickname(response.data.beforeNickname);
 
         const date = new Date(
@@ -139,7 +146,7 @@ function Sell_Up({ match, history }) {
   const handlerBid = (r) => {
     // stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
     // setBid(document.getElementsByClassName(`${style.bid}`)[0].value);
-    // setBid(r);
+    setBid(r);
     setDto({ ...Dto, auctionPrice: r })
     console.log(bid);
     console.log(Dto);
