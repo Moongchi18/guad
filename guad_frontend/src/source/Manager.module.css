@@ -131,6 +131,14 @@
   font-weight: 300;
   padding-top: 10px;
 }
+
+.user_list img {
+  height: 90px;
+  width: 90px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 30%);
+}
+
 .notify {
   text-align: left;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);

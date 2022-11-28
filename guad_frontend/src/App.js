@@ -40,10 +40,14 @@ function App() {
     sessionStorage.getItem("token") ? true : false
   );
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
-  const [googleLoginImg, setGoogleLoginImg] = useState(
-    sessionStorage.getItem("image")
+  const [profileImg, setProfileImg] = useState(
+    sessionStorage.getItem("profileImg") === 'null' || sessionStorage.getItem("profileImg") === 'undefined' ? '':sessionStorage.getItem("profileImg")
   );
+
+  console.log(">>>>>>>>>>>>" + profileImg);
+  console.log(">>>>>>>>>>>>" + sessionStorage.getItem("profileImg"));
   const [searchWord, setSearchWord] = useState("");
+  const [isSearch, setIsSearch] = useState(false);
   const [manager, setManager] = useState(sessionStorage.getItem("managerYn"));
 
   // function handlerIsLogin() {zz
@@ -70,8 +74,10 @@ function App() {
         nickName={nickName}
         manager={manager}
         setSearchWord={setSearchWord}
+        isSearch={isSearch}
+        setIsSearch={setIsSearch}
         setManager={setManager}
-        googleLoginImg={googleLoginImg}
+        profileImg={profileImg}
       />
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route
@@ -81,6 +87,7 @@ function App() {
             setIsLogin={setIsLogin}
             setNickName={setNickName}
             setManager={setManager}
+            setProfileImg={setProfileImg}
             {...props}
           />
         )}
@@ -100,7 +107,7 @@ function App() {
       <Route path="/mypage" component={Mypage} exact={true} />
       <Route
         path="/mypage/info"
-        render={(props) => <MypageInfo setIsLogin={setIsLogin} {...props} />}
+        render={(props) => <MypageInfo setIsLogin={setIsLogin} setProfileImg={setProfileImg} {...props} />}
       />
       <Route path="/mypage/check" component={MypageCheck} exact={true} />
       <Route path="/mypage/selllist" component={Mypage_SellList} exact={true} />
@@ -116,6 +123,7 @@ function App() {
           <SellList
             searchWord={searchWord}
             setSearchWord={setSearchWord}
+            isSearch={isSearch}
             {...props}
           />
         )}

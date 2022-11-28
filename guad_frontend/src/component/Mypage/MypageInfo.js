@@ -14,6 +14,7 @@ function MypageInfo(props) {
     phone: "",
     address: "",
     mileage: "",
+    loginImg: "",
   });
 
   const [address, setAddress] = useState("");
@@ -74,7 +75,7 @@ function MypageInfo(props) {
     if (window.confirm("오르내림 회원을 탈퇴 하시겠습니까?")) {
       axios
         .post(
-          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
           { email: userEmail }
         )
         .then((response) => {
@@ -90,7 +91,7 @@ function MypageInfo(props) {
 
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
         console.log(response.data);
         setData({
@@ -100,6 +101,7 @@ function MypageInfo(props) {
           address: response.data.address,
           addressDetail: response.data.addressDetail,
           mileage: response.data.mileage,
+          loginImg: response.data.loginImgName,
         });
         setAddress(response.data.address);
         setPhone(response.data.phone);
@@ -107,22 +109,45 @@ function MypageInfo(props) {
       });
   }, []);
 
+  const formData = new FormData();
+  const [imgBase64, setImgBase64] = useState([]);
+  const [imgBase, setImgBase] = useState([1, 2, 3]);
+  const [imgFile, setImgFile] = useState([]);
+
+
+  let dataSet = {
+    phone,
+    address,
+    addressDetail,
+    pass,
+    email: userEmail,
+  };
+
+  // formData.append('data', dataSet);
+  formData.append(
+    "data",
+    new Blob([JSON.stringify(dataSet)], { type: "application/json" })
+  );
+  Object.values(imgFile).forEach((file) => formData.append("files", file));
+
+
   const handlerUpdate = () => {
+
     if (!(isPass && isPassConfirm)) {
       alert("두 비밀번호가 일치하지 않습니다.");
     } else {
-      axios
-        .post(
-          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
-          {
-            phone,
-            address,
-            addressDetail,
-            pass,
-            email: userEmail,
-          }
-        )
+      axios({
+        method: "post",
+        url: `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
+        data: formData,
+        headers: {
+          "Content-Type": `multipart/form-data; `,
+        },
+      })
         .then((response) => {
+          console.log(response.data)
+          props.setProfileImg(response.data);
+          sessionStorage.setItem("profileImg", response.data)
           alert("수정이 완료되었습니다.");
           props.history.push("/mypage");
         });
@@ -142,16 +167,13 @@ function MypageInfo(props) {
   console.log(phone);
 
   //////////////////////파일 업로드//////////////////////
-  const formData = new FormData();
-  const [imgBase64, setImgBase64] = useState([]);
-  const [imgBase, setImgBase] = useState([1, 2, 3]);
-  const [imgFile, setImgFile] = useState(null);
+
 
   const handleChangeFile = (event) => {
     //fd.append("file", event.target.files)
 
     const newImgBase = [1, 2, 3];
-    var maxSize = 1 * 1024 * 1024 //1MB
+    var maxSize = 1 * 1024 * 1024; //1MB
     setImgFile(event.target.files);
     setImgBase(newImgBase);
     setImgBase64([]);
@@ -163,18 +185,17 @@ function MypageInfo(props) {
       setImgBase64([]);
     } else {
       for (var i = 0; i < event.target.files.length; i++) {
-      
         if (!event.target.files[i].type.match("image/.*")) {
           alert("이미지 파일만 업로드가 가능합니다.");
-          return
+          return;
         } else if (event.target.files[i].size > maxSize) {
-          alert("이미지 크기는 1MB를 초과할 수 없습니다.")
-          return
+          alert("이미지 크기는 1MB를 초과할 수 없습니다.");
+          return;
         } else if (event.target.files[i]) {
           console.log(event.target.files[i].size);
           let reader = new FileReader();
           // 1. 파일을 읽어 버퍼에 저장합니다.
-          reader.readAsDataURL(event.target.files[i]); 
+          reader.readAsDataURL(event.target.files[i]);
           // 2. 읽기가 완료되면 아래코드가 실행됩니다.
           reader.onloadend = () => {
             const base64 = reader.result;
@@ -201,7 +222,10 @@ function MypageInfo(props) {
         <div>
           <div className={style.Mboxi}>
             <div className={style.logo_boxi}>
-              <img src={logo} alt="1"></img>
+              <img src={
+                data.loginImg !== null
+                  ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                  : logo} alt="1"></img>
             </div>
             <div className={style.mileage_boxi}>
               <h3>
@@ -269,42 +293,6 @@ function MypageInfo(props) {
           )}
           <h3>전화번호</h3>
           <input defaultValue={data.phone} onChange={changePhone} />
-          
-         {/*  파일 업로드 */}
-          <li className={style.photo_b}>
-              <label>사진등록</label>
-              <p>필수로 1장 이상의 사진을 등록해야 합니다.</p>
-
-              <div className={style.fileupload}>
-                {imgBase64.map((item) => {
-                  return (
-                    <label for="file">
-                      <img
-                        className={style.mid_img}
-                        src={item}
-                        alt="First slide"
-                      />
-                    </label>
-                  );
-                })}
-
-                {imgBase.map((item) => (
-                  <label for="file" key={item}>
-                    <img src={require("../../source/img/pic.png")} alt="사진1" />
-                  </label>
-                ))}
-              </div>
-            </li>
-           {/*  파일 업로드 히든 */}
-           <div className={style.filebox}>
-              <input
-                type="file"
-                id="file"
-                className={style.upload}
-                onChange={handleChangeFile}
-              />
-            </div>
-
 
           <h3>변경 비밀번호</h3>
           <input
@@ -335,6 +323,36 @@ function MypageInfo(props) {
             </p>
           )}
         </div>
+
+        {/*  파일 업로드 */}
+        <li className={style.photo_b}>
+          <h3>사진등록</h3>
+          <div className={style.fileupload}>
+            {imgBase64.map((item) => {
+              return (
+                <label for="file">
+                  <img className={style.mid_img} src={item} alt="First slide" />
+                </label>
+              );
+            })}
+            {imgBase64.length == 0 && (
+              <label for="file">
+                <img src={require("../../source/img/pic.png")} alt="사진1" />
+              </label>
+            )}
+          </div>
+
+          {/*  파일 업로드 히든 */}
+          <div className={style.filebox}>
+            <input
+              type="file"
+              id="file"
+              className={style.upload}
+              onChange={handleChangeFile}
+            />
+          </div>
+        </li>
+
         <div className={style.btn_area}>
           <button
             type="button"

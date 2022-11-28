@@ -36,7 +36,7 @@ function Login(props) {
   const handlerSubmit = (e) => {
     // e.preventDefault();
     axios
-      .post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, {
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, {
         email: email,
         pass: password,
       })
@@ -44,7 +44,7 @@ function Login(props) {
         sessionStorage.setItem("token", response.data);
         axios
           .get(
-            `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+            `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
             { header: { Authorization: response.data } }
           )
           .then((response) => {
@@ -52,8 +52,10 @@ function Login(props) {
             props.setManager(response.data.managerYn);
             props.setNickName(response.data.nickname);
             props.setIsLogin(true);
+            props.setProfileImg(response.data.loginImgName);
             sessionStorage.setItem("nickname", response.data.nickname);
             sessionStorage.setItem("managerYn", response.data.managerYn);
+            sessionStorage.setItem("profileImg", response.data.loginImgName);
           });
         alert("로그인 되었습니다.");
         props.history.push("/");
@@ -88,7 +90,7 @@ function Login(props) {
     var userObject = jwt_decode(response.credential);
     console.log(userObject.picture);
     //구글 이미지 저장
-    sessionStorage.setItem("image", userObject.picture)
+    sessionStorage.setItem("profileImg", userObject.picture)
     // setUser(userObject);
 
     //로그인 하면 로그인 버튼 가리기
@@ -97,7 +99,7 @@ function Login(props) {
     //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
     axios
       .post(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`,
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`,
         {
           email: userObject.email,
         }
@@ -113,9 +115,10 @@ function Login(props) {
         else {
           console.log(response.data);
           sessionStorage.setItem("token", response.data);
+          // sessionStorage.setItem("profileImg", userObject.picture);
           axios
             .get(
-              `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
               { header: { Authorization: response.data } }
             )
             .then((response) => {

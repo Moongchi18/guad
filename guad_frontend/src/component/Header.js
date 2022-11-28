@@ -1,5 +1,6 @@
 import style from "../source/Header.module.css";
 import logo from "../source/img/head_logo.png";
+import logo_d from "../source/img/mypage_d.png";
 import search from "../source/img/h_search.png";
 import { Link, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -11,6 +12,7 @@ function Header(props) {
   const SearchGo = (e) => {
     if (e.key == "Enter") {
       console.log("여기");
+      props.setIsSearch(!props.isSearch)
       props.setSearchWord(searchWord);
       setSearchWord("");
       props.history.push("/sell_List");
@@ -32,7 +34,7 @@ function Header(props) {
     } else if (sessionStorage.length == 0) {
       SetMypage(false);
     }
-  }, [sessionStorage.length, props]);
+  }, [sessionStorage.length]);
 
   const handleSignOut = (e) => {
     e.preventDefault();
@@ -41,7 +43,9 @@ function Header(props) {
     alert("로그아웃 되었습니다.");
   };
 
-  const handlerSearchWord = (e) => setSearchWord(e.target.value);
+  const handlerSearchWord = (e) => {
+    setSearchWord(e.target.value)
+  };
   console.log("검색한 단어 : " + searchWord);
   return (
     <>
@@ -69,10 +73,28 @@ function Header(props) {
             )}
             {props.isLogin && (
               <li className={style.nick}>
-                <img src={props.googleLoginImg}></img>
+                <img src={
+                  (props.profileImg !== null && props.profileImg !== '')
+                    ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${props.profileImg}`
+                    : logo_d
+                    } 
+                    alt="1">
+
+                    </img>
+
+
+                {/* <img
+                  src={
+                    data.loginImg !== null
+                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                      : logo
+                  }
+                  alt="1"
+                ></img> */}
                 <strong>{props.nickName}</strong>님 환영합니다!
               </li>
             )}
+
             {mypage == true && (
               <li>
                 {props.manager != "ROLE_y" && (

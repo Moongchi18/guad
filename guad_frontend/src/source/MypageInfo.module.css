@@ -35,6 +35,13 @@
   padding: 30px 20px 30px 30px;
 }
 
+.logo_boxi img {
+  height: 90px;
+  width: 90px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 30%);
+}
+
 .mileage_boxi {
   margin-top: 50px;
   vertical-align: top;
@@ -262,6 +269,29 @@ input[type="file"] {
 }
 
 .fileupload {
+  display: inline-block !important;
+}
+
+.photo_b  {
+  margin-top: 20px;
+  text-align: left;
+  margin-left: 280px;
+  list-style:none;
+  
+}
+
+.photo_b img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  margin: 0 5px 0 5px;
+}
+
+.photo_b h3 {
   display: inline-block;
-  width: 630px;
+  font-weight: 300;
+  font-size: 15px;
+  text-align: left;
+  vertical-align: top;
+  margin-right: 40px;
 }

@@ -10,25 +10,27 @@ function MypageCheck({ history }) {
   const [data, setData] = useState({
     nickname: "",
     mileage: 0,
+    loginImg: "",
   });
 
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
         setData({
           nickname: response.data.nickname,
           mileage: response.data.mileage,
+          loginImg: response.data.loginImgName,
         });
       });
-      const escKeyModalClose = (e) => {
-        if (e.keyCode === 27) {
-          closeModal3();
-          closeModal();
-        }
-      };
-      window.addEventListener("keydown", escKeyModalClose);
-      return () => window.removeEventListener("keydown", escKeyModalClose);
+    const escKeyModalClose = (e) => {
+      if (e.keyCode === 27) {
+        closeModal3();
+        closeModal();
+      }
+    };
+    window.addEventListener("keydown", escKeyModalClose);
+    return () => window.removeEventListener("keydown", escKeyModalClose);
   }, []);
 
   const [pass, setPass] = useState("");
@@ -47,7 +49,7 @@ function MypageCheck({ history }) {
   const handleCheck = () => {
     axios
       .post(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/mypage/passcheck`,
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/mypage/passcheck`,
         { pass }
       )
       .then((response) => history.push("/mypage/info"))
@@ -84,7 +86,10 @@ function MypageCheck({ history }) {
         <div>
           <div className={style.Mboxi}>
             <div className={style.logo_boxi}>
-              <img src={logo} alt="1"></img>
+              <img src={
+                data.loginImg !== null
+                  ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                  : logo} alt="1"></img>
             </div>
             <div className={style.mileage_boxi}>
               <h3>

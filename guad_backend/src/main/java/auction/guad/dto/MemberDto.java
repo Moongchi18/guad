@@ -21,6 +21,8 @@ public class MemberDto {
 	private String gender;
 	private int mileage;
 	private int mileageUsed;
+	
+	private String loginImgName;
 	private String managerYn;
 	private String deleteYn;
 	private Date updatedDateTime;

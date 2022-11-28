@@ -245,7 +245,7 @@ function Selling({ history }) {
 
       axios({
         method: "post",
-        url: `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`,
+        url: `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`,
         data: formData,
         headers: {
           "Content-Type": `multipart/form-data; `,
@@ -269,7 +269,7 @@ function Selling({ history }) {
   // 카테고리 불러오기
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/category`)
       .then((response) => {
         // console.log(response.data);
         const temp1 = [];
@@ -536,7 +536,7 @@ function Selling({ history }) {
             <li className={style.photo_b}>
               <label>사진등록</label>
               <p>필수로 1장 이상의 사진을 등록해야 합니다.</p>
-
+              {/*  파일 업로드 */}
               <div className={style.fileupload}>
                 {imgBase64.map((item) => {
                   return (
@@ -557,7 +557,7 @@ function Selling({ history }) {
                 ))}
               </div>
             </li>
-            {/*  파일 업로드 */}
+            {/*  파일 업로드 히든 */}
             <div className={style.filebox}>
               <input
                 type="file"
