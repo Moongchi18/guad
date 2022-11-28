@@ -44,6 +44,7 @@ function App() {
     sessionStorage.getItem("image")
   );
   const [searchWord, setSearchWord] = useState("");
+  const [isSearch, setIsSearch] = useState(false);
   const [manager, setManager] = useState(sessionStorage.getItem("managerYn"));
 
   // function handlerIsLogin() {zz
@@ -70,6 +71,8 @@ function App() {
         nickName={nickName}
         manager={manager}
         setSearchWord={setSearchWord}
+        isSearch={isSearch}
+        setIsSearch={setIsSearch}
         setManager={setManager}
         googleLoginImg={googleLoginImg}
       />
@@ -116,6 +119,7 @@ function App() {
           <SellList
             searchWord={searchWord}
             setSearchWord={setSearchWord}
+            isSearch={isSearch}
             {...props}
           />
         )}

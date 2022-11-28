@@ -11,6 +11,7 @@ function Header(props) {
   const SearchGo = (e) => {
     if (e.key == "Enter") {
       console.log("여기");
+      props.setIsSearch(!props.isSearch)
       props.setSearchWord(searchWord);
       setSearchWord("");
       props.history.push("/sell_List");
@@ -41,7 +42,9 @@ function Header(props) {
     alert("로그아웃 되었습니다.");
   };
 
-  const handlerSearchWord = (e) => setSearchWord(e.target.value);
+  const handlerSearchWord = (e) => {
+    setSearchWord(e.target.value)
+  };
   console.log("검색한 단어 : " + searchWord);
   return (
     <>
