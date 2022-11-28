@@ -29,18 +29,22 @@ import auction.guad.dto.MemberDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.security.PrincipalDetails;
 import auction.guad.service.MemberService;
+import auction.guad.service.S3Uploader;
 import auction.guad.vo.RequestVo;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class MemberController {
 
-	MemberService memberService;
-	BCryptPasswordEncoder encoder;
+	private MemberService memberService;
+	private BCryptPasswordEncoder encoder;
+	private S3Uploader s3Uploader;
 
 	@Autowired
-	public MemberController(MemberService memberService) {
+	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder, S3Uploader s3Uploader) {
 		this.memberService = memberService;
+		this.encoder = encoder;
+		this.s3Uploader = s3Uploader;
 	}
 
 	// 회원가입
@@ -94,7 +98,8 @@ public class MemberController {
 			throws Exception {
 		
 		String FileNames = "";
-		String filepath = "C:/img/member/";
+//		String filepath = "C:/img/member/";
+		String filepath = "/home/";
 		// header에 입력할 이미지 name 반환할때 사용
 		String returnFileName= " ";
 		
@@ -114,7 +119,7 @@ public class MemberController {
 			try {
 				File f1 = new File(filepath + safeFile);
 				mf.transferTo(f1);
-//				s3Uploader.upload(f1, filepath, safeFile);
+				s3Uploader.upload(f1, filepath, safeFile);
 //				s3Uploader.putS3(f1, safeFile);
 //				s3Uploader.removeNewFile(f1);
 			} catch (IllegalStateException e) {
