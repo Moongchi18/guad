@@ -29,7 +29,7 @@ function UserSellList({ history }) {
   console.log(dateFormat(now));
 
   useEffect(() => {
-    axios.get(`https://localhost:8080/selllist`).then((response) => {
+    axios.get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/selllist`).then((response) => {
       setSellList(response.data);      
     });
   }, []);

@@ -8,7 +8,7 @@ function My_Sell() {
   const [sellList, setSellList] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://localhost:8080/selllistd`).then((response) => {
+    axios.get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/selllistd`).then((response) => {
       setSellList(response.data);    
    
     });
