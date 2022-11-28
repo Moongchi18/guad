@@ -73,6 +73,7 @@ function App() {
         setManager={setManager}
         googleLoginImg={googleLoginImg}
       />
+      <h1>테스트</h1>
       <Route path="/g_login" component={GoogleLoginForm} exact={true} />
       <Route
         path="/login"
