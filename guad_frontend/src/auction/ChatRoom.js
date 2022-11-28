@@ -19,7 +19,7 @@ const ChatRoom = () => {
   }, [userData]);
 
   const connect = () => {
-    let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}8080/ws`);
+    let Sock = new SockJS(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}8080/ws`);
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
   };

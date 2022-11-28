@@ -74,7 +74,7 @@ function MypageInfo(props) {
     if (window.confirm("오르내림 회원을 탈퇴 하시겠습니까?")) {
       axios
         .post(
-          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
+          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
           { email: userEmail }
         )
         .then((response) => {
@@ -90,7 +90,7 @@ function MypageInfo(props) {
 
   useEffect(() => {
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
         console.log(response.data);
         setData({
@@ -113,7 +113,7 @@ function MypageInfo(props) {
     } else {
       axios
         .post(
-          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
+          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
           {
             phone,
             address,

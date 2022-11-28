@@ -20,7 +20,7 @@ function GoogleLoginForm({history}) {
     document.getElementById("signInDiv").hidden = true;
     //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`, {
+      .post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`, {
         // email: user.email,
         email: userObject.email,
       })

@@ -32,7 +32,7 @@ services:
       aws-internal-net:
         ipv4_address: 172.18.0.21
     ports:
-      - 9090:8080
+      - 8080:8080
 
   client:
     image: moongchi18/olenaelim_client:latest
