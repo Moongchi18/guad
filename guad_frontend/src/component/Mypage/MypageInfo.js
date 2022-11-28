@@ -145,6 +145,9 @@ function MypageInfo(props) {
         },
       })
         .then((response) => {
+          console.log(response.data)
+          props.setProfileImg(response.data);
+          sessionStorage.setItem("profileImg", response.data)
           alert("수정이 완료되었습니다.");
           props.history.push("/mypage");
         });

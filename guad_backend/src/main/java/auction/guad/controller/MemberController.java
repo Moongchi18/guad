@@ -95,6 +95,8 @@ public class MemberController {
 		
 		String FileNames = "";
 		String filepath = "C:/img/member/";
+		// header에 입력할 이미지 name 반환할때 사용
+		String returnFileName= " ";
 		
 		for (MultipartFile mf : files) {
 
@@ -104,6 +106,7 @@ public class MemberController {
 			System.out.println("originFileName : " + originFileName);
 			System.out.println("fileSize : " + fileSize);
 			String safeFile = System.currentTimeMillis() + originFileName;
+			returnFileName = safeFile.toString();
 //	            FileNames = FileNames+","+safeFile; 
 
 			member.setLoginImgName(safeFile);
@@ -126,7 +129,7 @@ public class MemberController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("입력하신 정보를 찾을 수 없습니다.");
 		}
 		memberService.updateMemberByEmail(member);
-		return ResponseEntity.ok("회원정보 수정에 성공했습니다");
+		return ResponseEntity.ok(returnFileName);
 	}
 
 	// 회원 탈퇴(flag)
