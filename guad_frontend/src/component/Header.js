@@ -32,7 +32,7 @@ function Header(props) {
     } else if (sessionStorage.length == 0) {
       SetMypage(false);
     }
-  }, [sessionStorage.length, props.isLogin]);
+  }, [sessionStorage.length, props]);
 
   const handleSignOut = (e) => {
     e.preventDefault();
@@ -69,6 +69,7 @@ function Header(props) {
             )}
             {props.isLogin && (
               <li className={style.nick}>
+                <img src={props.googleLoginImg}></img>
                 <strong>{props.nickName}</strong>님 환영합니다!
               </li>
             )}

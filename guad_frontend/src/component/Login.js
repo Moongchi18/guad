@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import style from "../source/Login.module.css";
 import axios from "axios";
 import { useState } from "react";
@@ -20,7 +20,7 @@ function Login(props) {
     }
   };
   const onKeyEnter = (e) => {
-    if (e.key == "Enter") {
+    if (e.key === "Enter") {
       handlerSubmit();
     }
   };
@@ -53,12 +53,13 @@ function Login(props) {
             props.setNickName(response.data.nickname);
             props.setIsLogin(true);
             sessionStorage.setItem("nickname", response.data.nickname);
+            sessionStorage.setItem("managerYn", response.data.managerYn);
           });
         alert("로그인 되었습니다.");
         props.history.push("/");
         console.log(response.data);
         // 아이디 저장용
-        if (idCheck == true) {
+        if (idCheck === true) {
           localStorage.setItem("email", email);
         } else {
           localStorage.setItem("email", "");
@@ -78,7 +79,6 @@ function Login(props) {
     console.log(props);
     console.log("호출");
     console.log("저장된 이메일 : " + localStorage.getItem("email"));
-    console.log("입력된 이메일 : " + email);
   }, []);
 
   // social login
@@ -86,6 +86,9 @@ function Login(props) {
   function handlerCallbackResponse(response) {
     console.log("Encoded JWT ID token " + response.credential);
     var userObject = jwt_decode(response.credential);
+    console.log(userObject.picture);
+    //구글 이미지 저장
+    sessionStorage.setItem("image", userObject.picture)
     // setUser(userObject);
 
     //로그인 하면 로그인 버튼 가리기
@@ -170,7 +173,7 @@ function Login(props) {
             className={style.in_box}
             placeholder="아이디"
             defaultValue={
-              localStorage.getItem("email") == ""
+              localStorage.getItem("email") === ""
                 ? email
                 : localStorage.getItem("email")
             }

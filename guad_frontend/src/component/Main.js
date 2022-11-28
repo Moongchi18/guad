@@ -29,17 +29,14 @@ function Main() {
             >
               <strong>오르내림 거래종류</strong>
               <br />
-              <strong className={style.t_1}>오름 경매</strong>란? 상품의
-              <strong className={style.tt_1}>가격을 올려가며</strong> 구매자들이
-              경쟁하는 식으로 판매가 가능한 판매방식입니다
+              <strong className={style.t_1}>오름 경매</strong>란? 입찰 경쟁을 통해 상품의
+              <strong className={style.tt_1}> 가격을 올려가는</strong> 일반적인 경매 방식입니다
               <br />
-              <strong className={style.t_2}>내림 경매</strong>란? 판매하기
-              어렵거나 빠르게 판매하고 싶은 상품의
-              <strong className={style.tt_2}>가격을 내려가며</strong> 판매하는
-              방식입니다 <br />
+              <strong className={style.t_2}>내림 경매</strong>란? 상품의 가격이 매 시간마다 일정한 수치 혹은 랜덤 방식으로
+              <strong className={style.tt_2}> 점차 내려가는</strong> 판매 방식입니다 <br />
               <strong className={style.t_3}>일반 판매</strong>란? 판매자가 올린
               상품을 구매자가 1대1로 구매하는
-              <strong className={style.tt_3}>일반적인 거래방식</strong>입니다
+              <strong className={style.tt_3}> 경매가 아닌 일반적인 거래방식</strong>입니다
             </p>
           </div>
           <button

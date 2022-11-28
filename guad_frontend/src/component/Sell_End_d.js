@@ -101,7 +101,11 @@ function Sell_End_d({ match }) {
 
   return (
     <>
-      <NotifyWrite closeModal={closeModal} modalChange={modalChange} item={item}/>
+      <NotifyWrite
+        closeModal={closeModal}
+        modalChange={modalChange}
+        item={item}
+      />
       <div className={style.item_top}>
         <h2 className={style.down}>
           <strong>내림</strong>경매

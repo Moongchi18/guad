@@ -75,6 +75,7 @@ public class WebSocketController {
 			auction.setBeforeNickname(memberService.managerSelectMemberDetailByEmail(auctionService.lastAuction(itemNum).getMemberEmail()).getNickname());
 		} else {
 			auction.setBeforeAuctionPrice(0);
+			auction.setAuctionPrice(sellItem.getAuctionStartPrice());
 			auction.setBeforeNickname("");
 		}
 		
