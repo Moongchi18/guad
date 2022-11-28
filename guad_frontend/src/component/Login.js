@@ -52,8 +52,10 @@ function Login(props) {
             props.setManager(response.data.managerYn);
             props.setNickName(response.data.nickname);
             props.setIsLogin(true);
+            props.setProfileImg(response.data.loginImgName);
             sessionStorage.setItem("nickname", response.data.nickname);
             sessionStorage.setItem("managerYn", response.data.managerYn);
+            sessionStorage.setItem("profileImg", response.data.loginImgName);
           });
         alert("로그인 되었습니다.");
         props.history.push("/");
