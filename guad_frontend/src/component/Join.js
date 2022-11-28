@@ -226,7 +226,7 @@ function Join({ history }, props) {
   useEffect(() => {
     axios
       .post(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`,
+        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`,
         JSON.stringify({ email: email }),
         { headers: { "Content-Type": "application/json" } }
       )
