@@ -74,7 +74,7 @@ function Header(props) {
             {props.isLogin && (
               <li className={style.nick}>
                 <img src={
-                  (props.profileImg !== null && props.profileImg !== '')
+                  (props.profileImg !== null && props.profileImg !== '' && props.profileImg !== 'null')
                     ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${props.profileImg}`
                     : logo_d
                     } 
