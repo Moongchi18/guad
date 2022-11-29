@@ -40,7 +40,7 @@ public class CommentsController {
     }
 	
 	@ApiOperation(value = "댓글 목록 조회", notes = "등록된 댓글 목록을 조회")
-	@GetMapping("/comments/{itemNum}")
+	@GetMapping("/noauth/comments/{itemNum}")
 	public List<CommentsDto> commentsList(@PathVariable ("itemNum")int itemNum) throws Exception {
 		
 	       List<CommentsDto> comments = commentsService.commentsListByItemNum(itemNum);        

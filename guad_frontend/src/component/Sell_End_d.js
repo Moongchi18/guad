@@ -56,7 +56,7 @@ function Sell_End_d({ match }) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/comments/${match.params.itemNum}`
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/noauth/comments/${match.params.itemNum}`
       )
       .then((response) => {
         setComments(response.data);

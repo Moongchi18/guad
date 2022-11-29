@@ -58,7 +58,7 @@ public class SellItemController {
 	}
 
 	@ApiOperation(value = "상품 등록(SellItemDto)", notes = "게시물 제목과 내용을 저장, 파라미터 : SellItemDto")
-	@PostMapping("/sellitem")
+	@PostMapping("/auth/sellitem")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Boolean> insertSellItem(
 			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }")

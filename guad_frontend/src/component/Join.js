@@ -59,7 +59,7 @@ function Join({ history }, props) {
     } else {
       axios
         .post(
-          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/join`,
           {
             email,
             nickname,
@@ -157,7 +157,7 @@ function Join({ history }, props) {
 
     axios
       .post(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`,
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/join/idcheck`,
         JSON.stringify({ email: email }),
         { headers: { "Content-Type": "application/json" } }
       )
@@ -186,7 +186,7 @@ function Join({ history }, props) {
 
     axios
       .post(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`,
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/join/nicknamecheck`,
         JSON.stringify({ nickname: nickname }),
         { headers: { "Content-Type": "application/json" } }
       )
@@ -226,7 +226,7 @@ function Join({ history }, props) {
   useEffect(() => {
     axios
       .post(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/idcheck`,
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/join/idcheck`,
         JSON.stringify({ email: email }),
         { headers: { "Content-Type": "application/json" } }
       )

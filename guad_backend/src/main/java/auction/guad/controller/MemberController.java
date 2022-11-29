@@ -46,7 +46,7 @@ public class MemberController {
 
 	// 회원가입
 	@ApiOperation(value = "회원가입(MemberDto)", notes = "회원가입, 파라미터 : MemberDto")
-	@PostMapping("/member")
+	@PostMapping("/join")
 	public ResponseEntity<String> insertMember(@RequestBody MemberDto member) throws Exception {
 		
 		String filepath = "C:/img/member/";
@@ -66,6 +66,39 @@ public class MemberController {
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록실패");
 		}
+	}
+	
+
+	// 이메일 중복 체크
+	@ApiOperation(value = "회원가입 - id중복체크(email)", notes = "회원가입 - id중복체크, 파라미터 : email")
+	@PostMapping(value="/join/idcheck")
+	public ResponseEntity<Integer> repetitionEmailCheck(@RequestBody MemberDto member) throws Exception {
+		Integer result = memberService.repetitionEmailCheck(member.getEmail());
+		System.out.println("<<<<<<<<<<<<<<<<호출");
+		System.out.println(result);
+		if (result == 1) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		} else if (result == 0) {
+			return ResponseEntity.status(HttpStatus.OK).body(null);
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
+		}
+	}
+
+	// 닉네임 중복 체크
+	@ApiOperation(value = "회원가입 - nickname중복체크(nickname)", notes = "회원가입 - nickname중복체크, 파라미터 : nickname")
+	@PostMapping(value = "/join/nicknamecheck")
+	public ResponseEntity<Integer> repetitionNicknameCheck(@RequestBody MemberDto member) throws Exception {
+		Integer result1 = memberService.repetitionNicknameCheck(member.getNickname());
+		
+		if (result1 == 1) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		} else if (result1 == 0) {
+			return ResponseEntity.status(HttpStatus.OK).body(null);
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
+		}
+
 	}
 
 	// 로그인 토큰으로 회원정보 조회
@@ -181,37 +214,6 @@ public class MemberController {
 		return memberService.managerSelectMemberDetailByEmail(email);
 	}
 
-	// 이메일 중복 체크
-	@ApiOperation(value = "회원가입 - id중복체크(email)", notes = "회원가입 - id중복체크, 파라미터 : email")
-	@PostMapping(value="/member/idcheck")
-	public ResponseEntity<Integer> repetitionEmailCheck(@RequestBody MemberDto member) throws Exception {
-		Integer result = memberService.repetitionEmailCheck(member.getEmail());
-		System.out.println("<<<<<<<<<<<<<<<<호출");
-		System.out.println(result);
-		if (result == 1) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		} else if (result == 0) {
-			return ResponseEntity.status(HttpStatus.OK).body(null);
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
-		}
-	}
-
-	// 닉네임 중복 체크
-	@ApiOperation(value = "회원가입 - nickname중복체크(nickname)", notes = "회원가입 - nickname중복체크, 파라미터 : nickname")
-	@PostMapping(value = "/member/nicknamecheck")
-	public ResponseEntity<Integer> repetitionNicknameCheck(@RequestBody MemberDto member) throws Exception {
-		Integer result1 = memberService.repetitionNicknameCheck(member.getNickname());
-		
-		if (result1 == 1) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		} else if (result1 == 0) {
-			return ResponseEntity.status(HttpStatus.OK).body(null);
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
-		}
-
-	}
 
 	@ApiOperation(value = "비밀번호 재확인", notes = "개인정보 변경 전 비밀번호 재확인")
 	@PostMapping("/mypage/passcheck")
