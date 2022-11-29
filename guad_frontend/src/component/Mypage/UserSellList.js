@@ -29,7 +29,7 @@ function UserSellList({ history }) {
   console.log(dateFormat(now));
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/selllist`).then((response) => {
+    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/selllist`).then((response) => {
       setSellList(response.data);      
     });
   }, []);
@@ -58,7 +58,7 @@ function UserSellList({ history }) {
               <Link to={list.soldYn === 'y' || list.soldYn === 'Y' ? `/sell_end/${list.sellType}/${list.itemNum}`:`/sell_item/${list.sellType}/${list.itemNum}`}>
               <div className={style.item_bb} key={list.itemNum}>
                 <img
-                  src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
+                  src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
                   alt={"img" + list.itemNum}
                 />
                 <img

@@ -12,13 +12,13 @@ function Manager() {
   const [datas2, setDatas2] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`).then((response) => {
+    axios.get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`).then((response) => {
       console.log(response.data);
       setDatas(response.data);
     });
 
     axios
-      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`)
+      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`)
       .then((response) => {
         setDatas2(response.data);
       })
@@ -62,8 +62,9 @@ function Manager() {
               <div className={style.user_list} key={memberList.memberNum}>
                 <img
                   src={
-                    memberList.loginImgName !== null
-                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${memberList.loginImgName}`
+                    memberList.loginImgName !== null &&  
+                    memberList.loginImgName !== "null"  
+                      ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${memberList.loginImgName}`
                       : logo_d
                   }
                   alt="1"
@@ -82,7 +83,7 @@ function Manager() {
             {datas2 &&
               datas2.map((notify) => (
                 <li key={notify.notifyNum} className={style.notify_list}>
-                  <img src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${notify.itemImgName}`} alt={"img" + notify.notifyNum}></img>
+                  <img src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${notify.itemImgName}`} alt={"img" + notify.notifyNum}></img>
                   <h3>{notify.notifyTitle}</h3>
                 </li>
               ))}

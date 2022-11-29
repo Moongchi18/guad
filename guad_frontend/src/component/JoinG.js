@@ -33,7 +33,7 @@ function JoinG({ history }) {
   console.log(email);
   const handlerGoogleJoin = () => {
     axios
-      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, {
+      .post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, {
         email,
         pass: "",
         nickname,
@@ -93,7 +93,7 @@ function JoinG({ history }) {
     e.preventDefault();
     axios
       .post(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`,
+        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`,
         JSON.stringify({ nickname: nickname }),
         { headers: { "Content-Type": "application/json" } }
       )

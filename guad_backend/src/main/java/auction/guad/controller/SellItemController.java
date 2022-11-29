@@ -70,7 +70,8 @@ public class SellItemController {
 
 		ImgDto imgDto = new ImgDto();
 		String FileNames = "";
-		String filepath = "C:/img/";
+//		String filepath = "C:/img/";
+		String filepath = "/home/";
 
 		for (MultipartFile mf : files) {
 
@@ -97,7 +98,9 @@ public class SellItemController {
 			try {
 				File f1 = new File(filepath + safeFile);
 				mf.transferTo(f1);
-//				s3Uploader.upload(f1, filepath, safeFile);
+//				String s3filepath = "member/"+safeFile;
+				s3Uploader.upload(f1, filepath, safeFile);
+//				s3Uploader.upload(f1, filepath, s3file);
 //				s3Uploader.putS3(f1, safeFile);
 //				s3Uploader.removeNewFile(f1);
 			} catch (IllegalStateException e) {

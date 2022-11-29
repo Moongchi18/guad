@@ -41,7 +41,7 @@ function App() {
   );
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
   const [profileImg, setProfileImg] = useState(
-    sessionStorage.getItem("profileImg") === 'null' ? '':sessionStorage.getItem("profileImg")
+    sessionStorage.getItem("profileImg") === 'null' || sessionStorage.getItem("profileImg") === 'undefined' ? '':sessionStorage.getItem("profileImg")
   );
 
   console.log(">>>>>>>>>>>>" + profileImg);
@@ -107,7 +107,7 @@ function App() {
       <Route path="/mypage" component={Mypage} exact={true} />
       <Route
         path="/mypage/info"
-        render={(props) => <MypageInfo setIsLogin={setIsLogin} {...props} />}
+        render={(props) => <MypageInfo setIsLogin={setIsLogin} setProfileImg={setProfileImg} {...props} />}
       />
       <Route path="/mypage/check" component={MypageCheck} exact={true} />
       <Route path="/mypage/selllist" component={Mypage_SellList} exact={true} />
