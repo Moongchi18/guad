@@ -95,10 +95,14 @@ function Mypage() {
         <h1 className={style.page_name}>마이페이지</h1>
         <div className={style.Mbox}>
           <div className={style.logo_box}>
-            <img src={
-              data.loginImg !== null
-              ?  `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
-              : logo} alt="1"></img>
+            <img
+              src={
+                data.loginImg !== null
+                  ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                  : logo
+              }
+              alt="1"
+            ></img>
           </div>
           <div className={style.mileage_box}>
             <h3>
