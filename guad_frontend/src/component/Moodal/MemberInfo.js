@@ -1,4 +1,5 @@
 import axios from "axios";
+import logo_d from "../../source/img/mypage_d.png";
 import { useEffect, useState } from "react";
 import style from "../../source/Moodal7.module.css";
 
@@ -26,7 +27,10 @@ function MemeberInfo({ modalChange, closeModal, infoEmail, onRemove }) {
       <div id="my-modal" className={style.modal} ref={modalChange}>
         <div className={style.modalcontent}>
           <div className={style.modalheader}>
-            <img src={require("../../source/img/mypage_d2.png")} alt="아이콘" />
+          <img src={
+                      datas.loginImgName !== null && datas.loginImgName !== "null" 
+                        ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${datas.loginImgName}`
+                        : logo_d} alt="1"></img>
           </div>
           <div className={style.modalbody}>
             <ul>

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import admin from "../../source/img/admin.png";
-import logo from "../../source/img/mypage.png";
 import logo_d from "../../source/img/mypage_d.png";
 import style from "../../source/ManagerMember.module.css";
 import MemeberInfo from "../Moodal/MemberInfo";
