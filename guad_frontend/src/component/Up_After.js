@@ -41,6 +41,7 @@ function Up_After({
   };
 
   const onMessageReceived = (payload) => {
+    console.log("업에프터")
     var payloadData = JSON.parse(payload.body);
     console.log(payloadData);
     publicChats.push(payloadData);
@@ -94,7 +95,8 @@ function Up_After({
     100 - (item.auctionMinPrice / item.auctionStartPrice) * 100;
   var discountRateNow =
     100 - (auctionCurrentPrice / item.auctionStartPrice) * 100;
-  ////////////////////////////////////
+
+
   useEffect(() => {
     const escKeyModalClose = (e) => {
       if (e.keyCode === 27) {

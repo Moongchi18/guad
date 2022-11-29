@@ -84,94 +84,93 @@ public class WebSocketController {
 		Claims claims = jwtTokenUtil.getAllClaimsFromToken(token);
 		MemberDto member = memberService.loginContainPass(claims.getSubject());
 
-		auction.setNickname(member.getNickname());
-		auction.setMemberEmail(member.getEmail());
+		System.err.println(auction.getAuctionPrice());
+		System.err.println(member.getMileage());
 		
 		
 
-		StringBuffer sb = new StringBuffer();
-		StringBuffer sb2 = new StringBuffer();
-		String basic = "0";
-		int bidAmount;
-		
-		if(auction.getBeforeAuctionPrice() != 0) {
-			bidAmount = auction.getAuctionPrice();
-		}else {
-			bidAmount = sellItem.getAuctionStartPrice();
-		}
-	
-		
-		System.out.println("1>>>>>>>>>>>>" + auction.getBeforeAuctionPrice());
-		System.out.println("1>>>>>>>>>>>>" + auction.getAuctionPrice());
-		System.out.println(sellItem.getAuctionStartPrice());
-		System.out.println(auction.getBeforeAuctionPrice());
-		
-		
-		ArrayList<Integer> arrbidAmount = new ArrayList<>();
-		while (bidAmount > 0) {
-			arrbidAmount.add(bidAmount % 10);
-			bidAmount /= 10;
-		}
+			auction.setNickname(member.getNickname());
+			auction.setMemberEmail(member.getEmail());
+			
 
-		sb.append(arrbidAmount.get(arrbidAmount.size() - 1));
-		sb.append(arrbidAmount.get(arrbidAmount.size() - 2));
-
-		if (arrbidAmount.get(arrbidAmount.size() - 2) != 0) {
-			for (int i = 0; i < arrbidAmount.size() - 2; i++) {
-				sb.append(basic);
+			StringBuffer sb = new StringBuffer();
+			StringBuffer sb2 = new StringBuffer();
+			String basic = "0";
+			int bidAmount;
+			
+			if(auction.getBeforeAuctionPrice() != 0) {
+				bidAmount = auction.getAuctionPrice();
+			}else {
+				bidAmount = sellItem.getAuctionStartPrice();
 			}
-		} else {
-			for (int i = 0; i < arrbidAmount.size() - 2; i++) {
-				sb.append(basic);
-			}
-		}
-
-		if (arrbidAmount.get(arrbidAmount.size() - 1) < 5) {
-			sb2.append("1");
-			for (int i = 0; i < arrbidAmount.size() - 2; i++) {
-				sb2.append(basic);
-			}
-		} else {
-			sb2.append("5");
-			for (int i = 0; i < arrbidAmount.size() - 2; i++) {
-				sb2.append(basic);
-			}
-		}
-
-		System.out.println("3>>>>>>>>>>>>>>>" + sb.toString());
-		System.out.println("4>>>>>>>>>>>>>>>" + sb2.toString());
-		// 변경된 값을 넣어준다.
 		
+			
+			System.out.println("1>>>>>>>>>>>>" + auction.getBeforeAuctionPrice());
+			System.out.println("1>>>>>>>>>>>>" + auction.getAuctionPrice());
+			System.out.println(sellItem.getAuctionStartPrice());
+			System.out.println(auction.getBeforeAuctionPrice());
+			
+			
+			ArrayList<Integer> arrbidAmount = new ArrayList<>();
+			while (bidAmount > 0) {
+				arrbidAmount.add(bidAmount % 10);
+				bidAmount /= 10;
+			}
 
-		int bidNum = auctionService.tryAuction(auction);
-		
-		try {
-			int currentPrice = Integer.parseInt(sb.toString());
-			int plusePrice = Integer.parseInt(sb2.toString());
-			auction.setAuctionPrice(currentPrice + plusePrice);
-			System.out.println("5>>>>>>>>>>>>>>>" + currentPrice);
-			System.out.println("6>>>>>>>>>>>>>>>" + plusePrice);
-		} catch (NumberFormatException ex) {
-			ex.printStackTrace();
-		}
-		sellItemService.updateSellState2(itemNum);
-		auction.setBeforeAuctionPrice(auctionService.lastAuction(itemNum).getAuctionPrice());
+			sb.append(arrbidAmount.get(arrbidAmount.size() - 1));
+			sb.append(arrbidAmount.get(arrbidAmount.size() - 2));
 
-		if (auction.getAuctionPrice() > sellItem.getAuctionMaxPrice() && bidNum > 0) {
-			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
-					"/sub/sellitem/auction/u/" + itemNum, auction);
-			auction.setAuctionPrice(-1);
-			return auction;
-		}else if (auction.getAuctionPrice() > member.getMileage()) {
-			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
-					"/sub/sellitem/auction/u/" + itemNum, auction);
-			auction.setAuctionPrice(-2);
-			return auction;
-		}else {
-			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
-					"/sub/sellitem/auction/u/" + itemNum, auction);
-			return auction;
-		}
+			if (arrbidAmount.get(arrbidAmount.size() - 2) != 0) {
+				for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+					sb.append(basic);
+				}
+			} else {
+				for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+					sb.append(basic);
+				}
+			}
+
+			if (arrbidAmount.get(arrbidAmount.size() - 1) < 5) {
+				sb2.append("1");
+				for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+					sb2.append(basic);
+				}
+			} else {
+				sb2.append("5");
+				for (int i = 0; i < arrbidAmount.size() - 2; i++) {
+					sb2.append(basic);
+				}
+			}
+
+			System.out.println("3>>>>>>>>>>>>>>>" + sb.toString());
+			System.out.println("4>>>>>>>>>>>>>>>" + sb2.toString());
+			// 변경된 값을 넣어준다.
+			
+
+			int bidNum = auctionService.tryAuction(auction);
+			
+			try {
+				int currentPrice = Integer.parseInt(sb.toString());
+				int plusePrice = Integer.parseInt(sb2.toString());
+				auction.setAuctionPrice(currentPrice + plusePrice);
+				System.out.println("5>>>>>>>>>>>>>>>" + currentPrice);
+				System.out.println("6>>>>>>>>>>>>>>>" + plusePrice);
+			} catch (NumberFormatException ex) {
+				ex.printStackTrace();
+			}
+			sellItemService.updateSellState2(itemNum);
+			auction.setBeforeAuctionPrice(auctionService.lastAuction(itemNum).getAuctionPrice());
+
+			if (auction.getAuctionPrice() > sellItem.getAuctionMaxPrice() && bidNum > 0) {
+				simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
+						"/sub/sellitem/auction/u/" + itemNum, auction);
+				auction.setAuctionPrice(-1);
+				return auction;
+			}else {
+				simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
+						"/sub/sellitem/auction/u/" + itemNum, auction);
+				return auction;
+			}
 	}
 
 	@ApiOperation(value = "내림 경매 상세 조회", notes = "내림 경매 상세 정보를 조회")
