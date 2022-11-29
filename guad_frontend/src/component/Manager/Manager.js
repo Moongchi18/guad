@@ -68,7 +68,7 @@ function Manager() {
                       : logo_d
                   }
                   alt="1"
-                ></img>
+                ></img>ㅊ
                 <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
               </div>
             ))}
