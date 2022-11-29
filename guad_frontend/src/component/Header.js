@@ -32,7 +32,7 @@ function Header(props) {
     } else if (sessionStorage.length == 0) {
       SetMypage(false);
     }
-  }, [sessionStorage.length, props]);
+  }, [sessionStorage.length]);
 
   const handleSignOut = (e) => {
     e.preventDefault();
@@ -69,10 +69,11 @@ function Header(props) {
             )}
             {props.isLogin && (
               <li className={style.nick}>
-                <img src={props.googleLoginImg}></img>
+                {props.googleLoginImg && <img src={props.googleLoginImg}></img>}
                 <strong>{props.nickName}</strong>님 환영합니다!
               </li>
             )}
+
             {mypage == true && (
               <li>
                 {props.manager != "ROLE_y" && (

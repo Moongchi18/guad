@@ -536,7 +536,7 @@ function Selling({ history }) {
             <li className={style.photo_b}>
               <label>사진등록</label>
               <p>필수로 1장 이상의 사진을 등록해야 합니다.</p>
-
+              {/*  파일 업로드 */}
               <div className={style.fileupload}>
                 {imgBase64.map((item) => {
                   return (
@@ -557,7 +557,7 @@ function Selling({ history }) {
                 ))}
               </div>
             </li>
-            {/*  파일 업로드 */}
+            {/*  파일 업로드 히든 */}
             <div className={style.filebox}>
               <input
                 type="file"
