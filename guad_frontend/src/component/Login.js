@@ -53,6 +53,7 @@ function Login(props) {
             props.setNickName(response.data.nickname);
             props.setIsLogin(true);
             sessionStorage.setItem("nickname", response.data.nickname);
+            sessionStorage.setItem("managerYn", response.data.managerYn);
           });
         alert("로그인 되었습니다.");
         props.history.push("/");

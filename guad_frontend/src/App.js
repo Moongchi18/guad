@@ -40,9 +40,11 @@ function App() {
     sessionStorage.getItem("token") ? true : false
   );
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
-  const [googleLoginImg, setGoogleLoginImg] = useState(sessionStorage.getItem("image"));
+  const [googleLoginImg, setGoogleLoginImg] = useState(
+    sessionStorage.getItem("image")
+  );
   const [searchWord, setSearchWord] = useState("");
-  const [manager, setManager] = useState("");
+  const [manager, setManager] = useState(sessionStorage.getItem("managerYn"));
 
   // function handlerIsLogin() {zz
   //   setIsLogin(true);
@@ -58,6 +60,7 @@ function App() {
     return config;
   });
   console.log("현재 로그인 상태 : " + isLogin);
+  console.log(sessionStorage);
 
   return (
     <>
