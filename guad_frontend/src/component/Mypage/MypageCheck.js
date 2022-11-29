@@ -15,7 +15,7 @@ function MypageCheck({ history }) {
 
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
         setData({
           nickname: response.data.nickname,
@@ -49,7 +49,7 @@ function MypageCheck({ history }) {
   const handleCheck = () => {
     axios
       .post(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/mypage/passcheck`,
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/mypage/passcheck`,
         { pass }
       )
       .then((response) => history.push("/mypage/info"))
@@ -88,7 +88,7 @@ function MypageCheck({ history }) {
             <div className={style.logo_boxi}>
               <img src={
                 data.loginImg !== null
-                  ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                  ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
                   : logo} alt="1"></img>
             </div>
             <div className={style.mileage_boxi}>

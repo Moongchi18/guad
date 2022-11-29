@@ -36,7 +36,7 @@ function Login(props) {
   const handlerSubmit = (e) => {
     // e.preventDefault();
     axios
-      .post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, {
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, {
         email: email,
         pass: password,
       })
@@ -44,7 +44,7 @@ function Login(props) {
         sessionStorage.setItem("token", response.data);
         axios
           .get(
-            `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+            `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
             { header: { Authorization: response.data } }
           )
           .then((response) => {
@@ -99,7 +99,7 @@ function Login(props) {
     //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
     axios
       .post(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`,
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`,
         {
           email: userObject.email,
         }
@@ -118,7 +118,7 @@ function Login(props) {
           // sessionStorage.setItem("profileImg", userObject.picture);
           axios
             .get(
-              `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
               { header: { Authorization: response.data } }
             )
             .then((response) => {

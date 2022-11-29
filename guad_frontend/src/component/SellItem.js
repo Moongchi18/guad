@@ -16,7 +16,7 @@ function SellItem({ history, match }) {
   useEffect(() => {
     axios
       .get(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -47,7 +47,7 @@ function SellItem({ history, match }) {
       .catch((error) => console.log(error));
     axios
       .get(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
       )
       .then((response) => {
         setReview(response.data);
@@ -125,7 +125,7 @@ function SellItem({ history, match }) {
           <img
             src={
               item.itemImgName &&
-              `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
+              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
             }
             alt={"img" + item.notifyNum}
             className={style.item}
@@ -136,7 +136,7 @@ function SellItem({ history, match }) {
                 <img
                   src={
                     img
-                      ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                       : require("../source/img/no_photo.png")
                   }
                   alt={"img" + item.notifyNum}
