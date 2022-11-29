@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../source/img/mypage.png";
+import admin from "../../source/img/admin.png";
 import logo_d from "../../source/img/mypage_d.png";
 import style from "../../source/ManagerMember.module.css";
 import MemeberInfo from "../Moodal/MemberInfo";
@@ -30,7 +30,7 @@ function ManagerMember() {
   useEffect(() => {
     axios
       .get(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`
       )
       .then((response) => {
         console.log(response.data);
@@ -49,7 +49,7 @@ function ManagerMember() {
     if (window.confirm("해당 회원을 추방하시겠습니까?")) {
       axios
         .post(
-          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
+          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
           { email: infoEmail }
         )
         .then((response) => {
@@ -77,7 +77,7 @@ function ManagerMember() {
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
-              <img src={logo} alt="1"></img>
+            <img src={admin} alt="1"></img>
             </div>
             <div className={style.mileage_box}>
               <h3>
@@ -111,7 +111,7 @@ function ManagerMember() {
                   <div className={style.logo_boxi}>
                     <img src={
                       ml.loginImgName !== null && ml.loginImgName !== "null" 
-                        ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${ml.loginImgName}`
+                        ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${ml.loginImgName}`
                         : logo_d} alt="1"></img>
                   </div>
                 </div>

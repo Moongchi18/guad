@@ -39,7 +39,7 @@ function Mypage() {
 
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
         setData({
           nickname: response.data.nickname,
@@ -98,7 +98,7 @@ function Mypage() {
             <img
               src={
                 data?.loginImg !== null && data?.loginImg !== ''
-                  ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                  ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
                   : logo
               }
               alt="1"

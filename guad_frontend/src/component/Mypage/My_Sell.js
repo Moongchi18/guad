@@ -21,7 +21,7 @@ function My_Sell() {
           sellList.map((list) => (
          <Link to={list.sellState === "판매완료" || list.sellState === '판매완료' ? `/sell_end/${list.sellType}/${list.itemNum}` : `/sell_item/${list.sellType}/${list.itemNum}`}>
         <div className={style.sell_list}>
-          <img src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
+          <img src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
                alt={"img" + list.itemNum} />
           <h3>{list.itemSub}</h3>
         </div>

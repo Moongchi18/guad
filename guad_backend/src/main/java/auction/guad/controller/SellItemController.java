@@ -24,7 +24,6 @@ import auction.guad.dto.SellItemDto;
 import auction.guad.service.AuctionService;
 import auction.guad.service.ImgService;
 import auction.guad.service.MemberService;
-import auction.guad.service.S3Uploader;
 import auction.guad.service.SellItemService;
 import auction.guad.vo.AuctionVo;
 import auction.guad.vo.SellItemJoinMemberVo;
@@ -38,15 +37,15 @@ public class SellItemController {
 	private ImgService imgService;
 	private MemberService memberService;
 	private AuctionService auctionService;
-	private S3Uploader s3Uploader;
+//	private S3Uploader s3Uploader;
 
 	@Autowired
-	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService, S3Uploader s3Uploader) {
+	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService) {
 		this.sellItemService = sellItemService;
 		this.imgService = imgService;
 		this.memberService = memberService;
 		this.auctionService = auctionService; 
-		this.s3Uploader = s3Uploader; 
+//		this.s3Uploader = s3Uploader; 
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////	
@@ -59,7 +58,7 @@ public class SellItemController {
 	}
 
 	@ApiOperation(value = "상품 등록(SellItemDto)", notes = "게시물 제목과 내용을 저장, 파라미터 : SellItemDto")
-	@PostMapping("/sellitem")
+	@PostMapping("/auth/sellitem")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Boolean> insertSellItem(
 			@Parameter(description = "게시물 정보", required = true, example = "{ title: 제목, contents: 내용 }")
@@ -70,8 +69,8 @@ public class SellItemController {
 
 		ImgDto imgDto = new ImgDto();
 		String FileNames = "";
-//		String filepath = "C:/img/";
-		String filepath = "/home/";
+		String filepath = "C:/img/";
+//		String filepath = "/home/";
 
 		for (MultipartFile mf : files) {
 
@@ -99,7 +98,7 @@ public class SellItemController {
 				File f1 = new File(filepath + safeFile);
 				mf.transferTo(f1);
 //				String s3filepath = "member/"+safeFile;
-				s3Uploader.upload(f1, filepath, safeFile);
+//				s3Uploader.upload(f1, filepath, safeFile);
 //				s3Uploader.upload(f1, filepath, s3file);
 //				s3Uploader.putS3(f1, safeFile);
 //				s3Uploader.removeNewFile(f1);

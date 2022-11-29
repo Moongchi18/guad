@@ -42,7 +42,23 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		// csrf차단기능 : get제외한 http메서드 차단
 		// csrf차단 기능 해제 : jwt토큰을 사용하므로 csrf차단기능이 않음
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/**/admin/**").hasRole("y").anyRequest().permitAll().and()
+		http.authorizeRequests()
+				
+//				.antMatchers("/login").antMatchers("/join/**").antMatchers("/")
+
+				
+//				.antMatchers("/notify/email").antMatchers("/notify/write").antMatchers("/notify/my/list")
+//				.antMatchers("/img/**")
+//				.antMatchers("/member").antMatchers("/member/update").antMatchers("/member/delete").antMatchers("/mypage/passcheck")
+//				.antMatchers("/mileage").antMatchers("/mileage/pay").antMatchers("/mileage/**")
+//				.antMatchers("/review").authen
+				.antMatchers("/**/admin/**").hasRole("y")
+				.antMatchers("/comments/**", "/comment/**", "/notify/email", "/notify/write", "/notify/my/list", 
+						"/img/**", "/member", "/member/update", "/member/delete", "/mypage/passcheck", "/mileage", 
+						"/mileage/pay", "/mileage/**", "/review", "/auth/sellitem", "/sell",
+						"/selllist", "/buylistd", "selllistd").authenticated()
+				.anyRequest().permitAll()
+				.and()
 				.addFilter(getAuthenticationFilter()).addFilterBefore(jwtRequestFilter, AuthenticationFilter.class)
 				.cors();
 		// oauth2

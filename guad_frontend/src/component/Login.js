@@ -36,7 +36,7 @@ function Login(props) {
   const handlerSubmit = (e) => {
     // e.preventDefault();
     axios
-      .post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, {
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login`, {
         email: email,
         pass: password,
       })
@@ -44,7 +44,7 @@ function Login(props) {
         sessionStorage.setItem("token", response.data);
         axios
           .get(
-            `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+            `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
             { header: { Authorization: response.data } }
           )
           .then((response) => {
@@ -99,7 +99,7 @@ function Login(props) {
     //구글로 부터 받은 데이터를 POST로 컨트롤러에 전달
     axios
       .post(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`,
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/login/oauth2`,
         {
           email: userObject.email,
         }
@@ -118,14 +118,15 @@ function Login(props) {
           // sessionStorage.setItem("profileImg", userObject.picture);
           axios
             .get(
-              `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
+              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
               { header: { Authorization: response.data } }
             )
             .then((response) => {
-              console.log(response.data.nickname);
               props.setNickName(response.data.nickname);
               props.setIsLogin(true);
+              props.setProfileImg(response.data.loginImgName);
               sessionStorage.setItem("nickname", response.data.nickname);
+              sessionStorage.setItem("profileImg", response.data.loginImgName);
             });
           alert("로그인 되었습니다.");
           props.history.push("/");
@@ -151,7 +152,7 @@ function Login(props) {
     google.accounts.id.initialize({
       client_id:
         "1068908873530-hp1930ja7o5k3qcree5o0v9tt21h055h.apps.googleusercontent.com",
-        // "633692264760-fvjot4f3d49r20h3tjmg5rve9kecj92t.apps.googleusercontent.com",
+      // "633692264760-fvjot4f3d49r20h3tjmg5rve9kecj92t.apps.googleusercontent.com",
       callback: handlerCallbackResponse,
     });
 

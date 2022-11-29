@@ -1,4 +1,5 @@
 import style from "../../source/ManagerNotify.module.css";
+import admin from "../../source/img/admin.png";
 import logo from "../../source/img/mypage.png";
 import Notify from "../Moodal/Notify";
 import { useEffect, useState, useRef } from "react";
@@ -11,7 +12,7 @@ function ManagerNotify() {
 
   useEffect(() => {
     // axios
-    //   .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/img/list`)
+    //   .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/img/list`)
     //   .then((response) => {
     //     console.log('======= 이미지 목록 조회 성공 =======')
     //     console.log(response.data);
@@ -26,7 +27,7 @@ function ManagerNotify() {
 
     axios
       .get(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`
       )
       .then((response) => {
         setDatas(response.data);
@@ -75,7 +76,7 @@ function ManagerNotify() {
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
-              <img src={logo} alt="1"></img>
+            <img src={admin} alt="1"></img>
             </div>
             <div className={style.mileage_box}>
               <h3>
@@ -104,7 +105,7 @@ function ManagerNotify() {
                 onClick={() => handlerNotify(notify.notifyNum)}
               >
                 <img
-                  src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${notify.itemImgName}`}
+                  src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${notify.itemImgName}`}
                   alt={"img" + notify.notifyNum}
                 />
                 <h3>{notify.notifyTitle}</h3>

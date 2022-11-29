@@ -33,7 +33,7 @@ function JoinG({ history }) {
   console.log(email);
   const handlerGoogleJoin = () => {
     axios
-      .post(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`, {
+      .post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/join/google`, {
         email,
         pass: "",
         nickname,
@@ -41,12 +41,13 @@ function JoinG({ history }) {
         address,
         addressDetail,
         gender: g_check,
-        loginImgName: sessionStorage.getItem("profileImg")
+        loginImgName: sessionStorage.getItem("profileImg"),
       })
       .then((response) => {
         console.log(response);
         localStorage.removeItem("email");
         alert("회원가입이 완료되었습니다.");
+        sessionStorage.clear();
         history.push("/");
       })
       .catch((error) => console.log(error));
@@ -93,7 +94,7 @@ function JoinG({ history }) {
     e.preventDefault();
     axios
       .post(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/nicknamecheck`,
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/join/nicknamecheck`,
         JSON.stringify({ nickname: nickname }),
         { headers: { "Content-Type": "application/json" } }
       )

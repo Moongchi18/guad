@@ -36,7 +36,7 @@ function Sell_Up({ match, history }) {
   useEffect(() => {
     axios
       .get(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/u/${match.params.itemNum}`
+        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/u/${match.params.itemNum}`
       )
       .then((response) => {
         const tempImgList = []
@@ -52,7 +52,6 @@ function Sell_Up({ match, history }) {
         setBid(response.data.bidPrice);
         console.log(response.data.beforeAuctionPrice);
         if(response.data.beforeAuctionPrice !== 0) {
-          
           setAuctionCurrentPrice(response.data.beforeAuctionPrice);
         } else {
           setAuctionCurrentPrice("입찰 없음");
@@ -119,7 +118,7 @@ function Sell_Up({ match, history }) {
 
 
   const connect = () => {
-    let Sock = new SockJS(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
+    let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
   }
@@ -137,23 +136,42 @@ function Sell_Up({ match, history }) {
   const onMessageReceived = (payload) => {
     var payloadData = JSON.parse(payload.body);
     console.log(payloadData);
-    setAuctionCurrentPrice(payloadData.beforeAuctionPrice);
-    setBid(payloadData.auctionPrice);
-    setBidNickname(payloadData.nickname);
-    setChange(!change);
+      setAuctionCurrentPrice(payloadData.beforeAuctionPrice);
+      setBid(payloadData.auctionPrice);
+      setBidNickname(payloadData.nickname);
+      setChange(!change);
+    
   }
 
   const handlerBid = (r) => {
+    if(result < 0) {
+      alert("마일리지가 부족합니다.")
+      history.push("/mypage")
+    } else {
+      setBid(r);
+      setDto({ ...Dto, auctionPrice: r })
+      console.log(bid);
+      console.log(Dto);
+      stompClient.send(`/pub/sellitem/auction/u/${match.params.itemNum}`, { Authorization: token }, JSON.stringify({ ...Dto, auctionPrice: r }));
+    }
     // stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
     // setBid(document.getElementsByClassName(`${style.bid}`)[0].value);
-    setBid(r);
-    setDto({ ...Dto, auctionPrice: r })
-    console.log(bid);
-    console.log(Dto);
-    stompClient.send(`/pub/sellitem/auction/u/${match.params.itemNum}`, { Authorization: token }, JSON.stringify({ ...Dto, auctionPrice: r }));
+    
   }
 
-
+///////////////보유 마일리지 체크///////////////
+    const [result, setResult] = useState(0);
+    useEffect(() => {
+      axios
+        .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+        .then((response) => {
+          setResult(response.data.mileage - auctionCurrentPrice);
+          console.log(response.data.mileage - auctionCurrentPrice);
+        })
+        .catch((error) => console.log(error));
+    }, [auctionCurrentPrice]);
+////////////////////////////////////////////////
+console.log(auctionCurrentPrice);
 
 
   return (
@@ -174,7 +192,7 @@ function Sell_Up({ match, history }) {
           <img
             src={
               item.itemImgName &&
-              `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
+              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
             }
             alt={"img" + item.notifyNum}
             className={style.item}
@@ -190,7 +208,7 @@ function Sell_Up({ match, history }) {
                 <img
                   src={
                     img
-                      ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                       : require("../source/img/no_photo.png")
                   }
                   alt={"img" + item.notifyNum}

@@ -30,7 +30,7 @@ public class GoogleLoginController {
 		this.jwtTokenUtil = jwtTokenUtil;
 	}	
 
-	@ApiOperation(value = "OAuth2(email)", notes = "google로그인. email로 회원여부 확인 후 , 파라미터 : nickname")
+	@ApiOperation(value = "구글 로그인(email)", notes = "google로그인. email로 회원여부 확인 후 , 파라미터 : nickname")
 	@PostMapping("/login/oauth2")
 	public ResponseEntity<String> oauth2IsMember(@RequestBody RequestVo request) throws Exception {
 		System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡrequest" + request);

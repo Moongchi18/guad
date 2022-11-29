@@ -73,9 +73,10 @@ function Header(props) {
             )}
             {props.isLogin && (
               <li className={style.nick}>
+                {console.log(props.profileImg)}
                 <img src={
                   (props.profileImg !== null && props.profileImg !== '' && props.profileImg !== 'null')
-                    ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${props.profileImg}`
+                    ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${props.profileImg}`
                     : logo_d
                     } 
                     alt="1">
@@ -86,7 +87,7 @@ function Header(props) {
                 {/* <img
                   src={
                     data.loginImg !== null
-                      ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
                       : logo
                   }
                   alt="1"

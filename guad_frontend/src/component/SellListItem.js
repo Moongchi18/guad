@@ -3,6 +3,15 @@ import { Link } from "react-router-dom";
 import style from "../source/SellList.module.css";
 
 function SellListItem({ item }) {
+  const now = new Date()
+  const auctionFinishDate = new Date(item.auctionFinishDate)
+  
+  let isExpired;
+  if(item.auctionFinishDate === null){
+    isExpired = false
+  } else {
+    isExpired = now - auctionFinishDate > 0
+  }
   return (
     <>
       <li className={style.item_info}>
@@ -11,18 +20,18 @@ function SellListItem({ item }) {
         }>
           <div className={style.item_bb}>
             <div className={style.end_a}>
-              {(item?.soldYn === "y" || item?.soldYn === "Y") &&
+              {(item?.soldYn === "y" || item?.soldYn === "Y" || isExpired) &&
                 <p>{item?.sellType === "n" ? "판매종료" : "경매종료"}</p>}
             </div>
             <img
               className={style.item_img}
-              src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+              src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
               alt={"img" + item.notifyNum}
             />
             <img
               src={
-                item.sellType === "d" ? (item.soldYn === 'y' || item.soldYn === 'Y' ? require("../source/img/del3_b.png") : require("../source/img/del1_b.png"))
-                  : item.sellType === "u" ? (item.soldYn === 'y' || item.soldYn === 'Y' ? require("../source/img/del3_b.png") : require("../source/img/del2_b.png"))
+                item.sellType === "d" ? (item.soldYn === 'y' || item.soldYn === 'Y' || isExpired ? require("../source/img/del3_b.png") : require("../source/img/del1_b.png"))
+                  : item.sellType === "u" ? (item.soldYn === 'y' || item.soldYn === 'Y' || isExpired ? require("../source/img/del3_b.png") : require("../source/img/del2_b.png"))
                     : require("../source/img/del4_b.png")
               }
               alt="망치"
