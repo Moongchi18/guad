@@ -62,7 +62,8 @@ function Manager() {
               <div className={style.user_list} key={memberList.memberNum}>
                 <img
                   src={
-                    memberList.loginImgName !== null
+                    memberList.loginImgName !== null &&  
+                    memberList.loginImgName !== "null"  
                       ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${memberList.loginImgName}`
                       : logo_d
                   }
