@@ -67,6 +67,7 @@ public class WebSocketController {
 	public AuctionVo openOllimSellItemDetail(@Payload AuctionVo auction, @DestinationVariable int itemNum,
 			@Header String Authorization) throws Exception {
 		SellItemJoinMemberVo sellItem = sellItemService.selectSellItemDetailNoHitCnt(itemNum);
+
 		
 		Optional<AuctionVo> test = Optional.ofNullable(auctionService.lastAuction(itemNum));
 		if(test.isPresent()) {
@@ -85,6 +86,8 @@ public class WebSocketController {
 
 		auction.setNickname(member.getNickname());
 		auction.setMemberEmail(member.getEmail());
+		
+		
 
 		StringBuffer sb = new StringBuffer();
 		StringBuffer sb2 = new StringBuffer();
@@ -159,7 +162,12 @@ public class WebSocketController {
 					"/sub/sellitem/auction/u/" + itemNum, auction);
 			auction.setAuctionPrice(-1);
 			return auction;
-		} else {
+		}else if (auction.getAuctionPrice() > member.getMileage()) {
+			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
+					"/sub/sellitem/auction/u/" + itemNum, auction);
+			auction.setAuctionPrice(-2);
+			return auction;
+		}else {
 			simpMessagingTemplate.convertAndSendToUser(Integer.toString(auction.getItemNum()),
 					"/sub/sellitem/auction/u/" + itemNum, auction);
 			return auction;

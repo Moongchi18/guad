@@ -7,29 +7,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import auction.guad.dto.ImgDto;
 import auction.guad.dto.MemberDto;
-import auction.guad.dto.SellItemDto;
-import auction.guad.security.PrincipalDetails;
 import auction.guad.service.MemberService;
-import auction.guad.service.S3Uploader;
 import auction.guad.vo.RequestVo;
 import io.swagger.annotations.ApiOperation;
 
@@ -38,13 +31,13 @@ public class MemberController {
 
 	private MemberService memberService;
 	private BCryptPasswordEncoder encoder;
-	private S3Uploader s3Uploader;
+//	private S3Uploader s3Uploader;
 
 	@Autowired
-	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder, S3Uploader s3Uploader) {
+	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder) {
 		this.memberService = memberService;
 		this.encoder = encoder;
-		this.s3Uploader = s3Uploader;
+//		this.s3Uploader = s3Uploader;
 	}
 
 	// 회원가입
