@@ -266,7 +266,7 @@ input[type="file"] {
 }
 
 .photo_b  {
-  margin-top: 40px;
+  margin-top: 20px;
   text-align: left;
   margin-left: 280px;
   list-style:none;
@@ -286,5 +286,5 @@ input[type="file"] {
   font-size: 15px;
   text-align: left;
   vertical-align: top;
-  margin-right: 130px;
+  margin-right: 40px;
 }
