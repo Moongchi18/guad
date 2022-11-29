@@ -1,4 +1,5 @@
 import style from "../../source/ManagerNotify.module.css";
+import admin from "../../source/img/admin.png";
 import logo from "../../source/img/mypage.png";
 import Notify from "../Moodal/Notify";
 import { useEffect, useState, useRef } from "react";
@@ -75,7 +76,7 @@ function ManagerNotify() {
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
-              <img src={logo} alt="1"></img>
+            <img src={admin} alt="1"></img>
             </div>
             <div className={style.mileage_box}>
               <h3>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../source/img/mypage.png";
+import admin from "../../source/img/admin.png";
 import logo_d from "../../source/img/mypage_d.png";
 import style from "../../source/ManagerMember.module.css";
 import MemeberInfo from "../Moodal/MemberInfo";
@@ -77,7 +77,7 @@ function ManagerMember() {
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
-              <img src={logo} alt="1"></img>
+            <img src={admin} alt="1"></img>
             </div>
             <div className={style.mileage_box}>
               <h3>
