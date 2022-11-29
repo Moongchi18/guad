@@ -156,8 +156,8 @@ public class MemberController {
 			throws Exception {
 		
 		String FileNames = "";
-		String filepath = "C:/img/member/";
-//		String filepath = "/home/";
+//		String filepath = "C:/img/member/";
+		String filepath = "/home/";
 		// header에 입력할 이미지 name 반환할때 사용
 		String returnFileName= " ";
 		
@@ -177,8 +177,8 @@ public class MemberController {
 			try {
 				File f1 = new File(filepath + safeFile);
 				mf.transferTo(f1);
-//				String s3filepath = "member/"+safeFile;
-//				s3Uploader.upload(f1, filepath, s3filepath);
+				String s3filepath = "member/"+safeFile;
+				s3Uploader.upload(f1, filepath, s3filepath);
 //				s3Uploader.putS3(f1, safeFile);
 //				s3Uploader.removeNewFile(f1);
 			} catch (IllegalStateException e) {
