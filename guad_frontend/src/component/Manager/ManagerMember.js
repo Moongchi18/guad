@@ -110,7 +110,7 @@ function ManagerMember() {
                 <div className={style.logo} onClick={openModal} name={ml.email}>
                   <div className={style.logo_boxi}>
                     <img src={
-                      ml.loginImgName !== null
+                      ml.loginImgName !== null && ml.loginImgName !== "null" 
                         ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${ml.loginImgName}`
                         : logo_d} alt="1"></img>
                   </div>

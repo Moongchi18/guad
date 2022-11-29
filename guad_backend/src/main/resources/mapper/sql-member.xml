@@ -56,7 +56,7 @@
 	<insert id="insertMember"
 		parameterType="auction.guad.dto.MemberDto">
 		INSERT INTO MEMBER(NICKNAME, PASS, EMAIL, PHONE, ADDRESS,
-		ADDRESS_DETAIL, GENDER, JOIN_DATE_TIME, LOGIN_IMG_NAME)
+		ADDRESS_DETAIL, GENDER, LOGIN_IMG_NAME, JOIN_DATE_TIME)
 		VALUES (#{nickname}, #{pass},
 		#{email}, #{phone}, #{address},
 		#{addressDetail}, #{gender}, #{loginImgName}, now())
