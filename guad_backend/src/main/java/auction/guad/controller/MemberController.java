@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import auction.guad.dto.MemberDto;
 import auction.guad.service.MemberService;
+import auction.guad.service.S3Uploader;
 import auction.guad.vo.RequestVo;
 import io.swagger.annotations.ApiOperation;
 
@@ -35,13 +36,13 @@ public class MemberController {
 
 	private MemberService memberService;
 	private BCryptPasswordEncoder encoder;
-//	private S3Uploader s3Uploader;
+	private S3Uploader s3Uploader;
 
 	@Autowired
-	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder) {
+	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder, S3Uploader s3Uploader) {
 		this.memberService = memberService;
 		this.encoder = encoder;
-//		this.s3Uploader = s3Uploader;
+		this.s3Uploader = s3Uploader;
 	}
 
 	// 회원가입
@@ -61,13 +62,18 @@ public class MemberController {
 	@PostMapping("/join/google")
 	public ResponseEntity<String> insertGoogleMember(@RequestBody MemberDto member) throws Exception {
 		
-		String filepath = "C:/img/member/";
+//		String filepath = "C:/img/member/";
+		String filepath = "/home/";
 		String returnFileName= System.currentTimeMillis()+member.getEmail()+".png";
 		String url=member.getLoginImgName();
 		
 		try (InputStream in = URI.create(url).toURL().openStream()) {
 			Files.copy(in, Paths.get(filepath+returnFileName));
 			member.setLoginImgName(returnFileName);
+			
+			String s3filepath = "member/"+returnFileName;
+			File f1 = new File(filepath + s3filepath);
+			s3Uploader.upload(f1, filepath, s3filepath);
 		}
 		
 		

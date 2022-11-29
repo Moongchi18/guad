@@ -26,7 +26,7 @@ function Up_After({
 
   const connect = () => {
     Sock = new SockJS(
-      `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
+      `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
     );
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
