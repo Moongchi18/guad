@@ -47,6 +47,7 @@ function JoinG({ history }) {
         console.log(response);
         localStorage.removeItem("email");
         alert("회원가입이 완료되었습니다.");
+        sessionStorage.clear();
         history.push("/");
       })
       .catch((error) => console.log(error));
