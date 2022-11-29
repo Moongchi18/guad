@@ -48,6 +48,18 @@ public class MemberController {
 	@ApiOperation(value = "회원가입(MemberDto)", notes = "회원가입, 파라미터 : MemberDto")
 	@PostMapping("/join")
 	public ResponseEntity<String> insertMember(@RequestBody MemberDto member) throws Exception {
+		int memberNum = memberService.insertMember(member);
+		
+		if (memberNum > 0) {
+			return ResponseEntity.status(HttpStatus.OK).body("등록성공");
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록실패");
+		}
+	}
+	// 구글 회원가입
+	@ApiOperation(value = "회원가입(MemberDto)", notes = "회원가입, 파라미터 : MemberDto")
+	@PostMapping("/join/google")
+	public ResponseEntity<String> insertGoogleMember(@RequestBody MemberDto member) throws Exception {
 		
 		String filepath = "C:/img/member/";
 		String returnFileName= System.currentTimeMillis()+member.getEmail()+".png";
@@ -58,7 +70,7 @@ public class MemberController {
 			member.setLoginImgName(returnFileName);
 		}
 		
-	
+		
 		int memberNum = memberService.insertMember(member);
 		
 		if (memberNum > 0) {
