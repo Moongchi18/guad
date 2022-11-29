@@ -2,6 +2,10 @@ package auction.guad.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +48,19 @@ public class MemberController {
 	@ApiOperation(value = "회원가입(MemberDto)", notes = "회원가입, 파라미터 : MemberDto")
 	@PostMapping("/member")
 	public ResponseEntity<String> insertMember(@RequestBody MemberDto member) throws Exception {
-		System.out.println("<<<<<<<<<<<<<<<<<<<<<<" + member);
+		
+		String filepath = "C:/img/member/";
+		String returnFileName= System.currentTimeMillis()+member.getEmail()+".png";
+		String url=member.getLoginImgName();
+		
+		try (InputStream in = URI.create(url).toURL().openStream()) {
+			Files.copy(in, Paths.get(filepath+returnFileName));
+			member.setLoginImgName(returnFileName);
+		}
+		
+	
 		int memberNum = memberService.insertMember(member);
-		System.out.println("memberNum>>>>>>>>>"+memberNum);
+		
 		if (memberNum > 0) {
 			return ResponseEntity.status(HttpStatus.OK).body("등록성공");
 		} else {

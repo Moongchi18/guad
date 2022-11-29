@@ -122,10 +122,11 @@ function Login(props) {
               { header: { Authorization: response.data } }
             )
             .then((response) => {
-              console.log(response.data.nickname);
               props.setNickName(response.data.nickname);
               props.setIsLogin(true);
+              props.setProfileImg(response.data.loginImgName);
               sessionStorage.setItem("nickname", response.data.nickname);
+              sessionStorage.setItem("profileImg", response.data.loginImgName);
             });
           alert("로그인 되었습니다.");
           props.history.push("/");
@@ -151,7 +152,7 @@ function Login(props) {
     google.accounts.id.initialize({
       client_id:
         "1068908873530-hp1930ja7o5k3qcree5o0v9tt21h055h.apps.googleusercontent.com",
-        // "633692264760-fvjot4f3d49r20h3tjmg5rve9kecj92t.apps.googleusercontent.com",
+      // "633692264760-fvjot4f3d49r20h3tjmg5rve9kecj92t.apps.googleusercontent.com",
       callback: handlerCallbackResponse,
     });
 
