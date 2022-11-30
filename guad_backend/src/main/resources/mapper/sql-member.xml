@@ -29,7 +29,7 @@
 	<select id="managerSelectMemberDetailByEmail"
 		resultType="auction.guad.dto.MemberDto">
 		SELECT MEMBER_NUM, NICKNAME, EMAIL, PHONE, ADDRESS,
-		JOIN_DATE_TIME, GENDER, MILEAGE, MILEAGE_USED, MANAGER_YN, DELETE_YN,
+		JOIN_DATE_TIME, GENDER, MILEAGE, MILEAGE_USED, LOGIN_IMG_NAME, MANAGER_YN, DELETE_YN,
 		UPDATED_DATE_TIME
 		FROM MEMBER
 		WHERE EMAIL=#{email}
@@ -47,7 +47,7 @@
 	<select id="selectMemberDetailByEmail" parameterType="String"
 		resultType="auction.guad.dto.MemberDto">
 		SELECT NICKNAME, EMAIL, ADDRESS, ADDRESS_DETAIL, PHONE,
-		MILEAGE, MILEAGE_USED, MANAGER_YN
+		MILEAGE, MILEAGE_USED, LOGIN_IMG_NAME, MANAGER_YN
 		FROM MEMBER
 		WHERE EMAIL = #{email}
 	</select>
@@ -72,7 +72,7 @@
 	<update id="updateMemberByEmail"
 		parameterType="auction.guad.dto.MemberDto">
 		UPDATE MEMBER SET ADDRESS = #{address}, PHONE =
-		#{phone}, PASS = #{pass}
+		#{phone}, PASS = #{pass}, LOGIN_IMG_NAME = #{loginImgName}
 		WHERE EMAIL = #{email}
 	</update>
 

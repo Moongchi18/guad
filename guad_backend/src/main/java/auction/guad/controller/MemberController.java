@@ -1,5 +1,7 @@
 package auction.guad.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import auction.guad.dto.ImgDto;
 import auction.guad.dto.MemberDto;
+import auction.guad.dto.SellItemDto;
 import auction.guad.security.PrincipalDetails;
 import auction.guad.service.MemberService;
 import auction.guad.vo.RequestVo;
@@ -56,6 +63,7 @@ public class MemberController {
 	public ResponseEntity<MemberDto> myPageByEmail(@AuthenticationPrincipal User user) throws Exception {
 		System.out.println(">>>>>>>>>>>>>>>" + user);
 		MemberDto memberDto = memberService.selectMemberDetailByEmail(user.getUsername());
+		System.err.println(memberDto.getLoginImgName());
 		if (memberDto == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		} else {
@@ -80,8 +88,39 @@ public class MemberController {
 	// 회원정보 수정
 	@ApiOperation(value = "회원정보 수정(MemberDto)", notes = "회원정보 수정, 파라미터 : MemberDto")
 	@PostMapping("/member/update")
-	public ResponseEntity<String> updateMember(@RequestBody MemberDto member, @AuthenticationPrincipal User user)
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<String> updateMember(@RequestPart(value = "files", required = false) MultipartFile[] files,
+			@RequestPart(value = "data", required = false) MemberDto member, @AuthenticationPrincipal User user)
 			throws Exception {
+		
+		String FileNames = "";
+		String filepath = "C:/img/member/";
+		
+		for (MultipartFile mf : files) {
+
+			String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+			long fileSize = mf.getSize(); // 파일 사이즈
+
+			System.out.println("originFileName : " + originFileName);
+			System.out.println("fileSize : " + fileSize);
+			String safeFile = System.currentTimeMillis() + originFileName;
+//	            FileNames = FileNames+","+safeFile; 
+
+			member.setLoginImgName(safeFile);
+			
+			try {
+				File f1 = new File(filepath + safeFile);
+				mf.transferTo(f1);
+//				s3Uploader.upload(f1, filepath, safeFile);
+//				s3Uploader.putS3(f1, safeFile);
+//				s3Uploader.removeNewFile(f1);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		if (memberService.selectMemberDetailByEmail(user.getUsername()) == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("입력하신 정보를 찾을 수 없습니다.");

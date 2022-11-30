@@ -14,6 +14,7 @@ function MypageInfo(props) {
     phone: "",
     address: "",
     mileage: "",
+    loginImg: "",
   });
 
   const [address, setAddress] = useState("");
@@ -100,6 +101,7 @@ function MypageInfo(props) {
           address: response.data.address,
           addressDetail: response.data.addressDetail,
           mileage: response.data.mileage,
+          loginImg: response.data.loginImgName,
         });
         setAddress(response.data.address);
         setPhone(response.data.phone);
@@ -107,21 +109,41 @@ function MypageInfo(props) {
       });
   }, []);
 
+  const formData = new FormData();
+  const [imgBase64, setImgBase64] = useState([]);
+  const [imgBase, setImgBase] = useState([1, 2, 3]);
+  const [imgFile, setImgFile] = useState([]);
+
+
+  let dataSet = {
+    phone,
+    address,
+    addressDetail,
+    pass,
+    email: userEmail,
+  };
+
+  // formData.append('data', dataSet);
+  formData.append(
+    "data",
+    new Blob([JSON.stringify(dataSet)], { type: "application/json" })
+  );
+  Object.values(imgFile).forEach((file) => formData.append("files", file));
+
+
   const handlerUpdate = () => {
+
     if (!(isPass && isPassConfirm)) {
       alert("두 비밀번호가 일치하지 않습니다.");
     } else {
-      axios
-        .post(
-          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
-          {
-            phone,
-            address,
-            addressDetail,
-            pass,
-            email: userEmail,
-          }
-        )
+      axios({
+        method: "post",
+        url: `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
+        data: formData,
+        headers: {
+          "Content-Type": `multipart/form-data; `,
+        },
+      })
         .then((response) => {
           alert("수정이 완료되었습니다.");
           props.history.push("/mypage");
@@ -142,10 +164,7 @@ function MypageInfo(props) {
   console.log(phone);
 
   //////////////////////파일 업로드//////////////////////
-  const formData = new FormData();
-  const [imgBase64, setImgBase64] = useState([]);
-  const [imgBase, setImgBase] = useState([1, 2, 3]);
-  const [imgFile, setImgFile] = useState(null);
+
 
   const handleChangeFile = (event) => {
     //fd.append("file", event.target.files)
@@ -200,7 +219,10 @@ function MypageInfo(props) {
         <div>
           <div className={style.Mboxi}>
             <div className={style.logo_boxi}>
-              <img src={logo} alt="1"></img>
+              <img src={
+                data.loginImg !== null
+                  ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                  : logo} alt="1"></img>
             </div>
             <div className={style.mileage_boxi}>
               <h3>
