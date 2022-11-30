@@ -41,7 +41,7 @@ function App() {
   );
   const [nickName, setNickName] = useState(sessionStorage.getItem("nickname"));
   const [profileImg, setProfileImg] = useState(
-    sessionStorage.getItem("profileImg")
+    sessionStorage.getItem("profileImg") === 'null' ? '':sessionStorage.getItem("profileImg")
   );
 
   console.log(">>>>>>>>>>>>" + profileImg);
