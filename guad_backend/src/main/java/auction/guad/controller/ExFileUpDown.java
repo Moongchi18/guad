@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-public class FileUpDown {
+public class ExFileUpDown {
 
     
     @ApiOperation(value = "이미지 업로드")
