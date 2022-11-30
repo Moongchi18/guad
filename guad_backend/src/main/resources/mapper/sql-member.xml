@@ -56,10 +56,10 @@
 	<insert id="insertMember"
 		parameterType="auction.guad.dto.MemberDto">
 		INSERT INTO MEMBER(NICKNAME, PASS, EMAIL, PHONE, ADDRESS,
-		ADDRESS_DETAIL, GENDER, JOIN_DATE_TIME)
+		ADDRESS_DETAIL, GENDER, JOIN_DATE_TIME, LOGIN_IMG_NAME)
 		VALUES (#{nickname}, #{pass},
 		#{email}, #{phone}, #{address},
-		#{addressDetail}, #{gender}, now())
+		#{addressDetail}, #{gender}, #{loginImgName}, now())
 		<selectKey keyProperty="memberNum" resultType="Integer">
 			select
 			last_insert_id()
