@@ -90,7 +90,7 @@ function Login(props) {
     var userObject = jwt_decode(response.credential);
     console.log(userObject.picture);
     //구글 이미지 저장
-    sessionStorage.setItem("image", userObject.picture)
+    sessionStorage.setItem("profileImg", userObject.picture)
     // setUser(userObject);
 
     //로그인 하면 로그인 버튼 가리기
@@ -115,6 +115,7 @@ function Login(props) {
         else {
           console.log(response.data);
           sessionStorage.setItem("token", response.data);
+          // sessionStorage.setItem("profileImg", userObject.picture);
           axios
             .get(
               `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`,
