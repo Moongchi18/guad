@@ -1,6 +1,7 @@
 import style from "../../source/Manager.module.css";
-import logo from "../../source/img/mypage.png";
+import admin from "../../source/img/admin.png";
 import logo_d from "../../source/img/mypage_d.png";
+
 import sell_1 from "../../source/img/selling_item_ex1.png";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -35,7 +36,7 @@ function Manager() {
         <div>
           <div className={style.Mbox}>
             <div className={style.logo_box}>
-              <img src={logo} alt="1"></img>
+              <img src={admin} alt="1"></img>
             </div>
             <div className={style.mileage_box}>
               <h3>
@@ -59,7 +60,14 @@ function Manager() {
           {datas &&
             datas.map((memberList) => (
               <div className={style.user_list} key={memberList.memberNum}>
-                <img src={logo_d} alt="1"></img>
+                <img
+                  src={
+                    memberList.loginImgName !== null
+                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${memberList.loginImgName}`
+                      : logo_d
+                  }
+                  alt="1"
+                ></img>
                 <h3 key={memberList.memberNum}>{memberList.nickname}</h3>
               </div>
             ))}

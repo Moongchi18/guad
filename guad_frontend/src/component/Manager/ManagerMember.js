@@ -108,7 +108,12 @@ function ManagerMember() {
                 onClick={() => handlerMember(ml.email)}
               >
                 <div className={style.logo} onClick={openModal} name={ml.email}>
-                  <img src={logo_d} alt="1" value={ml.memberNum} />
+                  <div className={style.logo_boxi}>
+                    <img src={
+                      ml.loginImgName !== null
+                        ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${ml.loginImgName}`
+                        : logo_d} alt="1"></img>
+                  </div>
                 </div>
                 <div className={style.name}>
                   <h3>{ml.nickname}</h3>

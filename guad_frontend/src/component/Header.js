@@ -1,5 +1,6 @@
 import style from "../source/Header.module.css";
 import logo from "../source/img/head_logo.png";
+import logo_d from "../source/img/mypage_d.png";
 import search from "../source/img/h_search.png";
 import { Link, withRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -69,7 +70,24 @@ function Header(props) {
             )}
             {props.isLogin && (
               <li className={style.nick}>
-                {props.googleLoginImg && <img src={props.googleLoginImg}></img>}
+                <img src={
+                  props.profileImg !== null
+                    ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${props.profileImg}`
+                    : logo_d
+                    } 
+                    alt="1">
+
+                    </img>
+
+
+                {/* <img
+                  src={
+                    data.loginImg !== null
+                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                      : logo
+                  }
+                  alt="1"
+                ></img> */}
                 <strong>{props.nickName}</strong>님 환영합니다!
               </li>
             )}
