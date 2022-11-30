@@ -77,8 +77,20 @@ function Sell_List(props) {
   };
 
   const handlerPresentData = (presentData) => {
-    setCount(presentData.length);
-    setCurrentPosts(presentData.slice(indexOfFirstPost, indexOfLastPost));
+    console.log("hpd - search : " + props.searchWord)
+    if(props.searchWord !== undefined || props.searchWord === ''){
+      const searchData = presentData.filter((item) => (
+        item.itemType.includes(props.searchWord) ||
+        item.itemDType.includes(props.searchWord) ||
+        item.itemSub.includes(props.searchWord) ||
+        item.itemContents.includes(props.searchWord)
+      ))
+      setCount(searchData.length);
+      setCurrentPosts(searchData.slice(indexOfFirstPost, indexOfLastPost));
+    } else {
+      setCount(presentData.length);
+      setCurrentPosts(presentData.slice(indexOfFirstPost, indexOfLastPost));
+    }
   };
 
   useEffect(() => {
@@ -87,19 +99,19 @@ function Sell_List(props) {
       handlerPresentData(data);
     } else if (
       selectedOptions.sellType === "" &&
-      selectedOptions.itemType !== ""
-    ) {
-      presentData = data.filter(
-        (item) => item.itemType === selectedOptions.itemType
-      );
-      handlerPresentData(presentData);
-    } else if (
-      selectedOptions.sellType === "" &&
       selectedOptions.itemType !== "" &&
       selectedOptions.itemDType !== ""
     ) {
       presentData = data.filter(
         (item) => item.itemDType === selectedOptions.itemDType
+      );
+      handlerPresentData(presentData);
+    } else if (
+      selectedOptions.sellType === "" &&
+      selectedOptions.itemType !== ""
+    ) {
+      presentData = data.filter(
+        (item) => item.itemType === selectedOptions.itemType
       );
       handlerPresentData(presentData);
     } else if (
@@ -112,22 +124,22 @@ function Sell_List(props) {
       handlerPresentData(presentData);
     } else if (
       selectedOptions.sellType !== "" &&
-      selectedOptions.itemType !== ""
-    ) {
-      presentData = data.filter(
-        (item) =>
-          item.itemType === selectedOptions.itemType &&
-          item.sellType === selectedOptions.sellType
-      );
-      handlerPresentData(presentData);
-    } else if (
-      selectedOptions.sellType !== "" &&
       selectedOptions.itemType !== "" &&
       selectedOptions.itemDType !== ""
     ) {
       presentData = data.filter(
         (item) =>
           item.itemDType === selectedOptions.itemDType &&
+          item.sellType === selectedOptions.sellType
+      );
+      handlerPresentData(presentData);
+    } else if (
+      selectedOptions.sellType !== "" &&
+      selectedOptions.itemType !== ""
+    ) {
+      presentData = data.filter(
+        (item) =>
+          item.itemType === selectedOptions.itemType &&
           item.sellType === selectedOptions.sellType
       );
       handlerPresentData(presentData);
@@ -156,6 +168,7 @@ function Sell_List(props) {
     axios
       .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem`)
       .then((response) => {
+        console.log(props.searchWord);
         console.log(response.data);
         setData(response.data);
         setCount(response.data.length);
@@ -163,6 +176,7 @@ function Sell_List(props) {
           response.data?.slice(indexOfFirstPost, indexOfLastPost)
         );
         if (props.searchWord.length > 0) {
+          console.log("if search : " + props.searchWord)
           const temp = response.data.filter((d) => {
             return (
               d.itemType.includes(props.searchWord) ||
@@ -179,23 +193,29 @@ function Sell_List(props) {
   }, []);
 
   useEffect(() => {
+    const tempSearch = props.searchWord
     console.log("검색어 변경");
-    if (props.searchWord === null) {
+    console.log("tempSearch : " + tempSearch);
+    if (tempSearch === null) {
       setCount(data.length);
       setCurrentPosts(data?.slice(indexOfFirstPost, indexOfLastPost));
     } else {
+      console.log("tempSearch : " + tempSearch);
       const temp = data.filter((d) => {
         return (
-          d.itemType.includes(props.searchWord) ||
-          d.itemDType.includes(props.searchWord) ||
-          d.itemSub.includes(props.searchWord) ||
-          d.itemContents.includes(props.searchWord)
+          d.itemType.includes(tempSearch) ||
+          d.itemDType.includes(tempSearch) ||
+          d.itemSub.includes(tempSearch) ||
+          d.itemContents.includes(tempSearch)
         );
       });
       setCount(temp.length);
       setCurrentPosts(temp.slice(indexOfFirstPost, indexOfLastPost));
     }
-  }, [props.searchWord]);
+    return () => {
+      props.setSearchWord('')
+    }
+  }, [props.isSearch]);
 
   const handlerSetPage = (e) => {
     setCurrentpage(e);
@@ -225,6 +245,7 @@ function Sell_List(props) {
       itemDType: "",
       sellType: "",
     });
+    props.setSearchWord('')
     c_o.current.style = "display:none;";
     c_m.current.style = "display:none;";
     setCateOn(false);
@@ -234,12 +255,12 @@ function Sell_List(props) {
     <>
       <div className={style.sell_all}>
         <div className={style.sell_top}>
-          {/* {props.searchWord &&
+          {props.searchWord &&
             <div>
               <h2>현재 검색어 : {props.searchWord}</h2>
               <button onClick={() => props.setSearchWord("")}>검색어 초기화</button>
             </div>
-          } */}
+          }
           <h2>
             전체상품
             <strong>{count}</strong>개
