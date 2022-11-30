@@ -32,7 +32,7 @@ function Header(props) {
     } else if (sessionStorage.length == 0) {
       SetMypage(false);
     }
-  }, [sessionStorage.length, props.isLogin]);
+  }, [sessionStorage.length, props.isLogin, props.googleLoginImg]);
 
   const handleSignOut = (e) => {
     e.preventDefault();

@@ -140,6 +140,57 @@ function MypageInfo(props) {
   };
   console.log(address);
   console.log(phone);
+
+  //////////////////////파일 업로드//////////////////////
+  const formData = new FormData();
+  const [imgBase64, setImgBase64] = useState([]);
+  const [imgBase, setImgBase] = useState([1, 2, 3]);
+  const [imgFile, setImgFile] = useState(null);
+
+  const handleChangeFile = (event) => {
+    //fd.append("file", event.target.files)
+
+    const newImgBase = [1, 2, 3];
+    var maxSize = 1 * 1024 * 1024 //1MB
+    setImgFile(event.target.files);
+    setImgBase(newImgBase);
+    setImgBase64([]);
+
+    if (event.target.files.length >= 4) {
+      alert("이미지는 최대 3개 까지 업로드가 가능합니다.");
+      const newImgBase = [1, 2, 3];
+      setImgBase(newImgBase);
+      setImgBase64([]);
+    } else {
+      for (var i = 0; i < event.target.files.length; i++) {
+      
+        if (!event.target.files[i].type.match("image/.*")) {
+          alert("이미지 파일만 업로드가 가능합니다.");
+          return
+        } else if (event.target.files[i].size > maxSize) {
+          alert("이미지 크기는 1MB를 초과할 수 없습니다.")
+          return
+        } else if (event.target.files[i]) {
+          console.log(event.target.files[i].size);
+          let reader = new FileReader();
+          // 1. 파일을 읽어 버퍼에 저장합니다.
+          reader.readAsDataURL(event.target.files[i]); 
+          // 2. 읽기가 완료되면 아래코드가 실행됩니다.
+          reader.onloadend = () => {
+            const base64 = reader.result;
+            newImgBase.pop();
+
+            if (base64) {
+              var base64Sub = base64.toString();
+              setImgBase64((imgBase64) => [...imgBase64, base64Sub]);
+              setImgBase(newImgBase);
+            }
+          };
+        }
+      }
+    }
+  };
+  /////////////////////////////////////////////////////
   return (
     <>
       <MoodalMileage />
@@ -218,6 +269,16 @@ function MypageInfo(props) {
           )}
           <h3>전화번호</h3>
           <input defaultValue={data.phone} onChange={changePhone} />
+           {/*  파일 업로드 */}
+           <div className={style.filebox}>
+              <input
+                type="file"
+                id="file"
+                className={style.upload}
+                onChange={handleChangeFile}
+                multiple="multiple"
+              />
+            </div>
 
           <h3>변경 비밀번호</h3>
           <input
