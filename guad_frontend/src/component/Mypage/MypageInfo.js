@@ -269,16 +269,42 @@ function MypageInfo(props) {
           )}
           <h3>전화번호</h3>
           <input defaultValue={data.phone} onChange={changePhone} />
-           {/*  파일 업로드 */}
+          
+         {/*  파일 업로드 */}
+          <li className={style.photo_b}>
+              <label>사진등록</label>
+              <p>필수로 1장 이상의 사진을 등록해야 합니다.</p>
+
+              <div className={style.fileupload}>
+                {imgBase64.map((item) => {
+                  return (
+                    <label for="file">
+                      <img
+                        className={style.mid_img}
+                        src={item}
+                        alt="First slide"
+                      />
+                    </label>
+                  );
+                })}
+
+                {imgBase.map((item) => (
+                  <label for="file" key={item}>
+                    <img src={require("../../source/img/pic.png")} alt="사진1" />
+                  </label>
+                ))}
+              </div>
+            </li>
+           {/*  파일 업로드 히든 */}
            <div className={style.filebox}>
               <input
                 type="file"
                 id="file"
                 className={style.upload}
                 onChange={handleChangeFile}
-                multiple="multiple"
               />
             </div>
+
 
           <h3>변경 비밀번호</h3>
           <input
