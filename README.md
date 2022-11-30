@@ -1,26 +1,35 @@
-# 프로젝트명
-> 간략한 프로젝트 소개 문구를 작성합니다.
+# 오르내림
+> 중고 경매 사이트
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-한 두 문단으로 프로젝트 소개 글을 작성합니다.
 
 ![](../header.png)
 
 ## 설치 방법
 
-OS X & 리눅스:
+guad_backend:
 
-```sh
+```sh 
 npm install my-crazy-module --save
 ```
 
-윈도우:
+guad_frontend:
 
 ```sh
-edit autoexec.bat
+cd guad_frintend
+npm install
+npm start
+```
+
+ec2 ubuntu
+
+```sh
+docker install
+runner install
+
 ```
 
 ## 사용 예제
