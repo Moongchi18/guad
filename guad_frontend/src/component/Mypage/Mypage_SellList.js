@@ -28,7 +28,7 @@ function Mypage_SellList() {
 
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
         setData({
           nickname: response.data.nickname,
