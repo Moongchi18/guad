@@ -33,6 +33,9 @@ import Sell_End_d from "./component/Sell_End_d";
 import Mypage_SellList from "./component/Mypage/Mypage_SellList";
 import Sell_End_n from "./component/Sell_End_n";
 import Email_send from "./component/Email_send";
+import ProtectPolicy from "./component/ProtectPolicy";
+import ProtectPolicyWrapper from "./component/ProtectPolicyWrapper";
+import TermsWrapper from "./component/TermsWrapper";
 
 function App() {
   console.log("토큰 입니다. : " + sessionStorage.getItem("token"));
@@ -145,6 +148,9 @@ function App() {
       <Route path="/sell_after/:itemNum" component={Sell_After} exact={true} />
 
       <Route path="/email_send" component={Email_send} exact={true} />
+      
+      <Route path="/protect" component={ProtectPolicyWrapper} />
+      <Route path="/terms" component={TermsWrapper} />
       <Footer />
     </>
   );
