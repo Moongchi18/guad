@@ -65,8 +65,8 @@ npm test
  -->
 ## 정보
 시연 영상 : https://www.youtube.com/watch?v=a5wPWrQjO2g
-노션 : https://www.notion.so/c7465916d36d4d0088d558be137bb30f
-결과보고서 : https://www.figma.com/proto/sp6oMpePo8nj8OpS3VXuhr/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90?page-id=309%3A229&node-id=548%3A331&viewport=-8698%2C268%2C0.69&scaling=contain
+_노션 : https://www.notion.so/c7465916d36d4d0088d558be137bb30f
+_결과보고서 : https://www.figma.com/proto/sp6oMpePo8nj8OpS3VXuhr/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90?page-id=309%3A229&node-id=548%3A331&viewport=-8698%2C268%2C0.69&scaling=contain
 
 ## 기여 방법
 
@@ -76,10 +76,12 @@ npm test
 4. (`git push origin feature/fooBar`) 명령어로 브랜치에 푸시하세요. 
 5. 풀리퀘스트를 보내주세요.
 
-<!-- Markdown link & img dfn's -->
+<!-- 
+Markdown link & img dfn's
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/datadog-metrics
 [npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki -->
+[wiki]: https://github.com/yourname/yourproject/wiki
+-->
