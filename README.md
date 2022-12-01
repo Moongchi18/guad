@@ -13,7 +13,7 @@
 guad_backend:
 
 ```sh 
-npm install my-crazy-module --save
+
 ```
 
 guad_frontend:
@@ -27,9 +27,10 @@ npm start
 ec2 ubuntu
 
 ```sh
-docker install
-runner install
-
+docker
+runner
+aws cli
+/home/ubuntu/docker-compose.yaml
 ```
 
 ## 사용 예제
@@ -47,7 +48,7 @@ make install
 npm test
 ```
 
-## 업데이트 내역
+<!-- ## 업데이트 내역
 
 * 0.2.1
     * 수정: 문서 업데이트 (모듈 코드 동일)
@@ -61,18 +62,15 @@ npm test
     * 수정: `foo()` 메서드 네이밍을 `bar()`로 수정
 * 0.0.1
     * 작업 진행 중
-
+ -->
 ## 정보
-
-이름 – [@트위터 주소](https://twitter.com/dbader_org) – 이메일주소@example.com
-
-XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할 수 있습니다.
-
-[https://github.com/yourname/github-link](https://github.com/dbader/)
+시연 영상 : https://www.youtube.com/watch?v=a5wPWrQjO2g
+노션 : https://www.notion.so/c7465916d36d4d0088d558be137bb30f
+결과보고서 : https://www.figma.com/proto/sp6oMpePo8nj8OpS3VXuhr/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90?page-id=309%3A229&node-id=548%3A331&viewport=-8698%2C268%2C0.69&scaling=contain
 
 ## 기여 방법
 
-1. (<https://github.com/yourname/yourproject/fork>)을 포크합니다.
+<!-- 1. (<https://github.com/yourname/yourproject/fork>)을 포크합니다.
 2. (`git checkout -b feature/fooBar`) 명령어로 새 브랜치를 만드세요.
 3. (`git commit -am 'Add some fooBar'`) 명령어로 커밋하세요.
 4. (`git push origin feature/fooBar`) 명령어로 브랜치에 푸시하세요. 
@@ -84,4 +82,4 @@ XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할
 [npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki
+[wiki]: https://github.com/yourname/yourproject/wiki -->
