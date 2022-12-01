@@ -133,9 +133,9 @@ function MypageInfo(props) {
 
   const handlerUpdate = () => {
 
-    if (!(isPass && isPassConfirm)) {
-      alert("두 비밀번호가 일치하지 않습니다.");
-    } else {
+    // if (!(isPass && isPassConfirm)) {
+    //   alert("두 비밀번호가 일치하지 않습니다.");
+    // } else {
       axios({
         method: "post",
         url: `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
@@ -144,11 +144,11 @@ function MypageInfo(props) {
           "Content-Type": `multipart/form-data; `,
         },
       })
-        .then((response) => {
-          alert("수정이 완료되었습니다.");
-          props.history.push("/mypage");
-        });
-    }
+    //     .then((response) => {
+    //       alert("수정이 완료되었습니다.");
+    //       props.history.push("/mypage");
+    //     });
+    // }
   };
   const warn = () => {
     alert("정보 수정을 완료해주세요!");

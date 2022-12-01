@@ -41,7 +41,7 @@ function JoinG({ history }) {
         address,
         addressDetail,
         gender: g_check,
-        loginImgName: sessionStorage.getItem("profileImg")
+        loginImgName: sessionStorage.getItem("profileImg"),
       })
       .then((response) => {
         console.log(response);
