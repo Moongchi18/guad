@@ -53,7 +53,7 @@ const Up_Chat = ({ item, connect, sendValue, publicChats, buyer, btn_b }) => {
 
   console.log(item.nickname);
   // const connect = () => {
-  //   let Sock = new SockJS("http://localhost:8080/ws");
+  //   let Sock = new SockJS("http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws");
   //   stompClient = over(Sock);
   //   stompClient.connect({}, onConnected, onError);
   // };

@@ -29,18 +29,22 @@ import auction.guad.dto.MemberDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.security.PrincipalDetails;
 import auction.guad.service.MemberService;
+import auction.guad.service.S3Uploader;
 import auction.guad.vo.RequestVo;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class MemberController {
 
-	MemberService memberService;
-	BCryptPasswordEncoder encoder;
+	private MemberService memberService;
+	private BCryptPasswordEncoder encoder;
+	private S3Uploader s3Uploader;
 
 	@Autowired
-	public MemberController(MemberService memberService) {
+	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder, S3Uploader s3Uploader) {
 		this.memberService = memberService;
+		this.encoder = encoder;
+		this.s3Uploader = s3Uploader;
 	}
 
 	// 회원가입
@@ -95,6 +99,9 @@ public class MemberController {
 		
 		String FileNames = "";
 		String filepath = "C:/img/member/";
+//		String filepath = "/home/";
+		// header에 입력할 이미지 name 반환할때 사용
+		String returnFileName= " ";
 		
 		for (MultipartFile mf : files) {
 
@@ -104,6 +111,7 @@ public class MemberController {
 			System.out.println("originFileName : " + originFileName);
 			System.out.println("fileSize : " + fileSize);
 			String safeFile = System.currentTimeMillis() + originFileName;
+			returnFileName = safeFile.toString();
 //	            FileNames = FileNames+","+safeFile; 
 
 			member.setLoginImgName(safeFile);
@@ -111,7 +119,8 @@ public class MemberController {
 			try {
 				File f1 = new File(filepath + safeFile);
 				mf.transferTo(f1);
-//				s3Uploader.upload(f1, filepath, safeFile);
+//				String s3filepath = "member/"+safeFile;
+//				s3Uploader.upload(f1, filepath, s3filepath);
 //				s3Uploader.putS3(f1, safeFile);
 //				s3Uploader.removeNewFile(f1);
 			} catch (IllegalStateException e) {
@@ -126,7 +135,7 @@ public class MemberController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("입력하신 정보를 찾을 수 없습니다.");
 		}
 		memberService.updateMemberByEmail(member);
-		return ResponseEntity.ok("회원정보 수정에 성공했습니다");
+		return ResponseEntity.ok(returnFileName);
 	}
 
 	// 회원 탈퇴(flag)

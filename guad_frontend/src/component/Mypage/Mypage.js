@@ -97,7 +97,7 @@ function Mypage() {
           <div className={style.logo_box}>
             <img
               src={
-                data.loginImg !== null
+                data?.loginImg !== null && data?.loginImg !== ''
                   ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
                   : logo
               }

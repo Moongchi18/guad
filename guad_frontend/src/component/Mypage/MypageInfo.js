@@ -144,11 +144,15 @@ function MypageInfo(props) {
           "Content-Type": `multipart/form-data; `,
         },
       })
-    //     .then((response) => {
-    //       alert("수정이 완료되었습니다.");
-    //       props.history.push("/mypage");
-    //     });
-    // }
+        .then((response) => {
+          console.log(response.data)
+          props.setProfileImg(response.data);
+          sessionStorage.setItem("profileImg", response.data)
+          alert("수정이 완료되었습니다.");
+          props.history.push("/mypage");
+        });
+    }
+
   };
   const warn = () => {
     alert("정보 수정을 완료해주세요!");
