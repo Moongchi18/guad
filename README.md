@@ -65,8 +65,10 @@ npm test
  -->
 ## 정보
 시연 영상 : https://www.youtube.com/watch?v=a5wPWrQjO2g
-_노션 : https://www.notion.so/c7465916d36d4d0088d558be137bb30f
-_결과보고서 : https://www.figma.com/proto/sp6oMpePo8nj8OpS3VXuhr/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90?page-id=309%3A229&node-id=548%3A331&viewport=-8698%2C268%2C0.69&scaling=contain
+
+노션 : https://www.notion.so/c7465916d36d4d0088d558be137bb30f
+
+결과보고서 : https://www.figma.com/proto/sp6oMpePo8nj8OpS3VXuhr/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90?page-id=309%3A229&node-id=548%3A331&viewport=-8698%2C268%2C0.69&scaling=contain
 
 ## 기여 방법
 
