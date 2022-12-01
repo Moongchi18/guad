@@ -24,7 +24,6 @@ import auction.guad.dto.SellItemDto;
 import auction.guad.service.AuctionService;
 import auction.guad.service.ImgService;
 import auction.guad.service.MemberService;
-import auction.guad.service.S3Uploader;
 import auction.guad.service.SellItemService;
 import auction.guad.vo.AuctionVo;
 import auction.guad.vo.SellItemJoinMemberVo;
@@ -38,15 +37,15 @@ public class SellItemController {
 	private ImgService imgService;
 	private MemberService memberService;
 	private AuctionService auctionService;
-	private S3Uploader s3Uploader;
+//	private S3Uploader s3Uploader;
 
 	@Autowired
-	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService, S3Uploader s3Uploader) {
+	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService) {
 		this.sellItemService = sellItemService;
 		this.imgService = imgService;
 		this.memberService = memberService;
 		this.auctionService = auctionService; 
-		this.s3Uploader = s3Uploader; 
+//		this.s3Uploader = s3Uploader; 
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////	
