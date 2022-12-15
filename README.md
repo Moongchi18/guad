@@ -9,6 +9,7 @@
 <img src="https://img.shields.io/badge/Spring-#6DB33F?style=flat&logo=SpringBoot&logoColor=white"/>
 <img src="https://img.shields.io/badge/Spring-#6DB33F?style=flat&logo=Spring&logoColor=white"/>
 <img src="https://img.shields.io/badge/spring_boot-2.4.5-brightgreen?style=plastic&logo=Spring">
+<img src="https://img.shields.io/badge/spring_boot-2.4.5-brightgreen?style=plastic&logo=SpringBoot">
 
 
 
