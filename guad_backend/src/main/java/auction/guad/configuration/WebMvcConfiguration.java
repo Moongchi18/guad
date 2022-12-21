@@ -33,8 +33,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	//이후 요청 주소를 S3로 변경해야한다.
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		registry.addResourceHandler("/image/**").addResourceLocations("file:C:/img/").setCachePeriod(20);
-		registry.addResourceHandler("/image/**").addResourceLocations("https://s3.ap-northeast-2.amazonaws.com/olenaelim-image-storage/").setCachePeriod(20);
+		registry.addResourceHandler("/image/**").addResourceLocations("file:C:/img/").setCachePeriod(20);
+//		registry.addResourceHandler("/image/**").addResourceLocations("https://s3.ap-northeast-2.amazonaws.com/olenaelim-image-storage/").setCachePeriod(20);
 	}
 
 }

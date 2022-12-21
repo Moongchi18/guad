@@ -159,14 +159,14 @@ function Sell_Down({ match, history }) {
         modalChange={modalChange}
         item={item}
       />
-      <DownConfirm
+      {auctionCurrentPrice && <DownConfirm
         closeModal2={closeModal2}
         modalChange2={modalChange2}
         item={item}
         history={history}
         auctionCurrentPrice={auctionCurrentPrice}
         discountRateNow={discountRateNow}
-      />
+      />}
       <div id={style.item_num} className={style.item_num}>
         2
       </div>
