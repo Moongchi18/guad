@@ -45,9 +45,7 @@ public class MemberController {
 	private AwsS3Uploader awsS3Uploader;
 
 	@Autowired
-	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder
-			, AwsS3Uploader awsS3Uploader
-			) {
+	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder, AwsS3Uploader awsS3Uploader) {
 		this.memberService = memberService;
 		this.encoder = encoder;
 		this.awsS3Uploader = awsS3Uploader;
@@ -78,6 +76,10 @@ public class MemberController {
 		try (InputStream in = URI.create(url).toURL().openStream()) {
 			Files.copy(in, Paths.get(filepath+returnFileName));
 			member.setLoginImgName(returnFileName);
+			
+			String s3filepath = "member/"+returnFileName;
+			File f1 = new File(filepath + s3filepath);
+			awsS3Uploader.upload(f1, filepath, s3filepath);
 		}
 		
 		
