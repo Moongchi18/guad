@@ -9,7 +9,7 @@ function BuyReview({ modalOpen, closeModal, item }) {
   const [rating, setRating] = useState("");
   
   const handleSubmit = () => {    
-    axios.post(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, {itemNum : item.itemNum, sellerEmail : item.sellerEmail, writerNickname : nickname, contents, starPoint : rating})
+    axios.post(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review`, {itemNum : item.itemNum, sellerEmail : item.sellerEmail, writerNickname : nickname, contents, starPoint : rating})
     .then((response) => {
       console.log(response)
       alert("리뷰 작성이 완료되었습니다.")

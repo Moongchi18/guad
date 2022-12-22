@@ -21,7 +21,7 @@ function Sell_Down({ match, history }) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/d/${match.params.itemNum}`
+        `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/d/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -85,7 +85,7 @@ function Sell_Down({ match, history }) {
 
   const connect = () => {
     let Sock = new SockJS(
-      `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
+      `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`
     );
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
@@ -176,7 +176,7 @@ function Sell_Down({ match, history }) {
         </h2>
         <div className={style.img_item}>
           <img
-            src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+            src={`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
             alt={"img" + item.notifyNum}
             className={style.item}
           />
@@ -191,7 +191,7 @@ function Sell_Down({ match, history }) {
                 <img
                   src={
                     img
-                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      ? `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                       : require("../source/img/no_photo.png")
                   }
                   alt={"img" + item.notifyNum}

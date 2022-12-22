@@ -10,7 +10,7 @@ function Sell_After({ history, match }) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/${match.params.itemNum}`
+        `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -29,7 +29,7 @@ function Sell_After({ history, match }) {
       </div>
       <div className={style.cont2}>
         <img
-          src={item.itemImgName && `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+          src={item.itemImgName && `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
           alt={"img" + item.notifyNum}
         />
         <div className={style.right_side}>

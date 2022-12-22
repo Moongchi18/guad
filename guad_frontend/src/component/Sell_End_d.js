@@ -15,7 +15,7 @@ function Sell_End_d({ match }) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/normal/${match.params.itemNum}`
+        `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell/normal/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -33,7 +33,7 @@ function Sell_End_d({ match }) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
+        `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/review/${match.params.itemNum}`
       )
       .then((response) => {
         console.log(response.data);
@@ -56,7 +56,7 @@ function Sell_End_d({ match }) {
   useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/noauth/comments/${match.params.itemNum}`
+        `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/noauth/comments/${match.params.itemNum}`
       )
       .then((response) => {
         setComments(response.data);
@@ -75,7 +75,7 @@ function Sell_End_d({ match }) {
     } else {
       axios
         .post(
-          `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/comments`,
+          `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/comments`,
           {
             itemNum: match.params.itemNum,
             contents,
@@ -114,7 +114,7 @@ function Sell_End_d({ match }) {
           <img
             src={
               dataList.itemImgName &&
-              `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${dataList.itemImgName}`
+              `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${dataList.itemImgName}`
             }
             alt="제품사진"
             className={style.dataList}
@@ -131,7 +131,7 @@ function Sell_End_d({ match }) {
                 <img
                   src={
                     img
-                      ? `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      ? `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                       : require("../source/img/no_photo.png")
                   }
                   alt={"img" + dataList.notifyNum}

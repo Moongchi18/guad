@@ -25,7 +25,7 @@ function SellListItem({ item }) {
             </div>
             <img
               className={style.item_img}
-              src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+              src={`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
               alt={"img" + item.notifyNum}
             />
             <img

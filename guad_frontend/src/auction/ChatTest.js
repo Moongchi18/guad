@@ -16,7 +16,7 @@ const ChatTest = ({ match }) => {
   }, []);
 
   const connect = () => {
-    let Sock = new SockJS(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
+    let Sock = new SockJS(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
   };

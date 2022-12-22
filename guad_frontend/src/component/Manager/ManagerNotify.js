@@ -12,7 +12,7 @@ function ManagerNotify() {
 
   useEffect(() => {
     // axios
-    //   .get(`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/img/list`)
+    //   .get(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/img/list`)
     //   .then((response) => {
     //     console.log('======= 이미지 목록 조회 성공 =======')
     //     console.log(response.data);
@@ -27,7 +27,7 @@ function ManagerNotify() {
 
     axios
       .get(
-        `http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`
+        `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/admin/list`
       )
       .then((response) => {
         setDatas(response.data);
@@ -105,7 +105,7 @@ function ManagerNotify() {
                 onClick={() => handlerNotify(notify.notifyNum)}
               >
                 <img
-                  src={`http://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${notify.itemImgName}`}
+                  src={`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${notify.itemImgName}`}
                   alt={"img" + notify.notifyNum}
                 />
                 <h3>{notify.notifyTitle}</h3>
