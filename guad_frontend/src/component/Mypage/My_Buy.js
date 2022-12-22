@@ -9,7 +9,7 @@ function My_Buy() {
 
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/buylistd`)
+      .get(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/buylistd`)
       .then((response) => {
         console.log(response);
         setBuyList(response.data);     
@@ -23,7 +23,7 @@ function My_Buy() {
           buyList.map((list, index) => (
         <Link to= {`/sell_end/${list.sellType}/${list.itemNum}`}>
         <div className={style.sell_list}>
-        <img src={`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
+        <img src={`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${list.itemImgName}`}
              alt={"img" + list.itemNum} />
           <h3>{list.itemSub}</h3>
         </div>

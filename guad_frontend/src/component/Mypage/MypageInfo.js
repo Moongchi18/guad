@@ -75,7 +75,7 @@ function MypageInfo(props) {
     if (window.confirm("오르내림 회원을 탈퇴 하시겠습니까?")) {
       axios
         .post(
-          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
+          `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
           { email: userEmail }
         )
         .then((response) => {
@@ -91,7 +91,7 @@ function MypageInfo(props) {
 
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .get(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
         console.log(response.data);
         setData({
@@ -138,7 +138,7 @@ function MypageInfo(props) {
     // } else {
     axios({
       method: "post",
-      url: `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
+      url: `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/update`,
       data: formData,
       headers: {
         "Content-Type": `multipart/form-data; `,
@@ -223,7 +223,7 @@ function MypageInfo(props) {
             <div className={style.logo_boxi}>
               <img src={
                 data.loginImg !== null
-                  ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
+                  ? `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${data.loginImg}`
                   : logo} alt="1"></img>
             </div>
             <div className={style.mileage_boxi}>

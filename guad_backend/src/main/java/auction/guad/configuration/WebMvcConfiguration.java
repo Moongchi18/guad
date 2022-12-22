@@ -1,6 +1,7 @@
 package auction.guad.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -15,6 +16,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 	@Autowired
 	Environment env;
+	
+	@Value("${image.read}")
+	private String imgAddress;
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -34,7 +38,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //		registry.addResourceHandler("/image/**").addResourceLocations("file:C:/img/").setCachePeriod(20);
-		registry.addResourceHandler("/image/**").addResourceLocations("https://s3.ap-northeast-2.amazonaws.com/olenaelim-image-storage/").setCachePeriod(20);
+//		registry.addResourceHandler("/image/**").addResourceLocations("https://s3.ap-northeast-2.amazonaws.com/olenaelim-image-storage/").setCachePeriod(20);
+		registry.addResourceHandler("/image/**").addResourceLocations(imgAddress).setCachePeriod(20);
 	}
 
 }

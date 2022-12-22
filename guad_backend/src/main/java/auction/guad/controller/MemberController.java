@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,23 +27,28 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import auction.guad.dto.MemberDto;
+import auction.guad.service.AwsS3Uploader;
 import auction.guad.service.MemberService;
-import auction.guad.service.S3Uploader;
 import auction.guad.vo.RequestVo;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class MemberController {
-
+	@Value("${image.location.member}")
+	private String memberFilepath;
+	
+	@Value("${image.location}")
+	private String filepath;
+	
 	private MemberService memberService;
 	private BCryptPasswordEncoder encoder;
-	private S3Uploader s3Uploader;
+	private AwsS3Uploader awsS3Uploader;
 
 	@Autowired
-	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder, S3Uploader s3Uploader) {
+	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder, AwsS3Uploader awsS3Uploader) {
 		this.memberService = memberService;
 		this.encoder = encoder;
-		this.s3Uploader = s3Uploader;
+		this.awsS3Uploader = awsS3Uploader;
 	}
 
 	// 회원가입
@@ -63,7 +69,7 @@ public class MemberController {
 	public ResponseEntity<String> insertGoogleMember(@RequestBody MemberDto member) throws Exception {
 		
 //		String filepath = "C:/img/member/";
-		String filepath = "/home/";
+//		String filepath2 = filepath + "member/";
 		String returnFileName= System.currentTimeMillis()+member.getEmail()+".png";
 		String url=member.getLoginImgName();
 		
@@ -73,7 +79,7 @@ public class MemberController {
 			
 			String s3filepath = "member/"+returnFileName;
 			File f1 = new File(filepath + s3filepath);
-			s3Uploader.upload(f1, filepath, s3filepath);
+			awsS3Uploader.upload(f1, filepath, s3filepath);
 		}
 		
 		
@@ -157,7 +163,8 @@ public class MemberController {
 		
 		String FileNames = "";
 //		String filepath = "C:/img/member/";
-		String filepath = "/home/";
+//		String filepath = "/home/";
+//		String filepath2 = filepath + "member/";
 		// header에 입력할 이미지 name 반환할때 사용
 		String returnFileName= " ";
 		
@@ -175,12 +182,12 @@ public class MemberController {
 			member.setLoginImgName(safeFile);
 			
 			try {
-				File f1 = new File(filepath + safeFile);
+				File f1 = new File(memberFilepath + safeFile);
 				mf.transferTo(f1);
 				String s3filepath = "member/"+safeFile;
-				s3Uploader.upload(f1, filepath, s3filepath);
-//				s3Uploader.putS3(f1, safeFile);
-//				s3Uploader.removeNewFile(f1);
+				awsS3Uploader.upload(f1, filepath, s3filepath);
+//				awsS3Uploader.putS3(f1, safeFile);
+//				awsS3Uploader.removeNewFile(f1);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

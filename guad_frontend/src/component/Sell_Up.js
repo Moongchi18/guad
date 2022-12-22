@@ -36,7 +36,7 @@ function Sell_Up({ match, history }) {
   useEffect(() => {
     axios
       .get(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/u/${match.params.itemNum}`
+        `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/u/${match.params.itemNum}`
       )
       .then((response) => {
         const tempImgList = []
@@ -118,7 +118,7 @@ function Sell_Up({ match, history }) {
 
 
   const connect = () => {
-    let Sock = new SockJS(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
+    let Sock = new SockJS(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
     stompClient = over(Sock);
     stompClient.connect({}, onConnected, onError);
   }
@@ -163,7 +163,7 @@ function Sell_Up({ match, history }) {
     const [result, setResult] = useState(0);
     useEffect(() => {
       axios
-        .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+        .get(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
         .then((response) => {
           setResult(response.data.mileage - auctionCurrentPrice);
           console.log(response.data.mileage - auctionCurrentPrice);
@@ -192,7 +192,7 @@ console.log(auctionCurrentPrice);
           <img
             src={
               item.itemImgName &&
-              `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
+              `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`
             }
             alt={"img" + item.notifyNum}
             className={style.item}
@@ -208,7 +208,7 @@ console.log(auctionCurrentPrice);
                 <img
                   src={
                     img
-                      ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
+                      ? `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${img}`
                       : require("../source/img/no_photo.png")
                   }
                   alt={"img" + item.notifyNum}

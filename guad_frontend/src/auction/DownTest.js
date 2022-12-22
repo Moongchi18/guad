@@ -21,7 +21,7 @@ function AuctionTest({match}) {
     }, [auctionCurrentPrice])
 
     useEffect(() => {
-        axios.get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/auction/d/${match.params.itemNum}`)
+        axios.get(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sellitem/auction/d/${match.params.itemNum}`)
         .then(response => {
             console.log(response.data)
         })
@@ -30,7 +30,7 @@ function AuctionTest({match}) {
     }, [])
 
     const connect = () => {
-        let Sock = new SockJS(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
+        let Sock = new SockJS(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/ws`);
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }

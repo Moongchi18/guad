@@ -16,12 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @Service
-public class S3Uploader {
+public class AwsS3Uploader {
 	
 	private AmazonS3Client amazonS3Client;
 
 	@Autowired
-	public S3Uploader(AmazonS3Client amazonS3Client) {
+	public AwsS3Uploader(AmazonS3Client amazonS3Client) {
 		this.amazonS3Client = amazonS3Client;
 	}
 	
@@ -59,6 +59,7 @@ public class S3Uploader {
             log.info("파일이 삭제되지 못했습니다.");
         }
     }
+    
 
 //    private Optional<File> convert(MultipartFile file) throws  IOException {
 //        File convertFile = new File(file.getOriginalFilename());
@@ -70,4 +71,7 @@ public class S3Uploader {
 //        }
 //        return Optional.empty();
 //    }
+    
+    
+    
 }

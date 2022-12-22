@@ -30,7 +30,7 @@ function ManagerMember() {
   useEffect(() => {
     axios
       .get(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`
+        `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/admin/member`
       )
       .then((response) => {
         console.log(response.data);
@@ -49,7 +49,7 @@ function ManagerMember() {
     if (window.confirm("해당 회원을 추방하시겠습니까?")) {
       axios
         .post(
-          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
+          `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member/delete`,
           { email: infoEmail }
         )
         .then((response) => {
@@ -111,7 +111,7 @@ function ManagerMember() {
                   <div className={style.logo_boxi}>
                     <img src={
                       ml.loginImgName !== null && ml.loginImgName !== "null" 
-                        ? `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${ml.loginImgName}`
+                        ? `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/member/${ml.loginImgName}`
                         : logo_d} alt="1"></img>
                   </div>
                 </div>

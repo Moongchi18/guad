@@ -134,3 +134,9 @@ sketch
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/java,react,eclipse,visualstudiocode
+
+# cicd
+guad_backend/src/main/resources/*.properties
+guad_frontend/.env
+*.properties
+*.env

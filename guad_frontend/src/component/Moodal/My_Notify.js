@@ -7,7 +7,7 @@ function My_Notify({ modalChange3, closeModal3 }) {
   useEffect(() => {
     axios
       .get(
-        `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/my/list`
+        `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/notify/my/list`
       )
       .then((response) => {
         setDatas(response.data);

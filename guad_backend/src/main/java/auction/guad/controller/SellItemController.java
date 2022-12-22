@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,9 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 import auction.guad.dto.ImgDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.service.AuctionService;
+import auction.guad.service.AwsS3Uploader;
 import auction.guad.service.ImgService;
 import auction.guad.service.MemberService;
-import auction.guad.service.S3Uploader;
 import auction.guad.service.SellItemService;
 import auction.guad.vo.AuctionVo;
 import auction.guad.vo.SellItemJoinMemberVo;
@@ -38,17 +39,20 @@ public class SellItemController {
 	private ImgService imgService;
 	private MemberService memberService;
 	private AuctionService auctionService;
-	private S3Uploader s3Uploader;
+	private AwsS3Uploader awsS3Uploader;
 
 	@Autowired
-	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService, S3Uploader s3Uploader) {
+	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService, AwsS3Uploader awsS3Uploader) {
 		this.sellItemService = sellItemService;
 		this.imgService = imgService;
 		this.memberService = memberService;
 		this.auctionService = auctionService; 
-		this.s3Uploader = s3Uploader; 
+		this.awsS3Uploader = awsS3Uploader; 
 	}
 
+	@Value("${image.location}")
+	private String filepath;
+	
 /////////////////////////////////////////////////////////////////////////////////////	
 
 	@ApiOperation(value = "상품 전체 조회", notes = "상품 전체 목록을 조회, 파라미터 : ''")
@@ -71,7 +75,7 @@ public class SellItemController {
 		ImgDto imgDto = new ImgDto();
 		String FileNames = "";
 //		String filepath = "C:/img/";
-		String filepath = "/home/";
+//		String filepath = "/home/";
 
 		for (MultipartFile mf : files) {
 
@@ -98,8 +102,12 @@ public class SellItemController {
 			try {
 				File f1 = new File(filepath + safeFile);
 				mf.transferTo(f1);
-				String s3filepath = safeFile;
-				s3Uploader.upload(f1, filepath, safeFile);
+				awsS3Uploader.upload(f1, filepath, safeFile);
+
+//				String s3filepath = "member/"+safeFile;
+//				awsS3Uploader.upload(f1, filepath, s3file);
+//				awsS3Uploader.putS3(f1, safeFile);
+//				awsS3Uploader.removeNewFile(f1);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

@@ -49,7 +49,7 @@ function BuyConfirm({
 
   useEffect(() => {
     axios
-      .get(`https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
+      .get(`${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/member`)
       .then((response) => {
         setMember(response.data);
         setAddress(response.data.address);
@@ -68,7 +68,7 @@ function BuyConfirm({
     } else {
       axios
         .post(
-          `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell`,
+          `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/sell`,
           requestTrade
         )
         .then((response) => {
@@ -104,7 +104,7 @@ function BuyConfirm({
           <div className={style.modalbody2}>
             <div className={style.info_b}>
               <img
-                src={item.itemImgName && `https://${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
+                src={item.itemImgName && `${process.env.REACT_APP_REST_API_SERVER_IP_PORT}/image/${item.itemImgName}`}
                 alt={"img" + item.notifyNum}
               />
               <div className={style.info_in}>
