@@ -1,0 +1,174 @@
+name: CI/CD Docker
+
+on:
+#   매일 00시 30분에 republish 예약  
+#   schedule:
+#     - cron: '30 00 * * *'
+  push:
+    branches: [ cicd ]
+    tags: [ 'v*.*.*' ]
+
+env:
+  DOCKER_IMAGE_SERVER: "moongchi18/olenaelim_server"
+  DOCKER_IMAGE_CLIENT: "moongchi18/olenaelim_client"
+#   VERSION: ${{ github.sha }}
+  VERSION: latest
+  NAME: olenaelim_cicd
+  
+  #aws
+  AWS_REGION: ap-northeast-2                  
+  S3_BUCKET_NAME: olenaelim-cicd-bucket
+  CODE_DEPLOY_APPLICATION_NAME: olenaelim-codedeploy-app
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: olenaelim-codedeploy-deployment-group
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Client And Server Build
+    
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      
+    steps:
+    # push된 파일 불러오기
+      - name: Check out source code
+        uses: actions/checkout@v3
+    
+    # java build
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file ./guad_backend/pom.xml -DskipTests
+    
+    # react build
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: './guad_frontend/package-lock.json'
+      - run: npm ci
+        working-directory: ./guad_frontend
+      - run: npm run build --if-present
+        working-directory: ./guad_frontend
+        env:
+          CI: false
+      
+    # image build
+      - name: Server Build the Docker image
+        run: docker build . --file ServerDockerfile --tag ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}}
+    
+      - name: Client Build the Docker image        
+        run: docker build . --file ClientDockerfile --tag ${{ env.DOCKER_IMAGE_CLIENT }}:${{env.VERSION}}
+
+#     # image push          
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+                
+#       ## Login against a Docker registry except on PR
+#       ## https://github.com/docker/login-action
+      - name: Log into registry dockhub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.OLENAELIM_DOCKHUB_NICKNAME }}
+          password: ${{ secrets.OLENAELIM_DOCKHUB_TOKEN }}
+          
+      - name : image push dockhub
+        run: docker image push ${{ env.DOCKER_IMAGE_SERVER }}:${{env.VERSION}} && docker image push ${{ env.DOCKER_IMAGE_CLIENT }}:${{env.VERSION}}
+      
+    # start deploy
+
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: [ self-hosted, label-go ]
+
+    steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+      
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with: 
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ env.AWS_REGION }}
+          
+      - name: start docker
+        run: |
+          list=$(docker ps -q)
+          echo $list
+          if [ -n $list ]; then 
+            docker kill $list;
+            docker-compose pull && docker-compose up -d;
+            docker image prune -af
+            docker container prune -f
+          else
+            echo "작업중인 컨테이너가 없습니다."
+            docker-compose pull && docker-compose up -d;
+            docker image prune -af
+            docker container prune -f
+          fi
+        working-directory: /home/ubuntu/
+        shell: bash
+        
+#       - name: start docker
+#         run: |
+#           docker-compose pull && docker-compose up -d;
+        
+          
+#       - id: install-aws-cli
+#         uses: unfor19/install-aws-cli-action@v1.0.4
+#         with:
+#           version: 2     # default
+#           verbose: false # default
+#           arch: amd64    # allowed values: amd64, arm64
+#           rootdir: "/home/ubuntu/aws-cli/"    # defaults to "PWD"
+#           workdir: "/home/ubuntu/aws-cli/"    # defaults to "PWD/unfor19-awscli"
+      
+#       - name: Login to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v1
+      
+# #       S3 파일 정리
+#       - name: Delete to AWS S3
+#         run : aws s3 rm s3://$S3_BUCKET_NAME/ --recursive --include "*"
+      
+#       # S3 코드 업로드
+#       - name: Upload to AWS S3
+#         run: |
+#           aws deploy push \
+#             --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+#             --ignore-hidden-files \
+#             --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+#             --source . 
+
+#       # https://docs.aws.amazon.com/cli/latest/reference/deploy/create-deployment.html
+#       - name: Deploy to AWS EC2 from S3
+#         run: |
+#           aws deploy create-deployment \
+#             --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+#             --deployment-config-name CodeDeployDefault.AllAtOnce \
+#             --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+#            --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
+          
+          
+#       - name: Docker Server run
+#         run: |
+#           docker stop ${{ env.DOCKER_IMAGE_SERVER }} && docker rm ${{ env.DOCKER_IMAGE_SERVER }} && docker rmi ${{ env.DOCKER_IMAGE_SERVER }}:${{ env.VERSION }}
+#           docker run -d -p 9090:8080 --name ${{ env.DOCKER_IMAGE_SERVER }} --restart always ${{ env.DOCKER_IMAGE_SERVER }}:latest
+      
+#       - name: Docker Client run
+#         run: |
+#           docker stop ${{ env.DOCKER_IMAGE_CLIENT }} && docker rm ${{ env.DOCKER_IMAGE_CLIENT }} && docker rmi ${{ env.DOCKER_IMAGE_CLIENT }}:${{ env.VERSION }}
+#           docker run -d -p 33000:80 --name ${{ env.DOCKER_IMAGE_CLIENT }} --restart always ${{ env.DOCKER_IMAGE_CLIENT }}:latest
