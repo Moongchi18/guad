@@ -255,12 +255,12 @@ function Sell_List(props) {
     <>
       <div className={style.sell_all}>
         <div className={style.sell_top}>
-          {props.searchWord &&
+          {/* {props.searchWord &&
             <div>
               <h2>현재 검색어 : {props.searchWord}</h2>
               <button onClick={() => props.setSearchWord("")}>검색어 초기화</button>
             </div>
-          }
+          } */}
           <h2>
             전체상품
             <strong>{count}</strong>개
