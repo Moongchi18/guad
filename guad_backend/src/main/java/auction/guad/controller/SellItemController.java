@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import auction.guad.dto.ImgDto;
 import auction.guad.dto.SellItemDto;
 import auction.guad.service.AuctionService;
-import auction.guad.service.AwsS3Uploader;
 import auction.guad.service.ImgService;
 import auction.guad.service.MemberService;
 import auction.guad.service.SellItemService;
@@ -39,15 +38,17 @@ public class SellItemController {
 	private ImgService imgService;
 	private MemberService memberService;
 	private AuctionService auctionService;
-	private AwsS3Uploader awsS3Uploader;
+	// private AwsS3Uploader awsS3Uploader;
 
 	@Autowired
-	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService, AwsS3Uploader awsS3Uploader) {
+	public SellItemController(SellItemService sellItemService, ImgService imgService, MemberService memberService, AuctionService auctionService
+	// , AwsS3Uploader awsS3Uploader
+	) {
 		this.sellItemService = sellItemService;
 		this.imgService = imgService;
 		this.memberService = memberService;
 		this.auctionService = auctionService; 
-		this.awsS3Uploader = awsS3Uploader; 
+		// this.awsS3Uploader = awsS3Uploader; 
 	}
 
 	@Value("${image.location}")
@@ -102,7 +103,7 @@ public class SellItemController {
 			try {
 				File f1 = new File(filepath + safeFile);
 				mf.transferTo(f1);
-				awsS3Uploader.upload(f1, filepath, safeFile);
+				// awsS3Uploader.upload(f1, filepath, safeFile);
 
 //				String s3filepath = "member/"+safeFile;
 //				awsS3Uploader.upload(f1, filepath, s3file);

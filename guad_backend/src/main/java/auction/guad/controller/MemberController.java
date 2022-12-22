@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import auction.guad.dto.MemberDto;
-import auction.guad.service.AwsS3Uploader;
 import auction.guad.service.MemberService;
 import auction.guad.vo.RequestVo;
 import io.swagger.annotations.ApiOperation;
@@ -42,13 +41,15 @@ public class MemberController {
 	
 	private MemberService memberService;
 	private BCryptPasswordEncoder encoder;
-	private AwsS3Uploader awsS3Uploader;
+	// private AwsS3Uploader awsS3Uploader;
 
 	@Autowired
-	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder, AwsS3Uploader awsS3Uploader) {
+	public MemberController(MemberService memberService, BCryptPasswordEncoder encoder
+	// , AwsS3Uploader awsS3Uploader
+	) {
 		this.memberService = memberService;
 		this.encoder = encoder;
-		this.awsS3Uploader = awsS3Uploader;
+		// this.awsS3Uploader = awsS3Uploader;
 	}
 
 	// 회원가입
@@ -79,7 +80,7 @@ public class MemberController {
 			
 			String s3filepath = "member/"+returnFileName;
 			File f1 = new File(filepath + s3filepath);
-			awsS3Uploader.upload(f1, filepath, s3filepath);
+			// awsS3Uploader.upload(f1, filepath, s3filepath);
 		}
 		
 		
@@ -184,8 +185,9 @@ public class MemberController {
 			try {
 				File f1 = new File(memberFilepath + safeFile);
 				mf.transferTo(f1);
-				String s3filepath = "member/"+safeFile;
-				awsS3Uploader.upload(f1, filepath, s3filepath);
+				// String s3filepath = "member/"+safeFile;
+				// awsS3Uploader.upload(f1, filepath, s3filepath);
+
 //				awsS3Uploader.putS3(f1, safeFile);
 //				awsS3Uploader.removeNewFile(f1);
 			} catch (IllegalStateException e) {
