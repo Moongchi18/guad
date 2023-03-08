@@ -1,0 +1,53 @@
+version: "3.3"
+services:
+  database:
+    image: mysql:5.7
+    environment:
+      # 환경변수
+      # - MYSQL_ROOT_PASSWORD=pw
+      # - MYSQL_DATABASE=db_name
+      # - TZ=time_zone
+    command: # 수행 할 명령어 
+      - --character-set-server=utf8mb4  # mysql character
+      - --collation-server=utf8mb4_unicode_ci # collation setting
+      - --lower_case_table_names=1 # 대소문자 구분x
+    volumes:
+      - /home/ubuntu/olenaelim_data:/var/lib/mysql
+    networks:
+      aws-internal-net:
+        ipv4_address: # 환경변수 - DB IP
+    ports:
+      - 3306:3306
+    restart: always
+  
+  server:
+    image: moongchi18/olenaelim_server:latest
+    depends_on:
+      - database
+    environment:
+      DB_CONNECTION_URL: # jdbc:log4jdbc:mysql://
+                         # 환경변수:DB포트/DB_name
+                         # ?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
+      DB_USERNAME:  # 환경변수 - DB name
+      DB_PASSWORD:  # 환경변수 - DB pw
+    restart: always
+    networks:
+      aws-internal-net:
+        ipv4_address:  # 환경변수 - REST IP
+    ports:
+      - 8080:8080
+
+  client:
+    image: moongchi18/olenaelim_client:latest
+    restart: always
+    networks:
+      aws-internal-net:
+        ipv4_address:  # 환경변수 - Front IP
+    ports:
+      - 80:80
+
+networks: 
+  aws-internal-net: 
+    external: 
+      name: olenaelim
+      
